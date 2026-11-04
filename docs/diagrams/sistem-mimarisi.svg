@@ -147,8 +147,8 @@
 <text x="1392" y="914" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#d9772b">LLM Sağlayıcıları (dış hizmet)</text>
 <text x="1392" y="931" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#555" font-style="italic">LiteLLM ile tek arayüz</text>
 <text x="1392" y="954" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Groq — birincil (açık ağırlıklı model)</text>
-<text x="1392" y="971" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Gemini — karşılaştırma</text>
-<text x="1392" y="988" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Ollama — yerel, opsiyonel</text>
+<text x="1392" y="971" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Gemini — karşılaştırma deneyleri</text>
+<text x="1392" y="988" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Ollama — yerel model</text>
 <text x="1392" y="1005" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">API anahtarları .env içinde · İST-10</text>
 <path d="M230,230 L295,230" fill="none" stroke="#333" stroke-width="1.6" marker-start="url(#a333)" marker-end="url(#a333)"/>
 <circle cx="262" cy="214" r="10" fill="#1f2328"/>
@@ -187,7 +187,7 @@
 <text x="700" y="1051" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#b0601d">yalnızca gerekli kod parçaları + referans kurallar · token ve süre limiti (İST-12) · altın etiketler GÖNDERİLMEZ (İST-11)</text>
 <rect x="30" y="1078" width="1740" height="172" rx="10" fill="#fafafa" stroke="#d0d7de"/>
 <text x="48" y="1102" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1f2328">AnalysisRun durumları:</text>
-<text x="232" y="1102" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#1f2328">queued → analyzing → generating → validating → executing → scanning → completed   |   failed (her aşamada, hata mesajıyla)</text>
+<text x="232" y="1102" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#1f2328">queued → analyzing → generating → validating → executing → scanning → completed   |   failed (her aşamada, hata mesajıyla)   |   cancelled (kullanıcı durdurdu)</text>
 <text x="48" y="1130" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1f2328">Güvenlik sınırları:</text>
 <line x1="190" y1="1126" x2="230" y2="1126" stroke="#2e8b4f" stroke-width="2" stroke-dasharray="9 6"/>
 <text x="238" y="1130" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">ana sistem (JWT, yetki kontrolü)</text>
