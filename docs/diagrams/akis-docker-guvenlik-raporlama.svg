@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1960" height="1175" viewBox="0 0 1960 1175"><defs><marker id="m2e8b4f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2e8b4f"/></marker><marker id="m57606a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#57606a"/></marker><marker id="m6f4fb8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6f4fb8"/></marker><marker id="mc0392b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker><marker id="md9772b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#d9772b"/></marker></defs><rect width="1960" height="1175" fill="#ffffff"/>
+<text x="30" y="42" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" text-anchor="start" fill="#1f2328">Docker Test Yürütme, Güvenlik ve Raporlama Akışı</text>
+<text x="30" y="66" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="normal" text-anchor="start" fill="#57606a">Analiz isteğinden rapora kadar uçtan uca süreç  ·  mavi etiketler AnalysisRun durumunu gösterir</text>
+<rect x="30" y="90" width="1900" height="185" fill="#f3faf5" stroke="#d0d7de" stroke-width="1"/>
+<rect x="30" y="90" width="160" height="185" fill="#2e8b4f"/>
+<text x="110" y="180.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" text-anchor="middle" fill="#ffffff">Web API</text>
+<text x="110" y="199.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#ffffff" font-style="italic">Django + DRF</text>
+<rect x="30" y="275" width="1900" height="205" fill="#fffbef" stroke="#d0d7de" stroke-width="1"/>
+<rect x="30" y="275" width="160" height="205" fill="#b8860b"/>
+<text x="110" y="375.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" text-anchor="middle" fill="#ffffff">Worker</text>
+<text x="110" y="394.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#ffffff" font-style="italic">Celery + Redis</text>
+<rect x="30" y="480" width="1900" height="235" fill="#fdf3f3" stroke="#d0d7de" stroke-width="1"/>
+<rect x="30" y="480" width="160" height="235" fill="#c0392b"/>
+<text x="110" y="595.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" text-anchor="middle" fill="#ffffff">İzole Sandbox</text>
+<text x="110" y="614.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#ffffff" font-style="italic">Docker</text>
+<rect x="30" y="715" width="1900" height="190" fill="#f7f4fc" stroke="#d0d7de" stroke-width="1"/>
+<rect x="30" y="715" width="160" height="190" fill="#6f4fb8"/>
+<text x="110" y="808.0" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" text-anchor="middle" fill="#ffffff">Güvenlik Analizi</text>
+<text x="110" y="827.0" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#ffffff" font-style="italic">Bandit · check --deploy</text>
+<rect x="30" y="905" width="1900" height="155" fill="#f5f7f9" stroke="#d0d7de" stroke-width="1"/>
+<rect x="30" y="905" width="160" height="155" fill="#4a5868"/>
+<text x="110" y="980.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" text-anchor="middle" fill="#ffffff">Kayıt ve Rapor</text>
+<text x="110" y="999.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#ffffff" font-style="italic">PostgreSQL</text>
+<rect x="30" y="90" width="1900" height="970" fill="none" stroke="#8c959f" stroke-width="1.2"/>
+<rect x="215.0" y="137.0" width="170" height="56" rx="28.0" fill="#e6f4ea" stroke="#2e8b4f" stroke-width="1.6"/>
+<text x="300" y="161.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Analiz isteği</text>
+<text x="300" y="176.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">POST /api/runs</text>
+<polygon points="480,121 552,165 480,209 408,165" fill="#fff8db" stroke="#b8860b" stroke-width="1.5"/>
+<text x="480" y="162.025" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#1f2328">İstek</text>
+<text x="480" y="176.025" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#1f2328">geçerli mi?</text>
+<rect x="385.0" y="228.0" width="190" height="34" rx="8" fill="#fdecec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="480" y="249.2" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">400 / 401 / 403 / 404</text>
+<rect x="577.5" y="136.0" width="165" height="58" rx="8" fill="#ffffff" stroke="#57606a" stroke-width="1.5"/>
+<text x="660" y="161.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">AnalysisRun</text>
+<text x="660" y="176.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">kaydı oluşturulur</text>
+<rect x="630" y="114" width="55.599999999999994" height="18" rx="9" fill="#1f5fbf"/>
+<text x="657.8" y="127" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#ffffff">queued</text>
+<rect x="765.0" y="136.0" width="170" height="58" rx="8" fill="#ffffff" stroke="#57606a" stroke-width="1.5"/>
+<text x="850" y="161.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Görev kuyruğa</text>
+<text x="850" y="176.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">Redis · yalnızca run_id</text>
+<rect x="952.5" y="136.0" width="175" height="58" rx="8" fill="#ffffff" stroke="#57606a" stroke-width="1.5"/>
+<text x="1040" y="161.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">202 + run_id döner</text>
+<text x="1040" y="176.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">arayüz durumu izler</text>
+<path d="M385,165 L408,165" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<path d="M552,165 L578,165" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<text x="572" y="153" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle" fill="#57606a">Evet</text>
+<path d="M480,209 L480,228" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#mc0392b)"/>
+<text x="506" y="214" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle" fill="#c0392b">Hayır</text>
+<path d="M742,165 L765,165" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<path d="M935,165 L953,165" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<rect x="935.0" y="228.0" width="250" height="34" rx="8" fill="#fdecec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="1060" y="249.2" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Kuyruk hatası → failed (503)</text>
+<path d="M900,194 L900,245 L935,245" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#mc0392b)"/>
+<text x="908" y="218" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="start" fill="#c0392b">hata olursa</text>
+<rect x="215.0" y="336.0" width="190" height="58" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="310" y="361.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Beklenmeyen görev hatası</text>
+<text x="310" y="376.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">veya Celery süre sınırı</text>
+<text x="310" y="409" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="normal" text-anchor="middle" fill="#c0392b" font-style="italic">herhangi bir aşamada</text>
+<path d="M310,417 L310,950" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#mc0392b)"/>
+<rect x="765.0" y="336.0" width="170" height="58" rx="8" fill="#ffffff" stroke="#57606a" stroke-width="1.5"/>
+<text x="850" y="361.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Görev alınır</text>
+<text x="850" y="376.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">proje + AST analizi</text>
+<rect x="860" y="314" width="75.4" height="18" rx="9" fill="#1f5fbf"/>
+<text x="897.7" y="327" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#ffffff">analyzing</text>
+<rect x="952.5" y="334.0" width="175" height="62" rx="8" fill="#ffffff" stroke="#57606a" stroke-width="1.5"/>
+<rect x="956.5" y="338.0" width="167" height="54" rx="6" fill="none" stroke="#57606a" stroke-width="1"/>
+<text x="1040" y="361.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Test üretimi</text>
+<text x="1040" y="376.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">ve doğrulama</text>
+<polygon points="1225,325 1287,365 1225,405 1163,365" fill="#fff8db" stroke="#b8860b" stroke-width="1.5"/>
+<text x="1225" y="362.025" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#1f2328">Teknik olarak</text>
+<text x="1225" y="376.025" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#1f2328">geçerli mi?</text>
+<text x="1040" y="411" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="normal" text-anchor="middle" fill="#57606a" font-style="italic">ayrı akış · referans JSON ile</text>
+<rect x="982" y="312" width="167.79999999999998" height="18" rx="9" fill="#1f5fbf"/>
+<text x="1065.9" y="325" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#ffffff">generating → validating</text>
+<polygon points="1585,321 1655,365 1585,409 1515,365" fill="#fff8db" stroke="#b8860b" stroke-width="1.5"/>
+<text x="1585" y="362.025" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#1f2328">Düzeltme hakkı</text>
+<text x="1585" y="376.025" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#1f2328">var mı? (≤ 1)</text>
+<rect x="1325.0" y="336.0" width="150" height="58" rx="8" fill="#ffffff" stroke="#57606a" stroke-width="1.5"/>
+<rect x="1329.0" y="340.0" width="142" height="50" rx="6" fill="none" stroke="#57606a" stroke-width="1"/>
+<text x="1400" y="361.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Test kodu düzeltilir</text>
+<text x="1400" y="376.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">uygulama değişmez</text>
+<text x="1400" y="411" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle" fill="#c0392b">← yeniden doğrulanır</text>
+<rect x="1707.5" y="336.0" width="165" height="58" rx="8" fill="#ffffff" stroke="#57606a" stroke-width="1.5"/>
+<text x="1790" y="361.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Çalıştırılamaz test</text>
+<text x="1790" y="376.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">hata türüyle kaydedilir</text>
+<path d="M850,194 L850,336" fill="none" stroke="#57606a" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#m57606a)"/>
+<text x="858" y="280" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="start" fill="#57606a">asenkron</text>
+<path d="M935,365 L953,365" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<path d="M1128,365 L1163,365" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<path d="M1225,405 L1225,468 L1040,468 L1040,519" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<text x="1233" y="423" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="start" fill="#57606a">Evet</text>
+<path d="M1225,325 L1225,292 L1585,292 L1585,321" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#mc0392b)"/>
+<text x="1233" y="307" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="start" fill="#c0392b">Hayır</text>
+<path d="M1515,365 L1475,365" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<text x="1495" y="355" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle" fill="#57606a">Evet</text>
+<path d="M1655,365 L1708,365" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<text x="1675" y="355" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle" fill="#57606a">Hayır</text>
+<rect x="940.0" y="519.0" width="200" height="92" rx="8" fill="#ffffff" stroke="#57606a" stroke-width="1.5"/>
+<text x="1040" y="546.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Sandbox başlatılır</text>
+<text x="1040" y="561.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">ağ yok · süre/CPU/bellek limiti</text>
+<text x="1040" y="576.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">kod salt okunur · /out yazılabilir</text>
+<text x="1040" y="591.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">root değil · sonunda silinir</text>
+<rect x="948" y="497" width="75.4" height="18" rx="9" fill="#1f5fbf"/>
+<text x="985.7" y="510" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#ffffff">executing</text>
+<polygon points="1225,523 1289,565 1225,607 1161,565" fill="#fff8db" stroke="#b8860b" stroke-width="1.5"/>
+<text x="1225" y="562.025" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#1f2328">Başladı</text>
+<text x="1225" y="576.025" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#1f2328">mı?</text>
+<rect x="1110.0" y="637.0" width="230" height="50" rx="8" fill="#fdecec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="1225" y="658.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">RUNNER_START_ERROR</text>
+<text x="1225" y="673.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">dinamik kontrol yapılamadı</text>
+<path d="M1110,662 L1090,662 L1090,1042 L420,1042 L420,1014" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#mc0392b)"/>
+<rect x="1324.0" y="532.0" width="172" height="66" rx="8" fill="#ffffff" stroke="#57606a" stroke-width="1.5"/>
+<text x="1410" y="554.2" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Dinamik kontroller</text>
+<text x="1410" y="569.2" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">check --deploy</text>
+<text x="1410" y="584.2" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">pytest (yetki testleri)</text>
+<polygon points="1585,523 1649,565 1585,607 1521,565" fill="#fff8db" stroke="#b8860b" stroke-width="1.5"/>
+<text x="1585" y="562.025" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#1f2328">Süre / bellek</text>
+<text x="1585" y="576.025" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#1f2328">aşıldı mı?</text>
+<rect x="1690.0" y="525.0" width="200" height="80" rx="8" fill="#ffffff" stroke="#2f6fd1" stroke-width="1.5"/>
+<text x="1790" y="548.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Test bazında sonuç</text>
+<text x="1790" y="563.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">JUnit XML'den ayrılır</text>
+<rect x="1705" y="580" width="42" height="15" rx="7" fill="#2e8b4f"/>
+<text x="1726.0" y="591" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#ffffff">PASS</text>
+<rect x="1751" y="580" width="40" height="15" rx="7" fill="#d9772b"/>
+<text x="1771.0" y="591" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#ffffff">FAIL</text>
+<rect x="1795" y="580" width="60" height="15" rx="7" fill="#c0392b"/>
+<text x="1825.0" y="591" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#ffffff">TEKNİK</text>
+<path d="M1140,565 L1161,565" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<path d="M1289,565 L1325,565" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<text x="1309" y="557" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle" fill="#57606a">Evet</text>
+<path d="M1225,607 L1225,637" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#mc0392b)"/>
+<text x="1251" y="627" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="start" fill="#c0392b">Hayır</text>
+<path d="M1495,565 L1521,565" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<path d="M1649,565 L1690,565" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<text x="1671" y="555" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle" fill="#57606a">Hayır</text>
+<rect x="1485.0" y="637.0" width="200" height="50" rx="8" fill="#fdecec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="1585" y="658.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Konteyner durdurulur</text>
+<text x="1585" y="673.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">TIMEOUT / OOM · düzeltilmez</text>
+<path d="M1585,607 L1585,637" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#mc0392b)"/>
+<text x="1593" y="627" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="start" fill="#c0392b">Evet</text>
+<path d="M1685,662 L1908,662" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<path d="M1760,525 L1760,452 L1585,452 L1585,409" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#mc0392b)"/>
+<text x="1752" y="470" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="end" fill="#c0392b">TEKNİK HATA (import · fixture · sözdizimi)</text>
+<path d="M1325,365 L1287,365" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#mc0392b)"/>
+<rect x="762.5" y="776.0" width="175" height="58" rx="8" fill="#ffffff" stroke="#57606a" stroke-width="1.5"/>
+<text x="850" y="801.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Statik analiz</text>
+<text x="850" y="816.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">Bandit · kod çalışmaz</text>
+<rect x="730.0" y="863.0" width="240" height="30" rx="8" fill="#fdecec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="850" y="882.2" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Araç hatası → bulgu sayılmaz</text>
+<rect x="1280.0" y="770.0" width="240" height="70" rx="8" fill="#ffffff" stroke="#57606a" stroke-width="1.5"/>
+<text x="1400" y="794.2" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Kanıtlar birleştirilir</text>
+<text x="1400" y="809.2" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">Bandit · check --deploy · yetki FAIL</text>
+<text x="1400" y="824.2" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">tekrarlar ayıklanır</text>
+<rect x="1292" y="750" width="68.8" height="18" rx="9" fill="#1f5fbf"/>
+<text x="1326.4" y="763" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#ffffff">scanning</text>
+<rect x="1555.0" y="753.0" width="300" height="104" rx="8" fill="#ffffff" stroke="#6f4fb8" stroke-width="1.5"/>
+<text x="1705" y="773" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Bulgu sınıflandırması</text>
+<rect x="1570" y="783" width="96" height="18" rx="9" fill="#2e8b4f"/>
+<text x="1618" y="796" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#ffffff">Doğrulanmış</text>
+<text x="1675" y="796" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="normal" text-anchor="start" fill="#57606a">çalışan sistemden kanıt</text>
+<rect x="1570" y="805" width="96" height="18" rx="9" fill="#d9772b"/>
+<text x="1618" y="818" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#ffffff">Olası</text>
+<text x="1675" y="818" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="normal" text-anchor="start" fill="#57606a">yalnızca statik kanıt</text>
+<rect x="1570" y="827" width="96" height="18" rx="9" fill="#6e7781"/>
+<text x="1618" y="840" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#ffffff">Belirsiz</text>
+<text x="1675" y="840" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="normal" text-anchor="start" fill="#57606a">kanıt yetersiz, ayrı gösterilir</text>
+<path d="M850,394 L850,776" fill="none" stroke="#6f4fb8" stroke-width="1.5" marker-end="url(#m6f4fb8)"/>
+<text x="858" y="700" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="start" fill="#6f4fb8">paralel</text>
+<path d="M850,834 L850,863" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#mc0392b)"/>
+<text x="858" y="850" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="start" fill="#c0392b">hata olursa</text>
+<path d="M938,805 L1280,805" fill="none" stroke="#6f4fb8" stroke-width="1.5" marker-end="url(#m6f4fb8)"/>
+<path d="M1400,598 L1400,770" fill="none" stroke="#6f4fb8" stroke-width="1.5" marker-end="url(#m6f4fb8)"/>
+<text x="1392" y="735" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="end" fill="#6f4fb8">check çıktısı</text>
+<path d="M1790,605 L1790,738 L1455,738 L1455,770" fill="none" stroke="#d9772b" stroke-width="1.5" marker-end="url(#md9772b)"/>
+<text x="1782" y="706" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" text-anchor="end" fill="#d9772b">güvenlik testi FAIL → bulgu adayı</text>
+<path d="M1520,805 L1555.0,805" fill="none" stroke="#6f4fb8" stroke-width="1.5" marker-end="url(#m6f4fb8)"/>
+<rect x="1340" y="946" width="540" height="72" rx="8" fill="#ffffff" stroke="#4a5868" stroke-width="1.5"/>
+<path d="M1358,968 v28 a16,6 0 0 0 32,0 v-28" fill="#f1ecfa" stroke="#6f4fb8" stroke-width="1.3"/>
+<ellipse cx="1374" cy="968" rx="16" ry="6" fill="#f1ecfa" stroke="#6f4fb8" stroke-width="1.3"/>
+<text x="1640" y="976" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Sonuçlar birleştirilir ve kaydedilir</text>
+<text x="1640" y="995" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">TestExecution · SecurityFinding · AnalysisRun · loglar</text>
+<rect x="1140.0" y="953.0" width="170" height="58" rx="8" fill="#ffffff" stroke="#57606a" stroke-width="1.5"/>
+<text x="1225" y="978.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Rapor üretilir</text>
+<text x="1225" y="993.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">PDF / JSON</text>
+<rect x="220.0" y="950.0" width="300" height="64" rx="8" fill="#fdecec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="370" y="978.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Analiz failed</text>
+<text x="370" y="993.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">hata nedeni + kısmi sonuçlar kaydedilir</text>
+<rect x="230" y="927" width="55.599999999999994" height="18" rx="9" fill="#c0392b"/>
+<text x="257.8" y="940" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#ffffff">failed</text>
+<rect x="770.0" y="953.0" width="200" height="58" rx="29.0" fill="#e6f4ea" stroke="#2e8b4f" stroke-width="1.6"/>
+<text x="870" y="978.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328">Kullanıcı raporu görür</text>
+<text x="870" y="993.7" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#57606a">analiz tamamlandı</text>
+<rect x="828" y="932" width="75.4" height="18" rx="9" fill="#1f5fbf"/>
+<text x="865.7" y="945" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#ffffff">completed</text>
+<path d="M1705,857 L1705,946" fill="none" stroke="#6f4fb8" stroke-width="1.5" marker-end="url(#m6f4fb8)"/>
+<path d="M1890,565 L1908,565 L1908,982 L1880,982" fill="none" stroke="#2e8b4f" stroke-width="1.5" marker-end="url(#m2e8b4f)"/>
+<path d="M1872,365 L1908,365 L1908,565" fill="none" stroke="#57606a" stroke-width="1.5"/>
+<text x="1922" y="760" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="bold" fill="#2e8b4f" text-anchor="middle" transform="rotate(90 1922 760)">PASS · işlevsel FAIL · teknik hata → kayıt</text>
+<path d="M1340,982 L1310,982" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<path d="M1140,982 L970,982" fill="none" stroke="#57606a" stroke-width="1.5" marker-end="url(#m57606a)"/>
+<text x="30" y="1104" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#1f2328">Gösterim:</text>
+<rect x="115.0" y="1088.0" width="60" height="24" rx="12.0" fill="#e6f4ea" stroke="#2e8b4f" stroke-width="1.6"/>
+<text x="145" y="1104.2" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1f2328"></text>
+<text x="185" y="1104" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">başlangıç / bitiş</text>
+<rect x="320" y="1088" width="56" height="24" rx="6" fill="#fff" stroke="#57606a" stroke-width="1.4"/>
+<text x="386" y="1104" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">işlem</text>
+<polygon points="472,1086 494,1100 472,1114 450,1100" fill="#fff8db" stroke="#b8860b" stroke-width="1.4"/>
+<text x="504" y="1104" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">karar</text>
+<rect x="570" y="1088" width="56" height="24" rx="6" fill="#fff" stroke="#57606a" stroke-width="1.4"/><rect x="573" y="1091" width="50" height="18" rx="4" fill="none" stroke="#57606a"/>
+<text x="636" y="1104" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">alt süreç</text>
+<rect x="725" y="1088" width="56" height="24" rx="6" fill="#fdecec" stroke="#c0392b" stroke-width="1.4"/>
+<text x="791" y="1104" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">hata sonucu</text>
+<rect x="895" y="1091" width="49.0" height="18" rx="9" fill="#1f5fbf"/>
+<text x="919.5" y="1104" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#ffffff">durum</text>
+<text x="961" y="1104" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">AnalysisRun durumu</text>
+<path d="M1115,1100 L1165,1100" fill="none" stroke="#57606a" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="1175" y="1104" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">asenkron geçiş / yeniden deneme</text>
+<text x="30" y="1134" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#57606a">Düzeltme yalnızca test kodundan kaynaklanan hatalara (import, fixture, sözdizimi) uygulanır: test başına en fazla bir kez, ardından yeniden doğrulama. TIMEOUT / OOM ve FAIL düzeltilmez; güvenlik testi FAIL'i bulgu adayıdır.</text>
+<text x="30" y="1154" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#57606a">completed: analiz süreci tamamlandı (FAIL ve tek tek teknik hatalı testler içerebilir).  failed: süreç teknik nedenle tamamlanamadı (kuyruk, runner veya görev hatası); kısmi sonuçlar saklanır.</text></svg>
