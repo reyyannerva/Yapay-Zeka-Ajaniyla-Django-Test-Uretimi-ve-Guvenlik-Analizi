@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1262" viewBox="0 0 1800 1262"><defs><marker id="a333" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker><marker id="a6b7280" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker><marker id="a6f4fb8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6f4fb8"/></marker><marker id="a8a6508" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a6508"/></marker><marker id="ac0392b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker><marker id="ad9772b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d9772b"/></marker></defs><rect width="1800" height="1262" fill="#ffffff"/>
+<text x="30" y="42" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" text-anchor="start" fill="#1f2328">Sistem Mimarisi ve Modül İlişkileri</text>
+<text x="30" y="66" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="normal" text-anchor="start" fill="#555">Yapay Zekâ Ajanıyla Django Test Üretimi ve Güvenlik Analizi  ·  numaralar ana veri akışını gösterir</text>
+<rect x="30" y="175" width="200" height="110" rx="8" fill="#f4f4f4" stroke="#444444" stroke-width="1.6"/>
+<text x="42" y="197" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#444444">Kullanıcı</text>
+<text x="42" y="214" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#555" font-style="italic">Tarayıcı</text>
+<text x="42" y="237" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Projeyi arşivle veya</text>
+<text x="42" y="254" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">izinli yerel dizinden ekler,</text>
+<text x="42" y="271" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">referans kuralları girer</text>
+<rect x="270" y="95" width="1060" height="920" rx="12" fill="none" stroke="#2e8b4f" stroke-width="2" stroke-dasharray="9 6"/>
+<text x="285" y="118" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#2e8b4f">Docker Compose — ana sistem (VPS üzerinde)</text>
+<rect x="295" y="150" width="225" height="180" rx="8" fill="#e8f1fd" stroke="#2f6fd1" stroke-width="1.6"/>
+<text x="307" y="172" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#2f6fd1">frontend</text>
+<text x="307" y="189" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#555" font-style="italic">React + Vite + TypeScript</text>
+<text x="307" y="212" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Nginx: statik dosyalar</text>
+<text x="307" y="229" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">+ /api yönlendirme</text>
+<text x="307" y="246" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Dashboard, yükleme, sonuç</text>
+<text x="307" y="263" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">ve rapor ekranları</text>
+<text x="307" y="280" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Çalıştırma durumunu sorgular</text>
+<rect x="565" y="150" width="320" height="180" rx="8" fill="#e7f6ec" stroke="#2e8b4f" stroke-width="1.6"/>
+<text x="577" y="172" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#2e8b4f">web — Django + DRF</text>
+<text x="577" y="189" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#555" font-style="italic">Gunicorn · REST API</text>
+<text x="577" y="212" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">JWT kimlik doğrulama (SimpleJWT)</text>
+<text x="577" y="229" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Proje ve AnalysisRun API'leri</text>
+<text x="577" y="246" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Swagger/OpenAPI (drf-spectacular)</text>
+<text x="577" y="263" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Arşivi uploads volume'a yazar</text>
+<text x="577" y="280" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Önce AnalysisRun kaydı oluşturur,</text>
+<text x="577" y="297" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">sonra run_id'yi kuyruğa gönderir</text>
+<text x="577" y="314" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Rapor indirme (PDF / JSON)</text>
+<rect x="925" y="150" width="135" height="180" rx="8" fill="#f1ecfa" stroke="#6f4fb8" stroke-width="1.6"/>
+<text x="937" y="172" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#6f4fb8">redis</text>
+<text x="937" y="189" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#555" font-style="italic">Celery broker</text>
+<text x="937" y="212" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Mesaj aracısı,</text>
+<text x="937" y="229" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">veritabanı değil</text>
+<text x="937" y="246" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Taşınan: run_id</text>
+<text x="937" y="263" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Kalıcı kayıt</text>
+<text x="937" y="280" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">tutmaz</text>
+<rect x="1100" y="150" width="210" height="180" rx="8" fill="#f1ecfa" stroke="#6f4fb8" stroke-width="1.6"/>
+<text x="1112" y="172" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#6f4fb8">db — PostgreSQL</text>
+<text x="1112" y="189" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#555" font-style="italic">JSONB destekli</text>
+<text x="1112" y="212" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">User, Project</text>
+<text x="1112" y="229" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">AnalysisRun (+celery_task_id)</text>
+<text x="1112" y="246" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">ReferenceRequirement</text>
+<text x="1112" y="263" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Endpoint, GeneratedTest</text>
+<text x="1112" y="280" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">TestExecution, SecurityFinding</text>
+<text x="1112" y="297" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">LLMCallLog</text>
+<rect x="1040" y="430" width="270" height="110" rx="8" fill="#f1ecfa" stroke="#6f4fb8" stroke-width="1.6"/>
+<text x="1052" y="452" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#6f4fb8">uploads volume</text>
+<text x="1052" y="469" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#555" font-style="italic">paylaşılan disk</text>
+<text x="1052" y="492" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Yüklenen proje arşivleri</text>
+<text x="1052" y="509" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Üretilen test dosyaları</text>
+<rect x="1040" y="820" width="270" height="168" rx="8" fill="#eef1f4" stroke="#4a5868" stroke-width="1.6"/>
+<text x="1052" y="842" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#4a5868">Değerlendirme Modülü</text>
+<text x="1052" y="859" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#555" font-style="italic">yalnızca deneylerde çalışır</text>
+<text x="1052" y="882" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Altın etiketler (ground-truth)</text>
+<text x="1052" y="899" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">db'deki sonuçlarla karşılaştırır</text>
+<text x="1052" y="916" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">P / R / F1, mutasyon skoru</text>
+<text x="1052" y="933" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">3 yöntemin karşılaştırması</text>
+<text x="1052" y="950" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Üretim hattına ve LLM'e KAPALI</text>
+<rect x="295" y="380" width="705" height="612" rx="8" fill="#fdf7e4" stroke="#b8860b" stroke-width="1.8"/>
+<text x="310" y="405" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" text-anchor="start" fill="#8a6508">worker — Celery (Ajan Orkestratörü)</text>
+<text x="310" y="425" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#555" font-style="italic">Her aşama AnalysisRun.status alanını günceller ve log yazar (İST-13)</text>
+<rect x="315" y="445" width="300" height="112" rx="8" fill="#ffffff" stroke="#b8860b" stroke-width="1.6"/>
+<text x="327" y="467" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#b8860b">1 · Proje Alma ve Ön Kontrol</text>
+<text x="327" y="490" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Arşiv veya izinli yerel dizin</text>
+<text x="327" y="507" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Boyut/tür kontrolü, manage.py</text>
+<text x="327" y="524" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">ve settings arar; uygun</text>
+<text x="327" y="541" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">olmayan yapıyı bildirir · İST-01</text>
+<rect x="315" y="575" width="300" height="112" rx="8" fill="#ffffff" stroke="#b8860b" stroke-width="1.6"/>
+<text x="327" y="597" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#b8860b">2 · Kaynak Kod Analizi (AST)</text>
+<text x="327" y="620" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">URL, view, metot, izin sınıfı</text>
+<text x="327" y="637" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Hedef kod import EDİLMEZ,</text>
+<text x="327" y="654" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">çalıştırılmaz · İST-02</text>
+<text x="327" y="671" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Desteklenmeyen yapı → rapor (İST-16)</text>
+<rect x="315" y="705" width="300" height="112" rx="8" fill="#ffffff" stroke="#b8860b" stroke-width="1.6"/>
+<text x="327" y="727" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#b8860b">3 · Referans Gereksinimler</text>
+<text x="327" y="750" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Kullanıcının verdiği ayrı JSON</text>
+<text x="327" y="767" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">(db: ReferenceRequirement, JSONB)</text>
+<text x="327" y="784" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">HTTP yanıtı, rol-izin, deploy kuralı</text>
+<text x="327" y="801" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Koddan bağımsız · İST-03</text>
+<rect x="315" y="835" width="300" height="112" rx="8" fill="#ffffff" stroke="#b8860b" stroke-width="1.6"/>
+<text x="327" y="857" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#b8860b">4 · Test Üretici</text>
+<text x="327" y="880" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Kural tabanlı | doğrudan LLM | hibrit</text>
+<text x="327" y="897" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Pytest dosyaları üretir</text>
+<text x="327" y="914" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Kota/API hatası → kural tabanlı</text>
+<text x="327" y="931" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">yedek · İST-04, İST-05</text>
+<rect x="650" y="445" width="330" height="112" rx="8" fill="#ffffff" stroke="#b8860b" stroke-width="1.6"/>
+<text x="662" y="467" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#b8860b">8 · Raporlama</text>
+<text x="662" y="490" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Metrikler ve bulgular</text>
+<text x="662" y="507" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">PDF / JSON rapor üretimi</text>
+<text x="662" y="524" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Sonuçlar db'ye yazılır</text>
+<text x="662" y="541" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">İST-09</text>
+<rect x="650" y="575" width="330" height="112" rx="8" fill="#ffffff" stroke="#b8860b" stroke-width="1.6"/>
+<text x="662" y="597" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#b8860b">7 · Güvenlik Analizi</text>
+<text x="662" y="620" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Bandit: statik, 1'den sonra paralel</text>
+<text x="662" y="637" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Sandbox'tan gelen check --deploy</text>
+<text x="662" y="654" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">ve yetki testi sonuçlarını yorumlar</text>
+<text x="662" y="671" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Doğrulanmış/olası/belirsiz · İST-08</text>
+<rect x="650" y="705" width="330" height="112" rx="8" fill="#ffffff" stroke="#b8860b" stroke-width="1.6"/>
+<text x="662" y="727" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#b8860b">6 · Yürütme Yöneticisi</text>
+<text x="662" y="750" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Docker SDK ile geçici sandbox</text>
+<text x="662" y="767" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">başlatır, limitleri uygular</text>
+<text x="662" y="784" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Sonuçları toplar · İST-07</text>
+<text x="662" y="801" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Teknik hata (import vb.) → 5'e döner</text>
+<rect x="650" y="835" width="330" height="112" rx="8" fill="#ffffff" stroke="#b8860b" stroke-width="1.6"/>
+<text x="662" y="857" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#b8860b">5 · Test Doğrulayıcı</text>
+<text x="662" y="880" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">ast.parse + Pydantic şema</text>
+<text x="662" y="897" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">3'teki referans kurallara uyum</text>
+<text x="662" y="914" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Teknik hata → test başına ≤ 1 düzeltme</text>
+<text x="662" y="931" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Başarısız assertion ≠ teknik hata</text>
+<path d="M465.0,557 L465.0,575" fill="none" stroke="#8a6508" stroke-width="1.6" marker-end="url(#a8a6508)"/>
+<path d="M815.0,575 L815.0,557" fill="none" stroke="#8a6508" stroke-width="1.6" marker-end="url(#a8a6508)"/>
+<path d="M465.0,687 L465.0,705" fill="none" stroke="#8a6508" stroke-width="1.6" marker-end="url(#a8a6508)"/>
+<path d="M815.0,705 L815.0,687" fill="none" stroke="#8a6508" stroke-width="1.6" marker-end="url(#a8a6508)"/>
+<path d="M465.0,817 L465.0,835" fill="none" stroke="#8a6508" stroke-width="1.6" marker-end="url(#a8a6508)"/>
+<path d="M815.0,835 L815.0,817" fill="none" stroke="#8a6508" stroke-width="1.6" marker-end="url(#a8a6508)"/>
+<path d="M615,872 L650,872" fill="none" stroke="#8a6508" stroke-width="1.6" marker-end="url(#a8a6508)"/>
+<path d="M615,795 L634,795 L634,850 L650,850" fill="none" stroke="#6f4fb8" stroke-width="1.6" marker-end="url(#a6f4fb8)"/>
+<path d="M615,520 L632,520 L632,630 L650,630" fill="none" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#a6b7280)"/>
+<path d="M720,817 L720,835" fill="none" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ac0392b)"/>
+<path d="M650,915 L615,915" fill="none" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ac0392b)"/>
+<text x="632" y="975" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#c0392b" font-style="italic">İST-06 · test başına ≤ 1 düzeltme</text>
+<rect x="1380" y="380" width="390" height="496" rx="10" fill="#fdecec" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="8 5"/>
+<text x="1395" y="405" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" text-anchor="start" fill="#c0392b">İzole Test Sandbox</text>
+<text x="1395" y="424" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#555" font-style="italic">her çalıştırma için geçici Docker konteyneri</text>
+<rect x="1395" y="440" width="360" height="72" rx="8" fill="#ffffff" stroke="#b8860b" stroke-width="1.6"/>
+<text x="1407" y="462" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" text-anchor="start" fill="#b8860b">Hazırlık (ayrı adım)</text>
+<text x="1407" y="485" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Bağımlılıklar sabit sürümlerle imaja kurulur</text>
+<rect x="1395" y="520" width="360" height="108" rx="8" fill="#ffffff" stroke="#b8860b" stroke-width="1.6"/>
+<text x="1407" y="542" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" text-anchor="start" fill="#b8860b">Bağlamalar</text>
+<text x="1407" y="565" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Salt okunur: hedef proje + Pytest dosyaları</text>
+<text x="1407" y="582" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Yazılabilir /out (geçici): JUnit XML,</text>
+<text x="1407" y="599" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">coverage, SQLite db, pytest önbelleği</text>
+<text x="1407" y="616" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">İş bitince worker /out'u toplar</text>
+<rect x="1395" y="636" width="360" height="128" rx="8" fill="#ffffff" stroke="#b8860b" stroke-width="1.6"/>
+<text x="1407" y="658" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" text-anchor="start" fill="#b8860b">Çalışan araçlar</text>
+<text x="1407" y="681" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">pytest · pytest-django · pytest-cov</text>
+<text x="1407" y="698" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">manage.py check --deploy</text>
+<text x="1407" y="715" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">SQLite test veritabanı (/out içinde)</text>
+<text x="1407" y="732" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">mutmut (deneylerde, yazılabilir kopyada)</text>
+<rect x="1395" y="772" width="360" height="92" rx="8" fill="#ffffff" stroke="#b8860b" stroke-width="1.6"/>
+<text x="1407" y="794" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" text-anchor="start" fill="#b8860b">Sınırlar — hedef kod YALNIZCA burada çalışır</text>
+<text x="1407" y="817" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">network = none · root olmayan kullanıcı</text>
+<text x="1407" y="834" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">CPU / bellek limiti · zaman aşımı</text>
+<text x="1407" y="851" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">İş bitince konteyner silinir</text>
+<rect x="1380" y="892" width="390" height="145" rx="8" fill="#fff1e4" stroke="#d9772b" stroke-width="1.6"/>
+<text x="1392" y="914" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#d9772b">LLM Sağlayıcıları (dış hizmet)</text>
+<text x="1392" y="931" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#555" font-style="italic">LiteLLM ile tek arayüz</text>
+<text x="1392" y="954" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Groq — birincil (açık ağırlıklı model)</text>
+<text x="1392" y="971" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Gemini — karşılaştırma</text>
+<text x="1392" y="988" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">Ollama — yerel, opsiyonel</text>
+<text x="1392" y="1005" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#1f2328">API anahtarları .env içinde · İST-10</text>
+<path d="M230,230 L295,230" fill="none" stroke="#333" stroke-width="1.6" marker-start="url(#a333)" marker-end="url(#a333)"/>
+<circle cx="262" cy="214" r="10" fill="#1f2328"/>
+<text x="262" y="218.3" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" text-anchor="middle" fill="#ffffff">1</text>
+<path d="M520,240 L565,240" fill="none" stroke="#333" stroke-width="1.6" marker-start="url(#a333)" marker-end="url(#a333)"/>
+<circle cx="542" cy="224" r="10" fill="#1f2328"/>
+<text x="542" y="228.3" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" text-anchor="middle" fill="#ffffff">2</text>
+<path d="M885,240 L925,240" fill="none" stroke="#333" stroke-width="1.6" marker-end="url(#a333)"/>
+<circle cx="905" cy="224" r="10" fill="#1f2328"/>
+<text x="905" y="228.3" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" text-anchor="middle" fill="#ffffff">3</text>
+<path d="M800,150 L800,132 L1205,132 L1205,150" fill="none" stroke="#333" stroke-width="1.6" marker-start="url(#a333)" marker-end="url(#a333)"/>
+<text x="1000" y="127" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#444">ORM okuma / yazma</text>
+<path d="M992,330 L992,380" fill="none" stroke="#333" stroke-width="1.6" marker-end="url(#a333)"/>
+<circle cx="1014" cy="357" r="10" fill="#1f2328"/>
+<text x="1014" y="361.3" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" text-anchor="middle" fill="#ffffff">4</text>
+<text x="1030" y="362" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="start" fill="#444">worker görevi tüketir</text>
+<text x="262" y="252" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="normal" text-anchor="middle" fill="#444">HTTPS</text>
+<text x="542" y="352" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#444">REST/JSON + JWT (Nginx → web, iç ağ)</text>
+<text x="978" y="352" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="end" fill="#444">Celery görevi kuyruğa (run_id)</text>
+<path d="M1000,400 L1205,400 L1205,330" fill="none" stroke="#333" stroke-width="1.6" marker-end="url(#a333)"/>
+<circle cx="1100" cy="385" r="10" fill="#1f2328"/>
+<text x="1100" y="389.3" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" text-anchor="middle" fill="#ffffff">8</text>
+<text x="1050" y="418" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="start" fill="#444">run_id ile durum + sonuçlar</text>
+<path d="M1040,485 L1000,485" fill="none" stroke="#333" stroke-width="1.6" marker-start="url(#a333)" marker-end="url(#a333)"/>
+<path d="M980,740 L1380,740" fill="none" stroke="#c0392b" stroke-width="1.6" marker-end="url(#ac0392b)"/>
+<path d="M1380,780 L980,780" fill="none" stroke="#c0392b" stroke-width="1.6" marker-end="url(#ac0392b)"/>
+<circle cx="1340" cy="724" r="10" fill="#c0392b"/>
+<text x="1340" y="728.3" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" text-anchor="middle" fill="#ffffff">6</text>
+<circle cx="1340" cy="800" r="10" fill="#c0392b"/>
+<text x="1340" y="804.3" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" text-anchor="middle" fill="#ffffff">7</text>
+<text x="1050" y="733" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="start" fill="#c0392b">testleri + kopyayı bağla, başlat</text>
+<text x="1050" y="798" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" text-anchor="start" fill="#c0392b">/out: JUnit XML, coverage, check çıktısı</text>
+<path d="M395,947 L395,1058 L1575,1058 L1575,1037" fill="none" stroke="#d9772b" stroke-width="1.6" marker-start="url(#ad9772b)" marker-end="url(#ad9772b)"/>
+<circle cx="395" cy="1036" r="10" fill="#d9772b"/>
+<text x="395" y="1040.3" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" text-anchor="middle" fill="#ffffff">5</text>
+<text x="700" y="1051" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="normal" text-anchor="start" fill="#b0601d">yalnızca gerekli kod parçaları + referans kurallar · token ve süre limiti (İST-12) · altın etiketler GÖNDERİLMEZ (İST-11)</text>
+<rect x="30" y="1078" width="1740" height="172" rx="10" fill="#fafafa" stroke="#d0d7de"/>
+<text x="48" y="1102" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1f2328">AnalysisRun durumları:</text>
+<text x="232" y="1102" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#1f2328">queued → analyzing → generating → validating → executing → scanning → completed   |   failed (her aşamada, hata mesajıyla)</text>
+<text x="48" y="1130" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1f2328">Güvenlik sınırları:</text>
+<line x1="190" y1="1126" x2="230" y2="1126" stroke="#2e8b4f" stroke-width="2" stroke-dasharray="9 6"/>
+<text x="238" y="1130" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">ana sistem (JWT, yetki kontrolü)</text>
+<line x1="470" y1="1126" x2="510" y2="1126" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="8 5"/>
+<text x="518" y="1130" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">izolasyon sınırı (hedef kod yalnızca burada çalışır)</text>
+<rect x="870" y="1118" width="34" height="16" rx="3" fill="#fff1e4" stroke="#d9772b"/>
+<text x="912" y="1130" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">dış hizmet (veri en aza indirilir)</text>
+<rect x="1150" y="1118" width="34" height="16" rx="3" fill="#eef1f4" stroke="#4a5868"/>
+<text x="1192" y="1130" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">değerlendirme verisi (üretim hattından ayrı)</text>
+<text x="48" y="1160" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" text-anchor="start" fill="#1f2328">Not:</text>
+<text x="90" y="1160" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Sandbox başlatma yetkisi yalnızca worker'a verilir; Docker daemon erişimi yüksek yetkidir ve ayrı bir güvenlik sınırı olarak sınırlandırılmalıdır.</text>
+<text x="90" y="1180" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">Bandit ve AST kodu çalıştırmaz; check --deploy ayarları yüklediği için sandbox'ta çalışır. Kesik kırmızı oklar: doğrulamada veya yürütmede TEKNİK hata</text>
+<text x="90" y="1200" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">çıkarsa (sözdizimi, import, fixture) test başına tek düzeltme; açığı gösteren başarısız test düzeltilmez, bulgu sayılır. Mor ok: referans kurallar hem</text>
+<text x="90" y="1220" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">üretimde hem doğrulamada kullanılır. Gri kesik ok: Bandit test üretimini beklemez; yetki bulguları ise test sonuçlarına bağlı olduğu için yürütmeden sonra</text>
+<text x="90" y="1240" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" text-anchor="start" fill="#1f2328">değerlendirilir. Redis yalnızca mesaj aracısıdır; kalıcı durum PostgreSQL'dedir.</text></svg>
