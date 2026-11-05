@@ -1,0 +1,167 @@
+---
+title: "ER Diyagramı — Tam Teknik Şema (TestKalkan, revizyon 2)"
+---
+%% Kaynak: database_schema.sql (PostgreSQL 16 kataloğundan üretilmiştir)
+%% U1 = bileşik tekil kısıt üyesi; UQ = tek sütunlu tekil; UP = kısmi tekil indeks.
+%% Mermaid bileşik ve kısmi tekil kısıtları ifade edemez; bunlar yorum olarak verilir.
+%% |o--o{ : FK NULL olabilir (isteğe bağlı çapraz başvuru, on_delete=SET_NULL).
+%% Çerçeve yönetimli django-axes tabloları (FK'siz, şemada tanımlanmaz): axes_accessattempt, axes_accesslog, axes_accessfailurelog, axes_accessattemptexpiration
+erDiagram
+    auth_user ||--o{ projects : "R1 sahibidir"
+    projects ||--o{ reference_requirements : "R2 tanımlar"
+    projects ||--o{ analysis_runs : "R3 analiz edilir"
+    analysis_runs ||--o{ endpoints : "R4 bulur"
+    analysis_runs ||--o{ generated_tests : "R5 üretir"
+    endpoints |o--o{ generated_tests : "R6 hedefler"
+    generated_tests ||--o{ test_executions : "R7 yürütülür"
+    analysis_runs ||--o{ security_findings : "R8 raporlar"
+    test_executions |o--o{ security_findings : "R9 kanıtlar"
+    endpoints |o--o{ security_findings : "R10 ilgilidir"
+    analysis_runs ||--o{ reports : "R11 dışa aktarır"
+    analysis_runs ||--o{ llm_calls : "R12 çağırır"
+    generated_tests |o--o{ llm_calls : "R13 üretir/düzeltir"
+
+    auth_user["User (auth_user)"] {
+        integer id PK "Django tarafından yönetilir"
+        varchar username "Django alanı; yalnızca etiket amaçlı"
+    }
+    projects["Project (projects)"] {
+        bigint id PK
+        integer owner_id FK "U1: UNIQUE (owner_id, name)"
+        varchar(150) name "U1: UNIQUE (owner_id, name)"
+        text description
+        varchar(20) source_type
+        varchar(255) source_archive "NULL olabilir"
+        varchar(500) source_directory "NULL olabilir"
+        varchar(64) archive_sha256 "NULL olabilir"
+        varchar(20) validation_status
+        jsonb validation_report
+        timestamptz created_at
+        timestamptz updated_at
+    }
+    reference_requirements["ReferenceRequirement (reference_requirements)"] {
+        bigint id PK
+        bigint project_id FK "U1: UNIQUE (project_id, requirement_code)"
+        varchar(50) requirement_code "U1: UNIQUE (project_id, requirement_code)"
+        varchar(30) category
+        varchar(20) source
+        varchar(200) title
+        text description
+        text expected_result
+        jsonb specification
+        boolean is_active
+        integer revision
+        timestamptz created_at
+        timestamptz updated_at
+    }
+    analysis_runs["AnalysisRun (analysis_runs)"] {
+        bigint id PK
+        bigint project_id FK "UP: UNIQUE (project_id) WHERE status ∈ {QUEUED, ANALYZING, GENERATING, VALIDATING, EXECUTING, SCANNING}"
+        varchar(20) status "CHECK: QUEUED, ANALYZING, GENERATING, VALIDATING, EXECUTING, SCANNING, COMPLETED, FAILED, CANCELLED"
+        varchar(20) method
+        varchar(20) llm_provider "NULL olabilir"
+        varchar(100) llm_model "NULL olabilir"
+        boolean fallback_enabled
+        varchar(255) celery_task_id UK "tek sütun tekil; NULL değerler hariç; NULL olabilir"
+        jsonb requirements_snapshot
+        jsonb ast_results
+        jsonb processing_metadata
+        numeric(5,2) coverage_percent "NULL olabilir"
+        varchar(50) error_code
+        varchar(2000) error_message
+        timestamptz created_at
+        timestamptz started_at "NULL olabilir"
+        timestamptz finished_at "NULL olabilir"
+        timestamptz updated_at
+    }
+    endpoints["Endpoint (endpoints)"] {
+        bigint id PK
+        bigint analysis_run_id FK "U1: UNIQUE (analysis_run_id, path, http_method)"
+        varchar(500) path "U1: UNIQUE (analysis_run_id, path, http_method)"
+        varchar(10) http_method "U1: UNIQUE (analysis_run_id, path, http_method)"
+        varchar(255) view_name
+        varchar(50) auth_type
+        jsonb permission_classes
+        boolean is_supported
+        varchar(50) unsupported_reason "NULL olabilir"
+        timestamptz created_at
+    }
+    generated_tests["GeneratedTest (generated_tests)"] {
+        bigint id PK
+        bigint analysis_run_id FK "U1: UNIQUE (analysis_run_id, test_module, test_name)"
+        bigint endpoint_id FK "NULL olabilir"
+        varchar(150) test_module "U1: UNIQUE (analysis_run_id, test_module, test_name)"
+        varchar(150) test_name "U1: UNIQUE (analysis_run_id, test_module, test_name)"
+        varchar(20) generation_method
+        varchar(50) requirement_code
+        varchar(50) role
+        smallint expected_status "NULL olabilir"
+        boolean is_security_test
+        text source_code
+        varchar(64) code_sha256
+        varchar(20) validation_status
+        jsonb validation_errors
+        smallint repair_count
+        jsonb generation_metadata
+        timestamptz created_at
+        timestamptz updated_at
+    }
+    test_executions["TestExecution (test_executions)"] {
+        bigint id PK
+        bigint generated_test_id FK "U1: UNIQUE (generated_test_id, attempt_number)"
+        integer attempt_number "U1: UNIQUE (generated_test_id, attempt_number)"
+        varchar(20) status
+        smallint observed_status "NULL olabilir"
+        varchar(20) error_type "NULL olabilir"
+        varchar(20) error_origin "NULL olabilir"
+        timestamptz started_at "NULL olabilir"
+        timestamptz finished_at "NULL olabilir"
+        integer duration_ms "NULL olabilir"
+        varchar(10000) output_excerpt
+        varchar(2000) error_summary
+        jsonb result_details
+        timestamptz created_at
+    }
+    security_findings["SecurityFinding (security_findings)"] {
+        bigint id PK
+        bigint analysis_run_id FK "U1: UNIQUE (analysis_run_id, fingerprint)"
+        bigint test_execution_id FK "NULL olabilir"
+        bigint endpoint_id FK "NULL olabilir"
+        varchar(20) source
+        varchar(100) rule_id
+        varchar(10) severity
+        varchar(20) classification
+        varchar(255) title
+        text description
+        varchar(500) file_path
+        integer line_number "NULL olabilir"
+        varchar(1000) evidence_excerpt
+        varchar(50) recommendation_key "NULL olabilir"
+        jsonb details
+        varchar(64) fingerprint "U1: UNIQUE (analysis_run_id, fingerprint)"
+        timestamptz created_at
+    }
+    reports["Report (reports)"] {
+        bigint id PK
+        bigint analysis_run_id FK
+        varchar(10) format
+        varchar(10) scope
+        jsonb sections
+        varchar(500) file_path
+        bigint file_size_bytes
+        timestamptz created_at
+    }
+    llm_calls["LlmCall (llm_calls)"] {
+        bigint id PK
+        bigint analysis_run_id FK
+        bigint generated_test_id FK "NULL olabilir"
+        varchar(20) provider
+        varchar(100) model
+        varchar(20) purpose
+        integer prompt_tokens "NULL olabilir"
+        integer completion_tokens "NULL olabilir"
+        integer latency_ms "NULL olabilir"
+        varchar(20) status
+        varchar(2000) error_message "NULL olabilir"
+        timestamptz created_at
+    }
