@@ -67,9 +67,16 @@ raporlarla farklılık bildirebilir.
 
 ## Google Colab
 
+> **Doğrulama durumu:** Notebook yerel Jupyter'de ve temiz bir Python ortamında baştan sona
+> doğrulanmıştır. Gerçek bir Google Colab çalışma zamanında henüz çalıştırılmamıştır; Colab
+> desteği isteğe bağlı bir kolaylıktır.
+
 1. Colab'da **Dosya → Not defterini aç → GitHub** sekmesine depo adresini girin ve
    `experiments/h3_02_eda/H3_02_EDA_Veri_Kalitesi.ipynb` dosyasını seçin
-   (PR birleşmeden önce dal olarak `feat/h3-02-eda-data-quality` seçin).
+   (PR birleşmeden önce dal olarak `feat/h3-02-eda-data-quality` seçin). Doğrudan bağlantı:
+   `https://colab.research.google.com/github/reyyannerva/Yapay-Zeka-Ajaniyla-Django-Test-Uretimi-ve-Guvenlik-Analizi/blob/main/experiments/h3_02_eda/H3_02_EDA_Veri_Kalitesi.ipynb`
+   (birleşmeden önce `main` yerine `feat/h3-02-eda-data-quality`). Her denemede yeni bir çalışma
+   zamanı kullanın; önceki bir klon `/content/` altında varsa yeniden kullanılır.
 2. PR birleşmeden önce çalıştırıyorsanız ilk kod hücresinden önce yeni bir hücrede:
    ```python
    import os; os.environ["H302_REPO_REF"] = "feat/h3-02-eda-data-quality"
@@ -80,7 +87,10 @@ raporlarla farklılık bildirebilir.
 4. **Depo özelse:** kimlik bilgisi/token'ı notebook'a **yazmayın**. Depoyu ZIP olarak indirip
    Colab'a yükleyin, `/content/` altına açın ve bir hücrede
    `os.environ["H302_REPO_ROOT"] = "/content/<açılan-dizin>"` ayarlayın.
-5. **Raporları indirme:** "Yalnızca Google Colab" başlıklı hücre `reports/` ve `figures/`
+5. **Doğrulama kanıtı:** ilk hücre analiz edilen git dalını ve commit'i yazdırır; dışa aktarımdan
+   sonraki karşılaştırma hücresi yeniden üretilen raporların depodaki sürümle aynı olup olmadığını
+   bildirir (PNG farkları matplotlib/font sürümüne bağlı olabilir).
+6. **Raporları indirme:** "Yalnızca Google Colab" başlıklı hücre yalnızca `reports/` ve `figures/`
    içeriğini `h3_02_eda_ciktilari.zip` olarak indirir.
 
 ## Yöntem özeti
@@ -144,7 +154,7 @@ durumda kayıt olmadığından üretilmez ve bu durum raporda açıklanır.
 | Y5 | Endpoint türü, rol ve kimlik doğrulama/yetkilendirme/girdi doğrulama dağılımı | §7–8 | `endpoint_distribution`, `role_distribution`, `standard_crosstabs` | `endpoint_distribution.csv`, `role_distribution.csv`, `cross_tabulations.csv`, şekil 04 | `test_actor_relation_uses_fixture_ownership` |
 | Y6 | PUT/PATCH/DELETE yetkili-yetkisiz, sahiplik, silme | §9 | `coverage_matrix`, `authorization_coverage` | `authorization_coverage.csv`, şekil 08 | `test_missing_coverage_combination_is_reported` |
 | Y7 | Durum kodu dağılımı; metot/rol/tür ile tutarsız kayıtlar | §10 | `status_distribution`, `check_method_support`, `check_status_plausibility` | `status_code_distribution.csv`, şekil 05 | `test_method_support_vs_405`, `test_status_plausibility_is_review_only` |
-| Y8 | Eksik alan, yinelenen kimlik, geçersiz metot, tutarsız kategori/rol, eksik fixture referansı | §4, §13–14 | `check_json_schema`, `check_record_fields`, `check_duplicate_ids`, `check_fixture_references`, `check_csv_consistency` | `data_quality_findings.csv`, `data_quality_checks.csv`, şekil 09 | `tests/test_quality_checks.py` (26 test) |
+| Y8 | Eksik alan, yinelenen kimlik, geçersiz metot, tutarsız kategori/rol, eksik fixture referansı | §4, §13–14 | `check_json_schema`, `check_record_fields`, `check_duplicate_ids`, `check_fixture_references`, `check_csv_consistency` | `data_quality_findings.csv`, `data_quality_checks.csv`, şekil 09 | `tests/test_quality_checks.py` (26 test), `tests/test_notebook.py` |
 | Y9 | PyGoat ve kontrollü fixture ayrı gruplar | §15 | `pygoat_inventory`, `source_comparison` | `source_comparison.csv` | `test_pygoat_separation`, `test_pygoat_inventory_counts_only_real_records` |
 | Y10 | Kalite sorunları ve kapsam eksikleri sonuç bölümü, senaryo kimlikleriyle | §16, §18 | `coverage_gaps`, `render_summary` | `coverage_gaps.csv`, `eda_summary.md`, şekil 10 | `test_findings_reference_real_ids` |
 | Y11 | Veri dosyalarından yeniden çalıştırılabilir; bağımlılıklar, çıktılar, talimatlar repoda | Bu README, `requirements.txt` | `export_reports`, `render_all` | `reports/`, `figures/` | `test_committed_reports_are_reproducible`, `test_committed_summary_is_reproducible` |
