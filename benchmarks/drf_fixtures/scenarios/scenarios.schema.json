@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "h3-01-scenarios.schema.json",
+  "title": "H3-01 Senaryo Veri Kümesi Şeması",
+  "type": "object",
+  "required": ["dataset", "version", "scenarios"],
+  "additionalProperties": true,
+  "properties": {
+    "dataset": {"type": "string"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "generated_for": {"type": "string"},
+    "target_app": {"type": "string"},
+    "description": {"type": "string"},
+    "scenarios": {
+      "type": "array",
+      "minItems": 30,
+      "items": {"$ref": "#/$defs/scenario"}
+    }
+  },
+  "$defs": {
+    "scenario": {
+      "type": "object",
+      "required": [
+        "id", "category", "http_method", "endpoint", "user_role",
+        "expected_http_status", "expected_behavior", "label",
+        "is_intentional_flaw", "fixture_ref", "requirement_refs"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "pattern": "^SC-[A-Z]{2,3}-[0-9]{3}$"},
+        "category": {
+          "type": "string",
+          "enum": [
+            "AUTHENTICATION", "AUTHORIZATION", "INPUT_VALIDATION",
+            "HTTP_BEHAVIOR", "SECURITY_CONFIGURATION"
+          ]
+        },
+        "http_method": {
+          "type": "string",
+          "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"]
+        },
+        "endpoint": {"type": "string", "pattern": "^/api/"},
+        "user_role": {
+          "type": "string",
+          "enum": ["anonymous", "user", "owner", "admin"]
+        },
+        "request_input": {"type": ["object", "null"]},
+        "expected_http_status": {
+          "type": "integer",
+          "enum": [200, 201, 204, 400, 401, 403, 404, 405]
+        },
+        "expected_behavior": {"type": "string", "minLength": 1},
+        "label": {"type": "string", "enum": ["positive", "negative"]},
+        "is_intentional_flaw": {"type": "boolean"},
+        "flaw_explanation": {"type": "string", "minLength": 1},
+        "fixture_ref": {
+          "type": "object",
+          "required": ["user", "article"],
+          "additionalProperties": false,
+          "properties": {
+            "user": {"type": ["string", "null"]},
+            "article": {"type": ["integer", "null"]}
+          }
+        },
+        "requirement_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string"}
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"is_intentional_flaw": {"const": true}}},
+          "then": {"required": ["flaw_explanation"]}
+        }
+      ]
+    }
+  }
+}

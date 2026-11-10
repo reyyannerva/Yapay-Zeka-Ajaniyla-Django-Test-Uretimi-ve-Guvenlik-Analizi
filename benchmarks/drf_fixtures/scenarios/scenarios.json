@@ -1,0 +1,854 @@
+{
+  "dataset": "h3-01-drf-controlled",
+  "version": "1.0.0",
+  "generated_for": "#27 / H3-01",
+  "target_app": "benchmarks/drf_fixtures/sample_app",
+  "description": "Kontrollü Django/DRF hedef uygulaması için etiketli senaryo veri kümesi.",
+  "scenarios": [
+    {
+      "id": "SC-LST-001",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "GET",
+      "endpoint": "/api/articles/",
+      "user_role": "anonymous",
+      "request_input": null,
+      "expected_http_status": 200,
+      "expected_behavior": "Anonim kullanıcı listeyi görür; yalnızca yayınlanan kayıtlar döner.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": null,
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-LST-002",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "GET",
+      "endpoint": "/api/articles/",
+      "user_role": "user",
+      "request_input": null,
+      "expected_http_status": 200,
+      "expected_behavior": "Kimliği doğrulanmış kullanıcı listeyi görür (yayınlananlar + kendi kayıtları).",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "carol",
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-LST-003",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "GET",
+      "endpoint": "/api/articles/",
+      "user_role": "admin",
+      "request_input": null,
+      "expected_http_status": 200,
+      "expected_behavior": "Yönetici tüm kayıtları listeler.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "admin",
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-RET-001",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "GET",
+      "endpoint": "/api/articles/1/",
+      "user_role": "anonymous",
+      "request_input": null,
+      "expected_http_status": 200,
+      "expected_behavior": "Yayınlanmış kayıt anonim kullanıcıya görünür.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": null,
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-RET-002",
+      "category": "AUTHORIZATION",
+      "http_method": "GET",
+      "endpoint": "/api/articles/2/",
+      "user_role": "anonymous",
+      "request_input": null,
+      "expected_http_status": 404,
+      "expected_behavior": "Taslak kayıt anonim kullanıcıya görünmez (queryset dışı -> 404).",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": null,
+        "article": 2
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-RET-003",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "GET",
+      "endpoint": "/api/articles/2/",
+      "user_role": "owner",
+      "request_input": null,
+      "expected_http_status": 200,
+      "expected_behavior": "Sahip kendi taslağını görüntüleyebilir.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "alice",
+        "article": 2
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-RET-004",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "GET",
+      "endpoint": "/api/articles/2/",
+      "user_role": "admin",
+      "request_input": null,
+      "expected_http_status": 200,
+      "expected_behavior": "Yönetici herhangi bir taslağı görüntüleyebilir.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "admin",
+        "article": 2
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-RET-005",
+      "category": "AUTHORIZATION",
+      "http_method": "GET",
+      "endpoint": "/api/articles/2/",
+      "user_role": "user",
+      "request_input": null,
+      "expected_http_status": 404,
+      "expected_behavior": "Başkasının taslağı kullanıcıya görünmez (queryset dışı -> 404).",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "carol",
+        "article": 2
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-RET-006",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "GET",
+      "endpoint": "/api/articles/999/",
+      "user_role": "anonymous",
+      "request_input": null,
+      "expected_http_status": 404,
+      "expected_behavior": "Mevcut olmayan kaynak 404 döner.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": null,
+        "article": 999
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-AUT-001",
+      "category": "AUTHENTICATION",
+      "http_method": "POST",
+      "endpoint": "/api/articles/",
+      "user_role": "anonymous",
+      "request_input": {
+        "title": "Örnek Başlık",
+        "body": "örnek içerik"
+      },
+      "expected_http_status": 401,
+      "expected_behavior": "Anonim kullanıcı kayıt oluşturamaz (kimlik doğrulama gerekli).",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": null,
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-AUT-002",
+      "category": "AUTHENTICATION",
+      "http_method": "PUT",
+      "endpoint": "/api/articles/1/",
+      "user_role": "anonymous",
+      "request_input": {
+        "title": "Örnek Başlık",
+        "body": "örnek içerik"
+      },
+      "expected_http_status": 401,
+      "expected_behavior": "Anonim kullanıcı güncelleme yapamaz.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": null,
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-AUT-003",
+      "category": "AUTHENTICATION",
+      "http_method": "PATCH",
+      "endpoint": "/api/articles/1/",
+      "user_role": "anonymous",
+      "request_input": {
+        "title": "Örnek Başlık"
+      },
+      "expected_http_status": 401,
+      "expected_behavior": "Anonim kullanıcı kısmi güncelleme yapamaz.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": null,
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-AUT-004",
+      "category": "AUTHENTICATION",
+      "http_method": "DELETE",
+      "endpoint": "/api/articles/1/",
+      "user_role": "anonymous",
+      "request_input": null,
+      "expected_http_status": 401,
+      "expected_behavior": "Anonim kullanıcı silme yapamaz.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": null,
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-AUT-005",
+      "category": "AUTHENTICATION",
+      "http_method": "POST",
+      "endpoint": "/api/articles/2/publish/",
+      "user_role": "anonymous",
+      "request_input": null,
+      "expected_http_status": 401,
+      "expected_behavior": "Anonim kullanıcı yayınlama yapamaz.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": null,
+        "article": 2
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-CRT-001",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "POST",
+      "endpoint": "/api/articles/",
+      "user_role": "user",
+      "request_input": {
+        "title": "Örnek Başlık",
+        "body": "örnek içerik"
+      },
+      "expected_http_status": 201,
+      "expected_behavior": "Kimliği doğrulanmış kullanıcı geçerli girdiyle kayıt oluşturur; owner isteği yapan olur.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "carol",
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-CRT-002",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "POST",
+      "endpoint": "/api/articles/",
+      "user_role": "owner",
+      "request_input": {
+        "title": "Örnek Başlık",
+        "body": "örnek içerik"
+      },
+      "expected_http_status": 201,
+      "expected_behavior": "Kullanıcı kendi adına kayıt oluşturur.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "alice",
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-INP-001",
+      "category": "INPUT_VALIDATION",
+      "http_method": "POST",
+      "endpoint": "/api/articles/",
+      "user_role": "user",
+      "request_input": {
+        "body": "x"
+      },
+      "expected_http_status": 400,
+      "expected_behavior": "Zorunlu 'title' alanı eksik -> 400.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "carol",
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-INP-002",
+      "category": "INPUT_VALIDATION",
+      "http_method": "POST",
+      "endpoint": "/api/articles/",
+      "user_role": "user",
+      "request_input": {
+        "title": "   ",
+        "body": "x"
+      },
+      "expected_http_status": 400,
+      "expected_behavior": "Yalnızca boşluktan oluşan başlık -> 400.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "carol",
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-INP-003",
+      "category": "INPUT_VALIDATION",
+      "http_method": "PUT",
+      "endpoint": "/api/articles/1/",
+      "user_role": "owner",
+      "request_input": {
+        "body": "x"
+      },
+      "expected_http_status": 400,
+      "expected_behavior": "PUT'ta zorunlu 'title' eksik -> 400.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "alice",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-INP-004",
+      "category": "INPUT_VALIDATION",
+      "http_method": "POST",
+      "endpoint": "/api/articles/",
+      "user_role": "user",
+      "request_input": {
+        "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "body": "x"
+      },
+      "expected_http_status": 400,
+      "expected_behavior": "Başlık max_length=200 sınırını aşıyor (201 karakter) -> 400.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "carol",
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-AUZ-001",
+      "category": "AUTHORIZATION",
+      "http_method": "PUT",
+      "endpoint": "/api/articles/1/",
+      "user_role": "user",
+      "request_input": {
+        "title": "Örnek Başlık",
+        "body": "örnek içerik"
+      },
+      "expected_http_status": 403,
+      "expected_behavior": "Sahip olmayan kullanıcı başkasının kaydını güncelleyemez.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "carol",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-AUZ-002",
+      "category": "AUTHORIZATION",
+      "http_method": "PATCH",
+      "endpoint": "/api/articles/1/",
+      "user_role": "user",
+      "request_input": {
+        "title": "Örnek Başlık"
+      },
+      "expected_http_status": 403,
+      "expected_behavior": "Sahip olmayan kullanıcı başkasının kaydını kısmen güncelleyemez.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "carol",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-AUZ-003",
+      "category": "AUTHORIZATION",
+      "http_method": "DELETE",
+      "endpoint": "/api/articles/1/",
+      "user_role": "user",
+      "request_input": null,
+      "expected_http_status": 403,
+      "expected_behavior": "Sahip olmayan kullanıcı başkasının kaydını silemez.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "carol",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-AUZ-004",
+      "category": "AUTHORIZATION",
+      "http_method": "POST",
+      "endpoint": "/api/articles/2/publish/",
+      "user_role": "user",
+      "request_input": null,
+      "expected_http_status": 403,
+      "expected_behavior": "Sahip olmayan kullanıcı başkasının kaydını yayınlayamaz.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "carol",
+        "article": 2
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-UPD-001",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "PUT",
+      "endpoint": "/api/articles/1/",
+      "user_role": "owner",
+      "request_input": {
+        "title": "Örnek Başlık",
+        "body": "örnek içerik"
+      },
+      "expected_http_status": 200,
+      "expected_behavior": "Sahip kendi kaydını tam günceller.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "alice",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-UPD-002",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "PUT",
+      "endpoint": "/api/articles/3/",
+      "user_role": "admin",
+      "request_input": {
+        "title": "Örnek Başlık",
+        "body": "örnek içerik"
+      },
+      "expected_http_status": 200,
+      "expected_behavior": "Yönetici herhangi bir kaydı tam günceller.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "admin",
+        "article": 3
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-UPD-003",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "PATCH",
+      "endpoint": "/api/articles/1/",
+      "user_role": "owner",
+      "request_input": {
+        "title": "Örnek Başlık"
+      },
+      "expected_http_status": 200,
+      "expected_behavior": "Sahip kendi kaydını kısmen günceller.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "alice",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-UPD-004",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "PATCH",
+      "endpoint": "/api/articles/3/",
+      "user_role": "admin",
+      "request_input": {
+        "title": "Örnek Başlık"
+      },
+      "expected_http_status": 200,
+      "expected_behavior": "Yönetici herhangi bir kaydı kısmen günceller.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "admin",
+        "article": 3
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-DEL-001",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "DELETE",
+      "endpoint": "/api/articles/1/",
+      "user_role": "owner",
+      "request_input": null,
+      "expected_http_status": 204,
+      "expected_behavior": "Sahip kendi kaydını siler (204).",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "alice",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-DEL-002",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "DELETE",
+      "endpoint": "/api/articles/3/",
+      "user_role": "admin",
+      "request_input": null,
+      "expected_http_status": 204,
+      "expected_behavior": "Yönetici herhangi bir kaydı siler (204).",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "admin",
+        "article": 3
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-NF-001",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "PUT",
+      "endpoint": "/api/articles/999/",
+      "user_role": "owner",
+      "request_input": {
+        "title": "Örnek Başlık",
+        "body": "örnek içerik"
+      },
+      "expected_http_status": 404,
+      "expected_behavior": "Kimliği doğrulanmış kullanıcı mevcut olmayan kaydı güncelleyemez -> 404.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "alice",
+        "article": 999
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-NF-002",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "DELETE",
+      "endpoint": "/api/articles/999/",
+      "user_role": "owner",
+      "request_input": null,
+      "expected_http_status": 404,
+      "expected_behavior": "Kimliği doğrulanmış kullanıcı mevcut olmayan kaydı silemez -> 404.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "alice",
+        "article": 999
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-MNA-001",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "DELETE",
+      "endpoint": "/api/articles/",
+      "user_role": "owner",
+      "request_input": null,
+      "expected_http_status": 405,
+      "expected_behavior": "Koleksiyon ucunda DELETE desteklenmez -> 405.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "alice",
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-MNA-002",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "PUT",
+      "endpoint": "/api/articles/",
+      "user_role": "owner",
+      "request_input": {
+        "title": "Örnek Başlık"
+      },
+      "expected_http_status": 405,
+      "expected_behavior": "Koleksiyon ucunda PUT desteklenmez -> 405.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "alice",
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-PUB-001",
+      "category": "AUTHORIZATION",
+      "http_method": "POST",
+      "endpoint": "/api/articles/2/publish/",
+      "user_role": "owner",
+      "request_input": null,
+      "expected_http_status": 200,
+      "expected_behavior": "Sahip kendi taslağını yayınlar (is_published=true).",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "alice",
+        "article": 2
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-FLW-001",
+      "category": "AUTHORIZATION",
+      "http_method": "PUT",
+      "endpoint": "/api/insecure/articles/1/",
+      "user_role": "user",
+      "request_input": {
+        "title": "Örnek Başlık",
+        "body": "örnek içerik"
+      },
+      "expected_http_status": 200,
+      "expected_behavior": "Güvensiz uç başkasının kaydını güncellemeye izin veriyor (gözlemlenen 200).",
+      "label": "negative",
+      "is_intentional_flaw": true,
+      "fixture_ref": {
+        "user": "carol",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-04",
+        "İST-16"
+      ],
+      "flaw_explanation": "BOLA/IDOR (OWASP API1:2023): nesne düzeyi sahiplik kontrolü yok. Güvenli uçta beklenen 403."
+    },
+    {
+      "id": "SC-FLW-002",
+      "category": "AUTHORIZATION",
+      "http_method": "DELETE",
+      "endpoint": "/api/insecure/articles/3/",
+      "user_role": "user",
+      "request_input": null,
+      "expected_http_status": 204,
+      "expected_behavior": "Güvensiz uç başkasının kaydını silmeye izin veriyor (gözlemlenen 204).",
+      "label": "negative",
+      "is_intentional_flaw": true,
+      "fixture_ref": {
+        "user": "carol",
+        "article": 3
+      },
+      "requirement_refs": [
+        "İST-04",
+        "İST-16"
+      ],
+      "flaw_explanation": "BOLA/IDOR: sahip olmayan kullanıcı silebiliyor. Güvenli uçta beklenen 403."
+    },
+    {
+      "id": "SC-FLW-003",
+      "category": "SECURITY_CONFIGURATION",
+      "http_method": "GET",
+      "endpoint": "/api/insecure/articles/",
+      "user_role": "anonymous",
+      "request_input": null,
+      "expected_http_status": 200,
+      "expected_behavior": "Güvensiz liste taslak kayıtları da herkese döndürüyor (gözlemlenen 200, taslaklar dâhil).",
+      "label": "negative",
+      "is_intentional_flaw": true,
+      "fixture_ref": {
+        "user": null,
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-04",
+        "İST-16"
+      ],
+      "flaw_explanation": "AllowAny + filtrelemesiz queryset: hassas veri ifşası. Güvenli listede taslaklar gizlidir."
+    }
+  ]
+}

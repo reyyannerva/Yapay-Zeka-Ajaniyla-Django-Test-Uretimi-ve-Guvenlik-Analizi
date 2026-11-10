@@ -1,0 +1,39 @@
+id,category,http_method,endpoint,user_role,expected_http_status,label,is_intentional_flaw,fixture_user,fixture_article,request_input,expected_behavior,flaw_explanation,requirement_refs
+SC-LST-001,HTTP_BEHAVIOR,GET,/api/articles/,anonymous,200,positive,False,,,,Anonim kullanıcı listeyi görür; yalnızca yayınlanan kayıtlar döner.,,İST-03;İST-04;İST-16
+SC-LST-002,HTTP_BEHAVIOR,GET,/api/articles/,user,200,positive,False,carol,,,Kimliği doğrulanmış kullanıcı listeyi görür (yayınlananlar + kendi kayıtları).,,İST-03;İST-04;İST-16
+SC-LST-003,HTTP_BEHAVIOR,GET,/api/articles/,admin,200,positive,False,admin,,,Yönetici tüm kayıtları listeler.,,İST-03;İST-04;İST-16
+SC-RET-001,HTTP_BEHAVIOR,GET,/api/articles/1/,anonymous,200,positive,False,,1,,Yayınlanmış kayıt anonim kullanıcıya görünür.,,İST-03;İST-04;İST-16
+SC-RET-002,AUTHORIZATION,GET,/api/articles/2/,anonymous,404,negative,False,,2,,Taslak kayıt anonim kullanıcıya görünmez (queryset dışı -> 404).,,İST-03;İST-04;İST-16
+SC-RET-003,HTTP_BEHAVIOR,GET,/api/articles/2/,owner,200,positive,False,alice,2,,Sahip kendi taslağını görüntüleyebilir.,,İST-03;İST-04;İST-16
+SC-RET-004,HTTP_BEHAVIOR,GET,/api/articles/2/,admin,200,positive,False,admin,2,,Yönetici herhangi bir taslağı görüntüleyebilir.,,İST-03;İST-04;İST-16
+SC-RET-005,AUTHORIZATION,GET,/api/articles/2/,user,404,negative,False,carol,2,,Başkasının taslağı kullanıcıya görünmez (queryset dışı -> 404).,,İST-03;İST-04;İST-16
+SC-RET-006,HTTP_BEHAVIOR,GET,/api/articles/999/,anonymous,404,negative,False,,999,,Mevcut olmayan kaynak 404 döner.,,İST-03;İST-04;İST-16
+SC-AUT-001,AUTHENTICATION,POST,/api/articles/,anonymous,401,negative,False,,,"{""title"": ""Örnek Başlık"", ""body"": ""örnek içerik""}",Anonim kullanıcı kayıt oluşturamaz (kimlik doğrulama gerekli).,,İST-03;İST-04;İST-16
+SC-AUT-002,AUTHENTICATION,PUT,/api/articles/1/,anonymous,401,negative,False,,1,"{""title"": ""Örnek Başlık"", ""body"": ""örnek içerik""}",Anonim kullanıcı güncelleme yapamaz.,,İST-03;İST-04;İST-16
+SC-AUT-003,AUTHENTICATION,PATCH,/api/articles/1/,anonymous,401,negative,False,,1,"{""title"": ""Örnek Başlık""}",Anonim kullanıcı kısmi güncelleme yapamaz.,,İST-03;İST-04;İST-16
+SC-AUT-004,AUTHENTICATION,DELETE,/api/articles/1/,anonymous,401,negative,False,,1,,Anonim kullanıcı silme yapamaz.,,İST-03;İST-04;İST-16
+SC-AUT-005,AUTHENTICATION,POST,/api/articles/2/publish/,anonymous,401,negative,False,,2,,Anonim kullanıcı yayınlama yapamaz.,,İST-03;İST-04;İST-16
+SC-CRT-001,HTTP_BEHAVIOR,POST,/api/articles/,user,201,positive,False,carol,,"{""title"": ""Örnek Başlık"", ""body"": ""örnek içerik""}",Kimliği doğrulanmış kullanıcı geçerli girdiyle kayıt oluşturur; owner isteği yapan olur.,,İST-03;İST-04;İST-16
+SC-CRT-002,HTTP_BEHAVIOR,POST,/api/articles/,owner,201,positive,False,alice,,"{""title"": ""Örnek Başlık"", ""body"": ""örnek içerik""}",Kullanıcı kendi adına kayıt oluşturur.,,İST-03;İST-04;İST-16
+SC-INP-001,INPUT_VALIDATION,POST,/api/articles/,user,400,negative,False,carol,,"{""body"": ""x""}",Zorunlu 'title' alanı eksik -> 400.,,İST-03;İST-04;İST-16
+SC-INP-002,INPUT_VALIDATION,POST,/api/articles/,user,400,negative,False,carol,,"{""title"": ""   "", ""body"": ""x""}",Yalnızca boşluktan oluşan başlık -> 400.,,İST-03;İST-04;İST-16
+SC-INP-003,INPUT_VALIDATION,PUT,/api/articles/1/,owner,400,negative,False,alice,1,"{""body"": ""x""}",PUT'ta zorunlu 'title' eksik -> 400.,,İST-03;İST-04;İST-16
+SC-INP-004,INPUT_VALIDATION,POST,/api/articles/,user,400,negative,False,carol,,"{""title"": ""AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"", ""body"": ""x""}",Başlık max_length=200 sınırını aşıyor (201 karakter) -> 400.,,İST-03;İST-04;İST-16
+SC-AUZ-001,AUTHORIZATION,PUT,/api/articles/1/,user,403,negative,False,carol,1,"{""title"": ""Örnek Başlık"", ""body"": ""örnek içerik""}",Sahip olmayan kullanıcı başkasının kaydını güncelleyemez.,,İST-03;İST-04;İST-16
+SC-AUZ-002,AUTHORIZATION,PATCH,/api/articles/1/,user,403,negative,False,carol,1,"{""title"": ""Örnek Başlık""}",Sahip olmayan kullanıcı başkasının kaydını kısmen güncelleyemez.,,İST-03;İST-04;İST-16
+SC-AUZ-003,AUTHORIZATION,DELETE,/api/articles/1/,user,403,negative,False,carol,1,,Sahip olmayan kullanıcı başkasının kaydını silemez.,,İST-03;İST-04;İST-16
+SC-AUZ-004,AUTHORIZATION,POST,/api/articles/2/publish/,user,403,negative,False,carol,2,,Sahip olmayan kullanıcı başkasının kaydını yayınlayamaz.,,İST-03;İST-04;İST-16
+SC-UPD-001,HTTP_BEHAVIOR,PUT,/api/articles/1/,owner,200,positive,False,alice,1,"{""title"": ""Örnek Başlık"", ""body"": ""örnek içerik""}",Sahip kendi kaydını tam günceller.,,İST-03;İST-04;İST-16
+SC-UPD-002,HTTP_BEHAVIOR,PUT,/api/articles/3/,admin,200,positive,False,admin,3,"{""title"": ""Örnek Başlık"", ""body"": ""örnek içerik""}",Yönetici herhangi bir kaydı tam günceller.,,İST-03;İST-04;İST-16
+SC-UPD-003,HTTP_BEHAVIOR,PATCH,/api/articles/1/,owner,200,positive,False,alice,1,"{""title"": ""Örnek Başlık""}",Sahip kendi kaydını kısmen günceller.,,İST-03;İST-04;İST-16
+SC-UPD-004,HTTP_BEHAVIOR,PATCH,/api/articles/3/,admin,200,positive,False,admin,3,"{""title"": ""Örnek Başlık""}",Yönetici herhangi bir kaydı kısmen günceller.,,İST-03;İST-04;İST-16
+SC-DEL-001,HTTP_BEHAVIOR,DELETE,/api/articles/1/,owner,204,positive,False,alice,1,,Sahip kendi kaydını siler (204).,,İST-03;İST-04;İST-16
+SC-DEL-002,HTTP_BEHAVIOR,DELETE,/api/articles/3/,admin,204,positive,False,admin,3,,Yönetici herhangi bir kaydı siler (204).,,İST-03;İST-04;İST-16
+SC-NF-001,HTTP_BEHAVIOR,PUT,/api/articles/999/,owner,404,negative,False,alice,999,"{""title"": ""Örnek Başlık"", ""body"": ""örnek içerik""}",Kimliği doğrulanmış kullanıcı mevcut olmayan kaydı güncelleyemez -> 404.,,İST-03;İST-04;İST-16
+SC-NF-002,HTTP_BEHAVIOR,DELETE,/api/articles/999/,owner,404,negative,False,alice,999,,Kimliği doğrulanmış kullanıcı mevcut olmayan kaydı silemez -> 404.,,İST-03;İST-04;İST-16
+SC-MNA-001,HTTP_BEHAVIOR,DELETE,/api/articles/,owner,405,negative,False,alice,,,Koleksiyon ucunda DELETE desteklenmez -> 405.,,İST-03;İST-04;İST-16
+SC-MNA-002,HTTP_BEHAVIOR,PUT,/api/articles/,owner,405,negative,False,alice,,"{""title"": ""Örnek Başlık""}",Koleksiyon ucunda PUT desteklenmez -> 405.,,İST-03;İST-04;İST-16
+SC-PUB-001,AUTHORIZATION,POST,/api/articles/2/publish/,owner,200,positive,False,alice,2,,Sahip kendi taslağını yayınlar (is_published=true).,,İST-03;İST-04;İST-16
+SC-FLW-001,AUTHORIZATION,PUT,/api/insecure/articles/1/,user,200,negative,True,carol,1,"{""title"": ""Örnek Başlık"", ""body"": ""örnek içerik""}",Güvensiz uç başkasının kaydını güncellemeye izin veriyor (gözlemlenen 200).,BOLA/IDOR (OWASP API1:2023): nesne düzeyi sahiplik kontrolü yok. Güvenli uçta beklenen 403.,İST-04;İST-16
+SC-FLW-002,AUTHORIZATION,DELETE,/api/insecure/articles/3/,user,204,negative,True,carol,3,,Güvensiz uç başkasının kaydını silmeye izin veriyor (gözlemlenen 204).,BOLA/IDOR: sahip olmayan kullanıcı silebiliyor. Güvenli uçta beklenen 403.,İST-04;İST-16
+SC-FLW-003,SECURITY_CONFIGURATION,GET,/api/insecure/articles/,anonymous,200,negative,True,,,,"Güvensiz liste taslak kayıtları da herkese döndürüyor (gözlemlenen 200, taslaklar dâhil).",AllowAny + filtrelemesiz queryset: hassas veri ifşası. Güvenli listede taslaklar gizlidir.,İST-04;İST-16

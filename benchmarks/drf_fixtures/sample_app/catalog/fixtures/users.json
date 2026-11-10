@@ -1,0 +1,58 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "username": "admin",
+      "password": "!",
+      "is_superuser": true,
+      "is_staff": true,
+      "is_active": true,
+      "first_name": "",
+      "last_name": "",
+      "email": "admin@example.test"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "username": "alice",
+      "password": "!",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "first_name": "",
+      "last_name": "",
+      "email": "alice@example.test"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "username": "bob",
+      "password": "!",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "first_name": "",
+      "last_name": "",
+      "email": "bob@example.test"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "username": "carol",
+      "password": "!",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "first_name": "",
+      "last_name": "",
+      "email": "carol@example.test"
+    }
+  }
+]
