@@ -1,0 +1,9 @@
+deger,gorunen_ad,senaryo_sayisi,yuzde,pozitif,negatif,beklenen_basari,beklenen_ret,bilerek_guvensiz,temsil_durumu
+200,200,13,34.2,11,2,11,0,2,Temsil ediliyor
+201,201,2,5.3,2,0,2,0,0,Düşük temsil (eşik %10)
+204,204,3,7.9,2,1,2,0,1,Düşük temsil (eşik %10)
+400,400,4,10.5,0,4,0,4,0,Temsil ediliyor
+401,401,5,13.2,0,5,0,5,0,Temsil ediliyor
+403,403,4,10.5,0,4,0,4,0,Temsil ediliyor
+404,404,5,13.2,0,5,0,5,0,Temsil ediliyor
+405,405,2,5.3,0,2,0,2,0,Düşük temsil (eşik %10)

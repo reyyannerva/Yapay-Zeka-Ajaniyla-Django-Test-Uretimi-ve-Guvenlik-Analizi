@@ -1,0 +1,4 @@
+senaryo_id,http_metodu,endpoint,view,kategori,user_role,fixture_kimligi,aktor_iliskisi,gozlemlenen_durum_kodu,label,flaw_explanation,guvenli_karsilik_idleri,guvenli_karsilik_durum_kodlari,aciklamadaki_guvenli_kod,aciklama_karsilik_uyumu
+SC-FLW-001,PUT,/api/insecure/articles/1/,catalog.insecure.InsecureArticleDetail,AUTHORIZATION,user,carol,sahip_olmayan,200,negative,BOLA/IDOR (OWASP API1:2023): nesne düzeyi sahiplik kontrolü yok. Güvenli uçta beklenen 403.,SC-AUZ-001,403,403,Uyumlu
+SC-FLW-002,DELETE,/api/insecure/articles/3/,catalog.insecure.InsecureArticleDetail,AUTHORIZATION,user,carol,sahip_olmayan,204,negative,BOLA/IDOR: sahip olmayan kullanıcı silebiliyor. Güvenli uçta beklenen 403.,SC-AUZ-003,403,403,Uyumlu
+SC-FLW-003,GET,/api/insecure/articles/,catalog.insecure.InsecureArticleList,SECURITY_CONFIGURATION,anonymous,,anonim,200,negative,AllowAny + filtrelemesiz queryset: hassas veri ifşası. Güvenli listede taslaklar gizlidir.,SC-LST-001,200,,Açıklamada kod yok

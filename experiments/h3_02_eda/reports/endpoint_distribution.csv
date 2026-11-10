@@ -1,0 +1,6 @@
+endpoint_turu,endpoint_turu_ad,endpoint_deseni,view,view_turu,senaryo_sayisi,yuzde,metotlar,somut_endpointler
+guvenli_koleksiyon,Güvenli koleksiyon,/api/articles/,catalog.views.ArticleViewSet,ViewSet,11,28.9,GET;POST;PUT;DELETE,/api/articles/
+guvenli_nesne,Güvenli nesne (detay),/api/articles/<pk>/,catalog.views.ArticleViewSet,ViewSet,21,55.3,GET;PUT;PATCH;DELETE,/api/articles/1/;/api/articles/2/;/api/articles/3/;/api/articles/999/
+guvenli_nesne_aksiyonu,Güvenli nesne aksiyonu,/api/articles/<int:pk>/publish/,catalog.views.ArticlePublishView,APIView,3,7.9,POST,/api/articles/2/publish/
+guvensiz_koleksiyon,Bilerek güvensiz koleksiyon,/api/insecure/articles/,catalog.insecure.InsecureArticleList,Generic APIView,1,2.6,GET,/api/insecure/articles/
+guvensiz_nesne,Bilerek güvensiz nesne (detay),/api/insecure/articles/<int:pk>/,catalog.insecure.InsecureArticleDetail,Generic APIView,2,5.3,PUT;DELETE,/api/insecure/articles/1/;/api/insecure/articles/3/

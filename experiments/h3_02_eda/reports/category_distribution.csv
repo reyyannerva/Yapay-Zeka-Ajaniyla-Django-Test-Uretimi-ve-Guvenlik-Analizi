@@ -1,0 +1,6 @@
+deger,gorunen_ad,senaryo_sayisi,yuzde,pozitif,negatif,beklenen_basari,beklenen_ret,bilerek_guvensiz,temsil_durumu
+AUTHENTICATION,Kimlik doğrulama,5,13.2,0,5,0,5,0,Temsil ediliyor
+AUTHORIZATION,Yetkilendirme,9,23.7,1,8,1,6,2,Temsil ediliyor
+INPUT_VALIDATION,Girdi doğrulama,4,10.5,0,4,0,4,0,Temsil ediliyor
+HTTP_BEHAVIOR,HTTP davranışı,19,50.0,14,5,14,5,0,Temsil ediliyor
+SECURITY_CONFIGURATION,Güvenlik yapılandırması,1,2.6,0,1,0,0,1,Düşük temsil (eşik %10)

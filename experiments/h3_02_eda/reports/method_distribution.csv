@@ -1,0 +1,6 @@
+deger,gorunen_ad,senaryo_sayisi,yuzde,pozitif,negatif,beklenen_basari,beklenen_ret,bilerek_guvensiz,temsil_durumu
+GET,GET,10,26.3,6,4,6,3,1,Temsil ediliyor
+POST,POST,9,23.7,3,6,3,6,0,Temsil ediliyor
+PUT,PUT,8,21.1,2,6,2,5,1,Temsil ediliyor
+PATCH,PATCH,4,10.5,2,2,2,2,0,Temsil ediliyor
+DELETE,DELETE,7,18.4,2,5,2,4,1,Temsil ediliyor
