@@ -1,0 +1,301 @@
+tablo,satir,sutun,senaryo_sayisi
+metot_x_kategori,GET,AUTHENTICATION,0
+metot_x_kategori,GET,AUTHORIZATION,2
+metot_x_kategori,GET,INPUT_VALIDATION,0
+metot_x_kategori,GET,HTTP_BEHAVIOR,7
+metot_x_kategori,GET,SECURITY_CONFIGURATION,1
+metot_x_kategori,POST,AUTHENTICATION,2
+metot_x_kategori,POST,AUTHORIZATION,2
+metot_x_kategori,POST,INPUT_VALIDATION,3
+metot_x_kategori,POST,HTTP_BEHAVIOR,2
+metot_x_kategori,POST,SECURITY_CONFIGURATION,0
+metot_x_kategori,PUT,AUTHENTICATION,1
+metot_x_kategori,PUT,AUTHORIZATION,2
+metot_x_kategori,PUT,INPUT_VALIDATION,1
+metot_x_kategori,PUT,HTTP_BEHAVIOR,4
+metot_x_kategori,PUT,SECURITY_CONFIGURATION,0
+metot_x_kategori,PATCH,AUTHENTICATION,1
+metot_x_kategori,PATCH,AUTHORIZATION,1
+metot_x_kategori,PATCH,INPUT_VALIDATION,0
+metot_x_kategori,PATCH,HTTP_BEHAVIOR,2
+metot_x_kategori,PATCH,SECURITY_CONFIGURATION,0
+metot_x_kategori,DELETE,AUTHENTICATION,1
+metot_x_kategori,DELETE,AUTHORIZATION,2
+metot_x_kategori,DELETE,INPUT_VALIDATION,0
+metot_x_kategori,DELETE,HTTP_BEHAVIOR,4
+metot_x_kategori,DELETE,SECURITY_CONFIGURATION,0
+metot_x_rol,GET,anonymous,5
+metot_x_rol,GET,user,2
+metot_x_rol,GET,owner,1
+metot_x_rol,GET,admin,2
+metot_x_rol,POST,anonymous,2
+metot_x_rol,POST,user,5
+metot_x_rol,POST,owner,2
+metot_x_rol,POST,admin,0
+metot_x_rol,PUT,anonymous,1
+metot_x_rol,PUT,user,2
+metot_x_rol,PUT,owner,4
+metot_x_rol,PUT,admin,1
+metot_x_rol,PATCH,anonymous,1
+metot_x_rol,PATCH,user,1
+metot_x_rol,PATCH,owner,1
+metot_x_rol,PATCH,admin,1
+metot_x_rol,DELETE,anonymous,1
+metot_x_rol,DELETE,user,2
+metot_x_rol,DELETE,owner,3
+metot_x_rol,DELETE,admin,1
+metot_x_aktor_iliskisi,GET,anonim,5
+metot_x_aktor_iliskisi,GET,kimligi_dogrulanmis,1
+metot_x_aktor_iliskisi,GET,kaynak_sahibi,1
+metot_x_aktor_iliskisi,GET,sahip_olmayan,1
+metot_x_aktor_iliskisi,GET,yonetici,2
+metot_x_aktor_iliskisi,GET,belirlenemez,0
+metot_x_aktor_iliskisi,POST,anonim,2
+metot_x_aktor_iliskisi,POST,kimligi_dogrulanmis,5
+metot_x_aktor_iliskisi,POST,kaynak_sahibi,1
+metot_x_aktor_iliskisi,POST,sahip_olmayan,1
+metot_x_aktor_iliskisi,POST,yonetici,0
+metot_x_aktor_iliskisi,POST,belirlenemez,0
+metot_x_aktor_iliskisi,PUT,anonim,1
+metot_x_aktor_iliskisi,PUT,kimligi_dogrulanmis,1
+metot_x_aktor_iliskisi,PUT,kaynak_sahibi,2
+metot_x_aktor_iliskisi,PUT,sahip_olmayan,2
+metot_x_aktor_iliskisi,PUT,yonetici,1
+metot_x_aktor_iliskisi,PUT,belirlenemez,1
+metot_x_aktor_iliskisi,PATCH,anonim,1
+metot_x_aktor_iliskisi,PATCH,kimligi_dogrulanmis,0
+metot_x_aktor_iliskisi,PATCH,kaynak_sahibi,1
+metot_x_aktor_iliskisi,PATCH,sahip_olmayan,1
+metot_x_aktor_iliskisi,PATCH,yonetici,1
+metot_x_aktor_iliskisi,PATCH,belirlenemez,0
+metot_x_aktor_iliskisi,DELETE,anonim,1
+metot_x_aktor_iliskisi,DELETE,kimligi_dogrulanmis,1
+metot_x_aktor_iliskisi,DELETE,kaynak_sahibi,1
+metot_x_aktor_iliskisi,DELETE,sahip_olmayan,2
+metot_x_aktor_iliskisi,DELETE,yonetici,1
+metot_x_aktor_iliskisi,DELETE,belirlenemez,1
+metot_x_durum_kodu,GET,200,7
+metot_x_durum_kodu,GET,201,0
+metot_x_durum_kodu,GET,204,0
+metot_x_durum_kodu,GET,400,0
+metot_x_durum_kodu,GET,401,0
+metot_x_durum_kodu,GET,403,0
+metot_x_durum_kodu,GET,404,3
+metot_x_durum_kodu,GET,405,0
+metot_x_durum_kodu,POST,200,1
+metot_x_durum_kodu,POST,201,2
+metot_x_durum_kodu,POST,204,0
+metot_x_durum_kodu,POST,400,3
+metot_x_durum_kodu,POST,401,2
+metot_x_durum_kodu,POST,403,1
+metot_x_durum_kodu,POST,404,0
+metot_x_durum_kodu,POST,405,0
+metot_x_durum_kodu,PUT,200,3
+metot_x_durum_kodu,PUT,201,0
+metot_x_durum_kodu,PUT,204,0
+metot_x_durum_kodu,PUT,400,1
+metot_x_durum_kodu,PUT,401,1
+metot_x_durum_kodu,PUT,403,1
+metot_x_durum_kodu,PUT,404,1
+metot_x_durum_kodu,PUT,405,1
+metot_x_durum_kodu,PATCH,200,2
+metot_x_durum_kodu,PATCH,201,0
+metot_x_durum_kodu,PATCH,204,0
+metot_x_durum_kodu,PATCH,400,0
+metot_x_durum_kodu,PATCH,401,1
+metot_x_durum_kodu,PATCH,403,1
+metot_x_durum_kodu,PATCH,404,0
+metot_x_durum_kodu,PATCH,405,0
+metot_x_durum_kodu,DELETE,200,0
+metot_x_durum_kodu,DELETE,201,0
+metot_x_durum_kodu,DELETE,204,3
+metot_x_durum_kodu,DELETE,400,0
+metot_x_durum_kodu,DELETE,401,1
+metot_x_durum_kodu,DELETE,403,1
+metot_x_durum_kodu,DELETE,404,1
+metot_x_durum_kodu,DELETE,405,1
+metot_x_beklenti_sinifi,GET,Beklenen başarı,6
+metot_x_beklenti_sinifi,GET,Beklenen ret,3
+metot_x_beklenti_sinifi,GET,Bilerek güvensiz davranış,1
+metot_x_beklenti_sinifi,GET,Tutarsız / doğrulanamayan,0
+metot_x_beklenti_sinifi,POST,Beklenen başarı,3
+metot_x_beklenti_sinifi,POST,Beklenen ret,6
+metot_x_beklenti_sinifi,POST,Bilerek güvensiz davranış,0
+metot_x_beklenti_sinifi,POST,Tutarsız / doğrulanamayan,0
+metot_x_beklenti_sinifi,PUT,Beklenen başarı,2
+metot_x_beklenti_sinifi,PUT,Beklenen ret,5
+metot_x_beklenti_sinifi,PUT,Bilerek güvensiz davranış,1
+metot_x_beklenti_sinifi,PUT,Tutarsız / doğrulanamayan,0
+metot_x_beklenti_sinifi,PATCH,Beklenen başarı,2
+metot_x_beklenti_sinifi,PATCH,Beklenen ret,2
+metot_x_beklenti_sinifi,PATCH,Bilerek güvensiz davranış,0
+metot_x_beklenti_sinifi,PATCH,Tutarsız / doğrulanamayan,0
+metot_x_beklenti_sinifi,DELETE,Beklenen başarı,2
+metot_x_beklenti_sinifi,DELETE,Beklenen ret,4
+metot_x_beklenti_sinifi,DELETE,Bilerek güvensiz davranış,1
+metot_x_beklenti_sinifi,DELETE,Tutarsız / doğrulanamayan,0
+metot_x_endpoint_turu,GET,guvenli_koleksiyon,3
+metot_x_endpoint_turu,GET,guvenli_nesne,6
+metot_x_endpoint_turu,GET,guvenli_nesne_aksiyonu,0
+metot_x_endpoint_turu,GET,guvensiz_koleksiyon,1
+metot_x_endpoint_turu,GET,guvensiz_nesne,0
+metot_x_endpoint_turu,POST,guvenli_koleksiyon,6
+metot_x_endpoint_turu,POST,guvenli_nesne,0
+metot_x_endpoint_turu,POST,guvenli_nesne_aksiyonu,3
+metot_x_endpoint_turu,POST,guvensiz_koleksiyon,0
+metot_x_endpoint_turu,POST,guvensiz_nesne,0
+metot_x_endpoint_turu,PUT,guvenli_koleksiyon,1
+metot_x_endpoint_turu,PUT,guvenli_nesne,6
+metot_x_endpoint_turu,PUT,guvenli_nesne_aksiyonu,0
+metot_x_endpoint_turu,PUT,guvensiz_koleksiyon,0
+metot_x_endpoint_turu,PUT,guvensiz_nesne,1
+metot_x_endpoint_turu,PATCH,guvenli_koleksiyon,0
+metot_x_endpoint_turu,PATCH,guvenli_nesne,4
+metot_x_endpoint_turu,PATCH,guvenli_nesne_aksiyonu,0
+metot_x_endpoint_turu,PATCH,guvensiz_koleksiyon,0
+metot_x_endpoint_turu,PATCH,guvensiz_nesne,0
+metot_x_endpoint_turu,DELETE,guvenli_koleksiyon,1
+metot_x_endpoint_turu,DELETE,guvenli_nesne,5
+metot_x_endpoint_turu,DELETE,guvenli_nesne_aksiyonu,0
+metot_x_endpoint_turu,DELETE,guvensiz_koleksiyon,0
+metot_x_endpoint_turu,DELETE,guvensiz_nesne,1
+kategori_x_beklenti_sinifi,AUTHENTICATION,Beklenen başarı,0
+kategori_x_beklenti_sinifi,AUTHENTICATION,Beklenen ret,5
+kategori_x_beklenti_sinifi,AUTHENTICATION,Bilerek güvensiz davranış,0
+kategori_x_beklenti_sinifi,AUTHENTICATION,Tutarsız / doğrulanamayan,0
+kategori_x_beklenti_sinifi,AUTHORIZATION,Beklenen başarı,1
+kategori_x_beklenti_sinifi,AUTHORIZATION,Beklenen ret,6
+kategori_x_beklenti_sinifi,AUTHORIZATION,Bilerek güvensiz davranış,2
+kategori_x_beklenti_sinifi,AUTHORIZATION,Tutarsız / doğrulanamayan,0
+kategori_x_beklenti_sinifi,INPUT_VALIDATION,Beklenen başarı,0
+kategori_x_beklenti_sinifi,INPUT_VALIDATION,Beklenen ret,4
+kategori_x_beklenti_sinifi,INPUT_VALIDATION,Bilerek güvensiz davranış,0
+kategori_x_beklenti_sinifi,INPUT_VALIDATION,Tutarsız / doğrulanamayan,0
+kategori_x_beklenti_sinifi,HTTP_BEHAVIOR,Beklenen başarı,14
+kategori_x_beklenti_sinifi,HTTP_BEHAVIOR,Beklenen ret,5
+kategori_x_beklenti_sinifi,HTTP_BEHAVIOR,Bilerek güvensiz davranış,0
+kategori_x_beklenti_sinifi,HTTP_BEHAVIOR,Tutarsız / doğrulanamayan,0
+kategori_x_beklenti_sinifi,SECURITY_CONFIGURATION,Beklenen başarı,0
+kategori_x_beklenti_sinifi,SECURITY_CONFIGURATION,Beklenen ret,0
+kategori_x_beklenti_sinifi,SECURITY_CONFIGURATION,Bilerek güvensiz davranış,1
+kategori_x_beklenti_sinifi,SECURITY_CONFIGURATION,Tutarsız / doğrulanamayan,0
+durum_kodu_x_rol,200,anonymous,3
+durum_kodu_x_rol,200,user,2
+durum_kodu_x_rol,200,owner,4
+durum_kodu_x_rol,200,admin,4
+durum_kodu_x_rol,201,anonymous,0
+durum_kodu_x_rol,201,user,1
+durum_kodu_x_rol,201,owner,1
+durum_kodu_x_rol,201,admin,0
+durum_kodu_x_rol,204,anonymous,0
+durum_kodu_x_rol,204,user,1
+durum_kodu_x_rol,204,owner,1
+durum_kodu_x_rol,204,admin,1
+durum_kodu_x_rol,400,anonymous,0
+durum_kodu_x_rol,400,user,3
+durum_kodu_x_rol,400,owner,1
+durum_kodu_x_rol,400,admin,0
+durum_kodu_x_rol,401,anonymous,5
+durum_kodu_x_rol,401,user,0
+durum_kodu_x_rol,401,owner,0
+durum_kodu_x_rol,401,admin,0
+durum_kodu_x_rol,403,anonymous,0
+durum_kodu_x_rol,403,user,4
+durum_kodu_x_rol,403,owner,0
+durum_kodu_x_rol,403,admin,0
+durum_kodu_x_rol,404,anonymous,2
+durum_kodu_x_rol,404,user,1
+durum_kodu_x_rol,404,owner,2
+durum_kodu_x_rol,404,admin,0
+durum_kodu_x_rol,405,anonymous,0
+durum_kodu_x_rol,405,user,0
+durum_kodu_x_rol,405,owner,2
+durum_kodu_x_rol,405,admin,0
+durum_kodu_x_kategori,200,AUTHENTICATION,0
+durum_kodu_x_kategori,200,AUTHORIZATION,2
+durum_kodu_x_kategori,200,INPUT_VALIDATION,0
+durum_kodu_x_kategori,200,HTTP_BEHAVIOR,10
+durum_kodu_x_kategori,200,SECURITY_CONFIGURATION,1
+durum_kodu_x_kategori,201,AUTHENTICATION,0
+durum_kodu_x_kategori,201,AUTHORIZATION,0
+durum_kodu_x_kategori,201,INPUT_VALIDATION,0
+durum_kodu_x_kategori,201,HTTP_BEHAVIOR,2
+durum_kodu_x_kategori,201,SECURITY_CONFIGURATION,0
+durum_kodu_x_kategori,204,AUTHENTICATION,0
+durum_kodu_x_kategori,204,AUTHORIZATION,1
+durum_kodu_x_kategori,204,INPUT_VALIDATION,0
+durum_kodu_x_kategori,204,HTTP_BEHAVIOR,2
+durum_kodu_x_kategori,204,SECURITY_CONFIGURATION,0
+durum_kodu_x_kategori,400,AUTHENTICATION,0
+durum_kodu_x_kategori,400,AUTHORIZATION,0
+durum_kodu_x_kategori,400,INPUT_VALIDATION,4
+durum_kodu_x_kategori,400,HTTP_BEHAVIOR,0
+durum_kodu_x_kategori,400,SECURITY_CONFIGURATION,0
+durum_kodu_x_kategori,401,AUTHENTICATION,5
+durum_kodu_x_kategori,401,AUTHORIZATION,0
+durum_kodu_x_kategori,401,INPUT_VALIDATION,0
+durum_kodu_x_kategori,401,HTTP_BEHAVIOR,0
+durum_kodu_x_kategori,401,SECURITY_CONFIGURATION,0
+durum_kodu_x_kategori,403,AUTHENTICATION,0
+durum_kodu_x_kategori,403,AUTHORIZATION,4
+durum_kodu_x_kategori,403,INPUT_VALIDATION,0
+durum_kodu_x_kategori,403,HTTP_BEHAVIOR,0
+durum_kodu_x_kategori,403,SECURITY_CONFIGURATION,0
+durum_kodu_x_kategori,404,AUTHENTICATION,0
+durum_kodu_x_kategori,404,AUTHORIZATION,2
+durum_kodu_x_kategori,404,INPUT_VALIDATION,0
+durum_kodu_x_kategori,404,HTTP_BEHAVIOR,3
+durum_kodu_x_kategori,404,SECURITY_CONFIGURATION,0
+durum_kodu_x_kategori,405,AUTHENTICATION,0
+durum_kodu_x_kategori,405,AUTHORIZATION,0
+durum_kodu_x_kategori,405,INPUT_VALIDATION,0
+durum_kodu_x_kategori,405,HTTP_BEHAVIOR,2
+durum_kodu_x_kategori,405,SECURITY_CONFIGURATION,0
+durum_kodu_x_aktor_iliskisi,200,anonim,3
+durum_kodu_x_aktor_iliskisi,200,kimligi_dogrulanmis,1
+durum_kodu_x_aktor_iliskisi,200,kaynak_sahibi,4
+durum_kodu_x_aktor_iliskisi,200,sahip_olmayan,1
+durum_kodu_x_aktor_iliskisi,200,yonetici,4
+durum_kodu_x_aktor_iliskisi,200,belirlenemez,0
+durum_kodu_x_aktor_iliskisi,201,anonim,0
+durum_kodu_x_aktor_iliskisi,201,kimligi_dogrulanmis,2
+durum_kodu_x_aktor_iliskisi,201,kaynak_sahibi,0
+durum_kodu_x_aktor_iliskisi,201,sahip_olmayan,0
+durum_kodu_x_aktor_iliskisi,201,yonetici,0
+durum_kodu_x_aktor_iliskisi,201,belirlenemez,0
+durum_kodu_x_aktor_iliskisi,204,anonim,0
+durum_kodu_x_aktor_iliskisi,204,kimligi_dogrulanmis,0
+durum_kodu_x_aktor_iliskisi,204,kaynak_sahibi,1
+durum_kodu_x_aktor_iliskisi,204,sahip_olmayan,1
+durum_kodu_x_aktor_iliskisi,204,yonetici,1
+durum_kodu_x_aktor_iliskisi,204,belirlenemez,0
+durum_kodu_x_aktor_iliskisi,400,anonim,0
+durum_kodu_x_aktor_iliskisi,400,kimligi_dogrulanmis,3
+durum_kodu_x_aktor_iliskisi,400,kaynak_sahibi,1
+durum_kodu_x_aktor_iliskisi,400,sahip_olmayan,0
+durum_kodu_x_aktor_iliskisi,400,yonetici,0
+durum_kodu_x_aktor_iliskisi,400,belirlenemez,0
+durum_kodu_x_aktor_iliskisi,401,anonim,5
+durum_kodu_x_aktor_iliskisi,401,kimligi_dogrulanmis,0
+durum_kodu_x_aktor_iliskisi,401,kaynak_sahibi,0
+durum_kodu_x_aktor_iliskisi,401,sahip_olmayan,0
+durum_kodu_x_aktor_iliskisi,401,yonetici,0
+durum_kodu_x_aktor_iliskisi,401,belirlenemez,0
+durum_kodu_x_aktor_iliskisi,403,anonim,0
+durum_kodu_x_aktor_iliskisi,403,kimligi_dogrulanmis,0
+durum_kodu_x_aktor_iliskisi,403,kaynak_sahibi,0
+durum_kodu_x_aktor_iliskisi,403,sahip_olmayan,4
+durum_kodu_x_aktor_iliskisi,403,yonetici,0
+durum_kodu_x_aktor_iliskisi,403,belirlenemez,0
+durum_kodu_x_aktor_iliskisi,404,anonim,2
+durum_kodu_x_aktor_iliskisi,404,kimligi_dogrulanmis,0
+durum_kodu_x_aktor_iliskisi,404,kaynak_sahibi,0
+durum_kodu_x_aktor_iliskisi,404,sahip_olmayan,1
+durum_kodu_x_aktor_iliskisi,404,yonetici,0
+durum_kodu_x_aktor_iliskisi,404,belirlenemez,2
+durum_kodu_x_aktor_iliskisi,405,anonim,0
+durum_kodu_x_aktor_iliskisi,405,kimligi_dogrulanmis,2
+durum_kodu_x_aktor_iliskisi,405,kaynak_sahibi,0
+durum_kodu_x_aktor_iliskisi,405,sahip_olmayan,0
+durum_kodu_x_aktor_iliskisi,405,yonetici,0
+durum_kodu_x_aktor_iliskisi,405,belirlenemez,0

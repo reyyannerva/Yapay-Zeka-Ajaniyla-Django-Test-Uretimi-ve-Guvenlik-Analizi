@@ -1,0 +1,10 @@
+kontrol,kontrol_katmani,durum,incelenen_kayit,bulgu_sayisi
+JSON Schema doğrulaması (Draft 2020-12),JSON Schema,Çalıştırıldı,38,0
+"Eksik/null zorunlu alan, boş metin, geçersiz enum/tip, kimlik biçimi, hata açıklaması",Semantik,Çalıştırıldı,38,0
+Yinelenen senaryo kimliği,Semantik,Çalıştırıldı,38,0
+Aynı isteği tanımlayan yinelenen içerik,Semantik,Çalıştırıldı,38,0
+Pozitif/negatif etiket – durum kodu – bilerek-hata tutarlılığı,Semantik,Çalıştırıldı,38,0
+"Fixture kullanıcı/makale, rol semantiği, endpoint çözümleme, güvensiz uç işareti",Referans bütünlüğü (statik),Çalıştırıldı,38,5
+View metot desteği ile 405 beklentisi,Django URL çözümlemesi,Çalıştırıldı,38,0
+Durum kodu makullüğü (proje-özgü sezgisel kurallar),Durum kodu incelemesi (sezgisel),Çalıştırıldı,38,0
+Türetilmiş CSV ↔ kanonik JSON hücre karşılaştırması,JSON/CSV tutarlılığı,Çalıştırıldı,38,0

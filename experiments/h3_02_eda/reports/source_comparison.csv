@@ -1,0 +1,3 @@
+kaynak,depo_konumu,veri_kumesi,senaryo_kaydi,http_metodu,kategori,pozitif,negatif,bilerek_hatali,degerlendirme_hazirligi
+Kontrollü Django/DRF fixture,benchmarks/drf_fixtures/scenarios/scenarios.json,h3-01-drf-controlled v1.0.0,38,5,5,15,23,3,"Etiketli, şema ile doğrulanmış; H3-01 senaryo↔uygulama testleriyle eşlenmiş."
+PyGoat,benchmarks/pygoat/,—,0,,,,,,Etiketli senaryo kaydı yok; dizinde yalnızca inceleme/planlama notu var (README.md). Nicel karşılaştırma yapılamaz; sürüm sabitleme ve ground truth H3-03'e bırakılmış.

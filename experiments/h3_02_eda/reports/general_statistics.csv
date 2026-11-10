@@ -1,0 +1,18 @@
+metrik,deger
+Veri kümesi,h3-01-drf-controlled v1.0.0
+Toplam senaryo,38
+Benzersiz senaryo kimliği,38
+Yinelenen kimlik (birden fazla kullanılan kimlik sayısı),0
+Pozitif senaryo,15 (%39.5)
+Negatif senaryo,23 (%60.5)
+Negatif/pozitif oranı,1.53
+Azınlık sınıf payı,%39.5
+Bilerek-hatalı (is_intentional_flaw) senaryo,3
+Temsil edilen kategori / şemada tanımlı,5 / 5
+"Temsil edilen HTTP metodu / kapsam (GET, POST, PUT, PATCH, DELETE)",5 / 5
+Temsil edilen user_role / şemada tanımlı,4 / 4
+Farklı fixture kimliği (istek yapan),3
+Temsil edilen durum kodu / şemada tanımlı,8 / 8
+Farklı endpoint türü,5
+Farklı endpoint deseni (rota),5
+Farklı somut endpoint,9

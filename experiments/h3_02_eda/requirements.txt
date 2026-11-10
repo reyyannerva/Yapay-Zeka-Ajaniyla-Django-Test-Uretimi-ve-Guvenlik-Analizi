@@ -1,0 +1,16 @@
+# H3-02 / Issue #28 — EDA notebook ve veri kalitesi analizi bağımlılıkları
+# Analiz
+pandas>=2.0
+numpy>=1.24
+matplotlib>=3.7
+jsonschema>=4.0
+# Notebook çalıştırma
+nbformat>=5.9
+nbclient>=0.9
+nbconvert>=7.0
+ipykernel>=6.0
+# İsteğe bağlı Django URL çözümlemesi (H3-01 hedef uygulamasıyla aynı aralık)
+Django>=5.1,<5.3
+djangorestframework>=3.15
+# Testler
+pytest>=8.0
