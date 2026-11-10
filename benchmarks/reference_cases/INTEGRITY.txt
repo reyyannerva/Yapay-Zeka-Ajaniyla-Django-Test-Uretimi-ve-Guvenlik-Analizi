@@ -1,0 +1,3 @@
+# H3-03 bütünlük özetleri (sabitleme). check_references.py bunları doğrular.
+test_set.json 075d141d1d0bac42538c7556e52785fff1ae54fb618f0c720c5deb34b50f2dd6
+ground_truth.json 3d271f96de554e78f8e49ecdb21df1e7d7bd105159575115d69486ec4d1678bb

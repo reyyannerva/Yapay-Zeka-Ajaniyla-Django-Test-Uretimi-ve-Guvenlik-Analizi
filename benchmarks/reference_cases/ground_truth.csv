@@ -1,0 +1,39 @@
+scenario_id,split,http_method,user_role,secure_status,label,reference_source,validation_status,is_known_flaw,finding_type,deviation_kind,observed_flawed_status,expected_behavior
+SC-AUT-001,dev,POST,anonymous,401,negative,DRF_SEMANTICS,verified,False,,,,Anonim kullanıcı kayıt oluşturamaz (kimlik doğrulama gerekli).
+SC-AUT-002,test,PUT,anonymous,401,negative,DRF_SEMANTICS,verified,False,,,,Anonim kullanıcı güncelleme yapamaz.
+SC-AUT-003,test,PATCH,anonymous,401,negative,DRF_SEMANTICS,verified,False,,,,Anonim kullanıcı kısmi güncelleme yapamaz.
+SC-AUT-004,test,DELETE,anonymous,401,negative,DRF_SEMANTICS,verified,False,,,,Anonim kullanıcı silme yapamaz.
+SC-AUT-005,dev,POST,anonymous,401,negative,DRF_SEMANTICS,verified,False,,,,Anonim kullanıcı yayınlama yapamaz.
+SC-AUZ-001,test,PUT,user,403,negative,DRF_SEMANTICS,verified,False,,,,Sahip olmayan kullanıcı başkasının kaydını güncelleyemez.
+SC-AUZ-002,test,PATCH,user,403,negative,DRF_SEMANTICS,verified,False,,,,Sahip olmayan kullanıcı başkasının kaydını kısmen güncelleyemez.
+SC-AUZ-003,test,DELETE,user,403,negative,DRF_SEMANTICS,verified,False,,,,Sahip olmayan kullanıcı başkasının kaydını silemez.
+SC-AUZ-004,dev,POST,user,403,negative,DRF_SEMANTICS,verified,False,,,,Sahip olmayan kullanıcı başkasının kaydını yayınlayamaz.
+SC-CRT-001,dev,POST,user,201,positive,DRF_SEMANTICS,verified,False,,,,Kimliği doğrulanmış kullanıcı geçerli girdiyle kayıt oluşturur; owner isteği yapan olur.
+SC-CRT-002,dev,POST,owner,201,positive,DRF_SEMANTICS,verified,False,,,,Kullanıcı kendi adına kayıt oluşturur.
+SC-DEL-001,test,DELETE,owner,204,positive,DRF_SEMANTICS,verified,False,,,,Sahip kendi kaydını siler (204).
+SC-DEL-002,test,DELETE,admin,204,positive,DRF_SEMANTICS,verified,False,,,,Yönetici herhangi bir kaydı siler (204).
+SC-FLW-001,test,PUT,user,403,negative,PROJECT_REQUIREMENT,verified,True,"Broken Object Level Authorization (BOLA/IDOR, OWASP API1:2023)",status,200,Sahip olmayan kullanıcı başkasının kaydını güncelleyememeli (403).
+SC-FLW-002,test,DELETE,user,403,negative,PROJECT_REQUIREMENT,verified,True,"Broken Object Level Authorization (BOLA/IDOR, OWASP API1:2023)",status,204,Sahip olmayan kullanıcı başkasının kaydını silememeli (403).
+SC-FLW-003,test,GET,anonymous,200,positive,PROJECT_REQUIREMENT,verified,True,Hassas veri ifşası / bozuk fonksiyon düzeyi yetkilendirme,content,200,Liste 200 döner ancak yalnızca yayınlananları; taslaklar gizlenmeli.
+SC-INP-001,dev,POST,user,400,negative,DRF_SEMANTICS,verified,False,,,,Zorunlu 'title' alanı eksik -> 400.
+SC-INP-002,dev,POST,user,400,negative,DRF_SEMANTICS,verified,False,,,,Yalnızca boşluktan oluşan başlık -> 400.
+SC-INP-003,test,PUT,owner,400,negative,DRF_SEMANTICS,verified,False,,,,PUT'ta zorunlu 'title' eksik -> 400.
+SC-INP-004,dev,POST,user,400,negative,DRF_SEMANTICS,verified,False,,,,Başlık max_length=200 sınırını aşıyor (201 karakter) -> 400.
+SC-LST-001,dev,GET,anonymous,200,positive,DRF_SEMANTICS,verified,False,,,,Anonim kullanıcı listeyi görür; yalnızca yayınlanan kayıtlar döner.
+SC-LST-002,dev,GET,user,200,positive,DRF_SEMANTICS,verified,False,,,,Kimliği doğrulanmış kullanıcı listeyi görür (yayınlananlar + kendi kayıtları).
+SC-LST-003,dev,GET,admin,200,positive,DRF_SEMANTICS,verified,False,,,,Yönetici tüm kayıtları listeler.
+SC-MNA-001,dev,DELETE,owner,405,negative,DRF_SEMANTICS,verified,False,,,,Koleksiyon ucunda DELETE desteklenmez -> 405.
+SC-MNA-002,dev,PUT,owner,405,negative,DRF_SEMANTICS,verified,False,,,,Koleksiyon ucunda PUT desteklenmez -> 405.
+SC-NF-001,test,PUT,owner,404,negative,DRF_SEMANTICS,verified,False,,,,Kimliği doğrulanmış kullanıcı mevcut olmayan kaydı güncelleyemez -> 404.
+SC-NF-002,test,DELETE,owner,404,negative,DRF_SEMANTICS,verified,False,,,,Kimliği doğrulanmış kullanıcı mevcut olmayan kaydı silemez -> 404.
+SC-PUB-001,dev,POST,owner,200,positive,DRF_SEMANTICS,verified,False,,,,Sahip kendi taslağını yayınlar (is_published=true).
+SC-RET-001,dev,GET,anonymous,200,positive,DRF_SEMANTICS,verified,False,,,,Yayınlanmış kayıt anonim kullanıcıya görünür.
+SC-RET-002,dev,GET,anonymous,404,negative,FIXTURE_DESIGN,verified,False,,,,Taslak kayıt anonim kullanıcıya görünmez (queryset dışı -> 404).
+SC-RET-003,dev,GET,owner,200,positive,DRF_SEMANTICS,verified,False,,,,Sahip kendi taslağını görüntüleyebilir.
+SC-RET-004,dev,GET,admin,200,positive,DRF_SEMANTICS,verified,False,,,,Yönetici herhangi bir taslağı görüntüleyebilir.
+SC-RET-005,dev,GET,user,404,negative,FIXTURE_DESIGN,verified,False,,,,Başkasının taslağı kullanıcıya görünmez (queryset dışı -> 404).
+SC-RET-006,dev,GET,anonymous,404,negative,DRF_SEMANTICS,verified,False,,,,Mevcut olmayan kaynak 404 döner.
+SC-UPD-001,test,PUT,owner,200,positive,DRF_SEMANTICS,verified,False,,,,Sahip kendi kaydını tam günceller.
+SC-UPD-002,test,PUT,admin,200,positive,DRF_SEMANTICS,verified,False,,,,Yönetici herhangi bir kaydı tam günceller.
+SC-UPD-003,test,PATCH,owner,200,positive,DRF_SEMANTICS,verified,False,,,,Sahip kendi kaydını kısmen günceller.
+SC-UPD-004,test,PATCH,admin,200,positive,DRF_SEMANTICS,verified,False,,,,Yönetici herhangi bir kaydı kısmen günceller.

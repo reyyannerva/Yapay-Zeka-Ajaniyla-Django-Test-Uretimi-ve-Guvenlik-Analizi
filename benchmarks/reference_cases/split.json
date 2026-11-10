@@ -1,0 +1,129 @@
+{
+  "version": "1.0.0",
+  "source_scenarios": "benchmarks/drf_fixtures/scenarios/scenarios.json",
+  "method": "Aile (family) bazlı; aileler bölünmez (sızıntı önlemi).",
+  "families": {
+    "F-LIST": {
+      "split": "dev",
+      "scenario_ids": [
+        "SC-LST-001",
+        "SC-LST-002",
+        "SC-LST-003"
+      ]
+    },
+    "F-RETRIEVE": {
+      "split": "dev",
+      "scenario_ids": [
+        "SC-RET-001",
+        "SC-RET-002",
+        "SC-RET-003",
+        "SC-RET-004",
+        "SC-RET-005",
+        "SC-RET-006"
+      ]
+    },
+    "F-CREATE": {
+      "split": "dev",
+      "scenario_ids": [
+        "SC-AUT-001",
+        "SC-CRT-001",
+        "SC-CRT-002",
+        "SC-INP-001",
+        "SC-INP-002",
+        "SC-INP-004"
+      ]
+    },
+    "F-UPDATE": {
+      "split": "test",
+      "scenario_ids": [
+        "SC-AUT-002",
+        "SC-AUT-003",
+        "SC-AUZ-001",
+        "SC-AUZ-002",
+        "SC-INP-003",
+        "SC-NF-001",
+        "SC-UPD-001",
+        "SC-UPD-002",
+        "SC-UPD-003",
+        "SC-UPD-004"
+      ]
+    },
+    "F-DELETE": {
+      "split": "test",
+      "scenario_ids": [
+        "SC-AUT-004",
+        "SC-AUZ-003",
+        "SC-DEL-001",
+        "SC-DEL-002",
+        "SC-NF-002"
+      ]
+    },
+    "F-PUBLISH": {
+      "split": "dev",
+      "scenario_ids": [
+        "SC-AUT-005",
+        "SC-AUZ-004",
+        "SC-PUB-001"
+      ]
+    },
+    "F-METHOD": {
+      "split": "dev",
+      "scenario_ids": [
+        "SC-MNA-001",
+        "SC-MNA-002"
+      ]
+    },
+    "F-FLAW": {
+      "split": "test",
+      "scenario_ids": [
+        "SC-FLW-001",
+        "SC-FLW-002",
+        "SC-FLW-003"
+      ]
+    }
+  },
+  "scenario_split": {
+    "SC-AUT-001": "dev",
+    "SC-AUT-002": "test",
+    "SC-AUT-003": "test",
+    "SC-AUT-004": "test",
+    "SC-AUT-005": "dev",
+    "SC-AUZ-001": "test",
+    "SC-AUZ-002": "test",
+    "SC-AUZ-003": "test",
+    "SC-AUZ-004": "dev",
+    "SC-CRT-001": "dev",
+    "SC-CRT-002": "dev",
+    "SC-DEL-001": "test",
+    "SC-DEL-002": "test",
+    "SC-FLW-001": "test",
+    "SC-FLW-002": "test",
+    "SC-FLW-003": "test",
+    "SC-INP-001": "dev",
+    "SC-INP-002": "dev",
+    "SC-INP-003": "test",
+    "SC-INP-004": "dev",
+    "SC-LST-001": "dev",
+    "SC-LST-002": "dev",
+    "SC-LST-003": "dev",
+    "SC-MNA-001": "dev",
+    "SC-MNA-002": "dev",
+    "SC-NF-001": "test",
+    "SC-NF-002": "test",
+    "SC-PUB-001": "dev",
+    "SC-RET-001": "dev",
+    "SC-RET-002": "dev",
+    "SC-RET-003": "dev",
+    "SC-RET-004": "dev",
+    "SC-RET-005": "dev",
+    "SC-RET-006": "dev",
+    "SC-UPD-001": "test",
+    "SC-UPD-002": "test",
+    "SC-UPD-003": "test",
+    "SC-UPD-004": "test"
+  },
+  "counts": {
+    "dev": 20,
+    "test": 18
+  }
+}

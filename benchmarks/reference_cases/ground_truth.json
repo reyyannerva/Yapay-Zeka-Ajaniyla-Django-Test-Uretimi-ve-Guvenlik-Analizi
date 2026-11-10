@@ -1,0 +1,527 @@
+{
+  "dataset_ref": "h3-01-drf-controlled v1.0.0",
+  "version": "1.0.0",
+  "generated_for": "#29 / H3-03",
+  "source_scenarios": "benchmarks/drf_fixtures/scenarios/scenarios.json",
+  "label_meaning": "positive = güvenli davranışta izin verilir (2xx); negative = engellenir (4xx).",
+  "records": [
+    {
+      "scenario_id": "SC-AUT-001",
+      "http_method": "POST",
+      "user_role": "anonymous",
+      "expected_result": {
+        "secure_status": 401,
+        "behavior": "Anonim kullanıcı kayıt oluşturamaz (kimlik doğrulama gerekli)."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-AUT-002",
+      "http_method": "PUT",
+      "user_role": "anonymous",
+      "expected_result": {
+        "secure_status": 401,
+        "behavior": "Anonim kullanıcı güncelleme yapamaz."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-AUT-003",
+      "http_method": "PATCH",
+      "user_role": "anonymous",
+      "expected_result": {
+        "secure_status": 401,
+        "behavior": "Anonim kullanıcı kısmi güncelleme yapamaz."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-AUT-004",
+      "http_method": "DELETE",
+      "user_role": "anonymous",
+      "expected_result": {
+        "secure_status": 401,
+        "behavior": "Anonim kullanıcı silme yapamaz."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-AUT-005",
+      "http_method": "POST",
+      "user_role": "anonymous",
+      "expected_result": {
+        "secure_status": 401,
+        "behavior": "Anonim kullanıcı yayınlama yapamaz."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-AUZ-001",
+      "http_method": "PUT",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 403,
+        "behavior": "Sahip olmayan kullanıcı başkasının kaydını güncelleyemez."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-AUZ-002",
+      "http_method": "PATCH",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 403,
+        "behavior": "Sahip olmayan kullanıcı başkasının kaydını kısmen güncelleyemez."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-AUZ-003",
+      "http_method": "DELETE",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 403,
+        "behavior": "Sahip olmayan kullanıcı başkasının kaydını silemez."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-AUZ-004",
+      "http_method": "POST",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 403,
+        "behavior": "Sahip olmayan kullanıcı başkasının kaydını yayınlayamaz."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-CRT-001",
+      "http_method": "POST",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 201,
+        "behavior": "Kimliği doğrulanmış kullanıcı geçerli girdiyle kayıt oluşturur; owner isteği yapan olur."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-CRT-002",
+      "http_method": "POST",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 201,
+        "behavior": "Kullanıcı kendi adına kayıt oluşturur."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-DEL-001",
+      "http_method": "DELETE",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 204,
+        "behavior": "Sahip kendi kaydını siler (204)."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-DEL-002",
+      "http_method": "DELETE",
+      "user_role": "admin",
+      "expected_result": {
+        "secure_status": 204,
+        "behavior": "Yönetici herhangi bir kaydı siler (204)."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-FLW-001",
+      "http_method": "PUT",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 403,
+        "behavior": "Sahip olmayan kullanıcı başkasının kaydını güncelleyememeli (403)."
+      },
+      "label": "negative",
+      "reference_source": "PROJECT_REQUIREMENT",
+      "validation_status": "verified",
+      "is_known_flaw": true,
+      "security_finding": {
+        "finding_type": "Broken Object Level Authorization (BOLA/IDOR, OWASP API1:2023)",
+        "location": "/api/insecure/articles/<pk>/ — InsecureArticleDetail (catalog/insecure.py)",
+        "expected_security_state": "Yalnızca sahip veya yönetici günceller; aksi 403.",
+        "observed_flawed_status": 200,
+        "deviation_kind": "status",
+        "rationale": "Nesne düzeyi sahiplik/yetki kontrolü yok; yalnızca IsAuthenticated."
+      }
+    },
+    {
+      "scenario_id": "SC-FLW-002",
+      "http_method": "DELETE",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 403,
+        "behavior": "Sahip olmayan kullanıcı başkasının kaydını silememeli (403)."
+      },
+      "label": "negative",
+      "reference_source": "PROJECT_REQUIREMENT",
+      "validation_status": "verified",
+      "is_known_flaw": true,
+      "security_finding": {
+        "finding_type": "Broken Object Level Authorization (BOLA/IDOR, OWASP API1:2023)",
+        "location": "/api/insecure/articles/<pk>/ — InsecureArticleDetail (catalog/insecure.py)",
+        "expected_security_state": "Yalnızca sahip veya yönetici siler; aksi 403.",
+        "observed_flawed_status": 204,
+        "deviation_kind": "status",
+        "rationale": "Nesne düzeyi sahiplik/yetki kontrolü yok; yalnızca IsAuthenticated."
+      }
+    },
+    {
+      "scenario_id": "SC-FLW-003",
+      "http_method": "GET",
+      "user_role": "anonymous",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Liste 200 döner ancak yalnızca yayınlananları; taslaklar gizlenmeli."
+      },
+      "label": "positive",
+      "reference_source": "PROJECT_REQUIREMENT",
+      "validation_status": "verified",
+      "is_known_flaw": true,
+      "security_finding": {
+        "finding_type": "Hassas veri ifşası / bozuk fonksiyon düzeyi yetkilendirme",
+        "location": "/api/insecure/articles/ — InsecureArticleList (catalog/insecure.py)",
+        "expected_security_state": "Liste yalnızca yayınlanan kayıtları döndürmeli; taslaklar gizli.",
+        "observed_flawed_status": 200,
+        "deviation_kind": "content",
+        "rationale": "AllowAny + filtrelemesiz queryset taslakları da ifşa ediyor."
+      }
+    },
+    {
+      "scenario_id": "SC-INP-001",
+      "http_method": "POST",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 400,
+        "behavior": "Zorunlu 'title' alanı eksik -> 400."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-INP-002",
+      "http_method": "POST",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 400,
+        "behavior": "Yalnızca boşluktan oluşan başlık -> 400."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-INP-003",
+      "http_method": "PUT",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 400,
+        "behavior": "PUT'ta zorunlu 'title' eksik -> 400."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-INP-004",
+      "http_method": "POST",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 400,
+        "behavior": "Başlık max_length=200 sınırını aşıyor (201 karakter) -> 400."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-LST-001",
+      "http_method": "GET",
+      "user_role": "anonymous",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Anonim kullanıcı listeyi görür; yalnızca yayınlanan kayıtlar döner."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-LST-002",
+      "http_method": "GET",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Kimliği doğrulanmış kullanıcı listeyi görür (yayınlananlar + kendi kayıtları)."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-LST-003",
+      "http_method": "GET",
+      "user_role": "admin",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Yönetici tüm kayıtları listeler."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-MNA-001",
+      "http_method": "DELETE",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 405,
+        "behavior": "Koleksiyon ucunda DELETE desteklenmez -> 405."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-MNA-002",
+      "http_method": "PUT",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 405,
+        "behavior": "Koleksiyon ucunda PUT desteklenmez -> 405."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-NF-001",
+      "http_method": "PUT",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 404,
+        "behavior": "Kimliği doğrulanmış kullanıcı mevcut olmayan kaydı güncelleyemez -> 404."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-NF-002",
+      "http_method": "DELETE",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 404,
+        "behavior": "Kimliği doğrulanmış kullanıcı mevcut olmayan kaydı silemez -> 404."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-PUB-001",
+      "http_method": "POST",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Sahip kendi taslağını yayınlar (is_published=true)."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-RET-001",
+      "http_method": "GET",
+      "user_role": "anonymous",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Yayınlanmış kayıt anonim kullanıcıya görünür."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-RET-002",
+      "http_method": "GET",
+      "user_role": "anonymous",
+      "expected_result": {
+        "secure_status": 404,
+        "behavior": "Taslak kayıt anonim kullanıcıya görünmez (queryset dışı -> 404)."
+      },
+      "label": "negative",
+      "reference_source": "FIXTURE_DESIGN",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-RET-003",
+      "http_method": "GET",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Sahip kendi taslağını görüntüleyebilir."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-RET-004",
+      "http_method": "GET",
+      "user_role": "admin",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Yönetici herhangi bir taslağı görüntüleyebilir."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-RET-005",
+      "http_method": "GET",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 404,
+        "behavior": "Başkasının taslağı kullanıcıya görünmez (queryset dışı -> 404)."
+      },
+      "label": "negative",
+      "reference_source": "FIXTURE_DESIGN",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-RET-006",
+      "http_method": "GET",
+      "user_role": "anonymous",
+      "expected_result": {
+        "secure_status": 404,
+        "behavior": "Mevcut olmayan kaynak 404 döner."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-UPD-001",
+      "http_method": "PUT",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Sahip kendi kaydını tam günceller."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-UPD-002",
+      "http_method": "PUT",
+      "user_role": "admin",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Yönetici herhangi bir kaydı tam günceller."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-UPD-003",
+      "http_method": "PATCH",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Sahip kendi kaydını kısmen günceller."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-UPD-004",
+      "http_method": "PATCH",
+      "user_role": "admin",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Yönetici herhangi bir kaydı kısmen günceller."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    }
+  ]
+}
