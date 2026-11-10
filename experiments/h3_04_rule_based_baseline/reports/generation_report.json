@@ -1,0 +1,522 @@
+{
+  "report": "H3-04 kural tabanlı Pytest üretim raporu",
+  "generator": "agent.test_generation.rule_based v1.0.0",
+  "llm_used": false,
+  "endpoint_summary_source": {
+    "kind": "manual_fixture_metadata",
+    "ast_integration": false
+  },
+  "inputs_sha256": {
+    "experiments/h3_04_rule_based_baseline/endpoint_summary.json": "47fa2ed25bd95a89fe93a72f3705c74c05780c2e614c50b7bf380b77d8c4344f",
+    "benchmarks/reference_cases/ground_truth.json": "b5114e74c63d9a60f335bd4984d9896da98d423c41ea87d618f2cca268fd737c",
+    "benchmarks/reference_cases/ground_truth.schema.json": "3642e429bfbee234d7a43caf27f1a8a0d9afb623dc5dd02fad1232a0e4e997ef",
+    "benchmarks/drf_fixtures/scenarios/scenarios.json": "6970d02ed14f5c66268b367a5cae2d02e753f60de5b8044b98ab53519237158e",
+    "benchmarks/drf_fixtures/scenarios/scenarios.schema.json": "8ddca198ee2356648f6859111e87e1d73353188248a8c2122af47540b0f247a1",
+    "benchmarks/drf_fixtures/sample_app/catalog/fixtures/users.json": "4a976c917b4e5d7ad511bc93a239b6ea6dc0bc4122d58b603bed5ab67a1e4e62",
+    "benchmarks/drf_fixtures/sample_app/catalog/fixtures/articles.json": "7d3017e8c4324818b615bc076ab0bd76400f0c3b1472ec95a4fc7d674915989d"
+  },
+  "status_counts": {
+    "GENERATED": 38,
+    "UNSUPPORTED": 0,
+    "INVALID_INPUT": 0,
+    "MISSING_REFERENCE": 0,
+    "GENERATION_ERROR": 0
+  },
+  "generated_by_method": {
+    "GET": 10,
+    "POST": 9,
+    "PUT": 8,
+    "PATCH": 4,
+    "DELETE": 7
+  },
+  "generated_by_expected_status": {
+    "200": 12,
+    "201": 2,
+    "204": 2,
+    "400": 4,
+    "401": 5,
+    "403": 6,
+    "404": 5,
+    "405": 2
+  },
+  "generated_by_role": {
+    "admin": 5,
+    "anonymous": 10,
+    "owner": 11,
+    "user": 12
+  },
+  "generated_by_side_effect_rule": {
+    "count_plus_one": 2,
+    "count_unchanged": 6,
+    "none": 13,
+    "partial_update_applied": 2,
+    "resource_deleted": 2,
+    "resource_still_absent": 2,
+    "resource_unchanged": 9,
+    "update_applied": 2
+  },
+  "regeneration_identical": true,
+  "generated_files_sha256": {
+    "experiments/h3_04_rule_based_baseline/generated_tests/conftest.py": "d273287a73c249766c488ed74f69372961211d0a7144d2845df2a2bc605ae68d",
+    "experiments/h3_04_rule_based_baseline/generated_tests/h304_support.py": "0ad749a5207ad47f4d9f228b09582b1ec52a82cf49db2e64e5dfe14d8da181c4",
+    "experiments/h3_04_rule_based_baseline/generated_tests/pytest.ini": "1f9116cb78059d2a2f4943a09d400f9a8bcbae1053b6af04b6c55f39da011a66",
+    "experiments/h3_04_rule_based_baseline/generated_tests/test_delete_generated.py": "b74e713441360a078849b25432e89dd776c3ada14eff073617a6277cc5bd7095",
+    "experiments/h3_04_rule_based_baseline/generated_tests/test_get_generated.py": "95d9c3f729c0970947e7d9ff8cb64770a5e507fc1030e1fd5ce556ec97115876",
+    "experiments/h3_04_rule_based_baseline/generated_tests/test_patch_generated.py": "842e728f00076bb190ab35352674c5f99647e886ad26534df75a96c98515be31",
+    "experiments/h3_04_rule_based_baseline/generated_tests/test_post_generated.py": "7425d2626fe4bb1933719ed5156c1a8a8b95fc3a671a7532ae87b32be87c53da",
+    "experiments/h3_04_rule_based_baseline/generated_tests/test_put_generated.py": "adc3ed53f74711e0283abfcc3e086836e2c4bc5a3b7a564115e5667d7e28f274"
+  },
+  "global_diagnostics": [],
+  "scenarios": [
+    {
+      "scenario_id": "SC-AUT-001",
+      "status": "GENERATED",
+      "test_name": "test_sc_aut_001_post_anonymous_401",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "endpoint_id": "EP-ARTICLE-LIST",
+      "expected_status": 401,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-AUT-002",
+      "status": "GENERATED",
+      "test_name": "test_sc_aut_002_put_anonymous_401",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 401,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-AUT-003",
+      "status": "GENERATED",
+      "test_name": "test_sc_aut_003_patch_anonymous_401",
+      "module": "test_patch_generated.py",
+      "http_method": "PATCH",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 401,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-AUT-004",
+      "status": "GENERATED",
+      "test_name": "test_sc_aut_004_delete_anonymous_401",
+      "module": "test_delete_generated.py",
+      "http_method": "DELETE",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 401,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-AUT-005",
+      "status": "GENERATED",
+      "test_name": "test_sc_aut_005_post_anonymous_401",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "endpoint_id": "EP-ARTICLE-PUBLISH",
+      "expected_status": 401,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-AUZ-001",
+      "status": "GENERATED",
+      "test_name": "test_sc_auz_001_put_user_403",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 403,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-AUZ-002",
+      "status": "GENERATED",
+      "test_name": "test_sc_auz_002_patch_user_403",
+      "module": "test_patch_generated.py",
+      "http_method": "PATCH",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 403,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-AUZ-003",
+      "status": "GENERATED",
+      "test_name": "test_sc_auz_003_delete_user_403",
+      "module": "test_delete_generated.py",
+      "http_method": "DELETE",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 403,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-AUZ-004",
+      "status": "GENERATED",
+      "test_name": "test_sc_auz_004_post_user_403",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "endpoint_id": "EP-ARTICLE-PUBLISH",
+      "expected_status": 403,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-CRT-001",
+      "status": "GENERATED",
+      "test_name": "test_sc_crt_001_post_user_201",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "endpoint_id": "EP-ARTICLE-LIST",
+      "expected_status": 201,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-CRT-002",
+      "status": "GENERATED",
+      "test_name": "test_sc_crt_002_post_owner_201",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "endpoint_id": "EP-ARTICLE-LIST",
+      "expected_status": 201,
+      "diagnostics": [
+        {
+          "code": "OWNERSHIP_UNVERIFIABLE",
+          "severity": "warning",
+          "scenario_id": "SC-CRT-002",
+          "endpoint_id": "EP-ARTICLE-LIST",
+          "message": "owner rolünün sahipliği fixture'dan doğrulanamadı; test kimliği doğrulanmış kullanıcı olarak üretildi",
+          "detail": "hedef nesne yok (koleksiyon ucu)"
+        }
+      ]
+    },
+    {
+      "scenario_id": "SC-DEL-001",
+      "status": "GENERATED",
+      "test_name": "test_sc_del_001_delete_owner_204",
+      "module": "test_delete_generated.py",
+      "http_method": "DELETE",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 204,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-DEL-002",
+      "status": "GENERATED",
+      "test_name": "test_sc_del_002_delete_admin_204",
+      "module": "test_delete_generated.py",
+      "http_method": "DELETE",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 204,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-FLW-001",
+      "status": "GENERATED",
+      "test_name": "test_sc_flw_001_put_user_403",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "endpoint_id": "EP-INSECURE-ARTICLE-DETAIL",
+      "expected_status": 403,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-FLW-002",
+      "status": "GENERATED",
+      "test_name": "test_sc_flw_002_delete_user_403",
+      "module": "test_delete_generated.py",
+      "http_method": "DELETE",
+      "endpoint_id": "EP-INSECURE-ARTICLE-DETAIL",
+      "expected_status": 403,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-FLW-003",
+      "status": "GENERATED",
+      "test_name": "test_sc_flw_003_get_anonymous_200",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "endpoint_id": "EP-INSECURE-ARTICLE-LIST",
+      "expected_status": 200,
+      "diagnostics": [
+        {
+          "code": "CONTENT_ASSERTION_UNSUPPORTED",
+          "severity": "warning",
+          "scenario_id": "SC-FLW-003",
+          "endpoint_id": "EP-INSECURE-ARTICLE-LIST",
+          "message": "Referanstaki güvenlik beklentisi içerik düzeyinde ve makine-okunur değil; yalnızca durum kodu doğrulanır, bilinen kusur bu testle tespit EDİLEMEZ",
+          "detail": "Liste yalnızca yayınlanan kayıtları döndürmeli; taslaklar gizli."
+        }
+      ]
+    },
+    {
+      "scenario_id": "SC-INP-001",
+      "status": "GENERATED",
+      "test_name": "test_sc_inp_001_post_user_400",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "endpoint_id": "EP-ARTICLE-LIST",
+      "expected_status": 400,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-INP-002",
+      "status": "GENERATED",
+      "test_name": "test_sc_inp_002_post_user_400",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "endpoint_id": "EP-ARTICLE-LIST",
+      "expected_status": 400,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-INP-003",
+      "status": "GENERATED",
+      "test_name": "test_sc_inp_003_put_owner_400",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 400,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-INP-004",
+      "status": "GENERATED",
+      "test_name": "test_sc_inp_004_post_user_400",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "endpoint_id": "EP-ARTICLE-LIST",
+      "expected_status": 400,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-LST-001",
+      "status": "GENERATED",
+      "test_name": "test_sc_lst_001_get_anonymous_200",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "endpoint_id": "EP-ARTICLE-LIST",
+      "expected_status": 200,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-LST-002",
+      "status": "GENERATED",
+      "test_name": "test_sc_lst_002_get_user_200",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "endpoint_id": "EP-ARTICLE-LIST",
+      "expected_status": 200,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-LST-003",
+      "status": "GENERATED",
+      "test_name": "test_sc_lst_003_get_admin_200",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "endpoint_id": "EP-ARTICLE-LIST",
+      "expected_status": 200,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-MNA-001",
+      "status": "GENERATED",
+      "test_name": "test_sc_mna_001_delete_owner_405",
+      "module": "test_delete_generated.py",
+      "http_method": "DELETE",
+      "endpoint_id": "EP-ARTICLE-LIST",
+      "expected_status": 405,
+      "diagnostics": [
+        {
+          "code": "OWNERSHIP_UNVERIFIABLE",
+          "severity": "warning",
+          "scenario_id": "SC-MNA-001",
+          "endpoint_id": "EP-ARTICLE-LIST",
+          "message": "owner rolünün sahipliği fixture'dan doğrulanamadı; test kimliği doğrulanmış kullanıcı olarak üretildi",
+          "detail": "hedef nesne yok (koleksiyon ucu)"
+        },
+        {
+          "code": "METHOD_NOT_IN_OPERATIONS",
+          "severity": "warning",
+          "scenario_id": "SC-MNA-001",
+          "endpoint_id": "EP-ARTICLE-LIST",
+          "message": "DELETE bu endpoint'in işlemleri arasında yok; beklenen sonuç referanstan alınır",
+          "detail": "işlemler=['GET', 'POST']; referans=405"
+        }
+      ]
+    },
+    {
+      "scenario_id": "SC-MNA-002",
+      "status": "GENERATED",
+      "test_name": "test_sc_mna_002_put_owner_405",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "endpoint_id": "EP-ARTICLE-LIST",
+      "expected_status": 405,
+      "diagnostics": [
+        {
+          "code": "OWNERSHIP_UNVERIFIABLE",
+          "severity": "warning",
+          "scenario_id": "SC-MNA-002",
+          "endpoint_id": "EP-ARTICLE-LIST",
+          "message": "owner rolünün sahipliği fixture'dan doğrulanamadı; test kimliği doğrulanmış kullanıcı olarak üretildi",
+          "detail": "hedef nesne yok (koleksiyon ucu)"
+        },
+        {
+          "code": "METHOD_NOT_IN_OPERATIONS",
+          "severity": "warning",
+          "scenario_id": "SC-MNA-002",
+          "endpoint_id": "EP-ARTICLE-LIST",
+          "message": "PUT bu endpoint'in işlemleri arasında yok; beklenen sonuç referanstan alınır",
+          "detail": "işlemler=['GET', 'POST']; referans=405"
+        }
+      ]
+    },
+    {
+      "scenario_id": "SC-NF-001",
+      "status": "GENERATED",
+      "test_name": "test_sc_nf_001_put_owner_404",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 404,
+      "diagnostics": [
+        {
+          "code": "OWNERSHIP_UNVERIFIABLE",
+          "severity": "warning",
+          "scenario_id": "SC-NF-001",
+          "endpoint_id": "EP-ARTICLE-DETAIL",
+          "message": "owner rolünün sahipliği fixture'dan doğrulanamadı; test kimliği doğrulanmış kullanıcı olarak üretildi",
+          "detail": "kaynak 999 fixture'da yok"
+        }
+      ]
+    },
+    {
+      "scenario_id": "SC-NF-002",
+      "status": "GENERATED",
+      "test_name": "test_sc_nf_002_delete_owner_404",
+      "module": "test_delete_generated.py",
+      "http_method": "DELETE",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 404,
+      "diagnostics": [
+        {
+          "code": "OWNERSHIP_UNVERIFIABLE",
+          "severity": "warning",
+          "scenario_id": "SC-NF-002",
+          "endpoint_id": "EP-ARTICLE-DETAIL",
+          "message": "owner rolünün sahipliği fixture'dan doğrulanamadı; test kimliği doğrulanmış kullanıcı olarak üretildi",
+          "detail": "kaynak 999 fixture'da yok"
+        }
+      ]
+    },
+    {
+      "scenario_id": "SC-PUB-001",
+      "status": "GENERATED",
+      "test_name": "test_sc_pub_001_post_owner_200",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "endpoint_id": "EP-ARTICLE-PUBLISH",
+      "expected_status": 200,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-RET-001",
+      "status": "GENERATED",
+      "test_name": "test_sc_ret_001_get_anonymous_200",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 200,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-RET-002",
+      "status": "GENERATED",
+      "test_name": "test_sc_ret_002_get_anonymous_404",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 404,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-RET-003",
+      "status": "GENERATED",
+      "test_name": "test_sc_ret_003_get_owner_200",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 200,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-RET-004",
+      "status": "GENERATED",
+      "test_name": "test_sc_ret_004_get_admin_200",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 200,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-RET-005",
+      "status": "GENERATED",
+      "test_name": "test_sc_ret_005_get_user_404",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 404,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-RET-006",
+      "status": "GENERATED",
+      "test_name": "test_sc_ret_006_get_anonymous_404",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 404,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-UPD-001",
+      "status": "GENERATED",
+      "test_name": "test_sc_upd_001_put_owner_200",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 200,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-UPD-002",
+      "status": "GENERATED",
+      "test_name": "test_sc_upd_002_put_admin_200",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 200,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-UPD-003",
+      "status": "GENERATED",
+      "test_name": "test_sc_upd_003_patch_owner_200",
+      "module": "test_patch_generated.py",
+      "http_method": "PATCH",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 200,
+      "diagnostics": []
+    },
+    {
+      "scenario_id": "SC-UPD-004",
+      "status": "GENERATED",
+      "test_name": "test_sc_upd_004_patch_admin_200",
+      "module": "test_patch_generated.py",
+      "http_method": "PATCH",
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "expected_status": 200,
+      "diagnostics": []
+    }
+  ]
+}

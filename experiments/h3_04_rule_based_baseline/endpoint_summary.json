@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0.0",
+  "source": {
+    "kind": "manual_fixture_metadata",
+    "ast_integration": false,
+    "derived_from": [
+      "benchmarks/drf_fixtures/sample_app/config/urls.py",
+      "benchmarks/drf_fixtures/sample_app/config/settings.py",
+      "benchmarks/drf_fixtures/sample_app/catalog/urls.py",
+      "benchmarks/drf_fixtures/sample_app/catalog/views.py",
+      "benchmarks/drf_fixtures/sample_app/catalog/insecure.py",
+      "benchmarks/drf_fixtures/sample_app/catalog/permissions.py",
+      "benchmarks/drf_fixtures/sample_app/catalog/serializers.py",
+      "benchmarks/drf_fixtures/sample_app/catalog/models.py"
+    ],
+    "note": "AST endpoint çıkarımı henüz uygulanmadı. Bu özet, AST çıktısının üreteceği sözleşmeye uygun biçimde kontrollü fixture kaynak kodundan elle çıkarılmıştır."
+  },
+  "target_app": {
+    "path": "benchmarks/drf_fixtures/sample_app",
+    "settings_module": "config.settings",
+    "fixtures": ["users", "articles"],
+    "fixture_files": {
+      "users": "benchmarks/drf_fixtures/sample_app/catalog/fixtures/users.json",
+      "resources": "benchmarks/drf_fixtures/sample_app/catalog/fixtures/articles.json"
+    }
+  },
+  "authentication": {
+    "mechanisms": ["BasicAuthentication", "SessionAuthentication"],
+    "test_strategy": "force_authenticate"
+  },
+  "endpoints": [
+    {
+      "endpoint_id": "EP-ARTICLE-LIST",
+      "path": "/api/articles/",
+      "url_name": "article-list",
+      "route_params": [],
+      "view": {"name": "ArticleViewSet", "module": "catalog.views", "type": "ViewSet"},
+      "operations": {
+        "GET": {"action": "list", "authentication_required": false, "object_permission": "none"},
+        "POST": {"action": "create", "authentication_required": true, "object_permission": "none"}
+      },
+      "permissions": ["IsOwnerOrAdminOrReadOnly"],
+      "resource": {"model": "catalog.Article", "lookup_field": "pk", "owner_field": "owner"},
+      "request": {
+        "content_type": "application/json",
+        "writable_fields": {
+          "title": {"type": "string", "required": true, "max_length": 200, "allow_blank": false},
+          "body": {"type": "string", "required": false, "allow_blank": true},
+          "is_published": {"type": "boolean", "required": false}
+        }
+      },
+      "supported": true,
+      "intentionally_insecure": false
+    },
+    {
+      "endpoint_id": "EP-ARTICLE-DETAIL",
+      "path": "/api/articles/{pk}/",
+      "url_name": "article-detail",
+      "route_params": [{"name": "pk", "type": "int", "source": "fixture_ref.article"}],
+      "view": {"name": "ArticleViewSet", "module": "catalog.views", "type": "ViewSet"},
+      "operations": {
+        "GET": {"action": "retrieve", "authentication_required": false, "object_permission": "none"},
+        "PUT": {"action": "update", "authentication_required": true, "object_permission": "owner_or_admin"},
+        "PATCH": {"action": "partial_update", "authentication_required": true, "object_permission": "owner_or_admin"},
+        "DELETE": {"action": "destroy", "authentication_required": true, "object_permission": "owner_or_admin"}
+      },
+      "permissions": ["IsOwnerOrAdminOrReadOnly"],
+      "resource": {"model": "catalog.Article", "lookup_field": "pk", "owner_field": "owner"},
+      "request": {
+        "content_type": "application/json",
+        "writable_fields": {
+          "title": {"type": "string", "required": true, "max_length": 200, "allow_blank": false},
+          "body": {"type": "string", "required": false, "allow_blank": true},
+          "is_published": {"type": "boolean", "required": false}
+        }
+      },
+      "supported": true,
+      "intentionally_insecure": false,
+      "notes": "get_queryset: anonim yalnızca yayınlananları, kimliği doğrulanmış kullanıcı yayınlananlar + kendi kayıtlarını, yönetici tümünü görür."
+    },
+    {
+      "endpoint_id": "EP-ARTICLE-PUBLISH",
+      "path": "/api/articles/{pk}/publish/",
+      "url_name": "article-publish",
+      "route_params": [{"name": "pk", "type": "int", "source": "fixture_ref.article"}],
+      "view": {"name": "ArticlePublishView", "module": "catalog.views", "type": "APIView"},
+      "operations": {
+        "POST": {"action": "custom_action", "authentication_required": true, "object_permission": "owner_or_admin"}
+      },
+      "permissions": ["IsAuthenticated"],
+      "resource": {"model": "catalog.Article", "lookup_field": "pk", "owner_field": "owner"},
+      "request": {"content_type": "application/json", "writable_fields": {}},
+      "supported": true,
+      "intentionally_insecure": false,
+      "notes": "Sahip/yönetici kontrolü view içinde (PermissionDenied) yapılır."
+    },
+    {
+      "endpoint_id": "EP-INSECURE-ARTICLE-LIST",
+      "path": "/api/insecure/articles/",
+      "url_name": "insecure-article-list",
+      "route_params": [],
+      "view": {"name": "InsecureArticleList", "module": "catalog.insecure", "type": "GenericAPIView"},
+      "operations": {
+        "GET": {"action": "list", "authentication_required": false, "object_permission": "none"}
+      },
+      "permissions": ["AllowAny"],
+      "resource": {"model": "catalog.Article", "lookup_field": "pk", "owner_field": "owner"},
+      "request": {"content_type": "application/json", "writable_fields": {}},
+      "supported": true,
+      "intentionally_insecure": true,
+      "notes": "Bilerek güvensiz: filtrelemesiz queryset taslakları ifşa eder."
+    },
+    {
+      "endpoint_id": "EP-INSECURE-ARTICLE-DETAIL",
+      "path": "/api/insecure/articles/{pk}/",
+      "url_name": "insecure-article-detail",
+      "route_params": [{"name": "pk", "type": "int", "source": "fixture_ref.article"}],
+      "view": {"name": "InsecureArticleDetail", "module": "catalog.insecure", "type": "GenericAPIView"},
+      "operations": {
+        "GET": {"action": "retrieve", "authentication_required": true, "object_permission": "none"},
+        "PUT": {"action": "update", "authentication_required": true, "object_permission": "none"},
+        "PATCH": {"action": "partial_update", "authentication_required": true, "object_permission": "none"},
+        "DELETE": {"action": "destroy", "authentication_required": true, "object_permission": "none"}
+      },
+      "permissions": ["IsAuthenticated"],
+      "resource": {"model": "catalog.Article", "lookup_field": "pk", "owner_field": "owner"},
+      "request": {
+        "content_type": "application/json",
+        "writable_fields": {
+          "title": {"type": "string", "required": true, "max_length": 200, "allow_blank": false},
+          "body": {"type": "string", "required": false, "allow_blank": true},
+          "is_published": {"type": "boolean", "required": false}
+        }
+      },
+      "supported": true,
+      "intentionally_insecure": true,
+      "notes": "Bilerek güvensiz: nesne düzeyi sahiplik kontrolü yok (BOLA/IDOR)."
+    }
+  ]
+}

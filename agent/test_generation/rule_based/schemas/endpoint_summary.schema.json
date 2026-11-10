@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "h3-04-endpoint-summary.schema.json",
+  "title": "H3-04 Endpoint Özeti Giriş Formatı",
+  "description": "Kural tabanlı Pytest üreticisinin endpoint giriş sözleşmesi. AST analizi (ileride) bu formatı üretecektir; ilk prototipte kontrollü fixture'dan elle çıkarılmış meta veri kullanılır.",
+  "type": "object",
+  "required": ["schema_version", "source", "target_app", "authentication", "endpoints"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "source": {
+      "type": "object",
+      "required": ["kind", "ast_integration", "derived_from"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {"type": "string", "enum": ["manual_fixture_metadata", "ast_analysis"]},
+        "ast_integration": {"type": "boolean"},
+        "derived_from": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "note": {"type": "string"}
+      }
+    },
+    "target_app": {
+      "type": "object",
+      "required": ["path", "settings_module", "fixtures", "fixture_files"],
+      "additionalProperties": false,
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "settings_module": {"type": "string", "minLength": 1},
+        "fixtures": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "fixture_files": {
+          "type": "object",
+          "required": ["users", "resources"],
+          "additionalProperties": false,
+          "properties": {
+            "users": {"type": "string", "minLength": 1},
+            "resources": {"type": "string", "minLength": 1}
+          }
+        }
+      }
+    },
+    "authentication": {
+      "type": "object",
+      "required": ["mechanisms", "test_strategy"],
+      "additionalProperties": false,
+      "properties": {
+        "mechanisms": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "test_strategy": {"type": "string", "enum": ["force_authenticate"]}
+      }
+    },
+    "endpoints": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/endpoint"}}
+  },
+  "$defs": {
+    "http_method": {"type": "string", "enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS", "TRACE"]},
+    "endpoint": {
+      "type": "object",
+      "required": ["endpoint_id", "path", "url_name", "route_params", "view", "operations", "permissions",
+                   "resource", "request", "supported", "intentionally_insecure"],
+      "additionalProperties": false,
+      "properties": {
+        "endpoint_id": {"type": "string", "pattern": "^EP-[A-Z0-9-]+$"},
+        "path": {"type": "string", "pattern": "^/"},
+        "url_name": {"type": "string", "minLength": 1},
+        "route_params": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "type", "source"],
+            "additionalProperties": false,
+            "properties": {
+              "name": {"type": "string", "pattern": "^[a-z_][a-z0-9_]*$"},
+              "type": {"type": "string", "enum": ["int", "str", "slug", "uuid"]},
+              "source": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "view": {
+          "type": "object",
+          "required": ["name", "module", "type"],
+          "additionalProperties": false,
+          "properties": {
+            "name": {"type": "string", "minLength": 1},
+            "module": {"type": "string", "minLength": 1},
+            "type": {"type": "string", "enum": ["ViewSet", "APIView", "GenericAPIView", "DjangoFunctionView", "DjangoClassView"]}
+          }
+        },
+        "operations": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {"$ref": "#/$defs/http_method"},
+          "additionalProperties": {
+            "type": "object",
+            "required": ["action", "authentication_required", "object_permission"],
+            "additionalProperties": false,
+            "properties": {
+              "action": {"type": "string", "enum": ["list", "retrieve", "create", "update", "partial_update", "destroy", "custom_action"]},
+              "authentication_required": {"type": "boolean"},
+              "object_permission": {"type": "string", "enum": ["none", "owner_or_admin"]}
+            }
+          }
+        },
+        "permissions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "resource": {
+          "type": "object",
+          "required": ["model", "lookup_field", "owner_field"],
+          "additionalProperties": false,
+          "properties": {
+            "model": {"type": "string", "pattern": "^[a-z_][a-z0-9_]*\\.[A-Za-z_][A-Za-z0-9_]*$"},
+            "lookup_field": {"type": "string", "minLength": 1},
+            "owner_field": {"type": ["string", "null"]}
+          }
+        },
+        "request": {
+          "type": "object",
+          "required": ["content_type", "writable_fields"],
+          "additionalProperties": false,
+          "properties": {
+            "content_type": {"type": "string", "enum": ["application/json"]},
+            "writable_fields": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "required": ["type", "required"],
+                "additionalProperties": false,
+                "properties": {
+                  "type": {"type": "string", "enum": ["string", "boolean", "integer"]},
+                  "required": {"type": "boolean"},
+                  "max_length": {"type": "integer", "minimum": 1},
+                  "allow_blank": {"type": "boolean"}
+                }
+              }
+            }
+          }
+        },
+        "supported": {"type": "boolean"},
+        "unsupported_reason": {"type": "string", "minLength": 1},
+        "intentionally_insecure": {"type": "boolean"},
+        "notes": {"type": "string"}
+      },
+      "allOf": [
+        {"if": {"properties": {"supported": {"const": false}}}, "then": {"required": ["unsupported_reason"]}}
+      ]
+    }
+  }
+}

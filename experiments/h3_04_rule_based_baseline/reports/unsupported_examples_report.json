@@ -1,0 +1,258 @@
+{
+  "report": "H3-04 desteklenmeyen / geçersiz girdi örnekleri",
+  "synthetic": true,
+  "total": 21,
+  "matched": 21,
+  "examples": [
+    {
+      "example_id": "EX-00",
+      "description": "Temel örnek (değişiklik yok) — üretilmeli",
+      "expected_status": "GENERATED",
+      "expected_code": "-",
+      "actual_status": "GENERATED",
+      "actual_codes": [],
+      "detail": "",
+      "matched": true
+    },
+    {
+      "example_id": "EX-01",
+      "description": "Geçersiz HTTP metodu (FETCH)",
+      "expected_status": "INVALID_INPUT",
+      "expected_code": "UNKNOWN_METHOD",
+      "actual_status": "INVALID_INPUT",
+      "actual_codes": [
+        "UNKNOWN_METHOD"
+      ],
+      "detail": "Geçersiz HTTP metodu (http_method='FETCH')",
+      "matched": true
+    },
+    {
+      "example_id": "EX-02",
+      "description": "Geçerli ancak desteklenmeyen HTTP metodu (HEAD)",
+      "expected_status": "UNSUPPORTED",
+      "expected_code": "UNSUPPORTED_METHOD",
+      "actual_status": "UNSUPPORTED",
+      "actual_codes": [
+        "UNSUPPORTED_METHOD"
+      ],
+      "detail": "Bu baseline yalnızca GET, POST, PUT, PATCH, DELETE metotlarını destekler (http_method=HEAD)",
+      "matched": true
+    },
+    {
+      "example_id": "EX-03",
+      "description": "Desteklenmeyen beklenen durum kodu (418)",
+      "expected_status": "INVALID_INPUT",
+      "expected_code": "INVALID_STATUS",
+      "actual_status": "INVALID_INPUT",
+      "actual_codes": [
+        "INVALID_STATUS"
+      ],
+      "detail": "Referanstaki beklenen durum kodu geçersiz veya desteklenmiyor (secure_status=418; desteklenen=[200, 201, 204, 400, 401, 403, 404, 405])",
+      "matched": true
+    },
+    {
+      "example_id": "EX-04",
+      "description": "Çözümlenemeyen endpoint (/api/comments/1/)",
+      "expected_status": "INVALID_INPUT",
+      "expected_code": "UNRESOLVED_ROUTE",
+      "actual_status": "INVALID_INPUT",
+      "actual_codes": [
+        "UNRESOLVED_ROUTE"
+      ],
+      "detail": "Endpoint yolu endpoint özetindeki hiçbir şablona uymuyor (endpoint=/api/comments/1/; şablonlar=['/api/articles/', '/api/articles/{pk}/', '/api/articles/{pk}/publish/', '/api/insecure/articles/', '/api/insecure/articles/{pk}/'])",
+      "matched": true
+    },
+    {
+      "example_id": "EX-05",
+      "description": "Senaryo var, bağımsız referans (ground truth) yok",
+      "expected_status": "MISSING_REFERENCE",
+      "expected_code": "MISSING_REFERENCE",
+      "actual_status": "MISSING_REFERENCE",
+      "actual_codes": [
+        "MISSING_REFERENCE"
+      ],
+      "detail": "Senaryo için bağımsız referans (ground truth) kaydı yok; beklenen sonuç uydurulmaz, test üretilmez ",
+      "matched": true
+    },
+    {
+      "example_id": "EX-06",
+      "description": "Referans var, senaryonun istek verisi yok",
+      "expected_status": "MISSING_REFERENCE",
+      "expected_code": "MISSING_SCENARIO_DATA",
+      "actual_status": "MISSING_REFERENCE",
+      "actual_codes": [
+        "MISSING_SCENARIO_DATA"
+      ],
+      "detail": "Ground truth kaydının istek verisi (endpoint, girdi, fixture) bulunamadı scenarios.json içinde bu kimlik yok",
+      "matched": true
+    },
+    {
+      "example_id": "EX-07",
+      "description": "Fixture'da olmayan kullanıcı (dave)",
+      "expected_status": "INVALID_INPUT",
+      "expected_code": "MISSING_FIXTURE_USER",
+      "actual_status": "INVALID_INPUT",
+      "actual_codes": [
+        "MISSING_FIXTURE_USER"
+      ],
+      "detail": "Fixture kullanıcısı bulunamadı (user='dave'; mevcut=['admin', 'alice', 'bob', 'carol'])",
+      "matched": true
+    },
+    {
+      "example_id": "EX-08",
+      "description": "owner rolü, kaynağın sahibi olmayan kullanıcıyla (carol → makale 1)",
+      "expected_status": "INVALID_INPUT",
+      "expected_code": "ROLE_MISMATCH",
+      "actual_status": "INVALID_INPUT",
+      "actual_codes": [
+        "ROLE_MISMATCH"
+      ],
+      "detail": "Rol etiketi fixture verisiyle çelişiyor (owner rolü, kaynağın sahibi olmayan kullanıcıyla (carol, kaynak 1))",
+      "matched": true
+    },
+    {
+      "example_id": "EX-09",
+      "description": "Detay ucunda route parametresi için fixture referansı yok",
+      "expected_status": "INVALID_INPUT",
+      "expected_code": "MISSING_ROUTE_PARAM",
+      "actual_status": "INVALID_INPUT",
+      "actual_codes": [
+        "MISSING_ROUTE_PARAM"
+      ],
+      "detail": "'pk' route parametresi için fixture kaynak referansı yok",
+      "matched": true
+    },
+    {
+      "example_id": "EX-10",
+      "description": "Endpoint'teki pk ile fixture referansı çelişiyor",
+      "expected_status": "INVALID_INPUT",
+      "expected_code": "ROUTE_PARAM_MISMATCH",
+      "actual_status": "INVALID_INPUT",
+      "actual_codes": [
+        "ROUTE_PARAM_MISMATCH"
+      ],
+      "detail": "Endpoint'teki parametre fixture referansıyla uyuşmuyor (pk=1, fixture_ref.article=2)",
+      "matched": true
+    },
+    {
+      "example_id": "EX-11",
+      "description": "İstek gövdesi nesne değil (liste)",
+      "expected_status": "INVALID_INPUT",
+      "expected_code": "INVALID_PAYLOAD",
+      "actual_status": "INVALID_INPUT",
+      "actual_codes": [
+        "INVALID_PAYLOAD"
+      ],
+      "detail": "request_input bir JSON nesnesi veya null olmalı (tip=list)",
+      "matched": true
+    },
+    {
+      "example_id": "EX-12",
+      "description": "Desteklenmiyor olarak işaretli endpoint (dinamik rota)",
+      "expected_status": "UNSUPPORTED",
+      "expected_code": "UNSUPPORTED_ENDPOINT",
+      "actual_status": "UNSUPPORTED",
+      "actual_codes": [
+        "UNSUPPORTED_ENDPOINT"
+      ],
+      "detail": "Endpoint desteklenmiyor olarak işaretli (Dinamik rota ve özel izin sınıfı (DynamicPermission) ilk baseline kapsamı dışında)",
+      "matched": true
+    },
+    {
+      "example_id": "EX-13",
+      "description": "DRF dışı Django fonksiyon view'ı",
+      "expected_status": "UNSUPPORTED",
+      "expected_code": "UNSUPPORTED_VIEW",
+      "actual_status": "UNSUPPORTED",
+      "actual_codes": [
+        "UNSUPPORTED_VIEW"
+      ],
+      "detail": "View türü bu baseline tarafından desteklenmiyor (yalnızca DRF ViewSet/APIView/GenericAPIView) (view=synthetic.views.legacy_article (DjangoFunctionView))",
+      "matched": true
+    },
+    {
+      "example_id": "EX-14",
+      "description": "Aynı yolu karşılayan iki endpoint şablonu (belirsiz eşleşme)",
+      "expected_status": "INVALID_INPUT",
+      "expected_code": "AMBIGUOUS_ENDPOINT",
+      "actual_status": "INVALID_INPUT",
+      "actual_codes": [
+        "AMBIGUOUS_ENDPOINT"
+      ],
+      "detail": "Endpoint yolu birden fazla şablona uyuyor (EP-ARTICLE-DETAIL, EP-SYN-DUPLICATE)",
+      "matched": true
+    },
+    {
+      "example_id": "EX-15",
+      "description": "Desteklenmeyen kimlik doğrulama mekanizması (JWT)",
+      "expected_status": "UNSUPPORTED",
+      "expected_code": "UNSUPPORTED_AUTH",
+      "actual_status": "UNSUPPORTED",
+      "actual_codes": [
+        "UNSUPPORTED_AUTH"
+      ],
+      "detail": "Kimlik doğrulama mekanizması desteklenmiyor (mekanizmalar=['JWTAuthentication'])",
+      "matched": true
+    },
+    {
+      "example_id": "EX-16",
+      "description": "Ground truth ile senaryo verisi metotta çelişiyor",
+      "expected_status": "INVALID_INPUT",
+      "expected_code": "REFERENCE_CONFLICT",
+      "actual_status": "INVALID_INPUT",
+      "actual_codes": [
+        "REFERENCE_CONFLICT"
+      ],
+      "detail": "Ground truth ile senaryo verisi çelişiyor http_method: ground_truth='PUT', scenarios='PATCH'",
+      "matched": true
+    },
+    {
+      "example_id": "EX-17",
+      "description": "Bilinmeyen kullanıcı rolü (superuser)",
+      "expected_status": "INVALID_INPUT",
+      "expected_code": "UNKNOWN_ROLE",
+      "actual_status": "INVALID_INPUT",
+      "actual_codes": [
+        "UNKNOWN_ROLE"
+      ],
+      "detail": "Bilinmeyen kullanıcı rolü (user_role='superuser')",
+      "matched": true
+    },
+    {
+      "example_id": "EX-18",
+      "description": "owner rolü, koleksiyon ucunda (sahiplik doğrulanamaz) — uyarıyla üretilir",
+      "expected_status": "GENERATED",
+      "expected_code": "OWNERSHIP_UNVERIFIABLE",
+      "actual_status": "GENERATED",
+      "actual_codes": [
+        "OWNERSHIP_UNVERIFIABLE"
+      ],
+      "detail": "owner rolünün sahipliği fixture'dan doğrulanamadı; test kimliği doğrulanmış kullanıcı olarak üretildi (hedef nesne yok (koleksiyon ucu))",
+      "matched": true
+    },
+    {
+      "example_id": "EX-19",
+      "description": "Endpoint özeti geçersiz JSON",
+      "expected_status": "INVALID_INPUT",
+      "expected_code": "INVALID_JSON",
+      "actual_status": "INVALID_INPUT",
+      "actual_codes": [
+        "INVALID_JSON"
+      ],
+      "detail": "satır 1: Expecting value",
+      "matched": true
+    },
+    {
+      "example_id": "EX-20",
+      "description": "Endpoint özetinde zorunlu alan eksik (url_name)",
+      "expected_status": "INVALID_INPUT",
+      "expected_code": "SCHEMA_VIOLATION",
+      "actual_status": "INVALID_INPUT",
+      "actual_codes": [
+        "SCHEMA_VIOLATION"
+      ],
+      "detail": "endpoint özeti: şema ihlali (endpoints/1) 'url_name' is a required property",
+      "matched": true
+    }
+  ]
+}
