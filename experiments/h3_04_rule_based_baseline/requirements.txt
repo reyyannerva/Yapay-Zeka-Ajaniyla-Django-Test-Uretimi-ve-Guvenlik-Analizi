@@ -1,0 +1,7 @@
+# H3-04 / Issue #30 — kural tabanlı Pytest üretim baseline'ı bağımlılıkları
+# Üretilen testler kontrollü hedef uygulamayla aynı ortamda çalışır (H3-01 sample_app ile aynı aralıklar).
+Django>=5.1,<5.3
+djangorestframework>=3.15
+pytest>=8.0
+pytest-django>=4.8
+jsonschema>=4.0

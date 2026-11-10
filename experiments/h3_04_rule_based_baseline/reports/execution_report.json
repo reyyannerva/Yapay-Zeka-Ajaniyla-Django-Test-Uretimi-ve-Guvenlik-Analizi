@@ -1,0 +1,587 @@
+{
+  "report": "H3-04 üretilen testlerin kontrollü fixture üzerinde çalıştırma raporu",
+  "planned_tests": 38,
+  "collected_tests": 38,
+  "pytest_returncode": 1,
+  "pytest_outcomes": {
+    "failed": 2,
+    "passed": 36
+  },
+  "classifications": {
+    "PASSED": 35,
+    "KNOWN_FLAW_DETECTED": 2,
+    "KNOWN_FLAW_NOT_DETECTED": 1,
+    "APPLICATION_MISMATCH": 0,
+    "GENERATION_ERROR": 0,
+    "ENVIRONMENT_ERROR": 0
+  },
+  "by_method": {
+    "GET": {
+      "tests": 10,
+      "passed": 10,
+      "failed": 0,
+      "generation_errors": 0
+    },
+    "POST": {
+      "tests": 9,
+      "passed": 9,
+      "failed": 0,
+      "generation_errors": 0
+    },
+    "PUT": {
+      "tests": 8,
+      "passed": 7,
+      "failed": 1,
+      "generation_errors": 0
+    },
+    "PATCH": {
+      "tests": 4,
+      "passed": 4,
+      "failed": 0,
+      "generation_errors": 0
+    },
+    "DELETE": {
+      "tests": 7,
+      "passed": 6,
+      "failed": 1,
+      "generation_errors": 0
+    }
+  },
+  "by_expected_status": {
+    "200": {
+      "tests": 12,
+      "passed": 12
+    },
+    "201": {
+      "tests": 2,
+      "passed": 2
+    },
+    "204": {
+      "tests": 2,
+      "passed": 2
+    },
+    "400": {
+      "tests": 4,
+      "passed": 4
+    },
+    "401": {
+      "tests": 5,
+      "passed": 5
+    },
+    "403": {
+      "tests": 6,
+      "passed": 4
+    },
+    "404": {
+      "tests": 5,
+      "passed": 5
+    },
+    "405": {
+      "tests": 2,
+      "passed": 2
+    }
+  },
+  "isolation": {
+    "tests": 38,
+    "single_run_differences": [],
+    "reversed_order_differences": [],
+    "isolated": true
+  },
+  "inputs_unchanged_after_run": true,
+  "results": [
+    {
+      "scenario_id": "SC-AUT-001",
+      "test_name": "test_sc_aut_001_post_anonymous_401",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "expected_status": 401,
+      "observed_status": 401,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-AUT-002",
+      "test_name": "test_sc_aut_002_put_anonymous_401",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "expected_status": 401,
+      "observed_status": 401,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-AUT-003",
+      "test_name": "test_sc_aut_003_patch_anonymous_401",
+      "module": "test_patch_generated.py",
+      "http_method": "PATCH",
+      "expected_status": 401,
+      "observed_status": 401,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-AUT-004",
+      "test_name": "test_sc_aut_004_delete_anonymous_401",
+      "module": "test_delete_generated.py",
+      "http_method": "DELETE",
+      "expected_status": 401,
+      "observed_status": 401,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-AUT-005",
+      "test_name": "test_sc_aut_005_post_anonymous_401",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "expected_status": 401,
+      "observed_status": 401,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-AUZ-001",
+      "test_name": "test_sc_auz_001_put_user_403",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "expected_status": 403,
+      "observed_status": 403,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-AUZ-002",
+      "test_name": "test_sc_auz_002_patch_user_403",
+      "module": "test_patch_generated.py",
+      "http_method": "PATCH",
+      "expected_status": 403,
+      "observed_status": 403,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-AUZ-003",
+      "test_name": "test_sc_auz_003_delete_user_403",
+      "module": "test_delete_generated.py",
+      "http_method": "DELETE",
+      "expected_status": 403,
+      "observed_status": 403,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-AUZ-004",
+      "test_name": "test_sc_auz_004_post_user_403",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "expected_status": 403,
+      "observed_status": 403,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-CRT-001",
+      "test_name": "test_sc_crt_001_post_user_201",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "expected_status": 201,
+      "observed_status": 201,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-CRT-002",
+      "test_name": "test_sc_crt_002_post_owner_201",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "expected_status": 201,
+      "observed_status": 201,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-DEL-001",
+      "test_name": "test_sc_del_001_delete_owner_204",
+      "module": "test_delete_generated.py",
+      "http_method": "DELETE",
+      "expected_status": 204,
+      "observed_status": 204,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-DEL-002",
+      "test_name": "test_sc_del_002_delete_admin_204",
+      "module": "test_delete_generated.py",
+      "http_method": "DELETE",
+      "expected_status": 204,
+      "observed_status": 204,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-FLW-001",
+      "test_name": "test_sc_flw_001_put_user_403",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "expected_status": 403,
+      "observed_status": 200,
+      "pytest_outcome": "failed",
+      "check": "status",
+      "classification": "KNOWN_FLAW_DETECTED",
+      "evidence": "Gözlenen 200, ground truth'taki bilinen kusur durumuyla (observed_flawed_status=200) aynı; güvenli beklenti 403. Broken Object Level Authorization (BOLA/IDOR, OWASP API1:2023)",
+      "classification_label": "Başarısız — bilinen güvenlik kusuru tespit edildi"
+    },
+    {
+      "scenario_id": "SC-FLW-002",
+      "test_name": "test_sc_flw_002_delete_user_403",
+      "module": "test_delete_generated.py",
+      "http_method": "DELETE",
+      "expected_status": 403,
+      "observed_status": 204,
+      "pytest_outcome": "failed",
+      "check": "status",
+      "classification": "KNOWN_FLAW_DETECTED",
+      "evidence": "Gözlenen 204, ground truth'taki bilinen kusur durumuyla (observed_flawed_status=204) aynı; güvenli beklenti 403. Broken Object Level Authorization (BOLA/IDOR, OWASP API1:2023)",
+      "classification_label": "Başarısız — bilinen güvenlik kusuru tespit edildi"
+    },
+    {
+      "scenario_id": "SC-FLW-003",
+      "test_name": "test_sc_flw_003_get_anonymous_200",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "expected_status": 200,
+      "observed_status": 200,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "KNOWN_FLAW_NOT_DETECTED",
+      "evidence": "Durum kodu referansla eşleşti; kusurun sapması bu testin doğruladığı boyutta değil (content).",
+      "classification_label": "Geçti — bilinen güvenlik kusuru bu testle tespit edilemedi"
+    },
+    {
+      "scenario_id": "SC-INP-001",
+      "test_name": "test_sc_inp_001_post_user_400",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "expected_status": 400,
+      "observed_status": 400,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-INP-002",
+      "test_name": "test_sc_inp_002_post_user_400",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "expected_status": 400,
+      "observed_status": 400,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-INP-003",
+      "test_name": "test_sc_inp_003_put_owner_400",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "expected_status": 400,
+      "observed_status": 400,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-INP-004",
+      "test_name": "test_sc_inp_004_post_user_400",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "expected_status": 400,
+      "observed_status": 400,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-LST-001",
+      "test_name": "test_sc_lst_001_get_anonymous_200",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "expected_status": 200,
+      "observed_status": 200,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-LST-002",
+      "test_name": "test_sc_lst_002_get_user_200",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "expected_status": 200,
+      "observed_status": 200,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-LST-003",
+      "test_name": "test_sc_lst_003_get_admin_200",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "expected_status": 200,
+      "observed_status": 200,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-MNA-001",
+      "test_name": "test_sc_mna_001_delete_owner_405",
+      "module": "test_delete_generated.py",
+      "http_method": "DELETE",
+      "expected_status": 405,
+      "observed_status": 405,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-MNA-002",
+      "test_name": "test_sc_mna_002_put_owner_405",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "expected_status": 405,
+      "observed_status": 405,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-NF-001",
+      "test_name": "test_sc_nf_001_put_owner_404",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "expected_status": 404,
+      "observed_status": 404,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-NF-002",
+      "test_name": "test_sc_nf_002_delete_owner_404",
+      "module": "test_delete_generated.py",
+      "http_method": "DELETE",
+      "expected_status": 404,
+      "observed_status": 404,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-PUB-001",
+      "test_name": "test_sc_pub_001_post_owner_200",
+      "module": "test_post_generated.py",
+      "http_method": "POST",
+      "expected_status": 200,
+      "observed_status": 200,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-RET-001",
+      "test_name": "test_sc_ret_001_get_anonymous_200",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "expected_status": 200,
+      "observed_status": 200,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-RET-002",
+      "test_name": "test_sc_ret_002_get_anonymous_404",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "expected_status": 404,
+      "observed_status": 404,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-RET-003",
+      "test_name": "test_sc_ret_003_get_owner_200",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "expected_status": 200,
+      "observed_status": 200,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-RET-004",
+      "test_name": "test_sc_ret_004_get_admin_200",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "expected_status": 200,
+      "observed_status": 200,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-RET-005",
+      "test_name": "test_sc_ret_005_get_user_404",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "expected_status": 404,
+      "observed_status": 404,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-RET-006",
+      "test_name": "test_sc_ret_006_get_anonymous_404",
+      "module": "test_get_generated.py",
+      "http_method": "GET",
+      "expected_status": 404,
+      "observed_status": 404,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-UPD-001",
+      "test_name": "test_sc_upd_001_put_owner_200",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "expected_status": 200,
+      "observed_status": 200,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-UPD-002",
+      "test_name": "test_sc_upd_002_put_admin_200",
+      "module": "test_put_generated.py",
+      "http_method": "PUT",
+      "expected_status": 200,
+      "observed_status": 200,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-UPD-003",
+      "test_name": "test_sc_upd_003_patch_owner_200",
+      "module": "test_patch_generated.py",
+      "http_method": "PATCH",
+      "expected_status": 200,
+      "observed_status": 200,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    },
+    {
+      "scenario_id": "SC-UPD-004",
+      "test_name": "test_sc_upd_004_patch_admin_200",
+      "module": "test_patch_generated.py",
+      "http_method": "PATCH",
+      "expected_status": 200,
+      "observed_status": 200,
+      "pytest_outcome": "passed",
+      "check": null,
+      "classification": "PASSED",
+      "evidence": "Durum kodu ve yan etki kontrolleri geçti.",
+      "classification_label": "Geçti — referanstaki güvenli beklenti karşılandı"
+    }
+  ]
+}
