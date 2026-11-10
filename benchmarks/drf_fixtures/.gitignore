@@ -1,0 +1,6 @@
+# Kontrollü hedef uygulamanın çalıştırma/derleme artefaktları (commit edilmez)
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.sqlite3
+.venv/
