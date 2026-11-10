@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "h3-03-ground-truth.schema.json",
+  "title": "H3-03 Ground Truth Şeması",
+  "type": "object",
+  "required": ["version", "records"],
+  "additionalProperties": true,
+  "properties": {
+    "dataset_ref": {"type": "string"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "records": {
+      "type": "array",
+      "minItems": 30,
+      "items": {"$ref": "#/$defs/record"}
+    }
+  },
+  "$defs": {
+    "record": {
+      "type": "object",
+      "required": [
+        "scenario_id", "http_method", "user_role", "expected_result",
+        "label", "reference_source", "validation_status", "is_known_flaw"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "scenario_id": {"type": "string", "pattern": "^SC-[A-Z]{2,3}-[0-9]{3}$"},
+        "http_method": {"type": "string", "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"]},
+        "user_role": {"type": "string", "enum": ["anonymous", "user", "owner", "admin"]},
+        "expected_result": {
+          "type": "object",
+          "required": ["secure_status", "behavior"],
+          "additionalProperties": false,
+          "properties": {
+            "secure_status": {"type": "integer", "enum": [200, 201, 204, 400, 401, 403, 404, 405]},
+            "behavior": {"type": "string", "minLength": 1}
+          }
+        },
+        "label": {"type": "string", "enum": ["positive", "negative"]},
+        "reference_source": {
+          "type": "string",
+          "enum": ["DRF_SEMANTICS", "PROJECT_REQUIREMENT", "FIXTURE_DESIGN"]
+        },
+        "validation_status": {"type": "string", "enum": ["verified", "uncertain"]},
+        "is_known_flaw": {"type": "boolean"},
+        "security_finding": {
+          "type": "object",
+          "required": [
+            "finding_type", "location", "expected_security_state",
+            "observed_flawed_status", "deviation_kind", "rationale"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "finding_type": {"type": "string", "minLength": 1},
+            "location": {"type": "string", "minLength": 1},
+            "expected_security_state": {"type": "string", "minLength": 1},
+            "observed_flawed_status": {"type": "integer", "enum": [200, 201, 204, 400, 401, 403, 404, 405]},
+            "deviation_kind": {"type": "string", "enum": ["status", "content"]},
+            "rationale": {"type": "string", "minLength": 1}
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"is_known_flaw": {"const": true}}},
+          "then": {"required": ["security_finding"]}
+        }
+      ]
+    }
+  }
+}

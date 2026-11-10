@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "source_scenarios": "benchmarks/drf_fixtures/scenarios/scenarios.json",
+  "description": "Bağımsız (held-out) değerlendirme test kümesi. Sabittir; sonuçlara göre değiştirilmez.",
+  "scenario_ids": [
+    "SC-AUT-002",
+    "SC-AUT-003",
+    "SC-AUT-004",
+    "SC-AUZ-001",
+    "SC-AUZ-002",
+    "SC-AUZ-003",
+    "SC-DEL-001",
+    "SC-DEL-002",
+    "SC-FLW-001",
+    "SC-FLW-002",
+    "SC-FLW-003",
+    "SC-INP-003",
+    "SC-NF-001",
+    "SC-NF-002",
+    "SC-UPD-001",
+    "SC-UPD-002",
+    "SC-UPD-003",
+    "SC-UPD-004"
+  ],
+  "count": 18
+}
