@@ -1,0 +1,367 @@
+{
+  "manifest": "H3-06 dondurulmuş değerlendirme manifesti",
+  "manifest_version": "1.0.0",
+  "evaluator_version": "1.0.0",
+  "issue": "#32",
+  "dataset": {
+    "test_set": "benchmarks/reference_cases/test_set.json",
+    "test_set_version": "1.0.0",
+    "test_set_sha256_lf": "6e69549e388ed26762e09851d4e61c3c6b8db15a910966ef223ab103eed151b1",
+    "ground_truth": "benchmarks/reference_cases/ground_truth.json",
+    "ground_truth_sha256_lf": "b5114e74c63d9a60f335bd4984d9896da98d423c41ea87d618f2cca268fd737c",
+    "integrity_reference": "benchmarks/reference_cases/INTEGRITY.txt",
+    "hash_method": "SHA-256, CRLF→LF normalleştirilmiş içerik (check_references.py ile aynı)",
+    "scenario_count": 18,
+    "scenario_ids": [
+      "SC-AUT-002",
+      "SC-AUT-003",
+      "SC-AUT-004",
+      "SC-AUZ-001",
+      "SC-AUZ-002",
+      "SC-AUZ-003",
+      "SC-DEL-001",
+      "SC-DEL-002",
+      "SC-FLW-001",
+      "SC-FLW-002",
+      "SC-FLW-003",
+      "SC-INP-003",
+      "SC-NF-001",
+      "SC-NF-002",
+      "SC-UPD-001",
+      "SC-UPD-002",
+      "SC-UPD-003",
+      "SC-UPD-004"
+    ]
+  },
+  "inclusion_criteria": [
+    "Yalnızca test_set.json'daki 18 senaryo değerlendirilir (H3-03 bağımsız küme).",
+    "Her senaryonun ground_truth.json'da validation_status=verified kaydı bulunmalıdır.",
+    "Her baseline için senaryoya ait ilk geçiş (onarımsız) test artefaktı kullanılır."
+  ],
+  "exclusion_criteria": [
+    "Geliştirme kümesi (split.json 'development', 20 senaryo) metriklere katılmaz.",
+    "Kusursuz senaryodaki teknik hata güvenlik matrisine katılmaz (split.md §4.3); çalıştırılabilirlik metriğinde raporlanır.",
+    "Hiçbir senaryo sonuca bakılarak çıkarılmaz; veri kümesi değiştirilmez."
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-AUT-002",
+      "http_method": "PUT",
+      "user_role": "anonymous",
+      "secure_status": 401,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-AUT-003",
+      "http_method": "PATCH",
+      "user_role": "anonymous",
+      "secure_status": 401,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-AUT-004",
+      "http_method": "DELETE",
+      "user_role": "anonymous",
+      "secure_status": 401,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-AUZ-001",
+      "http_method": "PUT",
+      "user_role": "user",
+      "secure_status": 403,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-AUZ-002",
+      "http_method": "PATCH",
+      "user_role": "user",
+      "secure_status": 403,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-AUZ-003",
+      "http_method": "DELETE",
+      "user_role": "user",
+      "secure_status": 403,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-DEL-001",
+      "http_method": "DELETE",
+      "user_role": "owner",
+      "secure_status": 204,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-DEL-002",
+      "http_method": "DELETE",
+      "user_role": "admin",
+      "secure_status": 204,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-FLW-001",
+      "http_method": "PUT",
+      "user_role": "user",
+      "secure_status": 403,
+      "is_known_flaw": true,
+      "observed_flawed_status": 200,
+      "deviation_kind": "status",
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-FLW-002",
+      "http_method": "DELETE",
+      "user_role": "user",
+      "secure_status": 403,
+      "is_known_flaw": true,
+      "observed_flawed_status": 204,
+      "deviation_kind": "status",
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-FLW-003",
+      "http_method": "GET",
+      "user_role": "anonymous",
+      "secure_status": 200,
+      "is_known_flaw": true,
+      "observed_flawed_status": 200,
+      "deviation_kind": "content",
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-INP-003",
+      "http_method": "PUT",
+      "user_role": "owner",
+      "secure_status": 400,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-NF-001",
+      "http_method": "PUT",
+      "user_role": "owner",
+      "secure_status": 404,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-NF-002",
+      "http_method": "DELETE",
+      "user_role": "owner",
+      "secure_status": 404,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-UPD-001",
+      "http_method": "PUT",
+      "user_role": "owner",
+      "secure_status": 200,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-UPD-002",
+      "http_method": "PUT",
+      "user_role": "admin",
+      "secure_status": 200,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-UPD-003",
+      "http_method": "PATCH",
+      "user_role": "owner",
+      "secure_status": 200,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    },
+    {
+      "scenario_id": "SC-UPD-004",
+      "http_method": "PATCH",
+      "user_role": "admin",
+      "secure_status": 200,
+      "is_known_flaw": false,
+      "observed_flawed_status": null,
+      "deviation_kind": null,
+      "validation_status": "verified"
+    }
+  ],
+  "coverage": {
+    "by_method": {
+      "GET": 1,
+      "POST": 0,
+      "PUT": 7,
+      "PATCH": 4,
+      "DELETE": 6
+    },
+    "by_secure_status": {
+      "200": 5,
+      "204": 2,
+      "400": 1,
+      "401": 3,
+      "403": 5,
+      "404": 2
+    },
+    "by_role": {
+      "admin": 3,
+      "anonymous": 4,
+      "owner": 6,
+      "user": 5
+    },
+    "missing_methods": [
+      "POST"
+    ],
+    "missing_statuses": [
+      "201",
+      "405"
+    ]
+  },
+  "known_flaws": [
+    {
+      "scenario_id": "SC-FLW-001",
+      "http_method": "PUT",
+      "secure_status": 403,
+      "observed_flawed_status": 200,
+      "deviation_kind": "status"
+    },
+    {
+      "scenario_id": "SC-FLW-002",
+      "http_method": "DELETE",
+      "secure_status": 403,
+      "observed_flawed_status": 204,
+      "deviation_kind": "status"
+    },
+    {
+      "scenario_id": "SC-FLW-003",
+      "http_method": "GET",
+      "secure_status": 200,
+      "observed_flawed_status": 200,
+      "deviation_kind": "content"
+    }
+  ],
+  "baselines": {
+    "rule_based": {
+      "issue": "#30 (H3-04)",
+      "generator": "agent.test_generation.rule_based v1.0.0",
+      "llm_used": false,
+      "deterministic": true,
+      "input_sha256_recorded": {
+        "experiments/h3_04_rule_based_baseline/endpoint_summary.json": "47fa2ed25bd95a89fe93a72f3705c74c05780c2e614c50b7bf380b77d8c4344f",
+        "benchmarks/reference_cases/ground_truth.json": "b5114e74c63d9a60f335bd4984d9896da98d423c41ea87d618f2cca268fd737c",
+        "benchmarks/reference_cases/ground_truth.schema.json": "3642e429bfbee234d7a43caf27f1a8a0d9afb623dc5dd02fad1232a0e4e997ef",
+        "benchmarks/drf_fixtures/scenarios/scenarios.json": "6970d02ed14f5c66268b367a5cae2d02e753f60de5b8044b98ab53519237158e",
+        "benchmarks/drf_fixtures/scenarios/scenarios.schema.json": "8ddca198ee2356648f6859111e87e1d73353188248a8c2122af47540b0f247a1",
+        "benchmarks/drf_fixtures/sample_app/catalog/fixtures/users.json": "4a976c917b4e5d7ad511bc93a239b6ea6dc0bc4122d58b603bed5ab67a1e4e62",
+        "benchmarks/drf_fixtures/sample_app/catalog/fixtures/articles.json": "7d3017e8c4324818b615bc076ab0bd76400f0c3b1472ec95a4fc7d674915989d"
+      },
+      "artifacts_sha256_lf": {
+        "experiments/h3_04_rule_based_baseline/generated_tests/conftest.py": "d273287a73c249766c488ed74f69372961211d0a7144d2845df2a2bc605ae68d",
+        "experiments/h3_04_rule_based_baseline/generated_tests/h304_support.py": "0ad749a5207ad47f4d9f228b09582b1ec52a82cf49db2e64e5dfe14d8da181c4",
+        "experiments/h3_04_rule_based_baseline/generated_tests/test_delete_generated.py": "b74e713441360a078849b25432e89dd776c3ada14eff073617a6277cc5bd7095",
+        "experiments/h3_04_rule_based_baseline/generated_tests/test_get_generated.py": "95d9c3f729c0970947e7d9ff8cb64770a5e507fc1030e1fd5ce556ec97115876",
+        "experiments/h3_04_rule_based_baseline/generated_tests/test_patch_generated.py": "842e728f00076bb190ab35352674c5f99647e886ad26534df75a96c98515be31",
+        "experiments/h3_04_rule_based_baseline/generated_tests/test_post_generated.py": "7425d2626fe4bb1933719ed5156c1a8a8b95fc3a671a7532ae87b32be87c53da",
+        "experiments/h3_04_rule_based_baseline/generated_tests/test_put_generated.py": "adc3ed53f74711e0283abfcc3e086836e2c4bc5a3b7a564115e5667d7e28f274",
+        "experiments/h3_04_rule_based_baseline/reports/generation_report.json": "174eb1752cf594c8e59fc87ac36eb7368eec942691d5209f67d25cf960f58dff"
+      }
+    },
+    "llm": {
+      "issue": "#31 (H3-05)",
+      "generator": "agent.test_generation.llm v1.0.0",
+      "model": "groq/openai/gpt-oss-120b",
+      "prompt_version": "pytest_v1",
+      "temperature_default": 0.0,
+      "temperature_recorded": null,
+      "temperature_note": "Kayıtlı rapor sıcaklık alanı içermez; CLI varsayılanı 0.0'dır (--temperature / LLM_TEMPERATURE ile değiştirilebilir). Kullanılan değer bu nedenle doğrulanamadı.",
+      "first_pass_only": true,
+      "input_sha256_recorded": {
+        "endpoint_summary.json": "47fa2ed25bd95a89fe93a72f3705c74c05780c2e614c50b7bf380b77d8c4344f",
+        "ground_truth.json": "3d271f96de554e78f8e49ecdb21df1e7d7bd105159575115d69486ec4d1678bb",
+        "scenarios.json": "dc8a856b30011fb0ed3e9d5b1ed42f9b86b476a083540ef70b3a7c5293f6d818"
+      },
+      "artifacts_sha256_lf": {
+        "experiments/h3_05_llm_baseline/generated_tests/conftest.py": "05e153773d4df68e4deddb013e0ef543e130295c4932f85ec7be1b1171ebed83",
+        "experiments/h3_05_llm_baseline/reports/generation_report.json": "31d5f28812882d4ceb6739de6dd6bac0c4a778eaa9fd55d858c9126a495522a5",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-AUT-001.txt": "c4726618eabcd593fc84e1f14f84d1ddef72d5db9b7cd70749b697a80009c549",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-AUT-002.txt": "f00d96d03b5d0be6d7dcdab6c4fa6b0eaa9e2c4b86c7234a97892880e9c8ab19",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-AUT-003.txt": "7ab9dba8509bb6a5cfd89e1e974df3f10efd328f8275df5970c043ce48bdb7f8",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-AUT-004.txt": "fde2e9f9178bc6c99eb35650bc272760f152376bb6b65d08629fd920ca16318d",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-AUT-005.txt": "4986d13c578498364a0991133cf182e86ee485aaa85ca1e1e61a3f44433f1c44",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-AUZ-001.txt": "347de2e0014a3ae9c49723d5ed85dfe05257205fc9f910037680b0c7370b6214",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-AUZ-002.txt": "b178317f4a9cce5a91523521beb87eff02ffde7a66c819d1ac247d84c54b964e",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-AUZ-003.txt": "57c497e4f67308867bfa33e136511597bf6aa0e556414915b476a73dc5d1d247",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-AUZ-004.txt": "c63486572ae2f9338ea3cc861ec6703d99b1ef006d050f244c11f4d95259194e",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-CRT-001.txt": "c2f9f1fd7092bec2d5b1507165e7aeb92fa7319c53fa9b1c62eca30c49e43756",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-CRT-002.txt": "2dc4253110e4964c6f7bae12ec3006b4cf2f3c6e2fa2ecf19c62c532aa8a63fa",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-DEL-001.txt": "89c10e1f885c841a19f05d3beb2635314a9beabaf46caf8b134dee55a03cd846",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-DEL-002.txt": "ab857f56e75da5c3d487e2a6397b96086cd9c6592f8354c12394c3b5e9754e5f",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-FLW-001.txt": "912bf322bbacb9e5e2ef805ba40469cb794e21ffaf233c6e4f8e1d51108722a0",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-FLW-002.txt": "2548d8a8f2abc8df0bc116bc5889429d509ad0678352d0760bbb9041f4e3cd55",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-FLW-003.txt": "5c742dc4ed2094e0e37f04259443797f46bbb958bae89a11b663314e2398169c",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-INP-001.txt": "7ab54b69a20a61bff03fb60f81828c44cea45491a17834620dae7fbbf51483a5",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-INP-002.txt": "7bca6a281fa6742b95637a19c92c78e53ccae5dfcd262f09e7482dbaf5485706",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-INP-003.txt": "cb68eac7141ed6ce341b77f58201b4004be8b3ebf93bc1b8ef41d5a522bbe36c",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-INP-004.txt": "77cc0c502dea69d5689045362dfb17ce0bbad2378681b5f20e96f7dd6aa5b1e2",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-LST-001.txt": "351c33e6d94fe07129055cfaf7eb057ce940b90c83d39f1526bb3c7ac68f9304",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-LST-002.txt": "20cbd7c71be6976095610ad44c22f7b94c6de1c1037407015b962190d8181c54",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-LST-003.txt": "05d03dc5ca6d92dfa7d91eeb3e525ca7e1d64832851ce845cd5532e91f30160f",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-MNA-001.txt": "0fe9410a1545cc65388755db4207f2ff90f88ceb09a1adb15b68d5eac9bf2df5",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-MNA-002.txt": "141b1b971eab9c8a253d060a78b31bd1038e0a979b8bc69a07aa27290e309d68",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-NF-001.txt": "9c3d6448057929e1fdc3cfd723f4c960404307937432bb9c5e7f9e7f250cf301",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-NF-002.txt": "d93819499d53512eae3cb524de1c6d9813229fae9f16135391fba4f81a0a4556",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-PUB-001.txt": "6bb5be4e25b844747197255c759da7ab64cefa43baaacf3a577213940c54ced8",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-RET-001.txt": "42f8e1e6c19b3fbaca90db989051bd96bb841823b18656af2e2735eacbeaa14c",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-RET-002.txt": "65ca41daa81c1b3e1036974d0fe3ed39c4af83e14da1212acde3af49b4b23c29",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-RET-003.txt": "57e881b1e84345b8cd8d32bcd6e13ec15b120fb055168aea159094473095e952",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-RET-004.txt": "74faf270f6a741aa639af56a297b5185018187567dbfc17a7bbd0269ca5bb47b",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-RET-005.txt": "e9e2497a86b31e2d2864cf089e99a877b051c0c92289473728f51ad52cc14e35",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-RET-006.txt": "03a7a13134b767050f20ef229c86ae85d6e5589338fafaff17a4e7a0c228fdc7",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-UPD-001.txt": "105e9e3fe0f1af2c73f2a05ef1e326ce1696d606b61779a438b893c13a7c454c",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-UPD-002.txt": "497810b0201ef7ea9978c2efc15680a3c61d5888d0e3456d936784a76b8990d2",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-UPD-003.txt": "7446810486c845c2ad76f60d926cfe6df14cb70807157288022d2a783f39d5bd",
+        "experiments/h3_05_llm_baseline/raw_responses/SC-UPD-004.txt": "93dd500b34b54621519850aa54e79c40616b212233df2278ae722bcbd03609e1"
+      }
+    }
+  },
+  "contamination_note": "Her iki üretici de 38 senaryonun tamamı için (test kümesi dahil) test üretmiştir; bu bir eğitim değil, girdi olarak kullanımdır. Kural tabanlı üretici öğrenme/ayar içermez. LLM istemi ground truth'un yalnızca güvenli beklentisini (secure_status, behavior) içerir; is_known_flaw ve observed_flawed_status istemlere girmez (prompts_sent taramasıyla doğrulandı). İstem şablonu veri kümesi bilinerek tasarlanmıştır; bu sınırlılık raporlanır.",
+  "mutation_score": "Bu aşamada ölçülmedi"
+}

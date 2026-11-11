@@ -1,0 +1,29 @@
+{
+ "exitstatus": 1,
+ "records": [
+  {
+   "nodeid": "test_sc_flw_002.py::test_sc_flw_002_delete_user_403",
+   "when": "setup",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  },
+  {
+   "nodeid": "test_sc_flw_002.py::test_sc_flw_002_delete_user_403",
+   "when": "call",
+   "outcome": "failed",
+   "xfail": false,
+   "exc_type": "AssertionError",
+   "message": "[H304] scenario=SC-FLW-002 check=status expected=403 observed=204 | Sahip olmayan kullanıcı başkasının kaydını silememeli (403). | yanıt: \nassert 204 == 403\n +  where 204 = <Response status_code=204>.status_code"
+  },
+  {
+   "nodeid": "test_sc_flw_002.py::test_sc_flw_002_delete_user_403",
+   "when": "teardown",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  }
+ ]
+}

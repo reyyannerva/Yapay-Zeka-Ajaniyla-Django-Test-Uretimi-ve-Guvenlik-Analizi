@@ -1,0 +1,29 @@
+{
+ "exitstatus": 0,
+ "records": [
+  {
+   "nodeid": "test_sc_aut_004.py::test_sc_aut_004_delete_anonymous_401",
+   "when": "setup",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  },
+  {
+   "nodeid": "test_sc_aut_004.py::test_sc_aut_004_delete_anonymous_401",
+   "when": "call",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  },
+  {
+   "nodeid": "test_sc_aut_004.py::test_sc_aut_004_delete_anonymous_401",
+   "when": "teardown",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  }
+ ]
+}

@@ -1,0 +1,29 @@
+{
+ "exitstatus": 0,
+ "records": [
+  {
+   "nodeid": "test_sc_del_001.py::test_sc_del_001_delete_owner_204",
+   "when": "setup",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  },
+  {
+   "nodeid": "test_sc_del_001.py::test_sc_del_001_delete_owner_204",
+   "when": "call",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  },
+  {
+   "nodeid": "test_sc_del_001.py::test_sc_del_001_delete_owner_204",
+   "when": "teardown",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  }
+ ]
+}

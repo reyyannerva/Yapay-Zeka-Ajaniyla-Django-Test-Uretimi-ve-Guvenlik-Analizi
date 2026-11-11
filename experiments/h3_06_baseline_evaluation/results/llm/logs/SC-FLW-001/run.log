@@ -1,0 +1,23 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________________________ test_sc_flw_001 ________________________________
+
+seeded_db = None
+api_client = <rest_framework.test.APIClient object at 0x7fed12e44c20>
+
+    def test_sc_flw_001(seeded_db, api_client):
+        user = User.objects.get(username="carol")
+        api_client.force_authenticate(user=user)
+    
+        url = reverse("insecure-article-detail", kwargs={"pk": 1})
+        payload = {"title": "Örnek Başlık", "body": "örnek içerik"}
+    
+        response = api_client.put(url, payload, format="json")
+>       assert response.status_code == 403
+E       assert 200 == 403
+E        +  where 200 = <Response status_code=200, "application/json">.status_code
+
+test_sc_flw_001.py:15: AssertionError
+=========================== short test summary info ============================
+FAILED test_sc_flw_001.py::test_sc_flw_001 - assert 200 == 403
+1 failed in 0.16s
