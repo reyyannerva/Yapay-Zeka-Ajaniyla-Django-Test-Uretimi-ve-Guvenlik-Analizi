@@ -1,0 +1,29 @@
+{
+ "exitstatus": 1,
+ "records": [
+  {
+   "nodeid": "test_sc_flw_001.py::test_sc_flw_001",
+   "when": "setup",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  },
+  {
+   "nodeid": "test_sc_flw_001.py::test_sc_flw_001",
+   "when": "call",
+   "outcome": "failed",
+   "xfail": false,
+   "exc_type": "AssertionError",
+   "message": "assert 200 == 403\n +  where 200 = <Response status_code=200, \"application/json\">.status_code"
+  },
+  {
+   "nodeid": "test_sc_flw_001.py::test_sc_flw_001",
+   "when": "teardown",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  }
+ ]
+}

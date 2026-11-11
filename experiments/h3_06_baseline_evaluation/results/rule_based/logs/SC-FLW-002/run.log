@@ -1,0 +1,29 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________________ test_sc_flw_002_delete_user_403 ________________________
+
+seeded_db = None
+api_client = <rest_framework.test.APIClient object at 0x7f9401924ec0>
+
+    def test_sc_flw_002_delete_user_403(seeded_db, api_client):
+        """SC-FLW-002 · DELETE /api/insecure/articles/3/ · user (carol; fixture ilişkisi: sahip_olmayan) · beklenen 403
+    
+        Beklenen davranış: Sahip olmayan kullanıcı başkasının kaydını silememeli (403).
+        Referans: ground_truth.json (PROJECT_REQUIREMENT, verified); kategori: AUTHORIZATION
+        Endpoint: EP-INSECURE-ARTICLE-DETAIL (insecure-article-detail), işlem: destroy; yan etki kuralı: resource_unchanged
+        Bilinen güvenlik kusuru: Broken Object Level Authorization (BOLA/IDOR, OWASP API1:2023) — güvensiz uçta gözlenen 204 (status sapması).
+        """
+        api_client.force_authenticate(user=User.objects.get(username='carol'))
+        url = reverse('insecure-article-detail', kwargs={'pk': 3})
+        assert url == '/api/insecure/articles/3/', route_message('SC-FLW-002', '/api/insecure/articles/3/', url)
+        before = snapshot('catalog.Article', 3, ['title', 'body', 'is_published'])
+        response = api_client.delete(url)
+>       assert response.status_code == 403, status_message('SC-FLW-002', 403, response, 'Sahip olmayan kullanıcı başkasının kaydını silememeli (403).')
+E       AssertionError: [H304] scenario=SC-FLW-002 check=status expected=403 observed=204 | Sahip olmayan kullanıcı başkasının kaydını silememeli (403). | yanıt: 
+E       assert 204 == 403
+E        +  where 204 = <Response status_code=204>.status_code
+
+test_sc_flw_002.py:21: AssertionError
+=========================== short test summary info ============================
+FAILED test_sc_flw_002.py::test_sc_flw_002_delete_user_403 - AssertionError: ...
+1 failed in 0.16s

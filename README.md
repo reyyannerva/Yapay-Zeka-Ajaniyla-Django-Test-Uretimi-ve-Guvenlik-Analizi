@@ -184,9 +184,10 @@ Haftalık görevler GitHub Issues üzerinden takip edilecektir.
 
 ## Proje Durumu
 
-**Durum: Hafta 3 — Veri ve AI baseline (devam ediyor).** Hafta 1 (diyagramlar, isterler) ve Hafta 2 (Figma,
-veritabanı tasarımı) tamamlandı. Hafta 3'te H3-01–H3-04 tamamlandı; H3-05 (LLM ile Pytest üretimi, #31) ve
-H3-06 (metrikler ve karşılaştırma, #32) açıktır. Ürün backend'i, web arayüzü, AST analiz motoru ve Docker
+**Durum: Hafta 3 — Veri ve AI baseline.** Hafta 1 (diyagramlar, isterler) ve Hafta 2 (Figma,
+veritabanı tasarımı) tamamlandı. Hafta 3'te H3-01–H3-06 iş kalemleri tamamlandı; H3-05'te Issue #31'deki
+Llama 3.3 70B yerine `gpt-oss-120b` kullanıldığından kilometre taşı bu sapmanın onayını beklemektedir
+([`docs/evaluation/h3-06/week3_summary.md`](docs/evaluation/h3-06/week3_summary.md)). Ürün backend'i, web arayüzü, AST analiz motoru ve Docker
 yürütme ortamı sonraki haftaların kapsamındadır; README'de belirtilen hedefler tamamlanmış işlevler olarak
 değerlendirilmemelidir.
 
@@ -204,6 +205,8 @@ değerlendirilmemelidir.
 | 3 | H3-02 EDA notebook ve veri kalitesi raporları (#28) | [`experiments/h3_02_eda/`](experiments/h3_02_eda/README.md) |
 | 3 | H3-03 Bağımsız test kümesi ve ground truth (#29) | [`benchmarks/reference_cases/`](benchmarks/reference_cases/README.md) |
 | 3 | H3-04 Kural tabanlı Pytest üretim baseline'ı (#30) | [`agent/test_generation/rule_based/`](agent/test_generation/rule_based/README.md), [`experiments/h3_04_rule_based_baseline/`](experiments/h3_04_rule_based_baseline/README.md) |
+| 3 | H3-05 LLM ile ilk Pytest üretimi (#31) | [`agent/test_generation/llm/`](agent/test_generation/llm/README.md), [`experiments/h3_05_llm_baseline/`](experiments/h3_05_llm_baseline/) |
+| 3 | H3-06 Metrikler, baseline karşılaştırması ve demo (#32) | [`docs/evaluation/h3-06/`](docs/evaluation/h3-06/README.md), [`agent/evaluation/`](agent/evaluation/README.md), [`experiments/h3_06_baseline_evaluation/`](experiments/h3_06_baseline_evaluation/README.md) |
 | 1–3 | Bağımsız denetim ve düzeltme kaydı | [`docs/audit/hafta1-3_denetim_duzeltme.md`](docs/audit/hafta1-3_denetim_duzeltme.md) |
 
 ### Doğrulama komutları (Hafta 3)
@@ -220,6 +223,12 @@ Tüm komutlar depo kökünden çalıştırılır:
 # H3-04 üretici testleri ve uçtan uca üretim/çalıştırma
 (cd agent/test_generation/rule_based && pytest -q)
 python -m agent.test_generation.rule_based all
+# H3-05 LLM prototipi birim testleri (canlı model çağrısı yapmaz)
+(cd agent/test_generation/llm && pytest -q)
+# H3-06 dondurulmuş manifest doğrulaması, iki baseline'ın değerlendirilmesi ve değerlendirici testleri
+python -m agent.evaluation verify
+python -m agent.evaluation run
+(cd agent/evaluation && pytest -q)
 ```
 
 Bağımlılıklar: ilgili dizinlerdeki `requirements.txt` dosyaları.

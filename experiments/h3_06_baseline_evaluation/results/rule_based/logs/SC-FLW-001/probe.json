@@ -1,0 +1,29 @@
+{
+ "exitstatus": 1,
+ "records": [
+  {
+   "nodeid": "test_sc_flw_001.py::test_sc_flw_001_put_user_403",
+   "when": "setup",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  },
+  {
+   "nodeid": "test_sc_flw_001.py::test_sc_flw_001_put_user_403",
+   "when": "call",
+   "outcome": "failed",
+   "xfail": false,
+   "exc_type": "AssertionError",
+   "message": "[H304] scenario=SC-FLW-001 check=status expected=403 observed=200 | Sahip olmayan kullanıcı başkasının kaydını güncelleyememeli (403). | yanıt: {\"id\":1,\"owner\":\"alice\",\"title\":\"Örnek Başlık\",\"body\":\"örnek içerik\",\"is_published\":true,\"created_at\":\"2026-01-01T09:00:00Z\"}\nassert 200 == 403\n +  where 200 = <Response status_code=200, \"application/json\">.status_code"
+  },
+  {
+   "nodeid": "test_sc_flw_001.py::test_sc_flw_001_put_user_403",
+   "when": "teardown",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  }
+ ]
+}

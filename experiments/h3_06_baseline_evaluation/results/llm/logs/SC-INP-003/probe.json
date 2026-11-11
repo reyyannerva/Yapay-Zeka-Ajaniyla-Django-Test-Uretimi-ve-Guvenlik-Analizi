@@ -1,0 +1,29 @@
+{
+ "exitstatus": 0,
+ "records": [
+  {
+   "nodeid": "test_sc_inp_003.py::test_sc_inp_003",
+   "when": "setup",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  },
+  {
+   "nodeid": "test_sc_inp_003.py::test_sc_inp_003",
+   "when": "call",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  },
+  {
+   "nodeid": "test_sc_inp_003.py::test_sc_inp_003",
+   "when": "teardown",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  }
+ ]
+}

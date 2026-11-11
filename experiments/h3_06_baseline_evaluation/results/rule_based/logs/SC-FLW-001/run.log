@@ -1,0 +1,29 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________________________ test_sc_flw_001_put_user_403 _________________________
+
+seeded_db = None
+api_client = <rest_framework.test.APIClient object at 0x7f4810f0cec0>
+
+    def test_sc_flw_001_put_user_403(seeded_db, api_client):
+        """SC-FLW-001 · PUT /api/insecure/articles/1/ · user (carol; fixture ilişkisi: sahip_olmayan) · beklenen 403
+    
+        Beklenen davranış: Sahip olmayan kullanıcı başkasının kaydını güncelleyememeli (403).
+        Referans: ground_truth.json (PROJECT_REQUIREMENT, verified); kategori: AUTHORIZATION
+        Endpoint: EP-INSECURE-ARTICLE-DETAIL (insecure-article-detail), işlem: update; yan etki kuralı: resource_unchanged
+        Bilinen güvenlik kusuru: Broken Object Level Authorization (BOLA/IDOR, OWASP API1:2023) — güvensiz uçta gözlenen 200 (status sapması).
+        """
+        api_client.force_authenticate(user=User.objects.get(username='carol'))
+        url = reverse('insecure-article-detail', kwargs={'pk': 1})
+        assert url == '/api/insecure/articles/1/', route_message('SC-FLW-001', '/api/insecure/articles/1/', url)
+        before = snapshot('catalog.Article', 1, ['title', 'body', 'is_published'])
+        response = api_client.put(url, {'body': 'örnek içerik', 'title': 'Örnek Başlık'}, format='json')
+>       assert response.status_code == 403, status_message('SC-FLW-001', 403, response, 'Sahip olmayan kullanıcı başkasının kaydını güncelleyememeli (403).')
+E       AssertionError: [H304] scenario=SC-FLW-001 check=status expected=403 observed=200 | Sahip olmayan kullanıcı başkasının kaydını güncelleyememeli (403). | yanıt: {"id":1,"owner":"alice","title":"Örnek Başlık","body":"örnek içerik","is_published":true,"created_at":"2026-01-01T09:00:00Z"}
+E       assert 200 == 403
+E        +  where 200 = <Response status_code=200, "application/json">.status_code
+
+test_sc_flw_001.py:21: AssertionError
+=========================== short test summary info ============================
+FAILED test_sc_flw_001.py::test_sc_flw_001_put_user_403 - AssertionError: [H3...
+1 failed in 0.19s

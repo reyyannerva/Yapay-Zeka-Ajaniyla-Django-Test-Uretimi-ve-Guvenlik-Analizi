@@ -1,0 +1,8 @@
+.                                                                        [100%]
+==================================== PASSES ====================================
+_______________________ test_sc_nf_002_delete_owner_404 ________________________
+------------------------------ Captured log call -------------------------------
+WARNING  django.request:log.py:293 Not Found: /api/articles/999/
+=========================== short test summary info ============================
+PASSED test_sc_nf_002.py::test_sc_nf_002_delete_owner_404
+1 passed in 0.14s

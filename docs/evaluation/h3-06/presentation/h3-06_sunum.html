@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>H3-06 Baseline Karşılaştırması</title>
+<style>
+  :root { --bg:#f7f7f5; --fg:#1d1d1b; --muted:#5f5f5a; --card:#ffffff; --line:#d9d9d4; --a:#2f5f9e; --b:#9a5a1c; --ok:#2e7d4f; --warn:#a15c00; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#171716; --fg:#ececea; --muted:#a6a6a0; --card:#21211f; --line:#3a3a37; --a:#7fa8e0; --b:#e0a46a; --ok:#6cc48f; --warn:#e2a54a; } }
+  :root[data-theme="dark"] { --bg:#171716; --fg:#ececea; --muted:#a6a6a0; --card:#21211f; --line:#3a3a37; --a:#7fa8e0; --b:#e0a46a; --ok:#6cc48f; --warn:#e2a54a; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--fg); font:18px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .slide { display:none; min-height:100vh; padding:6vh 8vw 10vh; flex-direction:column; justify-content:center; max-width:1200px; margin:0 auto; }
+  .slide.on { display:flex; }
+  h1 { font-size:2.2rem; margin:0 0 .4em; line-height:1.15; }
+  h2 { font-size:1.6rem; margin:0 0 .8em; }
+  .muted { color:var(--muted); }
+  ul { padding-left:1.2em; } li { margin:.35em 0; }
+  table { border-collapse:collapse; width:100%; background:var(--card); font-size:.95rem; }
+  th, td { border:1px solid var(--line); padding:.45em .7em; text-align:left; vertical-align:top; }
+  th { font-weight:600; }
+  td.n { text-align:right; font-variant-numeric:tabular-nums; }
+  code, pre { font-family:ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size:.85em; }
+  pre { background:var(--card); border:1px solid var(--line); padding:.8em 1em; overflow-x:auto; border-radius:6px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:1.2em; }
+  .kpi { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:1em; }
+  .kpi b { display:block; font-size:2rem; font-variant-numeric:tabular-nums; }
+  .A { color:var(--a); } .B { color:var(--b); } .ok { color:var(--ok); } .warn { color:var(--warn); }
+  nav { position:fixed; bottom:0; left:0; right:0; display:flex; justify-content:space-between; align-items:center; padding:.6em 1em; font-size:.85rem; color:var(--muted); background:var(--bg); border-top:1px solid var(--line); }
+  button { font:inherit; background:var(--card); color:var(--fg); border:1px solid var(--line); border-radius:6px; padding:.3em .8em; cursor:pointer; }
+  @media (max-width:700px) { body { font-size:16px; } .slide { padding:4vh 16px 12vh; } .grid { grid-template-columns:1fr; } h1 { font-size:1.6rem; } table { font-size:.8rem; } }
+</style>
+</head>
+<body>
+
+<section class="slide on">
+  <p class="muted">Hafta 3 · H3-06 · Issue #32</p>
+  <h1>İlk Metrikler: Kural Tabanlı ve LLM Tabanlı Pytest Üretiminin Karşılaştırılması</h1>
+  <p>Amaç: iki üreticiyi <b>aynı bağımsız test kümesi</b> ve <b>aynı değerlendirme hattı</b> üzerinde ölçmek,
+     sonuçları F1 ≥ 0.80 ve ilk geçişte çalıştırılabilirlik ≥ %70 hedefleriyle karşılaştırmak.</p>
+  <p class="muted">Baseline A: H3-04 kural tabanlı (deterministik) · Baseline B: H3-05 LLM (groq/openai/gpt-oss-120b, istem pytest_v1)</p>
+</section>
+
+<section class="slide">
+  <h2>Veri ve sabitleme</h2>
+  <div class="grid">
+    <div>
+      <ul>
+        <li>H3-03 bağımsız test kümesi: <b>18 senaryo</b>, 3 bilinen kusur</li>
+        <li>GET 1 · PUT 7 · PATCH 4 · DELETE 6 · <span class="warn">POST 0</span></li>
+        <li>Durum kodları: 200, 204, 400, 401, 403, 404 · <span class="warn">201 ve 405 yok</span></li>
+        <li>Geliştirme kümesi (20 senaryo) metriklere katılmaz</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li>Manifest: veri + 48 artefakt için SHA-256 (LF normalleştirilmiş)</li>
+        <li><code>run</code> önce doğrular; uyuşmazlıkta değerlendirme başlamaz</li>
+        <li>Test kümesi sonuca göre değiştirilmedi</li>
+        <li>LLM istemlerinde kusur bilgisi yok (38/38 tarandı)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Adil değerlendirme hattı</h2>
+  <pre>senaryo → tek test (onarımsız ilk çıktı)
+  → ast.parse            (SYNTAX_INVALID)
+  → güvenlik ön kontrolü  (UNSAFE_BLOCKED: dış ağ / süreç)
+  → pytest --collect-only (COLLECTION_ERROR)
+  → yalıtılmış pytest     (PASS · FAIL[AssertionError] · ERROR · TIMEOUT)</pre>
+  <table>
+    <tr><th></th><th>Kusur var</th><th>Kusur yok</th></tr>
+    <tr><th>FAIL</th><td>TP</td><td>FP</td></tr>
+    <tr><th>PASS</th><td>FN</td><td>TN</td></tr>
+    <tr><th>Test yok / teknik hata</th><td>FN</td><td>matris dışı (çalıştırılabilirlikte)</td></tr>
+  </table>
+  <p class="muted">Gerçek sınıf: <code>is_known_flaw</code> (split.md §4.3). <code>label</code> kullanılmaz. Kusuru yakalayan FAIL üretim hatası sayılmaz.</p>
+</section>
+
+<section class="slide">
+  <h2>Örnekler — beş HTTP yöntemi</h2>
+  <table>
+    <tr><th>Yöntem</th><th>Senaryo</th><th>Sonuç (A / B)</th><th>Not</th></tr>
+    <tr><td>PUT</td><td>SC-FLW-001</td><td>FAIL → TP / FAIL → TP</td><td><code>assert 200 == 403</code> (BOLA)</td></tr>
+    <tr><td>DELETE</td><td>SC-FLW-002</td><td>FAIL → TP / FAIL → TP</td><td>gözlenen 204, beklenen 403</td></tr>
+    <tr><td>GET</td><td>SC-FLW-003</td><td>PASS → FN / PASS → FN</td><td>içerik kusuru; durum kodu 200 = 200</td></tr>
+    <tr><td>PATCH</td><td>SC-UPD-003</td><td>PASS → TN / PASS → TN</td><td>sahip güncellemesi</td></tr>
+    <tr><td>POST</td><td>SC-CRT-001</td><td>PASSED / PASSED</td><td class="warn">geliştirme kümesi — metrik dışı gösterim</td></tr>
+  </table>
+  <pre>def test_sc_flw_001(seeded_db, api_client):          # Baseline B, ham yanıttan
+    api_client.force_authenticate(user=User.objects.get(username="carol"))
+    url = reverse("insecure-article-detail", kwargs={"pk": 1})
+    response = api_client.put(url, {"title": "Örnek Başlık", "body": "örnek içerik"}, format="json")
+    assert response.status_code == 403</pre>
+</section>
+
+<section class="slide">
+  <h2>Sonuçlar ve hedefler</h2>
+  <table>
+    <tr><th>Metrik</th><th class="A">A — kural tabanlı</th><th class="B">B — LLM</th><th>Hedef</th></tr>
+    <tr><td>Sözdizimi geçerli</td><td class="n">18/18</td><td class="n">18/18</td><td></td></tr>
+    <tr><td>Pytest toplama</td><td class="n">18/18</td><td class="n">18/18</td><td></td></tr>
+    <tr><td>İlk geçişte çalıştırılabilir</td><td class="n">%100</td><td class="n">%100</td><td class="ok">≥ %70 ✓</td></tr>
+    <tr><td>PASS / FAIL / ERROR</td><td class="n">16 / 2 / 0</td><td class="n">16 / 2 / 0</td><td></td></tr>
+    <tr><td>TP / FP / TN / FN</td><td class="n">2 / 0 / 15 / 1</td><td class="n">2 / 0 / 15 / 1</td><td></td></tr>
+    <tr><td>Precision</td><td class="n">1.00</td><td class="n">1.00</td><td></td></tr>
+    <tr><td>Recall</td><td class="n">0.67</td><td class="n">0.67</td><td></td></tr>
+    <tr><td>F1</td><td class="n">0.80 (4/5)</td><td class="n">0.80 (4/5)</td><td class="ok">≥ 0.80 ✓ (tam sınırda)</td></tr>
+    <tr><td>Mutation score</td><td colspan="3">Bu aşamada ölçülmedi</td></tr>
+  </table>
+</section>
+
+<section class="slide">
+  <h2>Sınırlılıklar ve sonraki adımlar</h2>
+  <ul>
+    <li>3 pozitif senaryo → recall %95 aralığı ≈ [0.21, 0.94]; iki yöntem bu kümede ayırt edilemiyor</li>
+    <li>POST, 201, 405 test kümesinde yok; GET tek senaryo</li>
+    <li>İçerik düzeyi kusurlar (SC-FLW-003) yalnızca durum kodu doğrulamasıyla yakalanamaz</li>
+    <li>LLM çıktısı yeniden üretilmedi (API erişimi yok); özgün PR #83 çıktıları köken kontrolüyle değerlendirildi</li>
+    <li>Issue #31'deki Llama 3.3 70B yerine gpt-oss-120b — sapmanın onayı gerekiyor</li>
+  </ul>
+  <p><b>Sonraki adım:</b> yanıt gövdesi doğrulaması, POST/405 içeren yeni sabitlenmiş test kümesi, mutation testing.</p>
+</section>
+
+<nav><button id="prev" aria-label="Önceki slayt">←</button><span id="pos"></span><button id="next" aria-label="Sonraki slayt">→</button></nav>
+<script>
+  const s = [...document.querySelectorAll('.slide')]; let i = 0;
+  const show = k => { i = Math.max(0, Math.min(s.length - 1, k)); s.forEach((e, j) => e.classList.toggle('on', j === i)); document.getElementById('pos').textContent = (i + 1) + ' / ' + s.length; };
+  document.getElementById('prev').onclick = () => show(i - 1);
+  document.getElementById('next').onclick = () => show(i + 1);
+  addEventListener('keydown', e => { if (['ArrowRight', 'PageDown', ' '].includes(e.key)) show(i + 1); if (['ArrowLeft', 'PageUp'].includes(e.key)) show(i - 1); });
+  show(0);
+</script>
+</body>
+</html>

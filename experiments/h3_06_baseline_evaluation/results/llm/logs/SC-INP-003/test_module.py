@@ -1,0 +1,12 @@
+import pytest
+from django.contrib.auth.models import User
+from django.urls import reverse
+
+pytestmark = pytest.mark.django_db
+
+def test_sc_inp_003(seeded_db, api_client):
+    user = User.objects.get(username="alice")
+    api_client.force_authenticate(user=user)
+    url = reverse("article-detail", kwargs={"pk": 1})
+    response = api_client.put(url, {"body": "x"}, format="json")
+    assert response.status_code == 400

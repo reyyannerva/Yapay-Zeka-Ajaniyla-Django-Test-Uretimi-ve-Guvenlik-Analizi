@@ -1,0 +1,8 @@
+.                                                                        [100%]
+==================================== PASSES ====================================
+_____________________ test_sc_aut_003_patch_anonymous_401 ______________________
+------------------------------ Captured log call -------------------------------
+WARNING  django.request:log.py:293 Unauthorized: /api/articles/1/
+=========================== short test summary info ============================
+PASSED test_sc_aut_003.py::test_sc_aut_003_patch_anonymous_401
+1 passed in 0.14s

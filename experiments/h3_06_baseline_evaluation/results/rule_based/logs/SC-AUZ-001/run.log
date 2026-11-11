@@ -1,0 +1,8 @@
+.                                                                        [100%]
+==================================== PASSES ====================================
+_________________________ test_sc_auz_001_put_user_403 _________________________
+------------------------------ Captured log call -------------------------------
+WARNING  django.request:log.py:293 Forbidden: /api/articles/1/
+=========================== short test summary info ============================
+PASSED test_sc_auz_001.py::test_sc_auz_001_put_user_403
+1 passed in 0.19s
