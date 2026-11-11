@@ -75,6 +75,12 @@ SECURITY_CONFIGURATION) · `http_method` · `endpoint` · `user_role` · `reques
 `expected_http_status` · `expected_behavior` · `label` (positive/negative) · `is_intentional_flaw`
 · `flaw_explanation` (hatalıysa) · `fixture_ref` (user, article) · `requirement_refs` (İST-xx).
 
+`label` bu veri kümesinde **beklenen sonuç sınıfıdır**: `positive` = başarılı (2xx) yanıt beklenir;
+`negative` = istek reddedilir (4xx) veya senaryo bilerek-güvensiz uçta gözlenen hatalı davranışı temsil eder.
+Bağımsız ground truth'taki (H3-03) `label` ise güvenli davranışın sonucunu ifade eder; iki alan yalnızca
+SC-FLW-003'te farklıdır. Ayrıntı ve değerlendirme (TP/FP/TN/FN) kuralları:
+[`../reference_cases/split.md` §4](../reference_cases/split.md#4-etiket-anlamları).
+
 **Kapsam:** 38 senaryo — GET/POST/PUT/PATCH/DELETE'in tamamı; 200/201/204/400/401/403/404/405;
 kimlik doğrulama, rol/kaynak sahipliği, girdi doğrulama; özellikle yetkisiz ve mevcut-olmayan
 kaynak üzerinde PUT/PATCH/DELETE; 15 pozitif / 23 negatif; 3 bilerek-hatalı.
@@ -100,7 +106,7 @@ python scripts/validate_scenarios.py
 # 2) Uygulama + senaryo-eşleşme testleri (fixture'ların çalıştığını ve her senaryonun
 #    gerçek uygulama davranışıyla eşleştiğini kanıtlar)
 cd sample_app
-pytest -q        # 67 test: 29 smoke + 38 senaryo-eşleşme
+pytest -q        # 69 test: 29 smoke + 38 senaryo-eşleşme + 2 CSV dışa aktarım (LF, bayt düzeyinde aynı)
 
 # 3) CSV'yi yeniden üret (opsiyonel)
 cd ..

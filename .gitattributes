@@ -1,0 +1,14 @@
+# Satır sonu standardı (denetim bulguları D-02, D-03): metin dosyaları depoda ve çalışma
+# kopyasında LF tutulur. Böylece Windows'ta core.autocrlf=true olsa bile JSON/CSV baytları ve
+# bunlardan hesaplanan SHA-256 özetleri platformdan bağımsız kalır.
+* text=auto eol=lf
+
+# İkili dosyalar
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.sqlite3 binary
