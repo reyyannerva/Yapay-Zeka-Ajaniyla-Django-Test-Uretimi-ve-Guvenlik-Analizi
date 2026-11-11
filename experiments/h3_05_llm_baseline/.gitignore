@@ -1,0 +1,11 @@
+# Sırlar — ASLA commit edilmez
+.env
+
+# Çalıştırma/derleme artefaktları
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.sqlite3
+.venv/
+# Pytest ara çıktısı (kanonik kanıt reports/*.json|md'dir)
+reports/pytest_junit.xml

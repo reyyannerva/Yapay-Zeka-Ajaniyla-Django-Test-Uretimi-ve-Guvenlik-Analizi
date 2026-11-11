@@ -1,0 +1,243 @@
+{
+  "summary": {
+    "model": "groq/openai/gpt-oss-120b",
+    "execution": {
+      "PASSED": 35,
+      "KNOWN_FLAW_DETECTED": 2,
+      "KNOWN_FLAW_NOT_DETECTED": 1,
+      "APPLICATION_MISMATCH": 0,
+      "GENERATION_ERROR": 0,
+      "NOT_RUN": 0
+    }
+  },
+  "records": [
+    {
+      "scenario_id": "SC-LST-001",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-LST-002",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-LST-003",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-RET-001",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-RET-002",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-RET-003",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-RET-004",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-RET-005",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-RET-006",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-AUT-001",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-AUT-002",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-AUT-003",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-AUT-004",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-AUT-005",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-CRT-001",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-CRT-002",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-INP-001",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-INP-002",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-INP-003",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-INP-004",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-AUZ-001",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-AUZ-002",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-AUZ-003",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-AUZ-004",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-UPD-001",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-UPD-002",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-UPD-003",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-UPD-004",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-DEL-001",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-DEL-002",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-NF-001",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-NF-002",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-MNA-001",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-MNA-002",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-PUB-001",
+      "classification": "PASSED",
+      "pytest_outcome": "passed",
+      "detail": "uygulama güvenli beklentiyle uyumlu"
+    },
+    {
+      "scenario_id": "SC-FLW-001",
+      "classification": "KNOWN_FLAW_DETECTED",
+      "pytest_outcome": "failed",
+      "detail": "güvensiz uç güvenli beklentiden sapıyor (kusur yakalandı)"
+    },
+    {
+      "scenario_id": "SC-FLW-002",
+      "classification": "KNOWN_FLAW_DETECTED",
+      "pytest_outcome": "failed",
+      "detail": "güvensiz uç güvenli beklentiden sapıyor (kusur yakalandı)"
+    },
+    {
+      "scenario_id": "SC-FLW-003",
+      "classification": "KNOWN_FLAW_NOT_DETECTED",
+      "pytest_outcome": "passed",
+      "detail": "güvenli durum geçti; kusur (içerik düzeyi) durum koduyla yakalanmaz"
+    }
+  ]
+}
