@@ -1,0 +1,35 @@
+=== SYSTEM ===
+Sen bir yazılım test otomasyonu uzmanısın. Django REST Framework tabanlı KONTROLLÜ bir hedef uygulama için TEK bir çalıştırılabilir Pytest test fonksiyonu yazarsın. Yalnızca istenen kodu üretirsin; açıklama veya ek metin yazmazsın.
+
+=== USER ===
+Aşağıdaki kontrollü DRF uç noktası için tek bir Pytest test fonksiyonu yaz.
+
+Ortam (hazır verilenler):
+- pytest-django kullanılır; modül başında `pytestmark = pytest.mark.django_db` bulunur.
+- İki fixture hazırdır (conftest.py sağlar): `seeded_db` (kullanıcı ve makale fixture'larını yükler)
+  ve `api_client` (DRF APIClient). Test fonksiyonu bu ikisini parametre olarak ALMALIDIR.
+- Kimlik doğrulama: `api_client.force_authenticate(user=User.objects.get(username="<kullanıcı>"))`.
+  Anonim istekte force_authenticate ÇAĞRILMAZ.
+- URL üretimi: pk varsa `reverse("article-detail", kwargs={"pk": 1})`, yoksa `reverse("article-detail")`.
+- İstek: `api_client.put(url, <gövde>, format="json")` (GET/DELETE'te gövde gönderilmez).
+
+Test edilecek durum:
+- Senaryo kimliği: SC-UPD-001
+- HTTP metodu: PUT
+- reverse url adı: article-detail
+- pk: 1
+- Kullanıcı: alice (rol: owner)
+- İstek gövdesi (JSON): {"title": "Örnek Başlık", "body": "örnek içerik"}
+- Endpoint yazılabilir alanları: {"title": {"type": "string", "required": true, "max_length": 200, "allow_blank": false}, "body": {"type": "string", "required": false, "allow_blank": true}, "is_published": {"type": "boolean", "required": false}}
+- BEKLENEN HTTP durum kodu: 200
+- Beklenen davranış: Sahip kendi kaydını tam günceller.
+
+Gereksinimler:
+- Fonksiyon adı tam olarak: test_sc_upd_001
+- Parametreler: (seeded_db, api_client)
+- Gerekliyse önce `force_authenticate` ile kullanıcıyı doğrula (anonimse atla).
+- İsteği gönder ve `assert response.status_code == 200` ile doğrula.
+- Importlar: `import pytest`, `from django.contrib.auth.models import User`, `from django.urls import reverse`.
+- Modül başında `pytestmark = pytest.mark.django_db` bulunsun.
+- SADECE Python kodunu TEK bir ```python kod bloğu içinde döndür. Başka hiçbir şey yazma.
+

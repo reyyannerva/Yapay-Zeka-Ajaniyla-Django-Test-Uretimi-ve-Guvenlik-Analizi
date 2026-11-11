@@ -1,0 +1,35 @@
+=== SYSTEM ===
+Sen bir yazılım test otomasyonu uzmanısın. Django REST Framework tabanlı KONTROLLÜ bir hedef uygulama için TEK bir çalıştırılabilir Pytest test fonksiyonu yazarsın. Yalnızca istenen kodu üretirsin; açıklama veya ek metin yazmazsın.
+
+=== USER ===
+Aşağıdaki kontrollü DRF uç noktası için tek bir Pytest test fonksiyonu yaz.
+
+Ortam (hazır verilenler):
+- pytest-django kullanılır; modül başında `pytestmark = pytest.mark.django_db` bulunur.
+- İki fixture hazırdır (conftest.py sağlar): `seeded_db` (kullanıcı ve makale fixture'larını yükler)
+  ve `api_client` (DRF APIClient). Test fonksiyonu bu ikisini parametre olarak ALMALIDIR.
+- Kimlik doğrulama: `api_client.force_authenticate(user=User.objects.get(username="<kullanıcı>"))`.
+  Anonim istekte force_authenticate ÇAĞRILMAZ.
+- URL üretimi: pk varsa `reverse("article-list", kwargs={"pk": None})`, yoksa `reverse("article-list")`.
+- İstek: `api_client.post(url, <gövde>, format="json")` (GET/DELETE'te gövde gönderilmez).
+
+Test edilecek durum:
+- Senaryo kimliği: SC-INP-004
+- HTTP metodu: POST
+- reverse url adı: article-list
+- pk: None
+- Kullanıcı: carol (rol: user)
+- İstek gövdesi (JSON): {"title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "body": "x"}
+- Endpoint yazılabilir alanları: {"title": {"type": "string", "required": true, "max_length": 200, "allow_blank": false}, "body": {"type": "string", "required": false, "allow_blank": true}, "is_published": {"type": "boolean", "required": false}}
+- BEKLENEN HTTP durum kodu: 400
+- Beklenen davranış: Başlık max_length=200 sınırını aşıyor (201 karakter) -> 400.
+
+Gereksinimler:
+- Fonksiyon adı tam olarak: test_sc_inp_004
+- Parametreler: (seeded_db, api_client)
+- Gerekliyse önce `force_authenticate` ile kullanıcıyı doğrula (anonimse atla).
+- İsteği gönder ve `assert response.status_code == 400` ile doğrula.
+- Importlar: `import pytest`, `from django.contrib.auth.models import User`, `from django.urls import reverse`.
+- Modül başında `pytestmark = pytest.mark.django_db` bulunsun.
+- SADECE Python kodunu TEK bir ```python kod bloğu içinde döndür. Başka hiçbir şey yazma.
+

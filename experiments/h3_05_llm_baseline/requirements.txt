@@ -1,0 +1,7 @@
+# H3-05 LLM baseline bağımlılıkları (Issue #31)
+litellm>=1.40
+# Hedef uygulama ve test yürütme (üretilen testler bu ortamda çalışır)
+Django>=5.1,<5.3
+djangorestframework>=3.15
+pytest>=8.0
+pytest-django>=4.8
