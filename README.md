@@ -6,7 +6,7 @@
 ![Django](https://img.shields.io/badge/Django-Framework-092E20?logo=django&logoColor=white)
 ![Pytest](https://img.shields.io/badge/Testing-Pytest-0A9EDC?logo=pytest&logoColor=white)
 ![Docker](https://img.shields.io/badge/Execution-Docker-2496ED?logo=docker&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Planning-orange)
+![Status](https://img.shields.io/badge/Status-Hafta%203%20%E2%80%94%20Veri%20ve%20AI%20Baseline-blue)
 
 ---
 
@@ -184,11 +184,45 @@ Haftalık görevler GitHub Issues üzerinden takip edilecektir.
 
 ## Proje Durumu
 
-**Durum: Planlama ve başlangıç geliştirmesi**
+**Durum: Hafta 3 — Veri ve AI baseline (devam ediyor).** Hafta 1 (diyagramlar, isterler) ve Hafta 2 (Figma,
+veritabanı tasarımı) tamamlandı. Hafta 3'te H3-01–H3-04 tamamlandı; H3-05 (LLM ile Pytest üretimi, #31) ve
+H3-06 (metrikler ve karşılaştırma, #32) açıktır. Ürün backend'i, web arayüzü, AST analiz motoru ve Docker
+yürütme ortamı sonraki haftaların kapsamındadır; README'de belirtilen hedefler tamamlanmış işlevler olarak
+değerlendirilmemelidir.
 
-Proje aktif geliştirme sürecine hazırlanıyor. Kaynak analiz modülleri, LLM entegrasyonu, web arayüzü ve deneysel değerlendirme altyapısı aşamalı olarak geliştirilecektir.
+### Tamamlanan çıktılara hızlı erişim
 
-README'de belirtilen hedefler tamamlanmış işlevler olarak değerlendirilmemelidir.
+| Hafta | Çıktı | Konum |
+|---|---|---|
+| 1 | Sistem mimarisi, akış, use-case ve AI pipeline diyagramları (#18–#22) | [`docs/diagrams/`](docs/diagrams/) |
+| 2 | Figma prototipi ve 31 ekran (#23, #25, #26) | [`docs/mockup/README.md`](docs/mockup/README.md) |
+| 2 | Kanonik veritabanı tasarımı — şema, modeller, veri sözlüğü (#24) | [`docs/database/`](docs/database/README.md) |
+| 2 | ER diyagramları (#26) | [`docs/diagrams/er-diagrams/`](docs/diagrams/er-diagrams/) |
+| 2 | Teknoloji yığını (#26) | [`docs/architecture/technology_stack.md`](docs/architecture/technology_stack.md) |
+| 3 | H3-01 Kontrollü Django/DRF fixture ve 38 senaryoluk veri kümesi (#27) | [`benchmarks/drf_fixtures/`](benchmarks/drf_fixtures/README.md) |
+| 3 | PyGoat ayrım ve inceleme notu (#27) | [`benchmarks/pygoat/`](benchmarks/pygoat/README.md) |
+| 3 | H3-02 EDA notebook ve veri kalitesi raporları (#28) | [`experiments/h3_02_eda/`](experiments/h3_02_eda/README.md) |
+| 3 | H3-03 Bağımsız test kümesi ve ground truth (#29) | [`benchmarks/reference_cases/`](benchmarks/reference_cases/README.md) |
+| 3 | H3-04 Kural tabanlı Pytest üretim baseline'ı (#30) | [`agent/test_generation/rule_based/`](agent/test_generation/rule_based/README.md), [`experiments/h3_04_rule_based_baseline/`](experiments/h3_04_rule_based_baseline/README.md) |
+| 1–3 | Bağımsız denetim ve düzeltme kaydı | [`docs/audit/hafta1-3_denetim_duzeltme.md`](docs/audit/hafta1-3_denetim_duzeltme.md) |
+
+### Doğrulama komutları (Hafta 3)
+
+Tüm komutlar depo kökünden çalıştırılır:
+
+```bash
+# H3-01 kontrollü fixture ve senaryo eşleşmesi
+(cd benchmarks/drf_fixtures && python scripts/validate_scenarios.py && cd sample_app && pytest -q)
+# H3-03 ground truth, ayrım ve sabitleme
+(cd benchmarks/reference_cases && python scripts/check_references.py && pytest -q)
+# H3-02 EDA testleri
+(cd experiments/h3_02_eda && pytest -q)
+# H3-04 üretici testleri ve uçtan uca üretim/çalıştırma
+(cd agent/test_generation/rule_based && pytest -q)
+python -m agent.test_generation.rule_based all
+```
+
+Bağımlılıklar: ilgili dizinlerdeki `requirements.txt` dosyaları.
 
 ## Ekip
 

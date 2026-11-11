@@ -75,8 +75,8 @@ Bu akış **hedef mimariyi** açıklar. Çalışan uygulamanın hangi parçalar�
 
 ## 3. Tasarım kararları ve sınırlar
 
-- **Görev durumu:** Issue #24 kapsamındaki veritabanı şemasında `AnalysisRun` için `QUEUED`, `ANALYZING`, `GENERATING`, `EXECUTING`, `COMPLETED` ve `FAILED` durumları tanımlanmıştır. Arayüz ve API bu kanonik durumlarla tutarlı olmalıdır. Ek ara adımlar yeni bir veritabanı durumu olarak gösterilmez.
-- **Veri modeli:** PostgreSQL şeması, Django ORM modelleri ve veri sözlüğü için kanonik kaynak Issue #24 kapsamındaki `docs/database/` dosyalarıdır. Bu belge yeni alan veya ilişki tanımlamaz.
+- **Görev durumu:** Kanonik veritabanı şemasında (revizyon 3, Issue #24/#26) `AnalysisRun` için `QUEUED`, `ANALYZING`, `GENERATING`, `VALIDATING`, `EXECUTING`, `SCANNING`, `COMPLETED`, `FAILED` ve `CANCELLED` durumları tanımlanmıştır (Issue #24'teki altı durum korunmuş; `VALIDATING`, `SCANNING` ve `CANCELLED` Figma mockup'ına göre eklenmiştir). Arayüz ve API bu kanonik durumlarla tutarlı olmalıdır.
+- **Veri modeli:** PostgreSQL şeması, Django ORM modelleri ve veri sözlüğü için kanonik kaynak `docs/database/` dosyalarıdır (revizyon 3, dokuz tablo; bkz. `docs/database/README.md`). Bu belge yeni alan veya ilişki tanımlamaz.
 - **Redis:** Celery mesaj aracısı olarak kullanılması planlanır; kalıcı analiz durumu ve sonuç kayıtlarının kaynağı PostgreSQL'dir.
 - **LLM çıktıları:** Üretilen test kodu doğrudan güvenilir kabul edilmez; sözdizimi, şema, referans gereksinimler ve test çalıştırma sonuçlarıyla kontrol edilir.
 - **Güvenlik:** Docker tek başına tam bir güvenlik sınırı değildir. Kaynak sınırları, ağ erişimi, dosya sistemi izinleri ve çalıştırma yetkileri ayrıca yapılandırılır.
@@ -85,11 +85,11 @@ Bu akış **hedef mimariyi** açıklar. Çalışan uygulamanın hangi parçalar�
 
 ## 4. İlgili teslimler
 
-- **Veritabanı tasarımı:** `docs/database/`, Issue #24
-- **ER diyagramları:** `docs/diagrams/er/`, Issue #26
+- **Veritabanı tasarımı:** `docs/database/`, Issue #24 (kanonik kaynak ve revizyon geçmişi: `docs/database/README.md`)
+- **ER diyagramları:** `docs/diagrams/er-diagrams/`, Issue #26
 - **Mimari ve akış diyagramları:** `docs/diagrams/`
-- **Figma prototipi ve ekranlar:** Ortak Figma prototip bağlantısı, ilgili belge eklendiğinde bu bölümde gösterilecektir
-- **Sınıf sunumu:** `docs/presentations/`, Issue #26 (sunum dosyası hazırlandığında)
+- **Figma prototipi ve ekranlar:** `docs/mockup/README.md` (prototip bağlantısı ve 31 ekran görüntüsü), Issue #23, #25, #26
+- **Sınıf sunumu:** `docs/presentations/`, Issue #26 — **henüz depoya eklenmedi** (bkz. `docs/audit/hafta1-3_denetim_duzeltme.md`, D-05)
 
 ## 5. Kontrol notu
 

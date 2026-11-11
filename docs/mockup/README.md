@@ -1,6 +1,6 @@
 # TestKalkan Arayüz Tasarımı (Figma)
 
-**Figma dosyası ve tıklanabilir prototip:** [Figma bağlantısı]https://www.figma.com/proto/r5UAC665Yj8XTsMIPtOzaq/Yapay-Zek%C3%A2-Ajan%C4%B1yla-Django-Test-%C3%9Cretimi-ve-G%C3%BCvenlik-Analizi?node-id=2-2&t=OCkJfJzB8gPKZSkh-1
+**Figma dosyası ve tıklanabilir prototip:** [Figma bağlantısı](https://www.figma.com/proto/r5UAC665Yj8XTsMIPtOzaq/Yapay-Zek%C3%A2-Ajan%C4%B1yla-Django-Test-%C3%9Cretimi-ve-G%C3%BCvenlik-Analizi?node-id=2-2&t=OCkJfJzB8gPKZSkh-1)
 
 Prototip, **01 Giriş** ekranından başlar. Figma'da sağ üstteki ▶ (Present) düğmesiyle çalıştırılabilir.
 
@@ -79,7 +79,7 @@ Durum ekranları da (11–18) ilgili ekranlara bağlanmıştır; örneğin oturu
 ## Diyagramlarla tutarlılık
 
 - Analiz aşama şeridi ve durum rozetleri, `AnalysisRun` durumlarına (`queued → analyzing → generating → validating → executing → scanning → completed | failed`) karşılık gelir.
-- Test sonuçlarındaki PASS / FAIL / teknik hata ayrımı ve tek düzeltme kuralı, [Docker yürütme akış diyagramındaki](../diagrams/akis-docker-guvenlik-raporlama.md) kurallarla aynıdır.
+- Test sonuçlarındaki PASS / FAIL / teknik hata ayrımı ve tek düzeltme kuralı, [Docker yürütme akış diyagramındaki](../diagrams/akis-docker-guvenlik-raporlama.svg) kurallarla aynıdır.
 - Değerlendirme metrikleri (precision, recall, F1-skoru, mutasyon skoru) yalnızca deneylerde hesaplandığı için kullanıcı arayüzünde gösterilmemiştir; arayüzde yalnızca çalıştırılabilir test oranı, kod kapsamı, süre ve token kullanımı yer alır.
 
 ## Kapsam notları
