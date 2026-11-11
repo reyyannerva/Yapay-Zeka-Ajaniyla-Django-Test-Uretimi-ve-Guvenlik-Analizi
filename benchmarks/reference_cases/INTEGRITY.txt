@@ -1,3 +1,9 @@
 # H3-03 bütünlük özetleri (sabitleme). check_references.py bunları doğrular.
-test_set.json 075d141d1d0bac42538c7556e52785fff1ae54fb618f0c720c5deb34b50f2dd6
-ground_truth.json 3d271f96de554e78f8e49ecdb21df1e7d7bd105159575115d69486ec4d1678bb
+# Kanonik biçim: UTF-8, satır sonları LF. Özet, CRLF -> LF normalize edilmiş içerikten hesaplanır.
+test_set.json 6e69549e388ed26762e09851d4e61c3c6b8db15a910966ef223ab103eed151b1
+ground_truth.json b5114e74c63d9a60f335bd4984d9896da98d423c41ea87d618f2cca268fd737c
+# Denetim düzeltmesi D-02 (2026-11-11): ilk özetler aynı içeriğin CRLF kodlamasından hesaplanmıştı
+# ve LF saklanan depoda doğrulanamıyordu. İçerik DEĞİŞMEDİ: aşağıdaki eski özetler, mevcut dosyaların
+# CRLF kodlamasının SHA-256 değerine birebir eşittir (tests/test_integrity.py bunu doğrular).
+# legacy-crlf test_set.json 075d141d1d0bac42538c7556e52785fff1ae54fb618f0c720c5deb34b50f2dd6
+# legacy-crlf ground_truth.json 3d271f96de554e78f8e49ecdb21df1e7d7bd105159575115d69486ec4d1678bb

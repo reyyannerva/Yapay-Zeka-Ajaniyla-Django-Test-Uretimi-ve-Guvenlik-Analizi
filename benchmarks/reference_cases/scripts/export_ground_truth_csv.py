@@ -22,7 +22,8 @@ def main() -> int:
     gt = json.loads(SRC.read_text(encoding="utf-8"))
     scenario_split = json.loads(SPLIT.read_text(encoding="utf-8"))["scenario_split"]
     with DST.open("w", newline="", encoding="utf-8") as fh:
-        w = csv.DictWriter(fh, fieldnames=COLS)
+        # LF satır sonu: depodaki kanonik biçim (denetim D-03); csv modülünün varsayılanı CRLF'tir.
+        w = csv.DictWriter(fh, fieldnames=COLS, lineterminator="\n")
         w.writeheader()
         for r in gt["records"]:
             sf = r.get("security_finding", {})

@@ -31,11 +31,16 @@ cd benchmarks/reference_cases
 python scripts/check_references.py
 
 # 2) Ground truth ↔ kontrollü uygulama çapraz-kontrolü (sample_app ortamını kullanır)
-pytest -q            # 38 kayıt: hatasızlar uygulama=altın; hatalılar uygulamadan sapar
+pytest -q            # 48 test: 38 çapraz-kontrol (hatasızlar uygulama=altın; hatalılar uygulamadan sapar)
+                     #          + 10 bütünlük / satır sonu / CSV dışa aktarım testi (tests/test_integrity.py)
 
 # 3) CSV'yi yeniden üret (opsiyonel)
 python scripts/export_ground_truth_csv.py
 ```
+
+> **Sabitleme:** `INTEGRITY.txt` özetleri, satır sonları LF'ye normalize edilmiş kanonik içerikten
+> hesaplanır; sonuç Windows (CRLF) ve Linux/macOS (LF) çalışma kopyalarında aynıdır. Depodaki
+> `.gitattributes` metin dosyalarını LF tutar.
 
 > Çapraz-kontrol, `benchmarks/drf_fixtures/sample_app` uygulamasını `pythonpath` üzerinden kullanır;
 > ek kurulum gerektirmez (aynı sanal ortam: Django + DRF + pytest-django).

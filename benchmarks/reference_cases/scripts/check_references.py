@@ -7,6 +7,8 @@ Kontroller:
   3) Ayrım bütünlüğü: dev ∪ test = tüm senaryolar, kesişim boş; her aile tek grupta
      (veri sızıntısı önlemi); test_set.json = test ayrımı.
   4) Sabitleme: test_set.json + ground_truth.json SHA-256 özetleri INTEGRITY.txt ile tutuyor.
+     Özet, satır sonları normalize edilmiş (CRLF -> LF) kanonik içerik üzerinden hesaplanır; böylece
+     sonuç işletim sistemine ve git satır sonu ayarına (core.autocrlf) bağlı değildir.
   5) Kapsam: GET/POST/PUT/PATCH/DELETE için referans; yetkisiz PUT/PATCH/DELETE altın etiketli.
   6) Belirsiz (uncertain) kayıtlar ayrı raporlanır; bilinen hatalarda security_finding var.
 
@@ -37,8 +39,17 @@ INTEGRITY = BASE / "INTEGRITY.txt"
 METHODS = {"GET", "POST", "PUT", "PATCH", "DELETE"}
 
 
+def canonical_bytes(path: Path) -> bytes:
+    """Dosyanın kanonik biçimi: UTF-8 baytları, satır sonları LF (CRLF ve tek başına CR -> LF).
+
+    Windows'ta ``core.autocrlf=true`` ile alınan bir çalışma kopyası aynı içeriği CRLF ile tutar;
+    ham baytların özeti bu nedenle platforma göre değişir (denetim bulgusu D-02).
+    """
+    return path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+
+
 def sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return hashlib.sha256(canonical_bytes(path)).hexdigest()
 
 
 def main() -> int:

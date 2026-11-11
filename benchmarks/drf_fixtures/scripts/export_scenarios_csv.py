@@ -25,7 +25,8 @@ COLS = [
 def main() -> int:
     data = json.loads(SRC.read_text(encoding="utf-8"))
     with DST.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(fh, fieldnames=COLS)
+        # LF satır sonu: depodaki kanonik biçim (denetim D-03); csv modülünün varsayılanı CRLF'tir.
+        writer = csv.DictWriter(fh, fieldnames=COLS, lineterminator="\n")
         writer.writeheader()
         for s in data["scenarios"]:
             writer.writerow({
