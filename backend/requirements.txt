@@ -1,0 +1,8 @@
+# H4-01 / Issue #33 — backend bağımlılıkları (sürümler bu ortamda doğrulanmıştır)
+Django>=5.2,<5.3
+djangorestframework>=3.15
+psycopg[binary]>=3.2,<4
+django-axes==9.0.0
+python-dotenv>=1.0
+pytest>=8.0
+pytest-django>=4.8

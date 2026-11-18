@@ -1,7 +1,8 @@
 ---
-title: "ER Diyagramı — Tam Teknik Şema (TestKalkan, revizyon 2)"
+title: "ER Diyagramı — Tam Teknik Şema (TestKalkan, revizyon 4 — H4-01)"
 ---
 %% Kaynak: database_schema.sql (PostgreSQL 16 kataloğundan üretilmiştir)
+%% Revizyon 4 (H4-01 / #33): backend/core/models + migration 0001; sütun kümesi değişmedi, değer kümeleri ve CHECK kısıtları güncellendi.
 %% U1 = bileşik tekil kısıt üyesi; UQ = tek sütunlu tekil; UP = kısmi tekil indeks.
 %% Mermaid bileşik ve kısmi tekil kısıtları ifade edemez; bunlar yorum olarak verilir.
 %% |o--o{ : FK NULL olabilir (isteğe bağlı çapraz başvuru, on_delete=SET_NULL).
@@ -48,7 +49,7 @@ erDiagram
         varchar(200) title
         text description
         text expected_result
-        jsonb specification
+        jsonb specification "CHECK (ACCESS_RULE): method ∈ {GET, POST, PUT, PATCH, DELETE}"
         boolean is_active
         integer revision
         timestamptz created_at
@@ -110,7 +111,7 @@ erDiagram
         bigint id PK
         bigint generated_test_id FK "U1: UNIQUE (generated_test_id, attempt_number)"
         integer attempt_number "U1: UNIQUE (generated_test_id, attempt_number)"
-        varchar(20) status
+        varchar(20) status "CHECK: PENDING, RUNNING, PASS, FAIL, ERROR, TIMEOUT, STOPPED, NOT_RUN"
         smallint observed_status "NULL olabilir"
         varchar(20) error_type "NULL olabilir"
         varchar(20) error_origin "NULL olabilir"

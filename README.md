@@ -207,6 +207,7 @@ değerlendirilmemelidir.
 | 3 | H3-04 Kural tabanlı Pytest üretim baseline'ı (#30) | [`agent/test_generation/rule_based/`](agent/test_generation/rule_based/README.md), [`experiments/h3_04_rule_based_baseline/`](experiments/h3_04_rule_based_baseline/README.md) |
 | 3 | H3-05 LLM ile ilk Pytest üretimi (#31) | [`agent/test_generation/llm/`](agent/test_generation/llm/README.md), [`experiments/h3_05_llm_baseline/`](experiments/h3_05_llm_baseline/) |
 | 3 | H3-06 Metrikler, baseline karşılaştırması ve demo (#32) | [`docs/evaluation/h3-06/`](docs/evaluation/h3-06/README.md), [`agent/evaluation/`](agent/evaluation/README.md), [`experiments/h3_06_baseline_evaluation/`](experiments/h3_06_baseline_evaluation/README.md) |
+| 4 | H4-01 Django ORM modelleri, PostgreSQL bağlantısı ve migration'lar (#33) | [`backend/`](backend/README.md), [`docs/database/schema_changes_h4_01.md`](docs/database/schema_changes_h4_01.md) |
 | 1–3 | Bağımsız denetim ve düzeltme kaydı | [`docs/audit/hafta1-3_denetim_duzeltme.md`](docs/audit/hafta1-3_denetim_duzeltme.md) |
 
 ### Doğrulama komutları (Hafta 3)
@@ -229,6 +230,12 @@ python -m agent.test_generation.rule_based all
 python -m agent.evaluation verify
 python -m agent.evaluation run
 (cd agent/evaluation && pytest -q)
+```
+
+Hafta 4 (PostgreSQL gerektirir; kurulum `backend/README.md`):
+
+```bash
+cd backend && python manage.py check_database && python manage.py makemigrations --check --dry-run && python manage.py migrate && python -m pytest -q
 ```
 
 Bağımlılıklar: ilgili dizinlerdeki `requirements.txt` dosyaları.

@@ -4,7 +4,7 @@
 <desc id="d">9 uygulama tablosu, 122 sütun ve 13 yabancı anahtar ilişkisini içeren tam ER diyagramı; auth_user ve django-axes çerçeve tarafından yönetilen kutular olarak gösterilir.</desc>
 <rect x="0" y="0" width="2532" height="2175" fill="#F8FAFC"/>
 <text x="56.0" y="50.0" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700" fill="#172B4D" text-anchor="start">ER Diyagramı — Tam Teknik Şema</text>
-<text x="56.0" y="78.0" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13.5" font-weight="400" fill="#475569" text-anchor="start">Yapay Zekâ Ajanıyla Django Test Üretimi ve Güvenlik Analizi (TestKalkan)  ·  Revizyon 2: mockup uyumu  ·  Kaynak: database_schema.sql (PostgreSQL 16)</text>
+<text x="56.0" y="78.0" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13.5" font-weight="400" fill="#475569" text-anchor="start">Yapay Zekâ Ajanıyla Django Test Üretimi ve Güvenlik Analizi (TestKalkan)  ·  Revizyon 4: H4-01 Django ORM + migration uygulaması  ·  Kaynak: backend/core/models, database_schema.sql (PostgreSQL 16)</text>
 <text x="2476.0" y="50.0" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13.5" font-weight="500" fill="#475569" text-anchor="end">9 uygulama tablosu  ·  122 sütun  ·  13 ilişki  ·  çerçeve yönetimli: auth_user, django-axes</text>
 <text x="2476.0" y="78.0" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12.5" font-weight="400" fill="#64748B" text-anchor="end">Crow's Foot gösterimi · tipler PostgreSQL katalog adlarıyla</text>
 <line x1="56" y1="96" x2="2476" y2="96" stroke="#CBD5E1" stroke-width="1"/>
@@ -277,8 +277,8 @@
 <text x="93.3" y="995.4" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#475569" text-anchor="start" data-role="note">UNIQUE (owner_id, name)</text>
 <rect x="56.0" y="582.0" width="440.0" height="428.0" rx="6" fill="none" stroke="#CBD5E1" stroke-width="1.2"/>
 </g>
-<g id="entity-reference_requirements" data-entity="ReferenceRequirement" data-table="reference_requirements" data-key="reference_requirements" data-x="56.0" data-y="1100.0" data-w="440.0" data-h="455.0">
-<rect x="56.0" y="1100.0" width="440.0" height="455.0" rx="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+<g id="entity-reference_requirements" data-entity="ReferenceRequirement" data-table="reference_requirements" data-key="reference_requirements" data-x="56.0" data-y="1100.0" data-w="440.0" data-h="489.0">
+<rect x="56.0" y="1100.0" width="440.0" height="489.0" rx="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
 <path d="M56.6,1152.0 V1106.0 Q56.6,1100.6 62.0,1100.6 H490.0 Q495.4,1100.6 495.4,1106.0 V1152.0 Z" fill="#EAF2FF"/>
 <line x1="56.0" y1="1152.0" x2="496.0" y2="1152.0" stroke="#CBD5E1" stroke-width="1"/>
 <text x="70.0" y="1123.0" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="700" fill="#172B4D" text-anchor="start" data-role="logical">ReferenceRequirement</text>
@@ -355,13 +355,16 @@
 <text x="135.9" y="1494.4" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13.5" font-weight="500" fill="#172B4D" text-anchor="start" data-role="name">updated_at</text>
 <text x="314.2" y="1494.4" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" font-weight="400" fill="#475569" text-anchor="start" data-role="type">timestamptz</text>
 </g>
-<path d="M56.6,1503.0 H495.4 V1549.0 Q495.4,1554.4 490.0,1554.4 H62.0 Q56.6,1554.4 56.6,1549.0 Z" fill="#F8FAFC"/>
+<path d="M56.6,1503.0 H495.4 V1583.0 Q495.4,1588.4 490.0,1588.4 H62.0 Q56.6,1588.4 56.6,1583.0 Z" fill="#F8FAFC"/>
 <line x1="56.0" y1="1503.0" x2="496.0" y2="1503.0" stroke="#CBD5E1" stroke-width="1"/>
 <text x="70.0" y="1523.4" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" font-weight="600" fill="#172B4D" text-anchor="start" data-role="note-tag">FK</text>
 <text x="93.3" y="1523.4" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#475569" text-anchor="start" data-role="note">project_id → projects.id</text>
 <text x="70.0" y="1540.4" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" font-weight="600" fill="#172B4D" text-anchor="start" data-role="note-tag">U1</text>
 <text x="93.3" y="1540.4" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#475569" text-anchor="start" data-role="note">UNIQUE (project_id, requirement_code)</text>
-<rect x="56.0" y="1100.0" width="440.0" height="455.0" rx="6" fill="none" stroke="#CBD5E1" stroke-width="1.2"/>
+<text x="70.0" y="1557.4" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" font-weight="600" fill="#172B4D" text-anchor="start" data-role="note-tag">CK</text>
+<text x="93.3" y="1557.4" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#475569" text-anchor="start" data-role="note">ACCESS_RULE: specification.method ∈ {GET, POST,</text>
+<text x="93.3" y="1574.4" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#475569" text-anchor="start" data-role="note">PUT, PATCH, DELETE} — H4-01 (rev. 4)</text>
+<rect x="56.0" y="1100.0" width="440.0" height="489.0" rx="6" fill="none" stroke="#CBD5E1" stroke-width="1.2"/>
 </g>
 <g id="entity-analysis_runs" data-entity="AnalysisRun" data-table="analysis_runs" data-key="analysis_runs" data-x="716.0" data-y="736.0" data-w="440.0" data-h="675.0">
 <rect x="716.0" y="736.0" width="440.0" height="675.0" rx="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
@@ -680,8 +683,8 @@
 <text x="1413.3" y="782.4" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#475569" text-anchor="start" data-role="note">UNIQUE (analysis_run_id, test_module, test_name)</text>
 <rect x="1376.0" y="190.0" width="440.0" height="607.0" rx="6" fill="none" stroke="#CBD5E1" stroke-width="1.2"/>
 </g>
-<g id="entity-test_executions" data-entity="TestExecution" data-table="test_executions" data-key="test_executions" data-x="2036.0" data-y="708.0" data-w="440.0" data-h="482.0">
-<rect x="2036.0" y="708.0" width="440.0" height="482.0" rx="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+<g id="entity-test_executions" data-entity="TestExecution" data-table="test_executions" data-key="test_executions" data-x="2036.0" data-y="708.0" data-w="440.0" data-h="516.0">
+<rect x="2036.0" y="708.0" width="440.0" height="516.0" rx="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
 <path d="M2036.6,760.0 V714.0 Q2036.6,708.6 2042.0,708.6 H2470.0 Q2475.4,708.6 2475.4,714.0 V760.0 Z" fill="#E9F7F3"/>
 <line x1="2036.0" y1="760.0" x2="2476.0" y2="760.0" stroke="#CBD5E1" stroke-width="1"/>
 <text x="2050.0" y="731.0" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="700" fill="#172B4D" text-anchor="start" data-role="logical">TestExecution</text>
@@ -769,13 +772,16 @@
 <text x="2115.9" y="1129.4" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13.5" font-weight="500" fill="#172B4D" text-anchor="start" data-role="name">created_at</text>
 <text x="2294.2" y="1129.4" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" font-weight="400" fill="#475569" text-anchor="start" data-role="type">timestamptz</text>
 </g>
-<path d="M2036.6,1138.0 H2475.4 V1184.0 Q2475.4,1189.4 2470.0,1189.4 H2042.0 Q2036.6,1189.4 2036.6,1184.0 Z" fill="#F8FAFC"/>
+<path d="M2036.6,1138.0 H2475.4 V1218.0 Q2475.4,1223.4 2470.0,1223.4 H2042.0 Q2036.6,1223.4 2036.6,1218.0 Z" fill="#F8FAFC"/>
 <line x1="2036.0" y1="1138.0" x2="2476.0" y2="1138.0" stroke="#CBD5E1" stroke-width="1"/>
 <text x="2050.0" y="1158.4" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" font-weight="600" fill="#172B4D" text-anchor="start" data-role="note-tag">FK</text>
 <text x="2073.3" y="1158.4" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#475569" text-anchor="start" data-role="note">generated_test_id → generated_tests.id</text>
 <text x="2050.0" y="1175.4" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" font-weight="600" fill="#172B4D" text-anchor="start" data-role="note-tag">U1</text>
 <text x="2073.3" y="1175.4" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#475569" text-anchor="start" data-role="note">UNIQUE (generated_test_id, attempt_number)</text>
-<rect x="2036.0" y="708.0" width="440.0" height="482.0" rx="6" fill="none" stroke="#CBD5E1" stroke-width="1.2"/>
+<text x="2050.0" y="1192.4" font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" font-weight="600" fill="#172B4D" text-anchor="start" data-role="note-tag">CK</text>
+<text x="2073.3" y="1192.4" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#475569" text-anchor="start" data-role="note">status ∈ {PENDING, RUNNING, PASS, FAIL, ERROR, TIMEOUT,</text>
+<text x="2073.3" y="1209.4" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#475569" text-anchor="start" data-role="note">STOPPED, NOT_RUN} — H4-01 (rev. 4)</text>
+<rect x="2036.0" y="708.0" width="440.0" height="516.0" rx="6" fill="none" stroke="#CBD5E1" stroke-width="1.2"/>
 </g>
 <g id="entity-security_findings" data-entity="SecurityFinding" data-table="security_findings" data-key="security_findings" data-x="1376.0" data-y="1351.0" data-w="440.0" data-h="597.0">
 <rect x="1376.0" y="1351.0" width="440.0" height="597.0" rx="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>

@@ -1,4 +1,6 @@
-# Şema Doğrulama ve ER Diyagramı Sözleşmesi — H2-02 / Issue #24 (Revizyon 2)
+# Şema Doğrulama ve ER Diyagramı Sözleşmesi — H2-02 / Issue #24 (Revizyon 2) + H4-01 / #33 (Revizyon 4)
+
+> **Revizyon 4 (H4-01):** ORM tanımları `backend/core/models/` altına taşındı ve migration ile PostgreSQL 16'ya uygulandı. Gerçek veritabanında doğrulananlar: 9 uygulama tablosu, 122 sütun (ad/tip/uzunluk/NULL — `database_schema.sql` ile birebir), 87 adlandırılmış CHECK/UNIQUE/indeks (ad kümesi `database_schema.sql` ile birebir). Revizyon 4 değişiklikleri ve kanıt: `schema_changes_h4_01.md`. Aşağıdaki T/A senaryo numaraları revizyon 2 tasarım incelemesine aittir; uygulanan testler `backend/core/tests/` altındadır.
 
 Bu belge, `database_schema.sql`, `django_models.py` ve `data_dictionary.md` dosyalarının birbiriyle, Issue #24 kabul ölçütleriyle ve Figma mockup'ıyla (`docs/mockup/README.md`) tutarlılığını gösteren teknik inceleme ve devir belgesidir. ER diyagramı bu belgenin E bölümüne göre çizilir ve onunla karşılaştırılır. Revizyon 2'de yapılan değişikliklerin listesi ve mockup karşılıkları I bölümündedir.
 
@@ -55,7 +57,7 @@ TestExecution ile AnalysisRun arasında doğrudan yabancı anahtar yoktur. İli�
 | analysis_runs | AnalysisRun | 18 / 18 / 18 | bigint identity ↔ BigAutoField | status: QUEUED, ANALYZING, GENERATING, VALIDATING, EXECUTING, SCANNING, COMPLETED, FAILED, CANCELLED; method: RULE_BASED, DIRECT_LLM, HYBRID; llm_provider: GROQ, GEMINI, OLLAMA | requirements_snapshot, ast_results, processing_metadata | created_at, started_at, finished_at, updated_at |
 | endpoints | Endpoint | 10 / 10 / 10 | bigint identity ↔ BigAutoField | http_method: GET, POST, PUT, PATCH, DELETE; unsupported_reason: DYNAMIC_ROUTE, CUSTOM_PERMISSION | permission_classes | created_at |
 | generated_tests | GeneratedTest | 18 / 18 / 18 | bigint identity ↔ BigAutoField | generation_method: LLM, RULE_BASED; validation_status: PENDING, VALID, INVALID_SYNTAX, REJECTED_POLICY | validation_errors, generation_metadata | created_at, updated_at |
-| test_executions | TestExecution | 14 / 14 / 14 | bigint identity ↔ BigAutoField | status: QUEUED, RUNNING, PASS, FAIL, TECHNICAL_ERROR, STOPPED, NOT_RUN; error_type: IMPORT, FIXTURE, SYNTAX, TIMEOUT, OOM, OTHER; error_origin: TEST_CODE, TARGET_APP, INFRASTRUCTURE | result_details | started_at, finished_at, created_at |
+| test_executions | TestExecution | 14 / 14 / 14 | bigint identity ↔ BigAutoField | status: PENDING, RUNNING, PASS, FAIL, ERROR, TIMEOUT, STOPPED, NOT_RUN (rev. 4); error_type: IMPORT, FIXTURE, SYNTAX, TIMEOUT, OOM, OTHER; error_origin: TEST_CODE, TARGET_APP, INFRASTRUCTURE | result_details | started_at, finished_at, created_at |
 | security_findings | SecurityFinding | 17 / 17 / 17 | bigint identity ↔ BigAutoField | source: AUTH_TEST, BANDIT, CHECK_DEPLOY; severity: HIGH, MEDIUM, LOW, UNKNOWN; classification: VERIFIED, POSSIBLE, UNCERTAIN | details | created_at |
 | reports | Report | 8 / 8 / 8 | bigint identity ↔ BigAutoField | format: PDF, JSON; scope: FULL, PARTIAL | sections | created_at |
 | llm_calls | LlmCall | 12 / 12 / 12 | bigint identity ↔ BigAutoField | provider: GROQ, GEMINI, OLLAMA; purpose: GENERATE, REPAIR; status: SUCCESS, ERROR, QUOTA_EXCEEDED, TIMEOUT | — | created_at |
@@ -97,7 +99,7 @@ PK/FK kısıt adları, sütun `DEFAULT` ifadelerinin konumu (veritabanı / Pytho
 | SCANNING | COMPLETED | Bandit, check --deploy ve yetkilendirme testi bulguları yazılır (ekran 09) | finished_at = şimdi |
 | QUEUED | FAILED | İşçi başlamadan hata (ör. `QUEUE_ERROR`) | finished_at = şimdi; started_at NULL kalır |
 | ANALYZING … SCANNING | FAILED | Aşama hatası, sandbox başlatılamaması (`RUNNER_START_ERROR`, ekran 17), işçi kaybı | finished_at = şimdi |
-| QUEUED … SCANNING | CANCELLED | Kullanıcı onayıyla durdurma (ekran 28, 29); görev iptal, sandbox silinir, açık denemeler STOPPED / NOT_RUN | finished_at = şimdi |
+| QUEUED … SCANNING | CANCELLED | Kullanıcı onayıyla durdurma (ekran 28, 29); görev iptal, sandbox silinir, açık denemeler STOPPED / NOT_RUN (PENDING → NOT_RUN) | finished_at = şimdi |
 
 COMPLETED, FAILED ve CANCELLED son durumlardır; geri geçiş yoktur. FAILED durumunda `error_code` zorunludur (değerler sözlük 8.6). CANCELLED'da tamamlanan test sonuçları ve bulgular saklanır. Otomatik yeniden deneme yapılmaz; yeniden başlatma yeni bir AnalysisRun oluşturur.
 
@@ -362,7 +364,7 @@ Senaryo kimlikleri (P01, A13 …) H bölümündeki davranış testlerine karşı
 | 11 | AST endpointleri listelenir, kapsam dışılar işaretlenir (ekran 06) | `endpoints`; HEAD/OPTIONS reddedilir; kapsam dışı neden zorunlu | E01–E12 |
 | 12 | Test endpoint, rol ve beklenen kodla üretilir (ekran 07) | `endpoint_id`, `role`, `expected_status`, `is_security_test` | G01, G02, G07, G08 |
 | 13 | Test en fazla bir kez düzeltilir | `repair_count` 0–1; düzeltme sonrası yeni deneme numarası | G04–G06, T16 |
-| 14 | PASS / FAIL / teknik hata ayrımı (ekran 08) | Yedi durum; TECHNICAL_ERROR'da `error_type` zorunlu; gözlenen kod | T01–T06, T11–T15, T17–T23 |
+| 14 | PASS / FAIL / teknik hata ayrımı (ekran 08) | Sekiz durum (rev. 4); ERROR'da `error_type` zorunlu, TIMEOUT ayrı durum; gözlenen kod | T01–T06, T11–T15, T17–T23 |
 | 15 | Bulgu test ile kanıtlanır, düzeltme önerisi gösterilir (ekran 09) | `test_execution_id`, `endpoint_id`, `recommendation_key`; yeni kaynak/önem/sınıf değerleri | S01–S09 |
 | 16 | Rapor PDF/JSON, tam/kısmi olarak alınır (ekran 10, 21, 25) | `reports`; biçim, kapsam, göreli dosya yolu, boyut | D01–D07 |
 | 17 | Token kullanımı ve kota aşımı izlenir (ekran 02, 24; İST-13) | `llm_calls`; başarılı çağrıda token zorunlu, kota aşımında NULL | L01–L11 |
