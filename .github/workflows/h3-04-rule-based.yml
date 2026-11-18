@@ -23,8 +23,8 @@ jobs:
         os: [windows-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: Bağımlılıklar (ekip ortamındaki sabit sürümler)
@@ -53,7 +53,7 @@ jobs:
           sys.exit(1 if pyc else 0)
       - name: Hata durumunda geçici dosyaları sakla
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: h304-basetemp-${{ matrix.os }}
           path: ${{ runner.temp }}/h304_*
