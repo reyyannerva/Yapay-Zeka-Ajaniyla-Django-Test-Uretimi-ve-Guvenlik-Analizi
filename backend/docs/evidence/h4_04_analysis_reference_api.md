@@ -32,10 +32,12 @@ POST /api/analysis-runs/   {"project": 1, "method": "RULE_BASED"}
 **Detay — ilerleme yanıltıcı değildir**
 ```
 GET /api/analysis-runs/5/
-200   {... "progress": {"total": 0, "completed": 0, "running": 0, "pending": 0, "percent": null, ...}}
+200   {... "generated_test_count": 0,
+       "progress": {"total": 0, "completed": 0, "running": 0, "pending": 0, "percent": null, ...}}
 ```
-Henüz yürütme kaydı yoksa `percent: null` döner (yanıltıcı %0 üretilmez). İlerleme her sorguda
-`TestExecution` kayıtlarından türetilir (sayaç saklanmaz).
+`generated_test_count` üretilmiş test sayısıdır (yürütülmemişler dâhil). `progress` ise yürütme
+(`TestExecution`) bazlıdır: henüz yürütme kaydı yoksa `percent: null` döner (yanıltıcı %0 üretilmez,
+sayaç saklanmaz, her sorguda türetilir).
 
 ## ReferenceRequirement — örnekler
 
