@@ -1,7 +1,7 @@
 """API serializer'ları — H4-04 / Issue #36."""
 from rest_framework import serializers
 
-from ..models import AnalysisRun, Project
+from ..models import AnalysisRun, GeneratedTest, Project
 from ..progress import execution_progress
 from ..serializers import ReferenceRequirementSerializer
 
@@ -33,11 +33,18 @@ class AnalysisRunListSerializer(serializers.ModelSerializer):
 
 class AnalysisRunDetailSerializer(AnalysisRunListSerializer):
     progress = serializers.SerializerMethodField()
+    # Üretilmiş test sayısı (TestExecution bazlı ilerlemeden ayrı; henüz çalıştırılmamış testleri de sayar).
+    generated_test_count = serializers.SerializerMethodField()
     requirements_snapshot = serializers.JSONField(read_only=True)
 
     class Meta(AnalysisRunListSerializer.Meta):
-        fields = AnalysisRunListSerializer.Meta.fields + ["requirements_snapshot", "progress"]
+        fields = AnalysisRunListSerializer.Meta.fields + [
+            "requirements_snapshot", "generated_test_count", "progress",
+        ]
         read_only_fields = fields
+
+    def get_generated_test_count(self, obj) -> int:
+        return GeneratedTest.objects.filter(analysis_run=obj).count()
 
     def get_progress(self, obj) -> dict:
         # Henüz yürütme kaydı yoksa percent None döner; yanıltıcı 0 ilerleme üretilmez.

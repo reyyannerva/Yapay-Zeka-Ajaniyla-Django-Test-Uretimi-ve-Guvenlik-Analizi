@@ -1,9 +1,12 @@
 """AnalysisRun API testleri — H4-04 / Issue #36."""
+from datetime import timedelta
+
 import pytest
 from django.urls import reverse
+from django.utils import timezone
 from rest_framework.test import APIClient
 
-from core.models import AnalysisRun
+from core.models import AnalysisRun, ReferenceRequirement
 
 from .conftest import make_execution, make_project, make_requirement, make_run, make_test
 
@@ -89,6 +92,34 @@ def test_detail_progress_counts_executions(api, project):
     make_execution(make_test(run))  # bir yürütme (PENDING)
     resp = api.get(detail(run.id))
     assert resp.data["progress"]["total"] == 1
+
+
+def test_detail_includes_generated_test_count(api, project):
+    run = make_run(project)
+    make_test(run)
+    make_test(run)  # yürütülmemiş üretilmiş testler de sayılır
+    resp = api.get(detail(run.id))
+    assert resp.data["generated_test_count"] == 2
+
+
+def test_snapshots_independent_across_runs(api, project):
+    """Farklı analizlerin referans anlık görüntüleri birbirinden bağımsızdır (madde 9)."""
+    make_requirement(project, requirement_code="SNAP-A")
+    r1 = api.post(LIST, {"project": project.id, "method": "RULE_BASED"}, format="json")
+    run1 = AnalysisRun.objects.get(id=r1.data["id"])
+    # run1'i sonlandır (proje başına tek aktif analiz kısıtı) ve referans kümesini değiştir.
+    run1.started_at = timezone.now() - timedelta(seconds=5)
+    run1.finished_at = timezone.now()
+    run1.status = AnalysisRun.Status.COMPLETED
+    run1.save()
+    ReferenceRequirement.objects.filter(project=project, requirement_code="SNAP-A").update(is_active=False)
+    make_requirement(project, requirement_code="SNAP-B")
+    r2 = api.post(LIST, {"project": project.id, "method": "RULE_BASED"}, format="json")
+    run2 = AnalysisRun.objects.get(id=r2.data["id"])
+    codes1 = {r["requirement_code"] for r in run1.requirements_snapshot}
+    codes2 = {r["requirement_code"] for r in run2.requirements_snapshot}
+    assert codes1 == {"SNAP-A"}  # run1 kendi anlık görüntüsünü korur
+    assert codes2 == {"SNAP-B"}  # run2 güncel kümeyi alır; analizler karışmaz
 
 
 def test_retrieve_others_run_404(api, django_user_model):
