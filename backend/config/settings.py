@@ -10,7 +10,7 @@ from pathlib import Path
 from django.core.exceptions import ImproperlyConfigured
 from django.core.management.utils import get_random_secret_key
 
-from .env import database_config, env_bool, env_list, env_str, load_dotenv_file
+from .env import database_config, env_bool, env_int, env_list, env_str, load_dotenv_file
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv_file(BASE_DIR / ".env")
@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
     "axes",
     "core",
 ]
@@ -110,5 +112,32 @@ MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "media/"
 
 REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
 }
+
+# --- Kimlik doğrulama / yetkilendirme (H4-02 / Issue #34) ---
+# SimpleJWT token süreleri ve blacklist. Süreler ortamdan okunur (H4-06 #38 ile genişletilir).
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=env_int("JWT_ACCESS_MINUTES", 15, minimum=1)),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=env_int("JWT_REFRESH_DAYS", 7, minimum=1)),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "UPDATE_LAST_LOGIN": True,  # başarılı girişte last_login + axes sayaç sıfırlama sinyali
+}
+
+# E-posta (şifre sıfırlama). Testte ve varsayılan geliştirmede konsol/locmem; üretimde SMTP (#38).
+EMAIL_BACKEND = env_str("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
+DEFAULT_FROM_EMAIL = env_str("DEFAULT_FROM_EMAIL", "noreply@localhost")
+# Şifre sıfırlama bağlantısının yönlendirileceği frontend adresi (uid/token eklenir).
+FRONTEND_PASSWORD_RESET_URL = env_str(
+    "FRONTEND_PASSWORD_RESET_URL", "http://localhost:5173/reset-password"
+)
+# Sıfırlama token geçerlilik süresi (saniye); Django PASSWORD_RESET_TIMEOUT.
+PASSWORD_RESET_TIMEOUT = env_int("PASSWORD_RESET_TIMEOUT", 3600, minimum=60)
+
+# Giriş denemelerine temel istek sınırlaması (İST-10): anonim login çağrıları için.
+REST_FRAMEWORK.setdefault("DEFAULT_THROTTLE_CLASSES", [])
+REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {"login": env_str("LOGIN_THROTTLE_RATE", "10/min")}

@@ -104,5 +104,16 @@ kilit verisi, migration tutarlılığı ve geri alma/yeniden uygulama.
 ## 5. Kapsam sınırları
 
 * Giriş kilidi: 3 başarısız deneme → 15 dakika kilit **verisi** ve Django `authenticate()`/yönetici paneli giriş
-  akışındaki django-axes davranışı kuruldu ve test edildi. DRF/SimpleJWT giriş API'si ve yanıtları H4-02 (#34).
+  akışındaki django-axes davranışı kuruldu ve test edildi. DRF/SimpleJWT giriş API'si ve yanıtları H4-02 (#34)
+  kapsamında eklendi (bkz. §6).
 * AnalysisRun durum geçiş servisi, Celery görevleri ve kalan süre tahmini kapsam dışıdır; veri yapıları hazırdır.
+
+## 6. Kimlik doğrulama ve yetkilendirme (H4-02 / Issue #34)
+
+SimpleJWT giriş/yenileme/çıkış (django-axes kilidine entegre), e-posta ile şifre sıfırlama ve proje
+sahipliği bazlı DRF izinleri `/api/auth/` altında eklenmiştir. Uç noktalar, yapılandırma ve örnek
+istek–yanıtlar: [`docs/evidence/h4_02_auth_api.md`](docs/evidence/h4_02_auth_api.md). Kaynak: `core/auth/`.
+Testler: `core/tests/test_auth_api.py`, `core/tests/test_permissions.py`.
+
+SimpleJWT bağımlılığı `requirements.txt`'e eklendi; `pip install -r backend/requirements.txt` sonrası
+`python manage.py migrate` (token_blacklist migration'ları dâhil) çalıştırılmalıdır.
