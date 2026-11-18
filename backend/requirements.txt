@@ -5,6 +5,8 @@ djangorestframework-simplejwt>=5.3  # H4-02 / Issue #34 (JWT + token blacklist)
 psycopg[binary]>=3.2,<4
 django-axes==9.0.0
 django-cors-headers>=4.0  # H4-06 / Issue #38 (frontend origin'leri için CORS/CSRF)
+drf-spectacular==0.30.0  # H4-05 / Issue #37 (OpenAPI 3)
+drf-spectacular-sidecar==2026.10.1  # Swagger UI/ReDoc dosyaları yerelden
 python-dotenv>=1.0
 pytest>=8.0
 pytest-django>=4.8

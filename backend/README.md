@@ -104,6 +104,16 @@ cd backend && python manage.py makemigrations --check --dry-run && python manage
 cd backend && python manage.py showmigrations core axes
 ```
 
+Son olarak geliştirme sunucusu başlatılır (varsayılan e-posta backend'i konsoldur; SMTP yalnızca üretimde
+gereklidir):
+
+```bash
+cd backend && python manage.py runserver
+```
+
+API dokümantasyonu `http://127.0.0.1:8000/api/docs/` adresinde (bkz. §9). AI sağlayıcı anahtarları eksik olsa
+da backend başlar; ilgili sağlayıcı yalnızca kullanıldığında anlaşılır hata verir (bkz. §10).
+
 ## 4. Testler
 
 ```bash
@@ -156,7 +166,15 @@ Sahiplik H4-02 (#34) izinleriyle; referans doğrulaması H4-01 (#33) serializer'
 [`docs/evidence/h4_04_analysis_reference_api.md`](docs/evidence/h4_04_analysis_reference_api.md).
 Kaynak: `core/api/`. Testler: `core/tests/test_analysis_api.py`, `core/tests/test_requirement_api.py`.
 
-## 9. Ortam yapılandırması ve backend güvenliği (H4-06 / Issue #38)
+## 9. API dokümantasyonu — Swagger / OpenAPI (H4-05 / Issue #37)
+
+Şema `drf-spectacular` ile koddan üretilir: `/api/schema/` (OpenAPI 3.0.3), `/api/docs/` (Swagger UI, yerel
+statik dosyalar), `/api/redoc/`. Erişim `API_DOCS_PUBLIC` ile denetlenir (varsayılan `DEBUG`; `false` iken
+yalnızca `is_staff`). Dışa aktarılmış şema, kılavuzlar ve Postman koleksiyonu:
+[`../docs/api/`](../docs/api/README.md). Şema özelleştirmeleri: `core/api/schema.py`. Sözleşme testleri:
+`core/tests/test_openapi.py`. Doğrulama kaydı: [`docs/evidence/h4_05_api_docs.md`](docs/evidence/h4_05_api_docs.md).
+
+## 10. Ortam yapılandırması ve backend güvenliği (H4-06 / Issue #38)
 
 Gizli değerler ve dağıtıma özel ayarlar ortam değişkenlerinden okunur (yukarıdaki tablo + `.env.example`);
 kod/log/depoya sır yazılmaz. Bu issue ile eklenenler:

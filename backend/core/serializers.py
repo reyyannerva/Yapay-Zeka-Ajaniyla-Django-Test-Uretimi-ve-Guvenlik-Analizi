@@ -4,6 +4,7 @@ API uç noktaları H4-04 (#36) kapsamındadır; burada yalnızca izinli HTTP yö
 ``specification`` yapısını (veri sözlüğü 10.2) doğrulayan serializer'lar tanımlanır. Aynı kural
 veritabanında ``ck_reference_requirements_access_rule_method`` kısıtıyla da zorlanır.
 """
+from drf_spectacular.utils import PolymorphicProxySerializer, extend_schema_field
 from rest_framework import serializers
 
 from .choices import HTTP_METHODS
@@ -31,6 +32,22 @@ class DeployExpectationSpecificationSerializer(serializers.Serializer):
     check_id = serializers.CharField(max_length=50, required=False)
 
 
+@extend_schema_field(PolymorphicProxySerializer(
+    component_name="ReferenceSpecification",
+    serializers=[RoleSpecificationSerializer, AccessRuleSpecificationSerializer, DeployExpectationSpecificationSerializer],
+    resource_type_field_name=None,
+))
+class SpecificationField(serializers.JSONField):
+    """``specification`` JSON'u; davranış ``JSONField`` ile aynıdır, yalnızca OpenAPI şeması kategoriye göre
+    yapıyı (oneOf) ve ``ACCESS_RULE.method`` enum'unu gösterir (H4-05 / Issue #37). Doğrulama ``validate``'tedir."""
+
+
+@extend_schema_field({"type": "string", "enum": list(HTTP_METHODS), "nullable": True, "readOnly": True,
+                      "description": "ACCESS_RULE satırının HTTP metodu; diğer kategorilerde null."})
+class HttpMethodReadField(serializers.CharField):
+    pass
+
+
 SPECIFICATION_SERIALIZERS = {
     ReferenceRequirement.Category.ROLE: RoleSpecificationSerializer,
     ReferenceRequirement.Category.ACCESS_RULE: AccessRuleSpecificationSerializer,
@@ -39,7 +56,8 @@ SPECIFICATION_SERIALIZERS = {
 
 
 class ReferenceRequirementSerializer(serializers.ModelSerializer):
-    http_method = serializers.CharField(read_only=True)
+    http_method = HttpMethodReadField(read_only=True)
+    specification = SpecificationField(required=False)
 
     class Meta:
         model = ReferenceRequirement
