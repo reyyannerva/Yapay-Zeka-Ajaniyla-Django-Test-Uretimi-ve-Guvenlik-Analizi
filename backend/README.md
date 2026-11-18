@@ -145,3 +145,11 @@ Sahiplik H4-02 (#34) izinleriyle; referans doğrulaması H4-01 (#33) serializer'
 `core/progress.py` ile. Bu aşamada gerçek AST/LLM/Docker başlatılmaz. Uç noktalar + örnek istek-yanıtlar:
 [`docs/evidence/h4_04_analysis_reference_api.md`](docs/evidence/h4_04_analysis_reference_api.md).
 Kaynak: `core/api/`. Testler: `core/tests/test_analysis_api.py`, `core/tests/test_requirement_api.py`.
+
+## 9. API dokümantasyonu — Swagger / OpenAPI (H4-05 / Issue #37)
+
+Şema `drf-spectacular` ile koddan üretilir: `/api/schema/` (OpenAPI 3.0.3), `/api/docs/` (Swagger UI, yerel
+statik dosyalar), `/api/redoc/`. Erişim `API_DOCS_PUBLIC` ile denetlenir (varsayılan `DEBUG`; `false` iken
+yalnızca `is_staff`). Dışa aktarılmış şema, kılavuzlar ve Postman koleksiyonu:
+[`../docs/api/`](../docs/api/README.md). Şema özelleştirmeleri: `core/api/schema.py`. Sözleşme testleri:
+`core/tests/test_openapi.py`. Doğrulama kaydı: [`docs/evidence/h4_05_api_docs.md`](docs/evidence/h4_05_api_docs.md).
