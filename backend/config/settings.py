@@ -111,6 +111,24 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "media/"
 
+# --- Proje arşivi yükleme (H4-03 / Issue #35) ---
+# Arşivler herkese açık olmayan ayrı bir kökte saklanır (core.storage.ProjectArchiveStorage); URL ile sunulmaz.
+PROJECT_ARCHIVE_ROOT = Path(env_str("PROJECT_ARCHIVE_ROOT", str(BASE_DIR / "private_storage")))
+# Sınırlar proje kararıdır (isterlerde sayısal değer tanımlı değildir); ortamdan değiştirilebilir.
+PROJECT_UPLOAD_LIMITS = {
+    "max_upload_bytes": env_int("PROJECT_UPLOAD_MAX_BYTES", 50 * 1024 * 1024, minimum=1),
+    "max_total_uncompressed_bytes": env_int("PROJECT_UPLOAD_MAX_UNCOMPRESSED_BYTES", 200 * 1024 * 1024, minimum=1),
+    "max_member_bytes": env_int("PROJECT_UPLOAD_MAX_MEMBER_BYTES", 20 * 1024 * 1024, minimum=1),
+    "max_entries": env_int("PROJECT_UPLOAD_MAX_ENTRIES", 10_000, minimum=1),
+    "max_depth": env_int("PROJECT_UPLOAD_MAX_DEPTH", 32, minimum=1),
+    "max_path_length": env_int("PROJECT_UPLOAD_MAX_PATH_LENGTH", 240, minimum=16),
+    "max_compression_ratio": env_int("PROJECT_UPLOAD_MAX_COMPRESSION_RATIO", 100, minimum=2),
+    # Oran denetimi bu boyutun altındaki küçük girdilere uygulanmaz (yanlış pozitifleri önler).
+    "ratio_check_min_bytes": env_int("PROJECT_UPLOAD_RATIO_MIN_BYTES", 1024 * 1024, minimum=0),
+}
+# Desteklenen arşiv biçimleri (yalnızca ZIP); uzantı tek başına yeterli değildir, içerik de doğrulanır.
+PROJECT_UPLOAD_ALLOWED_EXTENSIONS = [".zip"]
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -140,4 +158,8 @@ PASSWORD_RESET_TIMEOUT = env_int("PASSWORD_RESET_TIMEOUT", 3600, minimum=60)
 
 # Giriş denemelerine temel istek sınırlaması (İST-10): anonim login çağrıları için.
 REST_FRAMEWORK.setdefault("DEFAULT_THROTTLE_CLASSES", [])
-REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {"login": env_str("LOGIN_THROTTLE_RATE", "10/min")}
+REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
+    "login": env_str("LOGIN_THROTTLE_RATE", "10/min"),
+    # H4-03: kullanıcı başına arşiv yükleme sınırı (kaynak tüketimine karşı).
+    "project_upload": env_str("PROJECT_UPLOAD_THROTTLE_RATE", "30/hour"),
+}

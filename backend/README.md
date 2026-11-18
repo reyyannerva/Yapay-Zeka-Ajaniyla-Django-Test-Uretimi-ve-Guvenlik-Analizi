@@ -15,12 +15,15 @@ backend/
 └── core/
     ├── models/           # 9 model (Project, ReferenceRequirement, AnalysisRun, Endpoint, GeneratedTest,
     │                     #          TestExecution, SecurityFinding, Report, LlmCall)
-    ├── migrations/0001_initial.py
+    ├── migrations/       # 0001_initial, 0002_project_archive_private_storage (H4-03)
+    ├── auth/             # H4-02: SimpleJWT, kilit, şifre sıfırlama, sahiplik izinleri
+    ├── projects/         # H4-03: proje API'si, arşiv güvenliği, Django yapı ön kontrolü
+    ├── storage.py        # H4-03: herkese açık olmayan arşiv deposu
     ├── choices.py        # ortak HttpMethod (GET, POST, PUT, PATCH, DELETE)
     ├── fields.py         # NullableFileField
     ├── progress.py       # TestExecution kayıtlarından ilerleme türetme
     ├── serializers.py    # ReferenceRequirement / HTTP yöntemi doğrulama sözleşmesi
-    ├── management/commands/check_database.py
+    ├── management/commands/check_database.py, cleanup_project_archives.py
     └── tests/            # PostgreSQL üzerinde model, kısıt, migration ve kilit testleri
 ```
 
@@ -62,6 +65,8 @@ cp backend/.env.example backend/.env
 | `POSTGRES_CONNECT_TIMEOUT` | Hayır | `5` | Saniye |
 | `POSTGRES_CONN_MAX_AGE` | Hayır | `0` | Kalıcı bağlantı süresi (sn) |
 | `POSTGRES_TEST_DB` | Hayır | `test_<POSTGRES_DB>` | Test veritabanı adı |
+| `PROJECT_ARCHIVE_ROOT` | Hayır | `backend/private_storage` | Yüklenen arşivlerin özel deposu (URL ile sunulmaz) |
+| `PROJECT_UPLOAD_MAX_BYTES` ve diğer `PROJECT_UPLOAD_*` | Hayır | bkz. `docs/h4_03_project_api.md` §4 | Arşiv boyut, girdi, derinlik ve oran sınırları |
 
 Değerler önce işletim sistemi ortamından, yoksa `backend/.env`'den okunur. `.env` git tarafından yok sayılır.
 Eksik zorunlu değişkende hata iletisi yalnızca değişkenin **adını** verir.
@@ -118,7 +123,21 @@ Testler: `core/tests/test_auth_api.py`, `core/tests/test_permissions.py`.
 SimpleJWT bağımlılığı `requirements.txt`'e eklendi; `pip install -r backend/requirements.txt` sonrası
 `python manage.py migrate` (token_blacklist migration'ları dâhil) çalıştırılmalıdır.
 
-## 7. Analiz ve referans gereksinim API'leri (H4-04 / Issue #36)
+## 7. Proje yönetimi ve arşiv yükleme (H4-03 / Issue #35)
+
+`/api/projects/` altında proje oluşturma (multipart ZIP yükleme), listeleme, detay, güncelleme ve silme
+uç noktaları vardır. Tüm uç noktalar SimpleJWT ister. Kullanıcılar yalnızca kendi projelerini görür;
+başkasının projesi 404 döner. Yüklenen kod çalıştırılmaz, içe aktarılmaz ve diske açılmaz.
+
+Uç noktalar, sınırlar, arşiv güvenlik denetimleri, depolama ve silme davranışı:
+[`docs/h4_03_project_api.md`](docs/h4_03_project_api.md). Gerçek istek-yanıtlar ve PostgreSQL kaydı:
+[`docs/evidence/h4_03_project_api.md`](docs/evidence/h4_03_project_api.md). Kaynak: `core/projects/`,
+`core/storage.py`. Testler: `core/tests/test_project_api.py`, `core/tests/test_project_archive.py`.
+
+Yeni migration `core.0002_project_archive_private_storage` yalnızca depolama arka ucunu kaydeder; veritabanında
+değişiklik yapmaz (`python manage.py migrate` ile uygulanır).
+
+## 8. Analiz ve referans gereksinim API'leri (H4-04 / Issue #36)
 
 `/api/analysis-runs/` (oluşturma `QUEUED` + listeleme + detay/ilerleme) ve `/api/reference-requirements/`
 (kaynak koddan bağımsız referans JSON CRUD; `specification.method` yalnızca GET/POST/PUT/PATCH/DELETE).
