@@ -1,6 +1,7 @@
 # H4-01 / Issue #33 — backend bağımlılıkları (sürümler bu ortamda doğrulanmıştır)
 Django>=5.2,<5.3
 djangorestframework>=3.15
+djangorestframework-simplejwt>=5.3  # H4-02 / Issue #34 (JWT + token blacklist)
 psycopg[binary]>=3.2,<4
 django-axes==9.0.0
 python-dotenv>=1.0
