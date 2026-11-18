@@ -67,9 +67,19 @@ cp backend/.env.example backend/.env
 | `POSTGRES_TEST_DB` | Hayır | `test_<POSTGRES_DB>` | Test veritabanı adı |
 | `PROJECT_ARCHIVE_ROOT` | Hayır | `backend/private_storage` | Yüklenen arşivlerin özel deposu (URL ile sunulmaz) |
 | `PROJECT_UPLOAD_MAX_BYTES` ve diğer `PROJECT_UPLOAD_*` | Hayır | bkz. `docs/h4_03_project_api.md` §4 | Arşiv boyut, girdi, derinlik ve oran sınırları |
+| `JWT_ACCESS_MINUTES` / `JWT_REFRESH_DAYS` | Hayır | `15` / `7` | SimpleJWT token süreleri (H4-02) |
+| `LOGIN_THROTTLE_RATE` | Hayır | `10/min` | Anonim giriş istek sınırı |
+| `AXES_FAILURE_LIMIT` / `AXES_COOLOFF_MINUTES` | Hayır | `3` / `15` | Giriş kilidi: deneme sayısı ve kilit süresi |
+| `EMAIL_BACKEND`, `EMAIL_HOST*`, `EMAIL_PORT`, `EMAIL_USE_TLS/SSL` | Hayır | konsol backend | Şifre sıfırlama e-postası; SMTP parolası yalnızca `.env`'de |
+| `CORS_ALLOWED_ORIGINS` / `CORS_ALLOW_CREDENTIALS` | Hayır | `http://localhost:5173,http://127.0.0.1:5173` / `true` | İzinli frontend adresleri (yıldız izin yok) |
+| `CSRF_TRUSTED_ORIGINS` | Hayır | `CORS_ALLOWED_ORIGINS` | CSRF için güvenilen origin'ler |
+| `CELERY_BROKER_URL` / `CELERY_RESULT_BACKEND` | Hayır | `redis://127.0.0.1:6379/0` | İleride asenkron yürütme (şimdilik yalnızca yapılandırma) |
+| `LLM_DEFAULT_PROVIDER`, `GROQ_API_KEY`, `GEMINI_API_KEY`, `OLLAMA_BASE_URL` | Hayır | bkz. `.env.example` | AI sağlayıcı anahtar/adresleri (eksikse başlangıç bozulmaz) |
+| `SESSION_COOKIE_SECURE` vb. `SECURE_*` | Hayır | `DEBUG=false` iken etkin | Üretim güvenlik sertleştirmesi (bkz. §9) |
 
-Değerler önce işletim sistemi ortamından, yoksa `backend/.env`'den okunur. `.env` git tarafından yok sayılır.
-Eksik zorunlu değişkende hata iletisi yalnızca değişkenin **adını** verir.
+Tam liste ve açıklamalar: [`.env.example`](.env.example). Değerler önce işletim sistemi ortamından, yoksa
+`backend/.env`'den okunur. `.env` git tarafından yok sayılır. Eksik zorunlu değişkende hata iletisi yalnızca
+değişkenin **adını** verir; API anahtarı/parola hiçbir çıktıya yazılmaz.
 
 ## 3. Kurulum, bağlantı doğrulama ve migration
 
@@ -93,6 +103,16 @@ cd backend && python manage.py makemigrations --check --dry-run && python manage
 ```bash
 cd backend && python manage.py showmigrations core axes
 ```
+
+Son olarak geliştirme sunucusu başlatılır (varsayılan e-posta backend'i konsoldur; SMTP yalnızca üretimde
+gereklidir):
+
+```bash
+cd backend && python manage.py runserver
+```
+
+API dokümantasyonu `http://127.0.0.1:8000/api/docs/` adresinde (bkz. §9). AI sağlayıcı anahtarları eksik olsa
+da backend başlar; ilgili sağlayıcı yalnızca kullanıldığında anlaşılır hata verir (bkz. §10).
 
 ## 4. Testler
 
@@ -153,3 +173,25 @@ statik dosyalar), `/api/redoc/`. Erişim `API_DOCS_PUBLIC` ile denetlenir (varsa
 yalnızca `is_staff`). Dışa aktarılmış şema, kılavuzlar ve Postman koleksiyonu:
 [`../docs/api/`](../docs/api/README.md). Şema özelleştirmeleri: `core/api/schema.py`. Sözleşme testleri:
 `core/tests/test_openapi.py`. Doğrulama kaydı: [`docs/evidence/h4_05_api_docs.md`](docs/evidence/h4_05_api_docs.md).
+
+## 10. Ortam yapılandırması ve backend güvenliği (H4-06 / Issue #38)
+
+Gizli değerler ve dağıtıma özel ayarlar ortam değişkenlerinden okunur (yukarıdaki tablo + `.env.example`);
+kod/log/depoya sır yazılmaz. Bu issue ile eklenenler:
+
+* **CORS / CSRF:** frontend adresleri `CORS_ALLOWED_ORIGINS`/`CSRF_TRUSTED_ORIGINS` ile yapılandırılır;
+  yıldız (`*`) izin kullanılmaz. `django-cors-headers` middleware'i `SecurityMiddleware`'den sonra,
+  `CommonMiddleware`'den önce yer alır.
+* **SMTP:** şifre sıfırlama için e-posta sağlayıcı ayarları ortamdan okunur; SMTP parolası yalnızca `.env`'de.
+  Varsayılan konsol backend'i ile geliştirmede gerçek e-posta gönderilmez.
+* **Giriş kilidi parametreleri:** deneme sayısı ve kilit süresi `AXES_FAILURE_LIMIT`/`AXES_COOLOFF_MINUTES`
+  ile ayarlanabilir; varsayılanlar H4-02 davranışını korur (3 deneme / 15 dakika).
+* **AI sağlayıcıları:** Groq/Gemini/Ollama anahtar ve adresleri `LLM_PROVIDERS` altında ortamdan okunur.
+  Eksik anahtar veya erişilemeyen yerel servis **backend başlangıcını engellemez**; sağlayıcı gerçekten
+  kullanıldığında `core.providers.require_llm_provider` anlaşılır, gizli değer sızdırmayan bir hata verir.
+* **Üretim sertleştirmesi:** `SECURE_CONTENT_TYPE_NOSNIFF` her zaman açıktır; `DEBUG=false` iken güvenli
+  çerezler, HTTPS yönlendirme, HSTS ve ters-vekil HTTPS başlığı etkinleşir (hepsi ortamdan değiştirilebilir).
+
+`django-cors-headers` bağımlılığı `requirements.txt`'e eklendi; `pip install -r backend/requirements.txt`
+yeniden çalıştırılmalıdır (migration gerektirmez). Kaynak: `config/settings.py`, `core/providers.py`.
+Testler: `core/tests/test_settings_env.py`, `core/tests/test_settings_security.py`.

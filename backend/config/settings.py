@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
+    "corsheaders",  # H4-06 / Issue #38
     "axes",
     "drf_spectacular",  # H4-05 / Issue #37: OpenAPI 3 şeması
     "drf_spectacular_sidecar",  # Swagger UI/ReDoc dosyaları CDN yerine yerelden sunulur
@@ -41,6 +42,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    # CORS middleware olabildiğince üstte, CommonMiddleware'den önce olmalıdır (H4-06 / Issue #38).
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -93,8 +96,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Üç başarısız denemede kullanıcı adı bazında 15 dakika kilit. Deneme sayısı
 # ``axes_accessattempt.failures_since_start``, kilit bitiş zamanı ``axes_accessattemptexpiration.expires_at``.
 # DRF/SimpleJWT giriş uç noktalarına entegrasyon H4-02 (#34) kapsamındadır.
-AXES_FAILURE_LIMIT = 3
-AXES_COOLOFF_TIME = timedelta(minutes=15)
+# Deneme sınırı ve kilit süresi H4-06 (#38) ile ortam değişkenlerinden yapılandırılabilir
+# (varsayılanlar H4-02/#33 davranışını korur: 3 deneme / 15 dakika).
+AXES_FAILURE_LIMIT = env_int("AXES_FAILURE_LIMIT", 3, minimum=1)
+AXES_COOLOFF_TIME = timedelta(minutes=env_int("AXES_COOLOFF_MINUTES", 15, minimum=1))
 AXES_LOCKOUT_PARAMETERS = ["username"]
 AXES_RESET_ON_SUCCESS = True
 AXES_USE_ATTEMPT_EXPIRATION = True
@@ -167,6 +172,73 @@ REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
     "project_upload": env_str("PROJECT_UPLOAD_THROTTLE_RATE", "30/hour"),
 }
 
+# =====================================================================
+# Ortam yapılandırması ve backend güvenlik kontrolleri (H4-06 / Issue #38)
+# =====================================================================
+
+# --- CORS / CSRF (frontend erişimi) ---
+# İzin verilen frontend adresleri ortamdan yapılandırılır (yıldız izin kullanılmaz).
+CORS_ALLOWED_ORIGINS = env_list("CORS_ALLOWED_ORIGINS", ["http://localhost:5173", "http://127.0.0.1:5173"])
+CORS_ALLOW_CREDENTIALS = env_bool("CORS_ALLOW_CREDENTIALS", True)
+CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS", CORS_ALLOWED_ORIGINS)
+
+# --- E-posta / SMTP (şifre sıfırlama) ---
+# EMAIL_BACKEND SMTP değilse (varsayılan konsol) aşağıdaki değerler kullanılmaz; gizli bilgi .env'dedir.
+EMAIL_HOST = env_str("EMAIL_HOST", "localhost")
+EMAIL_PORT = env_int("EMAIL_PORT", 587, minimum=1, maximum=65535)
+EMAIL_HOST_USER = env_str("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = env_str("EMAIL_HOST_PASSWORD", "")  # yalnızca ortamdan; repoya yazılmaz
+EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
+EMAIL_USE_SSL = env_bool("EMAIL_USE_SSL", False)
+EMAIL_TIMEOUT = env_int("EMAIL_TIMEOUT", 10, minimum=1)
+
+# --- Redis / Celery (ileride asenkron yürütme; şimdilik yalnızca yapılandırma) ---
+CELERY_BROKER_URL = env_str("CELERY_BROKER_URL", "redis://127.0.0.1:6379/0")
+CELERY_RESULT_BACKEND = env_str("CELERY_RESULT_BACKEND", CELERY_BROKER_URL)
+
+# --- AI model sağlayıcıları (İST-05, İST-11) ---
+# Anahtarlar/servis adresleri ortamdan okunur. Eksik anahtar veya erişilemeyen yerel servis
+# backend başlangıcını ENGELLEMEZ; sağlayıcı gerçekten kullanıldığında anlaşılır hata döndürülür
+# (bkz. core.providers.require_llm_provider). Gizli anahtarlar hiçbir çıktıya yazılmaz.
+LLM_DEFAULT_PROVIDER = env_str("LLM_DEFAULT_PROVIDER", "groq")
+LLM_REQUEST_TIMEOUT = env_int("LLM_REQUEST_TIMEOUT", 60, minimum=1)
+LLM_PROVIDERS = {
+    "groq": {
+        "requires": "api_key",
+        "api_key": env_str("GROQ_API_KEY", ""),
+        "model": env_str("GROQ_MODEL", "llama-3.3-70b-versatile"),
+    },
+    "gemini": {
+        "requires": "api_key",
+        "api_key": env_str("GEMINI_API_KEY", ""),
+        "model": env_str("GEMINI_MODEL", "gemini-1.5-flash"),
+    },
+    "ollama": {
+        # Yerel servis; API anahtarı gerektirmez.
+        "requires": "base_url",
+        "base_url": env_str("OLLAMA_BASE_URL", "http://127.0.0.1:11434"),
+        "model": env_str("OLLAMA_MODEL", "llama3"),
+    },
+}
+# LiteLLM sağlayıcı soyutlaması (opsiyonel ayarlar).
+LITELLM_SETTINGS = {
+    "default_provider": LLM_DEFAULT_PROVIDER,
+    "request_timeout": LLM_REQUEST_TIMEOUT,
+}
+
+# --- Üretim güvenlik sertleştirmesi (DEBUG kapalıyken; check --deploy uyarıları) ---
+SECURE_CONTENT_TYPE_NOSNIFF = True
+if not DEBUG:
+    SESSION_COOKIE_SECURE = env_bool("SESSION_COOKIE_SECURE", True)
+    CSRF_COOKIE_SECURE = env_bool("CSRF_COOKIE_SECURE", True)
+    SECURE_SSL_REDIRECT = env_bool("SECURE_SSL_REDIRECT", True)
+    SECURE_HSTS_SECONDS = env_int("SECURE_HSTS_SECONDS", 31_536_000, minimum=0)
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = env_bool("SECURE_HSTS_INCLUDE_SUBDOMAINS", True)
+    SECURE_HSTS_PRELOAD = env_bool("SECURE_HSTS_PRELOAD", True)
+    # Ters vekil sunucu arkasında HTTPS'i doğru algılamak için (yalnızca güvenilen proxy ile).
+    if env_bool("SECURE_PROXY_SSL_HEADER", True):
+        SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 # --- API dokümantasyonu (H4-05 / Issue #37) ---
 # Şema ve Swagger UI erişimi: API_DOCS_PUBLIC=true iken herkese açık (geliştirme varsayılanı = DEBUG);
 # false iken yalnızca personel (is_staff) kullanıcılar (yönetici oturumu veya JWT) erişebilir.
@@ -220,4 +292,3 @@ SPECTACULAR_SETTINGS = {
         "drf_spectacular.hooks.postprocess_schema_enums",
     ],
 }
-
