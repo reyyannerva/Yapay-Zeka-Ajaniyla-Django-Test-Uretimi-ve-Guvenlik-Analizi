@@ -5,4 +5,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/auth/", include("core.auth.urls")),  # H4-02 / Issue #34
     path("api/", include("core.projects.urls")),  # H4-03 / Issue #35
+    path("api/", include("core.api.urls")),  # H4-04 / Issue #36 (analysis-runs, reference-requirements)
 ]

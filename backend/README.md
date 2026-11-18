@@ -137,3 +137,11 @@ Uç noktalar, sınırlar, arşiv güvenlik denetimleri, depolama ve silme davran
 Yeni migration `core.0002_project_archive_private_storage` yalnızca depolama arka ucunu kaydeder; veritabanında
 değişiklik yapmaz (`python manage.py migrate` ile uygulanır).
 
+## 8. Analiz ve referans gereksinim API'leri (H4-04 / Issue #36)
+
+`/api/analysis-runs/` (oluşturma `QUEUED` + listeleme + detay/ilerleme) ve `/api/reference-requirements/`
+(kaynak koddan bağımsız referans JSON CRUD; `specification.method` yalnızca GET/POST/PUT/PATCH/DELETE).
+Sahiplik H4-02 (#34) izinleriyle; referans doğrulaması H4-01 (#33) serializer'ıyla; ilerleme
+`core/progress.py` ile. Bu aşamada gerçek AST/LLM/Docker başlatılmaz. Uç noktalar + örnek istek-yanıtlar:
+[`docs/evidence/h4_04_analysis_reference_api.md`](docs/evidence/h4_04_analysis_reference_api.md).
+Kaynak: `core/api/`. Testler: `core/tests/test_analysis_api.py`, `core/tests/test_requirement_api.py`.
