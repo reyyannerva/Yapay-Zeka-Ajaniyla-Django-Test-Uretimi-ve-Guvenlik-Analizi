@@ -104,7 +104,37 @@ cd agent/test_generation/rule_based
 python -m pytest -q
 ```
 
+### Alt süreç yürütme sözleşmesi (Windows düzeltmesi)
+
+Üretilen paket ayrı bir `pytest` sürecinde çalışır (`runner.subprocess_env`):
+
+- **Ayar modülü:** `DJANGO_SETTINGS_MODULE` üretilen `pytest.ini`'den alınır. Dış kabuktaki
+  `DJANGO_SETTINGS_MODULE` / `DJANGO_CONFIGURATION` alt sürece aktarılmaz; pytest-django ortam değişkenini
+  ini değerinden önce kullanır.
+- **İçe aktarma yolları:** Hedef uygulama yolları mutlak yola çevrilip `PYTHONPATH`'in başına eklenir; mevcut
+  `PYTHONPATH` sona eklenir.
+- **Bayt kodu:** `PYTHONDONTWRITEBYTECODE=1` ile alt süreç hedef uygulamanın kaynak ağacına `__pycache__`
+  yazmaz. Bu, OneDrive gibi eşitlenen klasörlerdeki depolarda ve çalışma kopyasının temiz kalması için gereklidir.
+- **Çalıştırma:** Komut `shell` kullanılmadan, `sys.executable -m pytest` ile çalışır; çalışma dizini üretilen
+  paketin dizinidir.
+
+Bu sözleşmenin testleri `tests/test_subprocess_contract.py` dosyasındadır.
+
+Windows'ta doğrulamak için `agent/test_generation/rule_based` dizininden:
+
+```bash
+python -m pytest -q -rfE
+```
+
+```bash
+python -m pytest -q -rfE tests/test_execution.py tests/test_subprocess_contract.py
+```
+
 ## Bilinen kısıtlar
+
+- Geçici test dizini depo ile aynı Windows sürücüsünde olmalıdır. Üretilen `pytest.ini` hedef uygulamaya göreli
+  yol yazar ve sürücüler arasında göreli yol tanımlanamaz. Gerekirse `--basetemp` ile aynı sürücüde bir dizin
+  verilmelidir.
 
 - AST endpoint çıkarımı henüz yoktur; endpoint özeti kontrollü fixture kaynak kodundan elle hazırlanmıştır
   (`source.ast_integration: false`). Format, AST çıktısının üreteceği sözleşme olarak tasarlanmıştır.

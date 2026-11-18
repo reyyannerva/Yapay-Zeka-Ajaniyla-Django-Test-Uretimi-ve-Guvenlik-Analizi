@@ -16,6 +16,7 @@ Sınıflandırma ayrı bir alandır:
 """
 from __future__ import annotations
 
+import os
 import re
 import subprocess
 import sys
@@ -45,19 +46,43 @@ _ENV_PROBE = (
 )
 
 
-def check_environment(out_dir: Path) -> tuple[bool, str]:
-    """Üretilen paketin pytest.ini'sindeki ayarlarla hedef uygulamanın yüklenebildiğini doğrular."""
+#: Dış kabuktan alt sürece aktarılmayan Django değişkenleri; değerler üretilen pytest.ini'den gelir.
+_DJANGO_ENV_OVERRIDES = ("DJANGO_SETTINGS_MODULE", "DJANGO_CONFIGURATION")
+
+
+def subprocess_env(out_dir: Path) -> dict[str, str]:
+    """Üretilen paketi çalıştıran alt süreçlerin açık ortam sözleşmesi (Windows/POSIX).
+
+    * ``DJANGO_SETTINGS_MODULE`` üretilen ``pytest.ini``'den alınır. pytest-django ortam değişkenini ini
+      değerinden önce kullandığı için dış kabuktaki değer aksi hâlde alt sürece sızar.
+    * Hedef uygulama yolları ``pytest.ini``'deki göreli değerlerden **mutlak** yollara çevrilip
+      ``PYTHONPATH``'in başına eklenir; mevcut ``PYTHONPATH`` korunur ama önceliği yoktur.
+    * ``PYTHONDONTWRITEBYTECODE=1``: alt süreç hedef uygulamanın kaynak ağacına (``__pycache__``) yazmaz.
+      Depo OneDrive gibi eşitlenen bir klasördeyken bu yazımlar ``config/settings`` ve
+      ``catalog/migrations/0001_initial`` gibi modüllerin aralıklı olarak içe aktarılamamasıyla
+      ilişkilendirilmiştir; ayrıca testlerin çalışma kopyasını değiştirmemesi gerekir.
+
+    Ebeveyn sürecin ``os.environ``'u değiştirilmez.
+    """
     import configparser
-    import os
 
     ini = configparser.ConfigParser()
-    ini.read(out_dir / "pytest.ini", encoding="utf-8")
+    with open(out_dir / "pytest.ini", encoding="utf-8") as fh:
+        ini.read_file(fh)
     sect = ini["pytest"]
     paths = [str((out_dir / p).resolve()) for p in sect.get("pythonpath", ".").split()]
-    env = dict(os.environ, DJANGO_SETTINGS_MODULE=sect["DJANGO_SETTINGS_MODULE"],
-               PYTHONPATH=os.pathsep.join(paths + [os.environ.get("PYTHONPATH", "")]).rstrip(os.pathsep))
-    proc = subprocess.run([sys.executable, "-c", _ENV_PROBE], cwd=out_dir, env=env, capture_output=True, text=True,
-                          timeout=300)
+    env = {k: v for k, v in os.environ.items() if k not in _DJANGO_ENV_OVERRIDES}
+    inherited = [p for p in os.environ.get("PYTHONPATH", "").split(os.pathsep) if p]
+    env["PYTHONPATH"] = os.pathsep.join(paths + inherited)
+    env["DJANGO_SETTINGS_MODULE"] = sect["DJANGO_SETTINGS_MODULE"]
+    env["PYTHONDONTWRITEBYTECODE"] = "1"
+    return env
+
+
+def check_environment(out_dir: Path) -> tuple[bool, str]:
+    """Üretilen paketin pytest.ini'sindeki ayarlarla hedef uygulamanın yüklenebildiğini doğrular."""
+    proc = subprocess.run([sys.executable, "-c", _ENV_PROBE], cwd=out_dir, env=subprocess_env(out_dir),
+                          capture_output=True, text=True, timeout=300)
     last = (proc.stderr.strip().splitlines() or [""])[-1]
     return proc.returncode == 0, last
 
@@ -84,8 +109,9 @@ class TestResult:
 
 
 def _pytest(args: list[str], cwd: Path, timeout: int = 900) -> subprocess.CompletedProcess:
-    return subprocess.run([sys.executable, "-m", "pytest", *args], cwd=cwd, capture_output=True, text=True,
-                          timeout=timeout)
+    """Üretilen paketi ``cwd``'deki pytest.ini ile, ``subprocess_env`` sözleşmesiyle çalıştırır (shell yok)."""
+    return subprocess.run([sys.executable, "-m", "pytest", *args], cwd=cwd, env=subprocess_env(cwd),
+                          capture_output=True, text=True, timeout=timeout)
 
 
 def collect(out_dir: Path) -> tuple[list[str], str]:
