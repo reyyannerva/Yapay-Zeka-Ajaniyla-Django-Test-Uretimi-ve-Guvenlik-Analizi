@@ -132,9 +132,15 @@ python -m pytest -q -rfE tests/test_execution.py tests/test_subprocess_contract.
 
 ## Bilinen kısıtlar
 
-- Geçici test dizini depo ile aynı Windows sürücüsünde olmalıdır. Üretilen `pytest.ini` hedef uygulamaya göreli
-  yol yazar ve sürücüler arasında göreli yol tanımlanamaz. Gerekirse `--basetemp` ile aynı sürücüde bir dizin
-  verilmelidir.
+- Testler hedef uygulamanın geçici bir kopyasını (`target_app` fixture'ı) kullanır. Bu nedenle depo boşluk
+  içeren bir yolda veya geçici dizinden farklı bir Windows sürücüsünde olsa da testler çalışır.
+- Komut satırında (`--out`) çıktı dizini hedef uygulamaya göre güvenli bir göreli yolla ifade edilmelidir.
+  Üretilen `pytest.ini`'deki `pythonpath` boşluk, tırnak veya `:` içeremez (ini enjeksiyonuna karşı güvenlik
+  kuralı). Farklı sürücü veya boşluklu göreli yol durumunda `PythonpathError` açık bir iletiyle verilir. Depo
+  içindeki varsayılan konum (`experiments/h3_04_rule_based_baseline/generated_tests`) her zaman uygundur.
+- Üretilen paketi veya `sample_app` testlerini elle `pytest` ile çalıştırmak Python'un olağan davranışıyla
+  `__pycache__` oluşturur. Depo OneDrive gibi eşitlenen bir klasördeyse `python -B -m pytest` (veya
+  `PYTHONDONTWRITEBYTECODE=1`) kullanılması önerilir. Üretici testleri bunu kendiliğinden yapar.
 
 - AST endpoint çıkarımı henüz yoktur; endpoint özeti kontrollü fixture kaynak kodundan elle hazırlanmıştır
   (`source.ast_integration: false`). Format, AST çıktısının üreteceği sözleşme olarak tasarlanmıştır.

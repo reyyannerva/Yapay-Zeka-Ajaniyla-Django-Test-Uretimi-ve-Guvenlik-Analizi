@@ -6,7 +6,7 @@ name: h3-04-rule-based
 on:
   pull_request:
     paths:
-      - "agent/test_generation/rule_based/**"
+      - "agent/**"
       - "benchmarks/drf_fixtures/sample_app/**"
       - "experiments/h3_04_rule_based_baseline/**"
       - ".github/workflows/h3-04-rule-based.yml"
@@ -36,6 +36,13 @@ jobs:
         if: always()
         working-directory: agent/test_generation/rule_based
         run: python -m pytest -q -rfE --basetemp=${{ runner.temp }}/h304_b tests/test_execution.py tests/test_subprocess_contract.py
+      - name: Varsayılan geçici dizinle (Windows'ta depo D:, geçici dizin C:)
+        if: always()
+        working-directory: agent/test_generation/rule_based
+        run: python -m pytest -q -rfE
+      - name: Depo kökünden tüm agent testleri tek komutta
+        if: always()
+        run: python -m pytest -q -rfE agent
       - name: Testler hedef uygulamaya bayt kodu yazmadı
         if: always()
         shell: python

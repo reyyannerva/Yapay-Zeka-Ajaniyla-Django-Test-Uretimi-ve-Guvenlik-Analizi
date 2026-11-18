@@ -107,5 +107,29 @@ def write_output(result: GenerationResult, out_dir: Path) -> list[Path]:
     return written
 
 
+class PythonpathError(ValueError):
+    """Hedef uygulama yolu üretilen pytest.ini'de güvenli bir göreli yol olarak ifade edilemiyor."""
+
+
 def relative_pythonpath(out_dir: Path, target_app: Path) -> str:
-    return os.path.relpath(target_app.resolve(), out_dir.resolve()).replace(os.sep, "/")
+    """Üretilen ``pytest.ini`` için hedef uygulamanın göreli yolu (``/`` ayırıcılı).
+
+    Göreli yol yazılır; böylece üretilen paket depo içinde taşınabilir kalır. İki durumda göreli yol
+    yazılamaz ve açık bir hata verilir (sessizce yanlış yol yazılmaz):
+
+    * Windows'ta çıktı dizini ile hedef uygulama farklı sürücülerdedir (``C:`` / ``D:``).
+    * Göreli yol, ``pytest.ini`` güvenlik kuralının izin vermediği karakterler içerir (ör. boşluk);
+      ini değeri boşlukla ayrıldığı için bu kural bilinçli olarak gevşetilmez.
+    """
+    try:
+        rel = os.path.relpath(target_app.resolve(), out_dir.resolve()).replace(os.sep, "/")
+    except ValueError as exc:  # Windows: farklı sürücüler
+        raise PythonpathError(
+            f"Çıktı dizini ({out_dir}) ile hedef uygulama ({target_app}) farklı sürücülerde; göreli pythonpath "
+            "yazılamaz. Çıktı dizinini hedef uygulamayla aynı sürücüde seçin.") from exc
+    if not codegen.is_safe_pythonpath(rel):
+        raise PythonpathError(
+            f"Hedef uygulamanın göreli yolu pytest.ini'ye güvenle yazılamaz: {rel!r}. Yol yalnızca harf, rakam, "
+            "'_', '.', '-' ve '/' içerebilir (boşluk içeremez). Çıktı dizinini hedef uygulamaya göre bu koşulu "
+            "sağlayan bir konumda seçin.")
+    return rel

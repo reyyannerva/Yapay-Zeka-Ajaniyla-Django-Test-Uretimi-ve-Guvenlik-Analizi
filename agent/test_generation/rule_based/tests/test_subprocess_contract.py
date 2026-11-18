@@ -21,7 +21,13 @@ import pytest
 from conftest import TARGET_APP
 
 from agent.test_generation.rule_based import runner
-from agent.test_generation.rule_based.generator import generate, relative_pythonpath, write_output
+from agent.test_generation.rule_based import codegen
+from agent.test_generation.rule_based.generator import (
+    PythonpathError,
+    generate,
+    relative_pythonpath,
+    write_output,
+)
 
 pytest.importorskip("django")
 pytest.importorskip("pytest_django")
@@ -125,3 +131,37 @@ def test_run_does_not_depend_on_parent_working_directory(tmp_path, cases, summar
     monkeypatch.chdir(elsewhere)
     nodes, log = runner.collect(out)
     assert len(nodes) == 1, log
+
+
+# ------------------------------------------------------------------ yol taşınabilirliği
+
+def test_target_app_copy_keeps_relative_path_short_and_safe(tmp_path, target_app):
+    """Testler hedef uygulamanın geçici kopyasını kullanır: depo yolu ne olursa olsun yol güvenlidir."""
+    out = tmp_path / "gen"
+    rel = relative_pythonpath(out, target_app)
+    assert codegen.is_safe_pythonpath(rel) and rel.endswith("target_app") and " " not in rel
+    assert (target_app / "catalog" / "migrations" / "0001_initial.py").is_file()
+    assert _bytecode(target_app) == []
+
+
+def test_relative_pythonpath_with_space_gives_clear_error(tmp_path):
+    app = tmp_path / "boşluklu dizin" / "app"
+    app.mkdir(parents=True)
+    with pytest.raises(PythonpathError, match="boşluk"):
+        relative_pythonpath(tmp_path / "gen", app)
+
+
+def test_relative_pythonpath_across_drives_gives_clear_error(tmp_path, monkeypatch):
+    """Windows'ta os.path.relpath farklı sürücüler için ValueError verir; bu durum açık hataya dönüşür."""
+    def relpath(*_args):
+        raise ValueError("path is on mount 'C:', start on mount 'D:'")
+    monkeypatch.setattr("agent.test_generation.rule_based.generator.os.path.relpath", relpath)
+    with pytest.raises(PythonpathError, match="farklı sürücü"):
+        relative_pythonpath(tmp_path / "gen", tmp_path / "app")
+
+
+def test_pytest_ini_security_rule_is_unchanged():
+    for bad in ("../a b", "../a\nb", "../a'b", '../a"b', "../a=b", "../a;b", "C:/x"):
+        with pytest.raises(codegen.LiteralError):
+            codegen.build_pytest_ini("config.settings", bad)
+    assert "pythonpath = . ../target_app" in codegen.build_pytest_ini("config.settings", "../target_app")
