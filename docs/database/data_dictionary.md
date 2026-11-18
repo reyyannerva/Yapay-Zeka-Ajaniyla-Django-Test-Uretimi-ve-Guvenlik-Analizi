@@ -5,9 +5,10 @@
 | İş kalemi | H2-02 / Issue #24 — Veritabanı Şeması ve Veri Sözlüğünün Hazırlanması |
 | Hedef veritabanı | PostgreSQL 16 (kullanılan özellikler PostgreSQL 12 ve sonrasında mevcuttur) |
 | ORM | Django 5.1+ (`CheckConstraint(condition=...)` kullanımı nedeniyle) |
-| İlgili dosyalar | `database_schema.sql`, `django_models.py`, `schema_validation.md` |
+| İlgili dosyalar | `database_schema.sql`, `schema_validation.md`, `schema_changes_h4_01.md`; uygulanan ORM: `backend/core/models/` |
 | Revizyon | 2 — Figma mockup'ı ile hizalama (`docs/mockup/README.md`, özellikle "Kapsam notları") |
 | Revizyon 3 | `fallback_enabled` varsayılanı `true` (ekran 05); `source_archive` ve `archive_sha256` `NULL` olabilir, kaynak türüne göre tutarlılık `CHECK` ile zorlanır |
+| Revizyon 4 (H4-01 / #33) | Şema Django ORM ve migration ile uygulandı (`backend/core/migrations/0001_initial.py`). `test_executions.status`: `QUEUED`→`PENDING`, `TECHNICAL_ERROR`→`ERROR`, yeni `TIMEOUT`; `ACCESS_RULE` yöntemi için veritabanı kısıtı; `source_archive` için NULL yazan alan. Ayrıntı: `schema_changes_h4_01.md` |
 | İlgili gereksinimler | İST-01, İST-03, İST-04, İST-07, İST-08, İST-09, İST-13, İST-15 |
 
 ---
@@ -97,7 +98,7 @@ Amaç: Bir kullanıcıya ait, analiz edilecek Django/DRF projesini ve kaynağın
 | name | varchar(150) | `CharField(max_length=150)` | — | Evet | — | Proje adı. Boş olamaz; aynı sahip için tekildir. |
 | description | text | `TextField(blank=True, default="")` | — | Evet | `''` | İsteğe bağlı açıklama. Açıklama yoksa boş metin saklanır. |
 | source_type | varchar(20) | `CharField(max_length=20, choices=SourceType)` | — | Evet | `'ARCHIVE'` | Kaynak türü: `ARCHIVE` (yüklenen arşiv) veya `ALLOWED_DIRECTORY` (sunucuda izin verilen dizin). |
-| source_archive | varchar(255) | `FileField(upload_to="project_archives/%Y/%m/", max_length=255, null=True, blank=True)` | — | Hayır | `NULL` | Arşivin depolama arka ucundaki göreli anahtarı. `source_type = 'ARCHIVE'` ise dolu ve boş olmayan metin olmalıdır; dizin projelerinde `NULL`'dır. `/` ile başlayamaz, `..` içeremez. |
+| source_archive | varchar(255) | `NullableFileField(upload_to="project_archives/%Y/%m/", max_length=255, null=True, blank=True)` (boş dosyayı `''` değil `NULL` yazar; `backend/core/fields.py`) | — | Hayır | `NULL` | Arşivin depolama arka ucundaki göreli anahtarı. `source_type = 'ARCHIVE'` ise dolu ve boş olmayan metin olmalıdır; dizin projelerinde `NULL`'dır. `/` ile başlayamaz, `..` içeremez. |
 | source_directory | varchar(500) | `CharField(max_length=500, null=True, blank=True)` | — | Hayır | `NULL` | Ayarlarda tanımlı izinli kök dizine göre göreli proje dizini. `source_type = 'ALLOWED_DIRECTORY'` ise dolu ve boş olmayan metin olmalıdır; arşiv projelerinde `NULL` olmak zorundadır. `/` ile başlayamaz, `..` içeremez. Kök dizinin kendisi uygulama ayarındadır. |
 | archive_sha256 | varchar(64) | `CharField(max_length=64, null=True, blank=True)` | — | Hayır | `NULL` | Yüklenen arşivin SHA-256 özeti (64 küçük harf onaltılık karakter). `source_type = 'ARCHIVE'` ise zorunludur; dizin projelerinde `NULL`'dır. Boş metin kabul edilmez. |
 | validation_status | varchar(20) | `CharField(max_length=20, choices=ValidationStatus)` | — | Evet | `'PENDING'` | Proje yapısı ön kontrol sonucu (ekran 03, 15): `PENDING`, `VALID`, `INVALID`. |
@@ -184,12 +185,12 @@ Amaç: Üretilen bir testin tek bir yürütme denemesini tutar (ekran 08, 16, 29
 | id | bigint (identity) | `BigAutoField(primary_key=True)` | PK | Evet | Otomatik | Yürütme denemesi kimliği. |
 | generated_test_id | bigint | `ForeignKey(GeneratedTest, on_delete=CASCADE, related_name="executions", db_index=False)` | FK → `generated_tests.id` | Evet | — | Yürütülen test. Analiz çalıştırması bu ilişki üzerinden türetilir. İndeks `uq_test_executions_test_attempt` tarafından sağlanır. |
 | attempt_number | integer | `IntegerField()` | — | Evet | — | Aynı test için 1'den başlayan deneme sırası. `(generated_test_id, attempt_number)` tekildir. |
-| status | varchar(20) | `CharField(max_length=20, choices=Status)` | — | Evet | `'QUEUED'` | `QUEUED`, `RUNNING`, `PASS`, `FAIL`, `TECHNICAL_ERROR`, `STOPPED`, `NOT_RUN` (bkz. 9.2). |
+| status | varchar(20) | `CharField(max_length=20, choices=Status)` | — | Evet | `'PENDING'` | `PENDING`, `RUNNING`, `PASS`, `FAIL`, `ERROR`, `TIMEOUT`, `STOPPED`, `NOT_RUN` (bkz. 9.2). |
 | observed_status | smallint | `SmallIntegerField(null=True, blank=True)` | — | Hayır | `NULL` | Testin aldığı HTTP yanıt kodu (100–599); ekran 08'deki gözlenen kod. Yanıt alınamadıysa veya test HTTP yanıtı doğrulamıyorsa `NULL`. |
-| error_type | varchar(20) | `CharField(max_length=20, choices=ErrorType, null=True, blank=True)` | — | Hayır | `NULL` | Teknik hata türü: `IMPORT`, `FIXTURE`, `SYNTAX`, `TIMEOUT`, `OOM`, `OTHER`. `status = 'TECHNICAL_ERROR'` ise zorunludur. |
+| error_type | varchar(20) | `CharField(max_length=20, choices=ErrorType, null=True, blank=True)` | — | Hayır | `NULL` | Teknik hata türü: `IMPORT`, `FIXTURE`, `SYNTAX`, `TIMEOUT`, `OOM`, `OTHER`. `status = 'ERROR'` ise zorunludur (`TIMEOUT` hariç); `TIMEOUT` yalnızca `status = 'TIMEOUT'` ile kullanılır. |
 | error_origin | varchar(20) | `CharField(max_length=20, choices=ErrorOrigin, null=True, blank=True)` | — | Hayır | `NULL` | Hatanın kaynağı: `TEST_CODE` (üretilen test kodu), `TARGET_APP` (analiz edilen uygulama), `INFRASTRUCTURE` (sandbox/altyapı). Düzeltme kararında kullanılır (9.3). |
-| started_at | timestamptz | `DateTimeField(null=True, blank=True)` | — | Hayır | `NULL` | Pytest sürecinin başladığı zaman. `QUEUED` ve `NOT_RUN` iken `NULL`; `RUNNING`, `PASS`, `FAIL` iken doludur. |
-| finished_at | timestamptz | `DateTimeField(null=True, blank=True)` | — | Hayır | `NULL` | Denemenin sonuçlandığı zaman. `PASS`, `FAIL`, `TECHNICAL_ERROR`, `STOPPED` durumlarında doludur; `QUEUED`, `RUNNING`, `NOT_RUN` iken `NULL`. |
+| started_at | timestamptz | `DateTimeField(null=True, blank=True)` | — | Hayır | `NULL` | Pytest sürecinin başladığı zaman. `PENDING` ve `NOT_RUN` iken `NULL`; `RUNNING`, `PASS`, `FAIL`, `TIMEOUT` iken doludur. |
+| finished_at | timestamptz | `DateTimeField(null=True, blank=True)` | — | Hayır | `NULL` | Denemenin sonuçlandığı zaman. `PASS`, `FAIL`, `ERROR`, `TIMEOUT`, `STOPPED` durumlarında doludur; `PENDING`, `RUNNING`, `NOT_RUN` iken `NULL`. |
 | duration_ms | integer | `IntegerField(null=True, blank=True)` | — | Hayır | `NULL` | Milisaniye cinsinden süre. Yalnızca `finished_at` doluyken atanabilir; negatif olamaz. Ölçülemediyse `NULL`. |
 | output_excerpt | varchar(10000) | `CharField(max_length=10000, blank=True, default="")` | — | Evet | `''` | Pytest çıktısının maskelenmiş son kısmı. Tam log veritabanında tutulmaz. |
 | error_summary | varchar(2000) | `CharField(max_length=2000, blank=True, default="")` | — | Evet | `''` | Başarısız doğrulama mesajı veya teknik hata özeti. Hata yoksa boş metin. |
@@ -402,6 +403,7 @@ Endpointler, testler ve denemeler uygulamada tek tek silinmez; bu kayıtlar çal
 | Başlık boş olamaz | ck_reference_requirements_title_not_blank | reference_requirements |
 | `ROLE` dışındaki satırlarda beklenen sonuç boş olamaz | ck_reference_requirements_expected_result_not_blank | reference_requirements |
 | Revizyon 1 veya büyüktür | ck_reference_requirements_revision_positive | reference_requirements |
+| `ACCESS_RULE` satırında `specification.method` vardır ve `GET`, `POST`, `PUT`, `PATCH`, `DELETE`'ten biridir (H4-01) | ck_reference_requirements_access_rule_method | reference_requirements |
 | Çalıştırma durumu dokuz değerden biridir | ck_analysis_runs_status_valid | analysis_runs |
 | Yöntem `RULE_BASED`, `DIRECT_LLM` veya `HYBRID`'dir | ck_analysis_runs_method_valid | analysis_runs |
 | Sağlayıcı `NULL` veya `GROQ`, `GEMINI`, `OLLAMA`'dır | ck_analysis_runs_llm_provider_valid | analysis_runs |
@@ -427,12 +429,13 @@ Endpointler, testler ve denemeler uygulamada tek tek silinmez; bu kayıtlar çal
 | Düzeltme sayısı 0 veya 1 | ck_generated_tests_repair_count_range | generated_tests |
 | Kod özeti 64 haneli onaltılıktır | ck_generated_tests_code_sha256_format | generated_tests |
 | Deneme numarası test içinde tekildir ve ≥ 1'dir | uq_test_executions_test_attempt, ck_test_executions_attempt_positive | test_executions |
-| Yürütme durumu yedi değerden biridir | ck_test_executions_status_valid | test_executions |
+| Yürütme durumu sekiz değerden biridir | ck_test_executions_status_valid | test_executions |
 | Gözlenen HTTP kodu `NULL` veya 100–599 | ck_test_executions_observed_status_range | test_executions |
 | Hata türü ve hata kaynağı kontrollü değerdir | ck_test_executions_error_type_valid, ck_test_executions_error_origin_valid | test_executions |
-| `TECHNICAL_ERROR` ise hata türü doludur | ck_test_executions_technical_error_has_type | test_executions |
+| `ERROR` ise hata türü doludur ve `TIMEOUT` değildir | ck_test_executions_error_has_type | test_executions |
+| `TIMEOUT` durumu ile `error_type = 'TIMEOUT'` yalnızca birlikte bulunur | ck_test_executions_timeout_consistent | test_executions |
 | Süre negatif olamaz ve yalnızca bitmiş denemede atanır | ck_test_executions_duration_non_negative, ck_test_executions_duration_requires_finish | test_executions |
-| Durum–zaman damgası tutarlılığı | ck_test_executions_queued_not_started, ck_test_executions_not_run_not_started, ck_test_executions_running_started, ck_test_executions_terminal_finished, ck_test_executions_outcome_requires_start, ck_test_executions_time_order | test_executions |
+| Durum–zaman damgası tutarlılığı | ck_test_executions_pending_not_started, ck_test_executions_not_run_not_started, ck_test_executions_running_started, ck_test_executions_terminal_finished, ck_test_executions_outcome_requires_start, ck_test_executions_time_order | test_executions |
 | Bulgu aynı çalıştırmada parmak izine göre tekildir | uq_security_findings_run_fingerprint | security_findings |
 | Kaynak, önem ve sınıflandırma kontrollü değerlerdir | ck_security_findings_source_valid, ck_security_findings_severity_valid, ck_security_findings_classification_valid | security_findings |
 | Kural kimliği ve başlık boş olamaz | ck_security_findings_rule_id_not_blank, ck_security_findings_title_not_blank | security_findings |
@@ -512,9 +515,9 @@ Durumlar veritabanında BÜYÜK harfle tutulur. Mockup'taki aşama şeridi ve du
 Kullanıcı ekran 28'de durdurmayı onayladığında servis şu adımları tek işlemde (transaction) uygular:
 
 1. Celery görevi `celery_task_id` ile iptal edilir ve sandbox konteyneri silinir.
-2. `RUNNING` durumundaki denemeler `STOPPED` yapılır ve `finished_at` yazılır; `QUEUED` durumundaki denemeler `NOT_RUN` yapılır.
+2. `RUNNING` durumundaki denemeler `STOPPED` yapılır ve `finished_at` yazılır; `PENDING` durumundaki denemeler `NOT_RUN` yapılır.
 3. Çalıştırma `CANCELLED` yapılır ve `finished_at` yazılır.
-4. O ana kadar yazılmış endpointler, testler, `PASS`/`FAIL`/`TECHNICAL_ERROR` denemeleri ve bulgular silinmez; ekran 29'da kısmi sonuç olarak gösterilir. Bu çalıştırmadan alınan rapor `PARTIAL` kapsamlıdır.
+4. O ana kadar yazılmış endpointler, testler, `PASS`/`FAIL`/`ERROR`/`TIMEOUT` denemeleri ve bulgular silinmez; ekran 29'da kısmi sonuç olarak gösterilir. Bu çalıştırmadan alınan rapor `PARTIAL` kapsamlıdır.
 
 `FAILED` geçişinde de 2. adım uygulanır.
 
@@ -569,17 +572,32 @@ Geçişler: `PENDING → VALID | INVALID_SYNTAX | REJECTED_POLICY`. Düzeltilen 
 
 ### 9.2 TestExecution durumu
 
+Revizyon 4 (H4-01 / Issue #33): Issue #33'ün istediği `PENDING`, `RUNNING`, `PASS`, `FAIL`, `ERROR`, `TIMEOUT`
+değerleri uygulanmıştır. Revizyon 3'teki `QUEUED` → `PENDING`, `TECHNICAL_ERROR` → `ERROR` olarak yeniden
+adlandırılmış; zaman aşımı `TECHNICAL_ERROR + error_type = TIMEOUT` yerine ayrı `TIMEOUT` durumu olmuştur. İptal
+akışı (ekran 29) için `STOPPED` ve `NOT_RUN` korunmuştur.
+
 | Durum | Anlamı | `started_at` | `finished_at` |
 |---|---|---|---|
-| QUEUED | Deneme oluşturuldu, sırada bekliyor. | NULL | NULL |
+| PENDING | Deneme oluşturuldu, sırada bekliyor. | NULL | NULL |
 | RUNNING | Pytest süreci konteynerde çalışıyor. | Dolu | NULL |
 | PASS | Test çalıştı ve tüm doğrulamalar geçti. | Dolu | Dolu |
 | FAIL | Test çalıştı, bir doğrulama (assertion) başarısız oldu (ör. beklenen 403, gözlenen 200). Bu bir test sonucudur, teknik hata değildir. | Dolu | Dolu |
-| TECHNICAL_ERROR | Test sonuç üretemedi: import, fixture veya sözdizimi hatası, zaman aşımı, bellek aşımı. `error_type` zorunludur. | Dolu veya NULL | Dolu |
+| ERROR | Test sonuç üretemedi: import, fixture veya sözdizimi hatası, bellek aşımı, diğer. `error_type` zorunludur ve `TIMEOUT` olamaz. | Dolu veya NULL | Dolu |
+| TIMEOUT | Pytest süreci süre sınırını aştı. `error_type = 'TIMEOUT'` zorunludur; düzeltilmez (9.3). | Dolu | Dolu |
 | STOPPED | Analiz iptal edildiği veya başarısız olduğu için çalışırken durduruldu (ekran 29). | Dolu veya NULL | Dolu |
 | NOT_RUN | Analiz iptal edildiği veya başarısız olduğu için hiç başlatılmadı (ekran 29). | NULL | NULL |
 
-Geçişler: `QUEUED → RUNNING → PASS | FAIL | TECHNICAL_ERROR | STOPPED`; ayrıca `QUEUED → TECHNICAL_ERROR` (başlatılamadı) ve `QUEUED → NOT_RUN`. Sonuç durumundaki bir deneme değiştirilmez; aynı testin yeniden yürütülmesi yeni bir `attempt_number` ile yeni satır oluşturur. Mockup'taki renkler: PASS yeşil, FAIL turuncu, teknik hata kırmızı.
+Geçişler: `PENDING → RUNNING → PASS | FAIL | ERROR | TIMEOUT | STOPPED`; ayrıca `PENDING → ERROR` (başlatılamadı) ve
+`PENDING → NOT_RUN`. Sonuç durumundaki bir deneme değiştirilmez; aynı testin yeniden yürütülmesi yeni bir
+`attempt_number` ile yeni satır oluşturur. Mockup'taki renkler: PASS yeşil, FAIL turuncu, teknik hata (ERROR,
+TIMEOUT) kırmızı.
+
+**İlerleme hesabı (Issue #33):** Sayaçlar ayrı sütunlarda tutulmaz; `backend/core/progress.py` her testin en yüksek
+`attempt_number`'lı denemesini esas alarak türetir. Toplam = en az bir denemesi olan test; tamamlanan = son denemesi
+`PASS`, `FAIL`, `ERROR`, `TIMEOUT`, `STOPPED` veya `NOT_RUN`; çalışan = `RUNNING`; bekleyen = `PENDING`. Tahmini
+kalan süre için kullanılacak veriler: denemelerin `started_at`, `finished_at`, `duration_ms` değerleri ve
+`analysis_runs.started_at`. Tahmin algoritması bu revizyonun kapsamında değildir.
 
 ### 9.3 Tek düzeltme kuralı
 
@@ -595,7 +613,7 @@ Düzeltme adımları:
 
 1. Dil modeline düzeltme isteği gönderilir ve `llm_calls` tablosuna `purpose = 'REPAIR'`, `generated_test_id` dolu bir kayıt yazılır.
 2. Testin `source_code` ve `code_sha256` alanları güncellenir, `repair_count` 1 yapılır, `validation_status` `PENDING` olur ve test yeniden doğrulanır.
-3. Test `VALID` ise yeni `attempt_number` ile yeni bir deneme oluşturulur. Önceki deneme `TECHNICAL_ERROR` olarak kalır.
+3. Test `VALID` ise yeni `attempt_number` ile yeni bir deneme oluşturulur. Önceki deneme `ERROR` olarak kalır.
 
 `repair_count = 1` olan test tekrar düzeltilmez (`ck_generated_tests_repair_count_range`). Düzeltme dil modeli çağrısıyla yapıldığından `method = 'RULE_BASED'` çalıştırmada düzeltme yapılmaz. Kural, Docker yürütme akış diyagramındaki tek düzeltme kuralıyla aynıdır (README, Diyagramlarla tutarlılık).
 
@@ -656,7 +674,7 @@ Yapı kategoriye göre değişir. Rol adları `ROLE` satırlarının `title` de�
 }
 ```
 
-`method` yalnızca `GET`, `POST`, `PUT`, `PATCH` veya `DELETE` olabilir; `HEAD` ve `OPTIONS` reddedilir. Bu sınırlama ve rol adlarının aynı projedeki `ROLE` satırlarında bulunması uygulama katmanında (serializer ve JSON şema doğrulaması, ekran 31) doğrulanır; veritabanı JSON içeriğini denetlemez.
+`method` yalnızca `GET`, `POST`, `PUT`, `PATCH` veya `DELETE` olabilir; `HEAD` ve `OPTIONS` reddedilir. Revizyon 4'ten (H4-01) itibaren yöntem kuralı üç katmanda zorlanır: veritabanı kısıtı `ck_reference_requirements_access_rule_method` (`specification ? 'method'` ve değer beş yöntemden biri), model doğrulaması (`ReferenceRequirement.clean()`) ve serializer sözleşmesi (`backend/core/serializers.py`). Rol adlarının aynı projedeki `ROLE` satırlarında bulunması ve diğer JSON alanlarının yapısı uygulama katmanında (serializer ve JSON şema doğrulaması, ekran 31) doğrulanır.
 
 `DEPLOY_EXPECTATION` satırı (ekran 04):
 

@@ -1,11 +1,13 @@
-# ER Diyagramı İnceleme Belgesi — Revizyon 3 (Mockup Uyumu)
+# ER Diyagramı İnceleme Belgesi — Revizyon 3 (Mockup Uyumu) + Revizyon 4 (H4-01)
+
+> **Revizyon 4 (H4-01 / #33):** Şema `backend/core/models` ve migration `0001_initial` ile PostgreSQL 16 üzerinde uygulandı. Sütun kümesi (122) ve ilişkiler (13) değişmedi; `er_diagram_full.svg/.png` ve `er_diagram_source.mmd` içine `test_executions.status` ve `ACCESS_RULE` yöntem kısıtı notları eklendi. Sunum görünümü (`er_diagram_presentation.*`) değer kümesi göstermediğinden değişmedi. Değişiklik kaydı: `docs/database/schema_changes_h4_01.md`.
 
 | Bilgi | Değer |
 |---|---|
 | Proje | Yapay Zekâ Ajanıyla Django Test Üretimi ve Güvenlik Analizi (TestKalkan) |
 | İş kalemleri | H2-02 / #24 (şema), H2-04 / #26 (ER diyagramı) |
 | Revizyonun kaynağı | Figma mockup açıklaması `docs/mockup/README.md`, özellikle "Kapsam notları" |
-| Teslim dosyaları | `database_schema.sql`, `django_models.py`, `data_dictionary.md`, `schema_validation.md`, `er_diagram_full.svg/.png`, `er_diagram_presentation.svg/.png`, `er_diagram_source.mmd`, bu belge |
+| Teslim dosyaları | `database_schema.sql`, `django_models.py` (rev. 4'te `backend/core/models/`'a taşındı), `data_dictionary.md`, `schema_validation.md`, `er_diagram_full.svg/.png`, `er_diagram_presentation.svg/.png`, `er_diagram_source.mmd`, bu belge |
 
 ## 1. Özet
 
@@ -86,12 +88,12 @@ Sütun sayısı (122), ilişkiler (13) ve adlandırılmış kısıt/indeks sayı
 |---|---|
 | PASS | `status = 'PASS'` |
 | FAIL | `status = 'FAIL'` (beklenen ≠ gözlenen HTTP kodu) |
-| Teknik hata: test kodu hatası | `status = 'TECHNICAL_ERROR'`, `error_type` ∈ {IMPORT, FIXTURE, SYNTAX}, `error_origin = 'TEST_CODE'`; bir kez düzeltilir |
-| Teknik hata: ortam hatası | `status = 'TECHNICAL_ERROR'`, `error_origin = 'INFRASTRUCTURE'` (`error_type` çoğunlukla OTHER) |
-| Teknik hata: TIMEOUT | `status = 'TECHNICAL_ERROR'`, `error_type = 'TIMEOUT'`; düzeltilmez |
-| Teknik hata: OOM | `status = 'TECHNICAL_ERROR'`, `error_type = 'OOM'`; düzeltilmez |
+| Teknik hata: test kodu hatası | `status = 'ERROR'`, `error_type` ∈ {IMPORT, FIXTURE, SYNTAX}, `error_origin = 'TEST_CODE'`; bir kez düzeltilir |
+| Teknik hata: ortam hatası | `status = 'ERROR'`, `error_origin = 'INFRASTRUCTURE'` (`error_type` çoğunlukla OTHER) |
+| Zaman aşımı | `status = 'TIMEOUT'`, `error_type = 'TIMEOUT'` (birlikte zorunlu); düzeltilmez |
+| Teknik hata: OOM | `status = 'ERROR'`, `error_type = 'OOM'`; düzeltilmez |
 
-Durumun 7 değeri: QUEUED, RUNNING, PASS, FAIL, TECHNICAL_ERROR, STOPPED, NOT_RUN. Teknik hata türleri ayrı durum değerleri değil, `TECHNICAL_ERROR` + `error_type` / `error_origin` birleşimidir. Her satır senaryo testleriyle doğrulandı (T03, T17–T23); `TECHNICAL_ERROR`'da `error_type` olmadan kayıt reddedilir (T06).
+Revizyon 4 (H4-01 / #33) ile durumun 8 değeri: PENDING, RUNNING, PASS, FAIL, ERROR, TIMEOUT, STOPPED, NOT_RUN (revizyon 3'teki QUEUED → PENDING, TECHNICAL_ERROR → ERROR; zaman aşımı ayrı durum). Teknik hata türleri `ERROR` + `error_type` / `error_origin` birleşimidir; `ERROR`'da `error_type` zorunludur ve `TIMEOUT` olamaz. Davranış `backend/core/tests/test_test_execution.py` ile PostgreSQL üzerinde doğrulanmıştır.
 
 ## 4. PostgreSQL ve Django ORM notları
 

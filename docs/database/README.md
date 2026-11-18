@@ -5,15 +5,18 @@ Bu dizin, sistemin PostgreSQL veritabanı tasarımının **tek kanonik kaynağı
 
 | Dosya | İçerik |
 |---|---|
-| `database_schema.sql` | PostgreSQL 16 DDL: 9 uygulama tablosu, kısıtlar, indeksler |
-| `django_models.py` | Django ORM model tanımları (9 model, `AUTH_USER_MODEL`) |
+| `database_schema.sql` | PostgreSQL 16 referans DDL: 9 uygulama tablosu, kısıtlar, indeksler (revizyon 4 ile güncel) |
+| `migrations_sql/0001_initial.postgresql.sql` | Django migration'ının ürettiği gerçek DDL (`sqlmigrate core 0001`) |
+| `../../backend/core/models/` | **Uygulanan** Django ORM modelleri (9 model, `AUTH_USER_MODEL`) — H4-01 (#33) |
+| `django_models.py` | Yönlendirme notu; revizyon 3 referans modelleri `backend/core/models/`'a taşındı |
+| `schema_changes_h4_01.md` | Revizyon 3 → 4 değişiklik kaydı, model ↔ şema eşlemesi, mimari kararlar ve kanıt |
 | `data_dictionary.md` | Tablo, sütun, ilişki, durum ve bütünlük kuralları |
 | `schema_validation.md` | Şema ↔ modeller ↔ veri sözlüğü ↔ ER tutarlılık kontrolü ve kabul ölçütleri |
 
 ER diyagramları: [`../diagrams/er-diagrams/`](../diagrams/er-diagrams/) (`er_diagram_full.*`,
 `er_diagram_presentation.*`, düzenlenebilir kaynak `er_diagram_source.mmd`, inceleme notu `er_diagram_review.md`).
 
-## Geçerli revizyon: revizyon 3 (9 tablo)
+## Geçerli revizyon: revizyon 4 (9 tablo, H4-01 ile uygulandı)
 
 `projects`, `reference_requirements`, `analysis_runs`, `endpoints`, `generated_tests`, `test_executions`,
 `security_findings`, `reports`, `llm_calls` (+ Django'nun yönettiği `auth_user` ve django-axes tabloları).
@@ -21,7 +24,8 @@ ER diyagramları: [`../diagrams/er-diagrams/`](../diagrams/er-diagrams/) (`er_di
 | Revizyon | Commit | Tablo | Durum |
 |---|---|---|---|
 | 1 | `728547c` (2026-11-04, #24) | 6 | **Geçersiz kılındı**; git geçmişinde erişilebilir: `git show 728547c:docs/database/database_schema.sql` |
-| 3 | `9a4324b` (2026-11-05, "Refs #24, #26") | 9 | **Geçerli (kanonik)** |
+| 3 | `9a4324b` (2026-11-05, "Refs #24, #26") | 9 | Revizyon 4'ün temeli |
+| 4 | H4-01 / #33 (`feature/h4-01-django-models-migrations`) | 9 | **Geçerli (kanonik)**; Django migration `core.0001_initial` ile PostgreSQL 16'da uygulandı |
 
 Revizyon 3, Figma mockup'ına (`docs/mockup/README.md`, "Kapsam notları") göre hazırlanmış ve başlangıçta
 `docs/diagrams/er-diagrams/` altına "(1)" ekli dosya adlarıyla yüklenmişti. Belgelerin kendisi hedef konum
@@ -57,15 +61,15 @@ değiştirilmeden buraya taşındı (bayt düzeyinde aynı; `git rev-parse 9a432
 
 ## Sonraki işlerle uyum notları (FUTURE)
 
-- **H4-01 (#33):** Modeller doğrudan `django_models.py`'den alınabilir.
+- **H4-01 (#33):** Tamamlandı — modeller `backend/core/models/`, ayrıntı `schema_changes_h4_01.md`.
 - **H6-07 (#76) AST motoru → `endpoints`:** H3-04 endpoint giriş sözleşmesi (`agent/test_generation/rule_based/
   schemas/endpoint_summary.schema.json`) yol şablonunu `{pk}` + `route_params` ile, tablo ise Django biçimiyle
   (`<int:pk>`) tutar; `unsupported_reason` tabloda `DYNAMIC_ROUTE` / `CUSTOM_PERMISSION` değer kümesidir. Eşleme
   AST entegrasyonunda tanımlanmalıdır.
 - **H6-03 (#47) sonuç kaydı:** H3-04 sınıfları `test_executions` alanlarına eşlenebilir: `PASSED` → `PASS`;
   `KNOWN_FLAW_DETECTED` / `APPLICATION_MISMATCH` → `FAIL` (+ `is_security_test`); `GENERATION_ERROR` →
-  `TECHNICAL_ERROR` + `error_origin = TEST_CODE`; `ENVIRONMENT_ERROR` → `TECHNICAL_ERROR` + `TARGET_APP` veya
-  `INFRASTRUCTURE`.
+  `ERROR` + `error_origin = TEST_CODE`; `ENVIRONMENT_ERROR` → `ERROR` + `TARGET_APP` veya `INFRASTRUCTURE`;
+  H3-06 `TIMEOUT` → `TIMEOUT` (revizyon 4 değer adları).
 - **Referans gereksinimler:** ürün tablosunun kategorileri (`ROLE` / `ACCESS_RULE` / `DEPLOY_EXPECTATION`)
   değerlendirme veri kümesinin (H3-01/H3-03) senaryo kategorilerinden farklı bir sınıflandırmadır; H4-04 (#36)
   API'sinde eşleme tanımlanmalıdır.
