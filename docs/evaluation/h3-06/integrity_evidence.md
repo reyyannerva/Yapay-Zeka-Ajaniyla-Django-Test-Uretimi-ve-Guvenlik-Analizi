@@ -1,7 +1,7 @@
 # H3-06 — Bütünlük ve Köken (Provenance) Kanıtı
 
 Tüm kontroller otomatik testlerle tekrarlanabilir (`agent/evaluation/tests/test_manifest.py`,
-`test_execution.py`). Özetler SHA-256, CRLF→LF normalleştirilmiş içerik üzerindendir.
+`test_evaluation_execution.py`). Özetler SHA-256, CRLF→LF normalleştirilmiş içerik üzerindendir.
 
 ## 1. Sabitlenmiş veri
 

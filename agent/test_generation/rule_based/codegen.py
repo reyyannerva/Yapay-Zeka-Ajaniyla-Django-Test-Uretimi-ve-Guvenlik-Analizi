@@ -196,6 +196,11 @@ _SETTINGS_RX = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*$"
 _PATH_RX = re.compile(r"^[A-Za-z0-9_./-]+$")
 
 
+def is_safe_pythonpath(value: str) -> bool:
+    """``pytest.ini`` ``pythonpath`` değeri için izin verilen biçim (boşluk, tırnak, satır sonu yok)."""
+    return bool(_PATH_RX.match(value))
+
+
 def build_pytest_ini(settings_module: str, target_pythonpath: str) -> str:
     """Üretilen test dizininin pytest yapılandırması; değerler biçim denetiminden geçer."""
     if not _SETTINGS_RX.match(settings_module):

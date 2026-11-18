@@ -19,18 +19,18 @@ pytest.importorskip("pytest_django")
 pytest.importorskip("rest_framework")
 
 
-def _materialize(tmp_path, cases, summary, users, resources, diags=None, name="gen"):
+def _materialize(tmp_path, cases, summary, users, resources, diags=None, name="gen", *, app):
     out = tmp_path / name
-    res = generate(cases, summary, users, resources, {"x": "0"}, diags, relative_pythonpath(out, TARGET_APP))
+    res = generate(cases, summary, users, resources, {"x": "0"}, diags, relative_pythonpath(out, app))
     write_output(res, out)
     return res, out
 
 
 @pytest.fixture(scope="module")
-def suite(tmp_path_factory, references, summary, users, resources):
+def suite(tmp_path_factory, references, summary, users, resources, target_app):
     tmp = tmp_path_factory.mktemp("h304")
     cases, diags = references
-    res, out = _materialize(tmp, cases, summary, users, resources, diags)
+    res, out = _materialize(tmp, cases, summary, users, resources, diags, app=target_app)
     raw, log, code = runner.run(out, tmp / "suite.xml")
     return res, out, raw, runner.classify_all(res.plans, raw), tmp
 
@@ -82,8 +82,10 @@ def test_isolation_single_and_reverse_order(suite):
     assert iso["isolated"], iso
 
 
-def test_tampered_route_is_classified_as_generation_error(tmp_path, cases, summary, users, resources):
-    res, out = _materialize(tmp_path, [cases["SC-UPD-001"], cases["SC-RET-001"]], summary, users, resources)
+def test_tampered_route_is_classified_as_generation_error(tmp_path, cases, summary, users, resources,
+                                                          target_app):
+    res, out = _materialize(tmp_path, [cases["SC-UPD-001"], cases["SC-RET-001"]], summary, users, resources,
+                            app=target_app)
     put = out / "test_put_generated.py"
     put.write_text(put.read_text(encoding="utf-8").replace("'article-detail'", "'article-detail-x'"), encoding="utf-8")
     get = out / "test_get_generated.py"
@@ -94,8 +96,8 @@ def test_tampered_route_is_classified_as_generation_error(tmp_path, cases, summa
     assert by["SC-RET-001"].classification == "GENERATION_ERROR" and by["SC-RET-001"].check == "route"
 
 
-def test_broken_fixture_setup_is_generation_error(tmp_path, cases, summary, users, resources):
-    res, out = _materialize(tmp_path, [cases["SC-UPD-001"]], summary, users, resources)
+def test_broken_fixture_setup_is_generation_error(tmp_path, cases, summary, users, resources, target_app):
+    res, out = _materialize(tmp_path, [cases["SC-UPD-001"]], summary, users, resources, app=target_app)
     conf = out / "conftest.py"
     conf.write_text(conf.read_text(encoding="utf-8").replace("['users', 'articles']", "['nope']"), encoding="utf-8")
     raw, *_ = runner.run(out, tmp_path / "t.xml")
@@ -103,17 +105,17 @@ def test_broken_fixture_setup_is_generation_error(tmp_path, cases, summary, user
     assert r.pytest_outcome == "error" and r.classification == "GENERATION_ERROR"
 
 
-def test_reference_mismatch_is_application_mismatch(tmp_path, cases, summary, users, resources):
+def test_reference_mismatch_is_application_mismatch(tmp_path, cases, summary, users, resources, target_app):
     wrong = dataclasses.replace(cases["SC-UPD-001"], expected_status=204)
-    res, out = _materialize(tmp_path, [wrong], summary, users, resources)
+    res, out = _materialize(tmp_path, [wrong], summary, users, resources, app=target_app)
     raw, *_ = runner.run(out, tmp_path / "t.xml")
     r = runner.classify_all(res.plans, raw)[0]
     assert (r.pytest_outcome, r.classification, r.observed_status) == ("failed", "APPLICATION_MISMATCH", 200)
 
 
-def test_side_effect_violation_is_detected(tmp_path, cases, summary, users, resources):
+def test_side_effect_violation_is_detected(tmp_path, cases, summary, users, resources, target_app):
     # Gerçek uygulamada SC-UPD-001 başlığı günceller; beklenen değeri değiştirip yan etki kontrolünü sınarız.
-    res, out = _materialize(tmp_path, [cases["SC-UPD-001"]], summary, users, resources)
+    res, out = _materialize(tmp_path, [cases["SC-UPD-001"]], summary, users, resources, app=target_app)
     put = out / "test_put_generated.py"
     src = put.read_text(encoding="utf-8")
     assert "assert observed == {'body': 'örnek içerik', 'title': 'Örnek Başlık'}" in src
@@ -163,20 +165,21 @@ def test_committed_input_digests_match_current_inputs():
     assert {p: sha256(REPO / p) for p in rep["inputs_sha256"]} == rep["inputs_sha256"]
 
 
-def test_committed_generated_suite_runs_in_place(tmp_path):
+def test_committed_generated_suite_runs_in_place(tmp_path, target_app):
     out = tmp_path / "copy"
     shutil.copytree(EXP / "generated_tests", out, ignore=shutil.ignore_patterns("__pycache__"))
     ini = out / "pytest.ini"
     ini.write_text(ini.read_text(encoding="utf-8").replace(
-        "../../../benchmarks/drf_fixtures/sample_app", relative_pythonpath(out, TARGET_APP)), encoding="utf-8")
+        "../../../benchmarks/drf_fixtures/sample_app", relative_pythonpath(out, target_app)), encoding="utf-8")
     nodes, log = runner.collect(out)
     assert len(nodes) >= 5, log
 
 
 @pytest.mark.parametrize("dirname", ["copy", "json", "tests"])
 def test_generated_suite_does_not_depend_on_output_directory_name(tmp_path, cases, summary, users, resources,
-                                                                  dirname):
-    res, out = _materialize(tmp_path, [cases["SC-RET-001"]], summary, users, resources, name=dirname)
+                                                                  target_app, dirname):
+    res, out = _materialize(tmp_path, [cases["SC-RET-001"]], summary, users, resources, name=dirname,
+                            app=target_app)
     assert not (out / "__init__.py").exists()
     nodes, log = runner.collect(out)
     assert len(nodes) == 1, log
@@ -208,7 +211,7 @@ FAULTS = [
 
 def _mutated_app(tmp_path, target_file, replacements):
     app = tmp_path / "app"
-    shutil.copytree(TARGET_APP, app, ignore=shutil.ignore_patterns("__pycache__", "*.sqlite3"))
+    shutil.copytree(TARGET_APP, app, ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "*.sqlite3"))
     f = app / target_file
     src = f.read_text(encoding="utf-8")
     for old, new in replacements:

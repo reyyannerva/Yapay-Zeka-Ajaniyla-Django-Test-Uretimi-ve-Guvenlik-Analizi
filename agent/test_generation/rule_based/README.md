@@ -104,7 +104,43 @@ cd agent/test_generation/rule_based
 python -m pytest -q
 ```
 
+### Alt süreç yürütme sözleşmesi (Windows düzeltmesi)
+
+Üretilen paket ayrı bir `pytest` sürecinde çalışır (`runner.subprocess_env`):
+
+- **Ayar modülü:** `DJANGO_SETTINGS_MODULE` üretilen `pytest.ini`'den alınır. Dış kabuktaki
+  `DJANGO_SETTINGS_MODULE` / `DJANGO_CONFIGURATION` alt sürece aktarılmaz; pytest-django ortam değişkenini
+  ini değerinden önce kullanır.
+- **İçe aktarma yolları:** Hedef uygulama yolları mutlak yola çevrilip `PYTHONPATH`'in başına eklenir; mevcut
+  `PYTHONPATH` sona eklenir.
+- **Bayt kodu:** `PYTHONDONTWRITEBYTECODE=1` ile alt süreç hedef uygulamanın kaynak ağacına `__pycache__`
+  yazmaz. Bu, OneDrive gibi eşitlenen klasörlerdeki depolarda ve çalışma kopyasının temiz kalması için gereklidir.
+- **Çalıştırma:** Komut `shell` kullanılmadan, `sys.executable -m pytest` ile çalışır; çalışma dizini üretilen
+  paketin dizinidir.
+
+Bu sözleşmenin testleri `tests/test_subprocess_contract.py` dosyasındadır.
+
+Windows'ta doğrulamak için `agent/test_generation/rule_based` dizininden:
+
+```bash
+python -m pytest -q -rfE
+```
+
+```bash
+python -m pytest -q -rfE tests/test_execution.py tests/test_subprocess_contract.py
+```
+
 ## Bilinen kısıtlar
+
+- Testler hedef uygulamanın geçici bir kopyasını (`target_app` fixture'ı) kullanır. Bu nedenle depo boşluk
+  içeren bir yolda veya geçici dizinden farklı bir Windows sürücüsünde olsa da testler çalışır.
+- Komut satırında (`--out`) çıktı dizini hedef uygulamaya göre güvenli bir göreli yolla ifade edilmelidir.
+  Üretilen `pytest.ini`'deki `pythonpath` boşluk, tırnak veya `:` içeremez (ini enjeksiyonuna karşı güvenlik
+  kuralı). Farklı sürücü veya boşluklu göreli yol durumunda `PythonpathError` açık bir iletiyle verilir. Depo
+  içindeki varsayılan konum (`experiments/h3_04_rule_based_baseline/generated_tests`) her zaman uygundur.
+- Üretilen paketi veya `sample_app` testlerini elle `pytest` ile çalıştırmak Python'un olağan davranışıyla
+  `__pycache__` oluşturur. Depo OneDrive gibi eşitlenen bir klasördeyse `python -B -m pytest` (veya
+  `PYTHONDONTWRITEBYTECODE=1`) kullanılması önerilir. Üretici testleri bunu kendiliğinden yapar.
 
 - AST endpoint çıkarımı henüz yoktur; endpoint özeti kontrollü fixture kaynak kodundan elle hazırlanmıştır
   (`source.ast_integration: false`). Format, AST çıktısının üreteceği sözleşme olarak tasarlanmıştır.

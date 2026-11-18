@@ -42,4 +42,4 @@ hatası değildir ve çalıştırılabilir sayılır (Issue #32 gereği).
 
 Hattın teknik hata türlerini doğru ayırdığı sentetik test modülleriyle sınanmıştır (sonuçlara katılmaz):
 sözdizimi hatası, toplanamayan modül, test içermeyen modül, eksik fixture, `NoReverseMatch`, zaman aşımı,
-dış ağ erişimi, eksik/yinelenen artefakt, ortam hatası (`agent/evaluation/tests/test_execution.py`).
+dış ağ erişimi, eksik/yinelenen artefakt, ortam hatası (`agent/evaluation/tests/test_evaluation_execution.py`).

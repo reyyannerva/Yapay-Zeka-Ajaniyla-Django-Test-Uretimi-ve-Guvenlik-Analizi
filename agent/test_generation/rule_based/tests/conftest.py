@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import copy
 import json
+import shutil
 from pathlib import Path
 
 import pytest
@@ -26,6 +27,20 @@ GT_SCHEMA = REPO / "benchmarks" / "reference_cases" / "ground_truth.schema.json"
 SCEN = REPO / "benchmarks" / "drf_fixtures" / "scenarios" / "scenarios.json"
 SCEN_SCHEMA = REPO / "benchmarks" / "drf_fixtures" / "scenarios" / "scenarios.schema.json"
 TARGET_APP = REPO / "benchmarks" / "drf_fixtures" / "sample_app"
+
+
+@pytest.fixture(scope="session")
+def target_app(tmp_path_factory) -> Path:
+    """Hedef uygulamanın (sample_app) geçici dizindeki salt kopyası.
+
+    Üretilen paketler aynı geçici kök altında oluşturulur; böylece pytest.ini'ye yazılan göreli yol her zaman
+    kısa ve güvenlidir (``../target_app`` gibi). Depo, boşluk içeren bir yolda veya geçici dizinden farklı bir
+    Windows sürücüsünde olsa bile testler çalışır. Kaynak ağaca hiçbir şey yazılmaz.
+    """
+    app = tmp_path_factory.mktemp("target_app", numbered=False)
+    shutil.copytree(TARGET_APP, app, dirs_exist_ok=True,
+                    ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "*.sqlite3"))
+    return app
 
 
 @pytest.fixture(scope="session")
