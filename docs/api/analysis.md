@@ -68,3 +68,6 @@ uç nokta yoktur.
 | `percent` | `completed / total` yüzdesi; henüz kayıt yoksa **`null`** (0 değil) |
 
 Yeni oluşturulan analizde `total = 0` ve `percent = null`'dır.
+
+Detay yanıtındaki `generated_test_count`, analize ait üretilmiş test (`GeneratedTest`) sayısıdır; henüz
+çalıştırılmamış testleri de sayar ve `progress.total`'dan (yürütme kaydı olan testler) farklı olabilir.

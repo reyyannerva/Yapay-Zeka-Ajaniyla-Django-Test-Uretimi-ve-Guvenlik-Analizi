@@ -6,7 +6,7 @@ kılavuzlar ve Postman koleksiyonu. Kılavuz: [`docs/api/README.md`](../../../do
 ## 1. Ön koşul
 
 H4-01 (#33), H4-02 (#34), H4-03 (#35, PR #88) ve H4-04 (#36, PR #89) `main` dalında birleşmiştir
-(`3e4a3a2`). Envanter, URL çözücüden ve görünüm sınıflarından çıkarılmıştır: 12 yol, 21 işlem.
+(`3e4a3a2`); `main`'e sonradan eklenen PR #90 (`generated_test_count`, `3af3b59`) bu dala birleştirilip şema yeniden üretilmiştir. Envanter, URL çözücüden ve görünüm sınıflarından çıkarılmıştır: 12 yol, 21 işlem.
 
 ## 2. Ortam
 
@@ -50,7 +50,7 @@ $ python manage.py spectacular --format openapi-json --file ../docs/api/openapi.
 
 | Komut | Sonuç |
 |---|---|
-| `backend: python -m pytest` (PostgreSQL) | **426 passed** (375 önceki + 51 yeni) |
+| `backend: python -m pytest` (PostgreSQL) | **428 passed** (377 önceki + 51 yeni) |
 | `python manage.py check` | no issues |
 | `python manage.py makemigrations --check --dry-run` | No changes detected |
 | `python -m pytest agent` | 244 passed |

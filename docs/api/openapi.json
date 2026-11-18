@@ -143,6 +143,7 @@
                                             "finished_at": null,
                                             "updated_at": "2026-11-18T15:13:34.314850+03:00",
                                             "requirements_snapshot": [],
+                                            "generated_test_count": 0,
                                             "progress": {
                                                 "total": 0,
                                                 "completed": 0,
@@ -2650,6 +2651,10 @@
                         "readOnly": true,
                         "description": "Analiz oluşturulduğunda projenin aktif referans gereksinimlerinin anlık görüntüsü."
                     },
+                    "generated_test_count": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
                     "progress": {
                         "allOf": [
                             {
@@ -2667,6 +2672,7 @@
                     "error_message",
                     "fallback_enabled",
                     "finished_at",
+                    "generated_test_count",
                     "id",
                     "llm_model",
                     "llm_provider",

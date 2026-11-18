@@ -473,7 +473,7 @@ EX_RUN = {"id": 1, "project": 1, "status": "QUEUED", "method": "DIRECT_LLM", "ll
           "llm_model": "openai/gpt-oss-120b", "fallback_enabled": True, "celery_task_id": None,
           "coverage_percent": None, "error_code": "", "error_message": "",
           "created_at": "2026-11-18T15:13:34.314827+03:00", "started_at": None, "finished_at": None,
-          "updated_at": "2026-11-18T15:13:34.314850+03:00", "requirements_snapshot": [],
+          "updated_at": "2026-11-18T15:13:34.314850+03:00", "requirements_snapshot": [], "generated_test_count": 0,
           "progress": {"total": 0, "completed": 0, "running": 0, "pending": 0, "by_status": {},
                        "completed_duration_ms_total": 0, "completed_with_duration": 0, "run_started_at": None,
                        "percent": None}}
