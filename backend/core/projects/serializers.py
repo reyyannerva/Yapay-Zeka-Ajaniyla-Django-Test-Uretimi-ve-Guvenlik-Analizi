@@ -7,6 +7,7 @@ eder; izin verilmeyen bir alan gönderilirse (ör. ``owner``, ``validation_statu
 """
 from __future__ import annotations
 
+from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
 from ..models import Project
@@ -36,6 +37,8 @@ def _clean_name(value: str) -> str:
 
 
 class ProjectCreateSerializer(_StrictFieldsMixin, serializers.Serializer):
+    """Proje oluşturma isteği (multipart/form-data): ``name``, isteğe bağlı ``description`` ve ``archive`` (.zip)."""
+
     allowed_input_fields = ("name", "description", "archive")
 
     name = serializers.CharField(max_length=150)
@@ -68,6 +71,15 @@ class ProjectUpdateSerializer(_StrictFieldsMixin, serializers.ModelSerializer):
         return value
 
 
+class ArchiveInfoSerializer(serializers.Serializer):
+    """Yüklenen arşivin görüntüleme bilgileri; depolama anahtarı ve sunucu yolu içermez."""
+
+    original_name = serializers.CharField(help_text="İstemcinin gönderdiği dosya adı (yalnızca görüntüleme).")
+    size_bytes = serializers.IntegerField()
+    sha256 = serializers.CharField()
+    uploaded_at = serializers.DateTimeField()
+
+
 class ProjectSerializer(serializers.ModelSerializer):
     """Okuma gösterimi. Depolama anahtarı, sunucu dosya adı ve mutlak yol döndürülmez."""
 
@@ -80,6 +92,7 @@ class ProjectSerializer(serializers.ModelSerializer):
                   "validation_report", "analysis_run_count", "created_at", "updated_at"]
         read_only_fields = fields
 
+    @extend_schema_field(ArchiveInfoSerializer(allow_null=True))
     def get_archive(self, obj):
         if obj.source_type != Project.SourceType.ARCHIVE:
             return None
@@ -88,7 +101,7 @@ class ProjectSerializer(serializers.ModelSerializer):
                 "sha256": obj.archive_sha256,
                 "uploaded_at": serializers.DateTimeField().to_representation(obj.created_at)}
 
-    def get_analysis_run_count(self, obj):
+    def get_analysis_run_count(self, obj) -> int:
         value = getattr(obj, "analysis_run_count", None)
         return value if value is not None else obj.analysis_runs.count()
 
