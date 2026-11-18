@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "axes",
+    "drf_spectacular",  # H4-05 / Issue #37: OpenAPI 3 şeması
+    "drf_spectacular_sidecar",  # Swagger UI/ReDoc dosyaları CDN yerine yerelden sunulur
     "core",
 ]
 
@@ -134,6 +136,7 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",  # H4-05 / Issue #37
 }
 
 # --- Kimlik doğrulama / yetkilendirme (H4-02 / Issue #34) ---
@@ -163,3 +166,58 @@ REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
     # H4-03: kullanıcı başına arşiv yükleme sınırı (kaynak tüketimine karşı).
     "project_upload": env_str("PROJECT_UPLOAD_THROTTLE_RATE", "30/hour"),
 }
+
+# --- API dokümantasyonu (H4-05 / Issue #37) ---
+# Şema ve Swagger UI erişimi: API_DOCS_PUBLIC=true iken herkese açık (geliştirme varsayılanı = DEBUG);
+# false iken yalnızca personel (is_staff) kullanıcılar (yönetici oturumu veya JWT) erişebilir.
+API_DOCS_PUBLIC = env_bool("API_DOCS_PUBLIC", DEBUG)
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Yapay Zekâ Ajanıyla Django Test Üretimi ve Güvenlik Analizi API",
+    "DESCRIPTION": (
+        "Hafta 4 backend API'si: SimpleJWT kimlik doğrulama, hesap kilidi ve şifre sıfırlama (H4-02), "
+        "proje yönetimi ve güvenli ZIP yükleme (H4-03), analiz çalıştırmaları ve referans gereksinimler "
+        "(H4-04). Korumalı uç noktalar `Authorization: Bearer <access token>` ister. Ayrıntılı kılavuz: "
+        "docs/api/README.md."
+    ),
+    "VERSION": "0.4.0",
+    "OAS_VERSION": "3.0.3",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SERVE_PERMISSIONS": ["core.api.docs.ApiDocsPermission"],
+    "SERVE_AUTHENTICATION": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    # İstek ve yanıt bileşenleri ayrılır: salt okunur alanlar istek şemasında, write_only alanlar yanıtta görünmez;
+    # dosya alanları istek şemasında ikili (binary) olarak gösterilir.
+    "COMPONENT_SPLIT_REQUEST": True,
+    "SCHEMA_PATH_PREFIX": r"/api/",
+    "SWAGGER_UI_DIST": "SIDECAR",
+    "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
+    "REDOC_DIST": "SIDECAR",
+    "SWAGGER_UI_SETTINGS": {"persistAuthorization": False, "displayOperationId": False, "filter": True},
+    "TAGS": [
+        {"name": "Kimlik Doğrulama", "description": "SimpleJWT giriş, token yenileme, çıkış ve oturum bilgisi."},
+        {"name": "Parola İşlemleri", "description": "E-posta ile şifre sıfırlama talebi ve yeni parola belirleme."},
+        {"name": "Proje Yükleme", "description": "multipart/form-data ile ZIP arşivi yükleyerek proje oluşturma."},
+        {"name": "Proje Yönetimi", "description": "Kullanıcının projelerini listeleme, görüntüleme, güncelleme, silme."},
+        {"name": "Analiz İşlemleri", "description": "Analiz çalıştırması oluşturma (QUEUED), listeleme ve detay."},
+        {"name": "Referans Gereksinimler", "description": "Bağımsız referans gereksinim JSON'u (ROLE, ACCESS_RULE, "
+                                                         "DEPLOY_EXPECTATION) CRUD."},
+    ],
+    "ENUM_NAME_OVERRIDES": {
+        "AnalysisRunStatusEnum": "core.models.analysis.AnalysisRunStatus",
+        "AnalysisMethodEnum": "core.models.analysis.AnalysisMethod",
+        "LlmProviderEnum": "core.models.analysis.LlmProvider",
+        "ProjectSourceTypeEnum": "core.models.project.ProjectSourceType",
+        "ProjectValidationStatusEnum": "core.models.project.ProjectValidationStatus",
+        "RequirementCategoryEnum": "core.models.requirement.RequirementCategory",
+        "RequirementSourceEnum": "core.models.requirement.RequirementSource",
+        "HttpMethodEnum": "core.choices.HttpMethod",
+        "ArchiveErrorCodeEnum": "core.api.schema.ARCHIVE_ERROR_CODES",
+        "ArchiveEntryReasonEnum": "core.api.schema.ARCHIVE_ENTRY_REASONS",
+    },
+    "POSTPROCESSING_HOOKS": [
+        "drf_spectacular.hooks.postprocess_schema_enums",
+    ],
+}
+
