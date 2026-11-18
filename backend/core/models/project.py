@@ -4,6 +4,7 @@ from django.db.models import Q
 
 from ..choices import SHA256_HEX_REGEX, values
 from ..fields import NullableFileField
+from ..storage import ProjectArchiveStorage
 
 
 class ProjectSourceType(models.TextChoices):
@@ -32,7 +33,9 @@ class Project(models.Model):
     description = models.TextField(blank=True, default="")
     source_type = models.CharField(max_length=20, choices=ProjectSourceType.choices, default=ProjectSourceType.ARCHIVE)
     # Depolama göreli anahtarı; dizin projelerinde NULL ('' değil, bkz. core/fields.py).
-    source_archive = NullableFileField(upload_to="project_archives/%Y/%m/", max_length=255, null=True, blank=True)
+    source_archive = NullableFileField(
+        upload_to="project_archives/%Y/%m/", max_length=255, null=True, blank=True, storage=ProjectArchiveStorage()
+    )
     # İzinli kök dizine göreli yol; arşiv projelerinde NULL.
     source_directory = models.CharField(max_length=500, null=True, blank=True)
     archive_sha256 = models.CharField(max_length=64, null=True, blank=True)
