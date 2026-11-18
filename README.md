@@ -208,6 +208,7 @@ değerlendirilmemelidir.
 | 3 | H3-05 LLM ile ilk Pytest üretimi (#31) | [`agent/test_generation/llm/`](agent/test_generation/llm/README.md), [`experiments/h3_05_llm_baseline/`](experiments/h3_05_llm_baseline/) |
 | 3 | H3-06 Metrikler, baseline karşılaştırması ve demo (#32) | [`docs/evaluation/h3-06/`](docs/evaluation/h3-06/README.md), [`agent/evaluation/`](agent/evaluation/README.md), [`experiments/h3_06_baseline_evaluation/`](experiments/h3_06_baseline_evaluation/README.md) |
 | 4 | H4-01 Django ORM modelleri, PostgreSQL bağlantısı ve migration'lar (#33) | [`backend/`](backend/README.md), [`docs/database/schema_changes_h4_01.md`](docs/database/schema_changes_h4_01.md) |
+| 4 | H4-03 Proje yönetimi ve güvenli arşiv yükleme API'si (#35) | [`backend/docs/h4_03_project_api.md`](backend/docs/h4_03_project_api.md) |
 | 1–3 | Bağımsız denetim ve düzeltme kaydı | [`docs/audit/hafta1-3_denetim_duzeltme.md`](docs/audit/hafta1-3_denetim_duzeltme.md) |
 
 ### Doğrulama komutları (Hafta 3)
