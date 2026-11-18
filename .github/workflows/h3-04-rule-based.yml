@@ -1,0 +1,45 @@
+# H3-04 (#30) kural tabanlı üretici testleri — Windows ve Linux doğrulaması.
+# Windows sürümleri, hatayı yeniden üreten ekip ortamıyla aynıdır (Python 3.11, pytest 9.2.0,
+# pytest-django 4.14.0, Django 5.2.19, DRF 3.18.3). Gizli değer kullanılmaz; ağ çağrısı yapılmaz.
+name: h3-04-rule-based
+
+on:
+  pull_request:
+    paths:
+      - "agent/test_generation/rule_based/**"
+      - "benchmarks/drf_fixtures/sample_app/**"
+      - "experiments/h3_04_rule_based_baseline/**"
+      - ".github/workflows/h3-04-rule-based.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rule-based:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Bağımlılıklar (ekip ortamındaki sabit sürümler)
+        run: python -m pip install "Django==5.2.19" "djangorestframework==3.18.3" "pytest==9.2.0" "pytest-django==4.14.0" "jsonschema>=4.0"
+      - name: Kural tabanlı üretici testleri (1. çalıştırma)
+        working-directory: agent/test_generation/rule_based
+        run: python -m pytest -q -rfE --basetemp=${{ runner.temp }}/h304_a
+      - name: Kural tabanlı üretici testleri (2. çalıştırma — kararlılık)
+        if: always()
+        working-directory: agent/test_generation/rule_based
+        run: python -m pytest -q -rfE --basetemp=${{ runner.temp }}/h304_b tests/test_execution.py
+      - name: Hata durumunda geçici dosyaları sakla
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: h304-basetemp-${{ matrix.os }}
+          path: ${{ runner.temp }}/h304_*
+          retention-days: 3
