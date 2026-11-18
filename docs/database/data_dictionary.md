@@ -9,6 +9,7 @@
 | Revizyon | 2 — Figma mockup'ı ile hizalama (`docs/mockup/README.md`, özellikle "Kapsam notları") |
 | Revizyon 3 | `fallback_enabled` varsayılanı `true` (ekran 05); `source_archive` ve `archive_sha256` `NULL` olabilir, kaynak türüne göre tutarlılık `CHECK` ile zorlanır |
 | Revizyon 4 (H4-01 / #33) | Şema Django ORM ve migration ile uygulandı (`backend/core/migrations/0001_initial.py`). `test_executions.status`: `QUEUED`→`PENDING`, `TECHNICAL_ERROR`→`ERROR`, yeni `TIMEOUT`; `ACCESS_RULE` yöntemi için veritabanı kısıtı; `source_archive` için NULL yazan alan. Ayrıntı: `schema_changes_h4_01.md` |
+| Revizyon 4.1 (H4-03 / #35) | Şema değişmedi. `source_archive` özel depoya (`core.storage.ProjectArchiveStorage`, `PROJECT_ARCHIVE_ROOT`) bağlandı (migration `0002`, SQL no-op). `validation_report` alanları API tarafından doldurulur (10.1). |
 | İlgili gereksinimler | İST-01, İST-03, İST-04, İST-07, İST-08, İST-09, İST-13, İST-15 |
 
 ---
@@ -629,6 +630,16 @@ Genel kurallar:
 Aşağıdaki örnekler yalnızca yapıyı göstermek içindir.
 
 ### 10.1 `projects.validation_report`
+
+H4-03 (#35) ile uygulanan biçim (`backend/core/projects/services.py`). `archive` altında yalnızca görüntüleme
+amaçlı özgün dosya adı ve boyut tutulur; depolama anahtarı `source_archive` sütunundadır ve API yanıtlarında
+gösterilmez. Arşiv güvensizse kayıt oluşturulmaz (istek 400 ile reddedilir). Bu nedenle API ile oluşturulan
+kayıtlar `validation_status = 'VALID'` olur. `rejected_entries` yalnızca reddedilmeyip açılmayacak hassas
+dosyaları (`SECRET_FILE_EXCLUDED`) içerir. Ek alanlar: `archive.format`, `archive.original_name`,
+`archive.size_bytes`, `archive.dir_count`, `manage_py_paths`, `declared_settings_modules`,
+`installed_apps_count`, `drf_detected`.
+
+Revizyon 3 örneği:
 
 ```json
 {
