@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --app-bg: #f4f8f8;
+  --surface: #ffffff;
+  --surface-2: #eef5f5;
+  --fg: #10262b;
+  --muted: #53696d;
+  --border: #d4e2e2;
+  --border-strong: #b6cfd0;
+  --accent: #0f6b7a;
+  --accent-fg: #ffffff;
+  --accent-soft: #dceff1;
+  --pass: #17935a;
+  --pass-bg: #e4f5ec;
+  --fail: #a86a00;
+  --fail-bg: #f8eecd;
+  --error: #c0392b;
+  --error-bg: #f8e4e0;
+  --error-fg: #ffffff;
+  --timeout: #6b4fb8;
+  --timeout-bg: #ece7f8;
+  --process: #0f6b7a;
+  --process-bg: #dceff1;
+  --panel: #0b2a31;
+  --panel-2: #113b45;
+  --panel-fg: #d6e8ea;
+  --panel-muted: #8aacb0;
+  --panel-accent: #3fd0d6;
+  --panel-active: rgba(63, 208, 214, 0.16);
+  --scrim: rgba(6, 22, 26, 0.55);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --app-bg: #0c181b;
+  --surface: #0f1e22;
+  --surface-2: #13262b;
+  --fg: #e6f2f2;
+  --muted: #89a3a6;
+  --border: #1d343a;
+  --border-strong: #2a474e;
+  --accent: #3fd0d6;
+  --accent-fg: #06211f;
+  --accent-soft: #102e30;
+  --pass: #3fc07d;
+  --pass-bg: #0f2a20;
+  --fail: #f5a524;
+  --fail-bg: #2c2411;
+  --error: #ff5d62;
+  --error-bg: #2e1518;
+  --error-fg: #1f0709;
+  --timeout: #b69cff;
+  --timeout-bg: #231b3a;
+  --process: #3fd0d6;
+  --process-bg: #102e30;
+  --panel: #081013;
+  --panel-2: #0f2329;
+  --panel-fg: #cfe6e8;
+  --panel-muted: #7fa0a4;
+  --panel-accent: #3fd0d6;
+  --panel-active: rgba(63, 208, 214, 0.14);
+  --scrim: rgba(0, 0, 0, 0.6);
+}
+
+@layer base {
+  body {
+    @apply bg-app-bg font-sans text-fg antialiased;
+  }
+}
