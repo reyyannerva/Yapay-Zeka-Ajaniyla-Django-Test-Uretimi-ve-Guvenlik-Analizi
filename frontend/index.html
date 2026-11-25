@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Şifre sıfırlama gibi sayfaların adresi başka kökenlere Referer ile gönderilmez (H5-03 / #41). -->
+    <meta name="referrer" content="same-origin" />
     <title>Django Test Üretimi ve Güvenlik Analizi</title>
     <script>
       // İlk boyamadan önce temayı uygula (yanlış tema flaşını önler). Mantık theme-context.tsx ile aynıdır.

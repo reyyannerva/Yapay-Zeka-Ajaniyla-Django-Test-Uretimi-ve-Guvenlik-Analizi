@@ -48,6 +48,14 @@ export interface DetailErrorBody {
   code?: string;
 }
 
+/** 429 hesap kilidi (H5-03 / #41): istek sınırından `code` ile ayrılır; kalan süre sunucudan gelir. */
+export interface AccountLockedBody extends DetailErrorBody {
+  code: 'account_locked';
+  /** ISO 8601; kilit bitiş zamanı bilinmiyorsa null. */
+  locked_until: string | null;
+  retry_after_seconds: number | null;
+}
+
 /** 400 — arşiv doğrulama hatası: `{ archive: [{ code, detail, entries }] }`. */
 export interface ArchiveErrorBody {
   archive: ArchiveFieldError[];
@@ -58,7 +66,11 @@ export type FieldErrorsBody = Record<string, string[]>;
 
 export type ApiErrorBody = DetailErrorBody | ArchiveErrorBody | FieldErrorsBody;
 
-export type ApiErrorStatus = 400 | 401 | 403 | 404 | 405 | 409 | 413 | 415 | 429 | 500;
+/**
+ * HTTP durum kodu. `0`: yanıt alınamadı — bağlantı hatası (`code: network_error`) veya zaman aşımı
+ * (`code: timeout`). Sunucu 5xx gövdeleri istemcide genel bir mesajla değiştirilir.
+ */
+export type ApiErrorStatus = number;
 
 /** Servis katmanının reddettiği hata: HTTP durumu + gövde zarfı. */
 export interface ApiError {

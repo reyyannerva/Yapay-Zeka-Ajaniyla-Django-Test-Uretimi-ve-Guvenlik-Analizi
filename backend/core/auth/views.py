@@ -10,6 +10,7 @@ from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+from .exceptions import AccountLocked
 from .serializers import (
     LockoutTokenObtainPairSerializer,
     PasswordResetConfirmSerializer,
@@ -27,6 +28,13 @@ class LoginView(TokenObtainPairView):
     serializer_class = LockoutTokenObtainPairSerializer
     permission_classes = [AllowAny]
     throttle_classes = [LoginRateThrottle]
+
+    def post(self, request, *args, **kwargs):
+        try:
+            return super().post(request, *args, **kwargs)
+        except AccountLocked as exc:
+            # H5-03 / #41: kilit yanıtı code/locked_until/retry_after_seconds ve Retry-After ile döner.
+            return exc.to_response()
 
 
 class LogoutView(APIView):

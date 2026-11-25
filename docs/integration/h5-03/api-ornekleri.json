@@ -1,0 +1,627 @@
+[
+  {
+    "method": "GET",
+    "endpoint": "/api/analysis-runs/",
+    "status": 200,
+    "authorization": "Bearer <redakte>",
+    "request": null,
+    "response": []
+  },
+  {
+    "method": "GET",
+    "endpoint": "/api/analysis-runs/",
+    "status": 401,
+    "authorization": "Bearer <redakte>",
+    "request": null,
+    "response": {
+      "detail": "Verilen token hiçbir token tipi için geçerli değil",
+      "code": "token_not_valid",
+      "messages": [
+        {
+          "token_class": "AccessToken",
+          "token_type": "access",
+          "message": "Token is expired"
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/analysis-runs/",
+    "status": 201,
+    "authorization": "Bearer <redakte>",
+    "request": {
+      "project": 17,
+      "method": "HYBRID",
+      "fallback_enabled": true,
+      "llm_provider": "GROQ",
+      "llm_model": "llama-3.3-70b-versatile"
+    },
+    "response": {
+      "id": 6,
+      "project": 17,
+      "status": "QUEUED",
+      "method": "HYBRID",
+      "llm_provider": "GROQ",
+      "llm_model": "llama-3.3-70b-versatile",
+      "fallback_enabled": true,
+      "celery_task_id": null,
+      "coverage_percent": null,
+      "error_code": "",
+      "error_message": "",
+      "created_at": "2026-11-26T00:24:50.076525+03:00",
+      "started_at": null,
+      "finished_at": null,
+      "updated_at": "2026-11-26T00:24:50.076537+03:00",
+      "requirements_snapshot": [
+        {
+          "id": 12,
+          "project": 17,
+          "requirement_code": "ACC-SIPARIS-1",
+          "category": "ACCESS_RULE",
+          "source": "JSON_UPLOAD",
+          "title": "Anonim sipariş listesini göremez",
+          "description": "",
+          "expected_result": "Kimliksiz istek 401 döner.",
+          "specification": {
+            "method": "GET",
+            "endpoint": "/api/siparisler/",
+            "schema_version": 1,
+            "expected_status_by_role": {
+              "anonim": 401,
+              "kullanici": 200
+            }
+          },
+          "is_active": true,
+          "revision": 1,
+          "http_method": "GET",
+          "created_at": "2026-11-26T00:24:47.191687+03:00",
+          "updated_at": "2026-11-26T00:24:47.191704+03:00"
+        },
+        {
+          "id": 13,
+          "project": 17,
+          "requirement_code": "ROL-KULLANICI",
+          "category": "ROLE",
+          "source": "JSON_UPLOAD",
+          "title": "Standart kullanıcı rolü",
+          "description": "",
+          "expected_result": "",
+          "specification": {
+            "role": "kullanici",
+            "schema_version": 1
+          },
+          "is_active": true,
+          "revision": 1,
+          "http_method": null,
+          "created_at": "2026-11-26T00:24:47.212789+03:00",
+          "updated_at": "2026-11-26T00:24:47.212801+03:00"
+        }
+      ],
+      "generated_test_count": 0,
+      "progress": {
+        "total": 0,
+        "completed": 0,
+        "running": 0,
+        "pending": 0,
+        "by_status": {},
+        "completed_duration_ms_total": 0,
+        "completed_with_duration": 0,
+        "run_started_at": null,
+        "percent": null
+      }
+    }
+  },
+  {
+    "method": "GET",
+    "endpoint": "/api/analysis-runs/{id}/",
+    "status": 200,
+    "authorization": "Bearer <redakte>",
+    "request": null,
+    "response": {
+      "id": 6,
+      "project": 17,
+      "status": "QUEUED",
+      "method": "HYBRID",
+      "llm_provider": "GROQ",
+      "llm_model": "llama-3.3-70b-versatile",
+      "fallback_enabled": true,
+      "celery_task_id": null,
+      "coverage_percent": null,
+      "error_code": "",
+      "error_message": "",
+      "created_at": "2026-11-26T00:24:50.076525+03:00",
+      "started_at": null,
+      "finished_at": null,
+      "updated_at": "2026-11-26T00:24:50.076537+03:00",
+      "requirements_snapshot": [
+        {
+          "id": 12,
+          "title": "Anonim sipariş listesini göremez",
+          "source": "JSON_UPLOAD",
+          "project": 17,
+          "category": "ACCESS_RULE",
+          "revision": 1,
+          "is_active": true,
+          "created_at": "2026-11-26T00:24:47.191687+03:00",
+          "updated_at": "2026-11-26T00:24:47.191704+03:00",
+          "description": "",
+          "http_method": "GET",
+          "specification": {
+            "method": "GET",
+            "endpoint": "/api/siparisler/",
+            "schema_version": 1,
+            "expected_status_by_role": {
+              "anonim": 401,
+              "kullanici": 200
+            }
+          },
+          "expected_result": "Kimliksiz istek 401 döner.",
+          "requirement_code": "ACC-SIPARIS-1"
+        },
+        {
+          "id": 13,
+          "title": "Standart kullanıcı rolü",
+          "source": "JSON_UPLOAD",
+          "project": 17,
+          "category": "ROLE",
+          "revision": 1,
+          "is_active": true,
+          "created_at": "2026-11-26T00:24:47.212789+03:00",
+          "updated_at": "2026-11-26T00:24:47.212801+03:00",
+          "description": "",
+          "http_method": null,
+          "specification": {
+            "role": "kullanici",
+            "schema_version": 1
+          },
+          "expected_result": "",
+          "requirement_code": "ROL-KULLANICI"
+        }
+      ],
+      "generated_test_count": 0,
+      "progress": {
+        "total": 0,
+        "completed": 0,
+        "running": 0,
+        "pending": 0,
+        "by_status": {},
+        "completed_duration_ms_total": 0,
+        "completed_with_duration": 0,
+        "run_started_at": null,
+        "percent": null
+      }
+    }
+  },
+  {
+    "method": "GET",
+    "endpoint": "/api/analysis-runs/{id}/",
+    "status": 404,
+    "authorization": "Bearer <redakte>",
+    "request": null,
+    "response": {
+      "detail": "No AnalysisRun matches the given query."
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/auth/login/",
+    "status": 200,
+    "authorization": "yok",
+    "request": {
+      "username": "e2e_kullanici_a",
+      "password": "<redakte>"
+    },
+    "response": {
+      "refresh": "<redakte>",
+      "access": "<redakte>"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/auth/login/",
+    "status": 401,
+    "authorization": "yok",
+    "request": {
+      "username": "e2e_kullanici_c",
+      "password": "<redakte>"
+    },
+    "response": {
+      "detail": "Verilen kimlik bilgileriyle aktif bir hesap bulunamadı"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/auth/login/",
+    "status": 429,
+    "authorization": "yok",
+    "request": {
+      "username": "e2e_kullanici_c",
+      "password": "<redakte>"
+    },
+    "response": {
+      "detail": "Çok fazla başarısız giriş denemesi. Hesap geçici olarak kilitlendi; lütfen bir süre sonra tekrar deneyin.",
+      "code": "account_locked",
+      "locked_until": "2026-11-25T21:41:05.549208+00:00",
+      "retry_after_seconds": 900
+    },
+    "retry_after": "900"
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/auth/logout/",
+    "status": 205,
+    "authorization": "Bearer <redakte>",
+    "request": {
+      "refresh": "<redakte>"
+    },
+    "response": null
+  },
+  {
+    "method": "GET",
+    "endpoint": "/api/auth/me/",
+    "status": 200,
+    "authorization": "Bearer <redakte>",
+    "request": null,
+    "response": {
+      "id": 4,
+      "username": "e2e_kullanici_a",
+      "email": "e2e_kullanici_a@example.test"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/auth/password-reset/",
+    "status": 200,
+    "authorization": "yok",
+    "request": {
+      "email": "e2e_kullanici_a@example.test"
+    },
+    "response": {
+      "detail": "E-posta kayıtlıysa şifre sıfırlama bağlantısı gönderildi."
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/auth/password-reset/confirm/",
+    "status": 200,
+    "authorization": "yok",
+    "request": {
+      "uid": "<redakte>",
+      "token": "<redakte>",
+      "new_password": "<redakte>"
+    },
+    "response": {
+      "detail": "Parola güncellendi."
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/auth/password-reset/confirm/",
+    "status": 400,
+    "authorization": "yok",
+    "request": {
+      "uid": "<redakte>",
+      "token": "<redakte>",
+      "new_password": "<redakte>"
+    },
+    "response": {
+      "new_password": "<redakte>"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/auth/refresh/",
+    "status": 200,
+    "authorization": "yok",
+    "request": {
+      "refresh": "<redakte>"
+    },
+    "response": {
+      "access": "<redakte>",
+      "refresh": "<redakte>"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/auth/refresh/",
+    "status": 401,
+    "authorization": "yok",
+    "request": {
+      "refresh": "<redakte>"
+    },
+    "response": {
+      "detail": "Token kara listeye alınmış",
+      "code": "token_not_valid"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/projects/",
+    "status": 201,
+    "authorization": "Bearer <redakte>",
+    "request": "multipart/form-data (name, description, archive=<ZIP dosyası>)",
+    "response": {
+      "id": 17,
+      "name": "E2E Sipariş API mwwmt9g6",
+      "description": "Uçtan uca test projesi",
+      "source_type": "ARCHIVE",
+      "validation_status": "VALID",
+      "archive": {
+        "original_name": "ornek_api.zip",
+        "size_bytes": 1417,
+        "sha256": "4d3746e25a237972cac976b0f943957146e8829aa1dbf3a4fc724fe3cb4b51f6",
+        "uploaded_at": "2026-11-26T00:24:43.155988+03:00"
+      },
+      "validation_report": {
+        "warnings": [
+          "bağımlılık dosyası (requirements.txt / pyproject.toml / Pipfile) bulunamadı"
+        ],
+        "checked_at": "2026-11-25T21:24:43+00:00",
+        "django_apps": [],
+        "drf_detected": true,
+        "schema_version": 1,
+        "manage_py_found": true,
+        "manage_py_paths": [
+          "ornek_api/manage.py"
+        ],
+        "rejected_entries": [],
+        "settings_modules": [
+          "ornek_api/ornek_api/settings.py"
+        ],
+        "installed_apps_count": 4,
+        "declared_settings_modules": [
+          "ornek_api.settings"
+        ]
+      },
+      "analysis_run_count": 0,
+      "created_at": "2026-11-26T00:24:43.155988+03:00",
+      "updated_at": "2026-11-26T00:24:43.156004+03:00"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/projects/",
+    "status": 400,
+    "authorization": "Bearer <redakte>",
+    "request": "multipart/form-data (name, description, archive=<ZIP dosyası>)",
+    "response": null
+  },
+  {
+    "method": "GET",
+    "endpoint": "/api/projects/?page=…&page_size=…",
+    "status": 200,
+    "authorization": "Bearer <redakte>",
+    "request": null,
+    "response": {
+      "count": 0,
+      "next": null,
+      "previous": null,
+      "results": []
+    }
+  },
+  {
+    "method": "GET",
+    "endpoint": "/api/projects/?page=…&page_size=…",
+    "status": 401,
+    "authorization": "Bearer <redakte>",
+    "request": null,
+    "response": {
+      "detail": "Verilen token hiçbir token tipi için geçerli değil",
+      "code": "token_not_valid",
+      "messages": [
+        {
+          "token_class": "AccessToken",
+          "token_type": "access",
+          "message": "Token is expired"
+        }
+      ]
+    }
+  },
+  {
+    "method": "DELETE",
+    "endpoint": "/api/projects/{id}/",
+    "status": 204,
+    "authorization": "Bearer <redakte>",
+    "request": null,
+    "response": null
+  },
+  {
+    "method": "DELETE",
+    "endpoint": "/api/projects/{id}/",
+    "status": 409,
+    "authorization": "Bearer <redakte>",
+    "request": null,
+    "response": {
+      "detail": "Projenin devam eden bir analizi var; analiz bitmeden proje silinemez."
+    }
+  },
+  {
+    "method": "GET",
+    "endpoint": "/api/projects/{id}/",
+    "status": 200,
+    "authorization": "Bearer <redakte>",
+    "request": null,
+    "response": {
+      "id": 17,
+      "name": "E2E Sipariş API mwwmt9g6",
+      "description": "Uçtan uca test projesi",
+      "source_type": "ARCHIVE",
+      "validation_status": "VALID",
+      "archive": {
+        "original_name": "ornek_api.zip",
+        "size_bytes": 1417,
+        "sha256": "4d3746e25a237972cac976b0f943957146e8829aa1dbf3a4fc724fe3cb4b51f6",
+        "uploaded_at": "2026-11-26T00:24:43.155988+03:00"
+      },
+      "validation_report": {
+        "warnings": [
+          "bağımlılık dosyası (requirements.txt / pyproject.toml / Pipfile) bulunamadı"
+        ],
+        "checked_at": "2026-11-25T21:24:43+00:00",
+        "django_apps": [],
+        "drf_detected": true,
+        "schema_version": 1,
+        "manage_py_found": true,
+        "manage_py_paths": [
+          "ornek_api/manage.py"
+        ],
+        "rejected_entries": [],
+        "settings_modules": [
+          "ornek_api/ornek_api/settings.py"
+        ],
+        "installed_apps_count": 4,
+        "declared_settings_modules": [
+          "ornek_api.settings"
+        ]
+      },
+      "analysis_run_count": 0,
+      "created_at": "2026-11-26T00:24:43.155988+03:00",
+      "updated_at": "2026-11-26T00:24:43.156004+03:00"
+    }
+  },
+  {
+    "method": "GET",
+    "endpoint": "/api/projects/{id}/",
+    "status": 404,
+    "authorization": "Bearer <redakte>",
+    "request": null,
+    "response": {
+      "detail": "No Project matches the given query."
+    }
+  },
+  {
+    "method": "PATCH",
+    "endpoint": "/api/projects/{id}/",
+    "status": 200,
+    "authorization": "Bearer <redakte>",
+    "request": {
+      "name": "E2E Sipariş API mwwmt9g6",
+      "description": "Açıklama güncellendi (E2E)"
+    },
+    "response": {
+      "id": 17,
+      "name": "E2E Sipariş API mwwmt9g6",
+      "description": "Açıklama güncellendi (E2E)",
+      "source_type": "ARCHIVE",
+      "validation_status": "VALID",
+      "archive": {
+        "original_name": "ornek_api.zip",
+        "size_bytes": 1417,
+        "sha256": "4d3746e25a237972cac976b0f943957146e8829aa1dbf3a4fc724fe3cb4b51f6",
+        "uploaded_at": "2026-11-26T00:24:43.155988+03:00"
+      },
+      "validation_report": {
+        "warnings": [
+          "bağımlılık dosyası (requirements.txt / pyproject.toml / Pipfile) bulunamadı"
+        ],
+        "checked_at": "2026-11-25T21:24:43+00:00",
+        "django_apps": [],
+        "drf_detected": true,
+        "schema_version": 1,
+        "manage_py_found": true,
+        "manage_py_paths": [
+          "ornek_api/manage.py"
+        ],
+        "rejected_entries": [],
+        "settings_modules": [
+          "ornek_api/ornek_api/settings.py"
+        ],
+        "installed_apps_count": 4,
+        "declared_settings_modules": [
+          "ornek_api.settings"
+        ]
+      },
+      "analysis_run_count": 0,
+      "created_at": "2026-11-26T00:24:43.155988+03:00",
+      "updated_at": "2026-11-26T00:24:45.607871+03:00"
+    }
+  },
+  {
+    "method": "GET",
+    "endpoint": "/api/reference-requirements/",
+    "status": 200,
+    "authorization": "Bearer <redakte>",
+    "request": null,
+    "response": []
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/reference-requirements/",
+    "status": 201,
+    "authorization": "Bearer <redakte>",
+    "request": {
+      "project": 17,
+      "requirement_code": "ACC-SIPARIS-1",
+      "category": "ACCESS_RULE",
+      "source": "JSON_UPLOAD",
+      "title": "Anonim sipariş listesini göremez",
+      "description": "",
+      "expected_result": "Kimliksiz istek 401 döner.",
+      "specification": {
+        "schema_version": 1,
+        "endpoint": "/api/siparisler/",
+        "method": "GET",
+        "expected_status_by_role": {
+          "anonim": 401,
+          "kullanici": 200
+        }
+      },
+      "is_active": true
+    },
+    "response": {
+      "id": 12,
+      "project": 17,
+      "requirement_code": "ACC-SIPARIS-1",
+      "category": "ACCESS_RULE",
+      "source": "JSON_UPLOAD",
+      "title": "Anonim sipariş listesini göremez",
+      "description": "",
+      "expected_result": "Kimliksiz istek 401 döner.",
+      "specification": {
+        "schema_version": 1,
+        "endpoint": "/api/siparisler/",
+        "method": "GET",
+        "expected_status_by_role": {
+          "anonim": 401,
+          "kullanici": 200
+        }
+      },
+      "is_active": true,
+      "revision": 1,
+      "http_method": "GET",
+      "created_at": "2026-11-26T00:24:47.191687+03:00",
+      "updated_at": "2026-11-26T00:24:47.191704+03:00"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/reference-requirements/",
+    "status": 400,
+    "authorization": "Bearer <redakte>",
+    "request": {
+      "project": 17,
+      "requirement_code": "ACC-SIPARIS-1",
+      "category": "ACCESS_RULE",
+      "source": "JSON_UPLOAD",
+      "title": "Anonim sipariş listesini göremez",
+      "description": "",
+      "expected_result": "Kimliksiz istek 401 döner.",
+      "specification": {
+        "schema_version": 1,
+        "endpoint": "/api/siparisler/",
+        "method": "GET",
+        "expected_status_by_role": {
+          "anonim": 401,
+          "kullanici": 200
+        }
+      },
+      "is_active": true
+    },
+    "response": {
+      "non_field_errors": [
+        "project, requirement_code  alanları benzersiz bir set yapmak gerekir."
+      ]
+    }
+  }
+]

@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { afterEach, expect, test } from 'vitest';
+import { afterEach, expect, test, vi } from 'vitest';
 
 import { resetMockProjects } from '../../lib/api/mock';
 import { ROUTER_FUTURE } from '../../test/router-future';
@@ -30,15 +30,18 @@ test('yüklenince metrik kartları ve son analizler tablosu görünür', async (
   expect(await screen.findByText('Toplam proje')).toBeInTheDocument();
   expect(screen.getByText('Devam eden analiz')).toBeInTheDocument();
   const table = screen.getByRole('table');
-  // 6 örnek analiz (#40 ile 3 DEMO analiz eklendi) + başlık satırı
+  // Sahte API'deki 6 analiz kaydı + başlık satırı
   expect(within(table).getAllByRole('row')).toHaveLength(7);
   expect(within(table).getByRole('link', { name: '#3' })).toHaveAttribute('href', '/analyses/3');
 });
 
-test('metrikler açıkça örnek veri olarak etiketlenir', async () => {
+// H5-03 / #41: metrikler artık API yanıtından hesaplanır; "Örnek veri" etiketi gerçek veriyi yanlış tanıtırdı.
+test('metrikler API verisinden hesaplanır ve örnek veri olarak etiketlenmez', async () => {
   renderOverview();
-  await screen.findByText('Toplam proje');
-  expect(screen.getAllByText(/örnek/i).length).toBeGreaterThan(0);
+  const metrics = await screen.findByRole('region', { name: 'Metrikler' });
+  expect(within(metrics).getByText('Toplam proje').nextElementSibling).toHaveTextContent('3');
+  expect(within(metrics).queryByText('Örnek veri')).not.toBeInTheDocument();
+  expect(vi.mocked(fetch).mock.calls.some(([url]) => String(url).includes('/api/projects/'))).toBe(true);
 });
 
 test('devam eden analiz için aşama şeridi görünür ve son düğüm "Tamamlandı"dır', async () => {
@@ -56,10 +59,11 @@ test('LLM yalnızca sağlayıcı olarak gösterilir, model kimliği yazılmaz', 
   expect(screen.queryByText(/ornek-model/)).not.toBeInTheDocument();
 });
 
-test('doğrulanmış bulgu FindingBadge ile gösterilir ve başarı tonu almaz', async () => {
+// H5-03 / #41: gerçek analiz kimliklerine örnek güvenlik bulgusu eşlenmez (sahte sonuç üretilmez).
+test('gerçek analiz satırlarına örnek güvenlik bulgusu eklenmez', async () => {
   renderOverview();
   const table = await screen.findByRole('table');
-  const badge = within(table).getByText('Doğrulanmış');
-  expect(badge).toHaveAttribute('data-tone', 'error');
-  expect(badge).not.toHaveAttribute('data-tone', 'pass');
+  expect(within(table).queryByText('Doğrulanmış')).not.toBeInTheDocument();
+  expect(within(table).queryByText(/Güvenlik bulgusu/)).not.toBeInTheDocument();
+  expect(screen.getByText('Tamamlanan analiz')).toBeInTheDocument();
 });

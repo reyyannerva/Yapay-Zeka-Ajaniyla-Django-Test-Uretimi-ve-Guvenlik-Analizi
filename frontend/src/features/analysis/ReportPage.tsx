@@ -17,6 +17,7 @@ import {
 import type { ReportFormat, ReportRecord, ReportSection, ReportStatus } from '../../types';
 import { EvaluationPanel } from './EvaluationPanel';
 import { useAnalysisContext, useEndpoints, useEvaluation, useGeneratedTests, useSecurityFindings } from './useAnalysisData';
+import { demoOnly } from './demoOnly';
 
 const DEFAULT_SECTIONS: ReportSection[] = ['ANALYSIS_SUMMARY', 'EXECUTION_RESULTS', 'SECURITY_FINDINGS'];
 
@@ -37,7 +38,7 @@ function downloadJson(content: unknown, fileName: string) {
   }
 }
 
-export function ReportPage({ delayMs }: { delayMs?: number }) {
+function ReportPageDemo({ delayMs }: { delayMs?: number }) {
   const { run } = useAnalysisContext();
   const evaluation = useEvaluation(run.id);
   const endpoints = useEndpoints(run.id);
@@ -246,3 +247,6 @@ export function ReportPage({ delayMs }: { delayMs?: number }) {
     </section>
   );
 }
+
+/** DEMO kaynağında H5-02 ekranı; gerçek analizde "servis bağlı değil" durumu (H5-03 / #41). */
+export const ReportPage = demoOnly(ReportPageDemo, 'Rapor üretimi');

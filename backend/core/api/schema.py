@@ -148,14 +148,30 @@ class MeSerializer(serializers.Serializer):
 LOCKOUT_DESCRIPTION = (
     "Hesap kilidi (django-axes, kullanıcı adı bazında): **3 başarısız denemeden sonra hesap 15 dakika "
     "kilitlenir**. Kilidi tetikleyen üçüncü başarısız deneme ve kilit süresince yapılan tüm denemeler "
-    "(doğru parolayla bile) **429** döner; yanıtta `Retry-After` başlığı **yoktur**. Kilit süresi dolunca "
+    "(doğru parolayla bile) **429** döner. Kilit yanıtı (H5-03 / #41) `code: account_locked`, kilit bitiş "
+    "zamanı `locked_until` (ISO 8601) ve kalan süre `retry_after_seconds` alanlarını ve aynı değerde "
+    "`Retry-After` başlığını içerir; kilit kararı sunucudadır. Kilit süresi dolunca "
     "giriş yeniden yapılabilir; başarılı giriş sayacı sıfırlar. Hatalı kullanıcı adı ile hatalı parola aynı "
     "401 yanıtını üretir (hesap varlığı ifşa edilmez). Ayrıca anonim giriş isteklerine istek sınırı "
-    "uygulanır (`LOGIN_THROTTLE_RATE`, varsayılan 10/dk); bu sınır aşıldığında da 429 döner ve bu durumda "
-    "`Retry-After` başlığı bulunur."
+    "uygulanır (`LOGIN_THROTTLE_RATE`, varsayılan 10/dk); bu sınır aşıldığında da 429 döner, ancak gövdede "
+    "`code: account_locked` bulunmaz (yalnızca `detail`) ve `Retry-After` başlığı eklenir."
 )
 EX_LOCKED = ex("Hesap kilitli", {"detail": "Çok fazla başarısız giriş denemesi. Hesap geçici olarak kilitlendi; "
-                                           "lütfen bir süre sonra tekrar deneyin."}, status=429)
+                                           "lütfen bir süre sonra tekrar deneyin.",
+                                 "code": "account_locked",
+                                 "locked_until": "2026-01-01T12:15:00+03:00",
+                                 "retry_after_seconds": 900}, status=429)
+
+
+class AccountLockedSerializer(serializers.Serializer):
+    """Hesap kilidi yanıtı (H5-03 / #41). İstek sınırı (throttle) 429'unda yalnızca ``detail`` döner."""
+
+    detail = serializers.CharField()
+    code = serializers.CharField(required=False, help_text="Kilitte `account_locked`; istek sınırında yok.")
+    locked_until = serializers.DateTimeField(required=False, allow_null=True,
+                                             help_text="Kilidin kalkacağı zaman (bilgi amaçlı).")
+    retry_after_seconds = serializers.IntegerField(required=False, allow_null=True,
+                                                   help_text="Kilidin kalkmasına kalan saniye (Retry-After ile aynı).")
 
 login_schema = extend_schema(
     tags=["Kimlik Doğrulama"], auth=[], operation_id="auth_login",
@@ -171,7 +187,7 @@ login_schema = extend_schema(
         401: OpenApiResponse(DetailErrorSerializer, description="Hatalı kullanıcı adı veya parola (ayrım yapılmaz).",
                              examples=[ex("Hatalı bilgiler", {"detail": "Verilen kimlik bilgileriyle aktif bir hesap "
                                                                         "bulunamadı"}, status=401)]),
-        429: OpenApiResponse(DetailErrorSerializer, description="Hesap kilitli veya giriş istek sınırı aşıldı.",
+        429: OpenApiResponse(AccountLockedSerializer, description="Hesap kilitli veya giriş istek sınırı aşıldı.",
                              examples=[EX_LOCKED]),
     },
 )

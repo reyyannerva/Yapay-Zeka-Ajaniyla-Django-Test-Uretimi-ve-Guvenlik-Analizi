@@ -11,7 +11,7 @@ export function useRouteProject() {
   const isValidId = Number.isInteger(id) && id > 0;
   const query = useQuery({
     queryKey: queryKeys.projects.detail(id),
-    queryFn: () => getProject(id),
+    queryFn: ({ signal }) => getProject(id, signal),
     enabled: isValidId,
     retry: false,
   });

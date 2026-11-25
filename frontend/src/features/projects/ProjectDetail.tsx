@@ -12,6 +12,10 @@ import { NEW_PROJECT_LINK_CLASSES } from './ProjectList';
 import { ProjectValidationBadge, formatDate } from './ProjectValidationBadge';
 import { isApiError } from '../../lib/api/client';
 import { Unauthorized } from '../status/Unauthorized';
+import { ErrorState } from '../../components/ui/ErrorState';
+import { errorMessage } from '../../lib/api/errors';
+import { ReferenceRequirementsCard } from '../requirements/ReferenceRequirementsCard';
+import { StartAnalysisCard } from './StartAnalysisCard';
 import { useRouteProject } from './useProject';
 
 function formatSize(bytes: number): string {
@@ -72,6 +76,10 @@ export function ProjectDetail() {
 
   // Gerçek 403: başkasının kaynağı → ekran 13. 404 (silinmiş/olmayan) aşağıda "Proje bulunamadı" kalır.
   if (isError && isApiError(error) && error.status === 403) return <Unauthorized />;
+  // Bağlantı/sunucu hatası "bulunamadı" ile karıştırılmaz.
+  if (isError && isApiError(error) && (error.status === 0 || error.status >= 500)) {
+    return <ErrorState title="Proje alınamadı" description={errorMessage(error)} />;
+  }
   if (!isValidId || isError) {
     return (
       <EmptyState
@@ -134,13 +142,9 @@ export function ProjectDetail() {
         <ValidationReport project={project} />
       </Card>
 
-      <Card className="flex flex-col gap-1">
-        <h2 className="font-display text-lg font-semibold">Analizler</h2>
-        <p className="text-sm text-muted">{`Bu proje için ${project.analysis_run_count} analiz çalıştırıldı.`}</p>
-        <Link to={`/analyses?project=${project.id}`} className="self-start text-sm font-medium text-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent">
-          Analizleri görüntüle
-        </Link>
-      </Card>
+      <StartAnalysisCard project={project} />
+
+      <ReferenceRequirementsCard projectId={project.id} />
 
       <DeleteConfirm
         open={confirmOpen}

@@ -20,6 +20,7 @@ import {
   useSecurityFindings,
   useTestResults,
 } from './useAnalysisData';
+import { demoOnly } from './demoOnly';
 
 const CLASS_ORDER: readonly SecurityFindingClassification[] = ['VERIFIED', 'POSSIBLE', 'UNCERTAIN'];
 const SEVERITY_ORDER: readonly Severity[] = ['HIGH', 'MEDIUM', 'LOW', 'UNKNOWN'];
@@ -64,7 +65,7 @@ function Fact({ label, children }: { label: string; children: React.ReactNode })
   );
 }
 
-export function FindingsPage() {
+function FindingsPageDemo() {
   const { run } = useAnalysisContext();
   const findings = useSecurityFindings(run.id);
   const endpoints = useEndpoints(run.id);
@@ -235,3 +236,6 @@ export function FindingsPage() {
     </section>
   );
 }
+
+/** DEMO kaynağında H5-02 ekranı; gerçek analizde "servis bağlı değil" durumu (H5-03 / #41). */
+export const FindingsPage = demoOnly(FindingsPageDemo, 'Güvenlik bulguları');

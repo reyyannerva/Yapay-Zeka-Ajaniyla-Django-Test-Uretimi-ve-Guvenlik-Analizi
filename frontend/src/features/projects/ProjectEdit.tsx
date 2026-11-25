@@ -32,7 +32,10 @@ function EditForm({ project }: { project: Project }) {
     setFormError(null);
     try {
       await updateProject(project.id, { name: values.name, description: values.description });
-      await queryClient.invalidateQueries({ queryKey: queryKeys.projects.all() });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: queryKeys.projects.all() }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.analysisRuns.all() }),
+      ]);
       toast.show('Proje güncellendi.', 'success');
       navigate(`/projects/${project.id}`);
     } catch (error) {

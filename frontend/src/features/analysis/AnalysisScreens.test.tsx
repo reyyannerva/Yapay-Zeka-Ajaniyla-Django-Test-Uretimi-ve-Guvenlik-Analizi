@@ -14,6 +14,7 @@ import { FindingsPage } from './FindingsPage';
 import { GeneratedTestsPage } from './GeneratedTestsPage';
 import { ReportPage } from './ReportPage';
 import { ResultsPage } from './ResultsPage';
+import { RunSummaryPage } from './RunSummaryPage';
 
 afterEach(() => {
   resetMockProjects();
@@ -28,8 +29,15 @@ function renderAt(path: string, opts: { intervalMs?: number } = {}) {
       <MemoryRouter initialEntries={[path]} future={ROUTER_FUTURE}>
         <Routes>
           <Route path="/dashboard" element={<Overview />} />
-          <Route path="/analyses" element={<AnalysisList />} />
-          <Route path="/analyses/:id" element={<AnalysisLayout />}>
+          <Route path="/analyses" element={<AnalysisList source="api" />} />
+          <Route path="/analyses/:id" element={<AnalysisLayout source="api" />}>
+            <Route index element={<Navigate to="summary" replace />} />
+            <Route path="summary" element={<RunSummaryPage />} />
+            <Route path="endpoints" element={<EndpointsPage />} />
+            <Route path="findings" element={<FindingsPage />} />
+          </Route>
+          <Route path="/demo/analyses" element={<AnalysisList source="demo" />} />
+          <Route path="/demo/analyses/:id" element={<AnalysisLayout source="demo" />}>
             <Route index element={<Navigate to="endpoints" replace />} />
             <Route path="endpoints" element={<EndpointsPage />} />
             <Route path="tests" element={<GeneratedTestsPage />} />
@@ -44,22 +52,46 @@ function renderAt(path: string, opts: { intervalMs?: number } = {}) {
 }
 
 describe('yönlendirme ve düzen', () => {
-  test('analiz listesi DEMO analizleri bağlantı olarak gösterir ve proje filtresi uygular', async () => {
+  test('gerçek analiz listesi API kayıtlarını bağlantı olarak gösterir ve proje filtresi uygular', async () => {
     renderAt('/analyses?project=2');
     const table = await screen.findByRole('table');
     expect(within(table).getByRole('link', { name: '#4' })).toHaveAttribute('href', '/analyses/4');
     expect(within(table).queryByRole('link', { name: '#1' })).not.toBeInTheDocument();
+    expect(screen.queryByText('DEMO')).not.toBeInTheDocument();
+    expect(vi.mocked(fetch).mock.calls.some(([url]) => String(url).endsWith('/api/analysis-runs/'))).toBe(true);
   });
 
-  test('genel bakıştaki analiz numarası detay sayfasına götürür', async () => {
+  test('DEMO listesi ayrı rotadadır, DEMO olarak etiketlidir ve API çağırmaz', async () => {
+    renderAt('/demo/analyses');
+    const table = await screen.findByRole('table');
+    expect(within(table).getByRole('link', { name: '#4' })).toHaveAttribute('href', '/demo/analyses/4');
+    expect(screen.getAllByText('DEMO').length).toBeGreaterThan(0);
+    expect(vi.mocked(fetch).mock.calls.some(([url]) => String(url).includes('/api/analysis-runs/'))).toBe(false);
+  });
+
+  test('genel bakıştaki analiz numarası gerçek analiz özetine götürür', async () => {
     renderAt('/dashboard');
     await userEvent.click(await screen.findByRole('link', { name: '#4' }));
     expect(await screen.findByRole('heading', { name: 'Analiz #4' })).toBeInTheDocument();
-    expect(await screen.findByRole('region', { name: 'Kaynak kod analizi' })).toBeInTheDocument();
+    expect(await screen.findByRole('region', { name: 'Analiz özeti' })).toBeInTheDocument();
+  });
+
+  test('gerçek analizde sonuç sekmeleri örnek veri göstermez; servis bağlı değil durumu görünür', async () => {
+    renderAt('/analyses/4/endpoints');
+    expect(await screen.findByText('Kaynak kod analizi sonuçları henüz bağlı değil')).toBeInTheDocument();
+    expect(screen.queryByText('/api/orders/')).not.toBeInTheDocument();
+    expect(screen.queryByText(/DEMO akışı/)).not.toBeInTheDocument();
+  });
+
+  test('gerçek analiz özeti yalnızca backend alanlarını gösterir', async () => {
+    renderAt('/analyses/1/summary');
+    const summary = await screen.findByRole('region', { name: 'Analiz özeti' });
+    expect(within(summary).getByText('Henüz yürütme kaydı yok')).toBeInTheDocument();
+    expect(within(summary).getByText(/SANDBOX_START_FAILED|GEMINI|Gemini/)).toBeInTheDocument();
   });
 
   test('sekmeler arasında gezinilir; DEMO etiketi görünür', async () => {
-    renderAt('/analyses/4');
+    renderAt('/demo/analyses/4');
     await screen.findByRole('heading', { name: 'Analiz #4' });
     expect(screen.getAllByText(/DEMO/).length).toBeGreaterThan(0);
     const tabs = screen.getByRole('navigation', { name: 'Analiz bölümleri' });
@@ -75,7 +107,7 @@ describe('yönlendirme ve düzen', () => {
   });
 
   test('analiz aşaması (AnalysisRun) test durumlarından ayrı gösterilir', async () => {
-    renderAt('/analyses/6/endpoints');
+    renderAt('/demo/analyses/6/endpoints');
     expect(await screen.findByRole('list', { name: 'Analiz aşamaları' })).toBeInTheDocument();
     expect(screen.getAllByText(/SANDBOX|sandbox/).length).toBeGreaterThan(0);
   });
@@ -83,7 +115,7 @@ describe('yönlendirme ve düzen', () => {
 
 describe('kaynak kod analizi', () => {
   test('metot filtresi, arama, kimlik doğrulama filtresi ve temizleme', async () => {
-    renderAt('/analyses/4/endpoints');
+    renderAt('/demo/analyses/4/endpoints');
     const region = await screen.findByRole('region', { name: 'Kaynak kod analizi' });
     const methods = within(region).getByRole('group', { name: 'HTTP metodu' });
     expect(within(region).getByText('10 / 10 endpoint gösteriliyor')).toBeInTheDocument();
@@ -102,7 +134,7 @@ describe('kaynak kod analizi', () => {
   });
 
   test('eşleşme yoksa boş filtre durumu ve temizleme eylemi', async () => {
-    renderAt('/analyses/4/endpoints');
+    renderAt('/demo/analyses/4/endpoints');
     const region = await screen.findByRole('region', { name: 'Kaynak kod analizi' });
     await userEvent.type(within(region).getByLabelText('Endpoint veya view ara'), 'olmayan-yol');
     expect(within(region).getByText('Filtrelerle eşleşen endpoint yok')).toBeInTheDocument();
@@ -112,14 +144,14 @@ describe('kaynak kod analizi', () => {
   });
 
   test('analiz öncesi boş durum', async () => {
-    renderAt('/analyses/3/endpoints');
+    renderAt('/demo/analyses/3/endpoints');
     expect(await screen.findByText('Kaynak kod analizi henüz tamamlanmadı')).toBeInTheDocument();
   });
 });
 
 describe('Pytest üretimi', () => {
   test('kural tabanlı ve LLM testleri ayrılır; fallback ve doğrulama bilgisi gösterilir', async () => {
-    renderAt('/analyses/4/tests');
+    renderAt('/demo/analyses/4/tests');
     const region = await screen.findByRole('region', { name: 'Otomatik Pytest üretimi' });
     const list = within(region).getByRole('list', { name: 'Üretilen testler' });
     const first = within(list).getAllByRole('button')[0]!;
@@ -136,7 +168,7 @@ describe('Pytest üretimi', () => {
   });
 
   test('LLM testinde fallback bilgisi yalnızca metadata bildiriyorsa gösterilir', async () => {
-    renderAt('/analyses/6/tests');
+    renderAt('/demo/analyses/6/tests');
     const region = await screen.findByRole('region', { name: 'Otomatik Pytest üretimi' });
     expect(within(region).getByTestId('model-info')).toHaveTextContent('backend tarafından döndürülmedi');
     expect(within(region).queryByText('Fallback kullanıldı')).not.toBeInTheDocument();
@@ -145,7 +177,7 @@ describe('Pytest üretimi', () => {
 
 describe('güvenlik bulguları', () => {
   test('doğrulama sınıfı ve önem derecesi ayrı; VERIFIED başarı tonu almaz', async () => {
-    renderAt('/analyses/4/findings');
+    renderAt('/demo/analyses/4/findings');
     const region = await screen.findByRole('region', { name: 'Güvenlik bulguları' });
     const detail = within(region).getByRole('region', { name: 'Bulgu ayrıntısı' });
     expect(within(detail).getByText('Doğrulanmış')).not.toHaveAttribute('data-tone', 'pass');
@@ -155,7 +187,7 @@ describe('güvenlik bulguları', () => {
   });
 
   test('sınıf filtresi ve kanıt/öneri olmayan bulgu', async () => {
-    renderAt('/analyses/4/findings');
+    renderAt('/demo/analyses/4/findings');
     const region = await screen.findByRole('region', { name: 'Güvenlik bulguları' });
     await userEvent.selectOptions(within(region).getByLabelText('Doğrulama sınıfı'), 'UNCERTAIN');
     const detail = within(region).getByRole('region', { name: 'Bulgu ayrıntısı' });
@@ -165,7 +197,7 @@ describe('güvenlik bulguları', () => {
   });
 
   test('bulgu yoksa "güvenli" denmez', async () => {
-    renderAt('/analyses/5/findings');
+    renderAt('/demo/analyses/5/findings');
     expect(await screen.findByText('Güvenlik bulgusu bulunmadı')).toBeInTheDocument();
     expect(screen.getByText(/güvenli olduğu anlamına gelmez/)).toBeInTheDocument();
   });
@@ -174,7 +206,7 @@ describe('güvenlik bulguları', () => {
 describe('test sonuçları', () => {
   test('canlı ilerleme: tamamlanan/toplam, yüzde, tahmini süre ve canlı çıktı güncellenir', async () => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
-    renderAt('/analyses/2/results', { intervalMs: 50 });
+    renderAt('/demo/analyses/2/results', { intervalMs: 50 });
     const summary = await screen.findByTestId('progress-summary');
     expect(summary).toHaveTextContent('4 / 10 test tamamlandı · 1 çalışıyor · 5 bekliyor');
     expect(screen.getByTestId('progress-percent')).toHaveTextContent('%40');
@@ -200,14 +232,14 @@ describe('test sonuçları', () => {
   test('sayfadan ayrılınca canlı akış zamanlayıcısı temizlenir', async () => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
     const clearSpy = vi.spyOn(globalThis, 'clearInterval');
-    const view = renderAt('/analyses/2/results', { intervalMs: 50 });
+    const view = renderAt('/demo/analyses/2/results', { intervalMs: 50 });
     await screen.findByTestId('progress-summary');
     view.unmount();
     expect(clearSpy).toHaveBeenCalled();
   });
 
   test('PASS, FAIL, ERROR, TIMEOUT ve NOT_RUN ayrı gösterilir; satır çıktısı açılır', async () => {
-    renderAt('/analyses/4/results');
+    renderAt('/demo/analyses/4/results');
     const table = await screen.findByRole('table');
     for (const s of ['PASS', 'FAIL', 'ERROR', 'TIMEOUT', 'NOT_RUN']) {
       expect(table.querySelector(`[data-status="${s}"]`)).not.toBeNull();
@@ -222,12 +254,12 @@ describe('test sonuçları', () => {
   });
 
   test('başarısız analizde kısmi sonuç uyarısı gösterilir', async () => {
-    renderAt('/analyses/6/results');
+    renderAt('/demo/analyses/6/results');
     expect(await screen.findByText(/Kısmi sonuç: analiz tamamlanmadan durdu/)).toBeInTheDocument();
   });
 
   test('yürütme öncesi boş durum', async () => {
-    renderAt('/analyses/3/results');
+    renderAt('/demo/analyses/3/results');
     expect(await screen.findByText('Testler henüz çalıştırılmadı')).toBeInTheDocument();
   });
 });
@@ -239,7 +271,7 @@ describe('raporlama ve metrikler', () => {
     Object.assign(URL, { createObjectURL: createUrl, revokeObjectURL: revokeUrl });
     const click = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
 
-    renderAt('/analyses/4/report');
+    renderAt('/demo/analyses/4/report');
     const region = await screen.findByRole('region', { name: 'Raporlama' });
     expect(within(region).getByTestId('selected-sections').querySelectorAll('li')).toHaveLength(3);
 
@@ -260,7 +292,7 @@ describe('raporlama ve metrikler', () => {
   });
 
   test('PDF hazır olduğunda sahte PDF üretilmez', async () => {
-    renderAt('/analyses/4/report');
+    renderAt('/demo/analyses/4/report');
     const region = await screen.findByRole('region', { name: 'Raporlama' });
     fireEvent.click(within(region).getByRole('button', { name: 'PDF raporu hazırla' }));
     const ready = await within(region).findByTestId('report-ready');
@@ -270,7 +302,7 @@ describe('raporlama ve metrikler', () => {
   });
 
   test('rapor hatası ve kısmi kapsam', async () => {
-    renderAt('/analyses/6/report');
+    renderAt('/demo/analyses/6/report');
     const region = await screen.findByRole('region', { name: 'Raporlama' });
     expect(within(region).getByText(/kısmi \(PARTIAL\)/)).toBeInTheDocument();
     await userEvent.click(within(region).getByRole('button', { name: 'PDF raporu hazırla' }));
@@ -278,7 +310,7 @@ describe('raporlama ve metrikler', () => {
   });
 
   test('ground truth yoksa metrik üretilmez ve metrik bölümü seçilemez', async () => {
-    renderAt('/analyses/5/report');
+    renderAt('/demo/analyses/5/report');
     const region = await screen.findByRole('region', { name: 'Raporlama' });
     expect(within(region).getByTestId('no-ground-truth')).toBeInTheDocument();
     expect(within(region).getByRole('checkbox', { name: /Değerlendirme metrikleri/ })).toBeDisabled();
@@ -286,7 +318,7 @@ describe('raporlama ve metrikler', () => {
   });
 
   test('metrikler TP/FP/FN ile hesaplanır ve PASS/FAIL ile karışmaz', async () => {
-    renderAt('/analyses/4/report');
+    renderAt('/demo/analyses/4/report');
     const metrics = await screen.findByRole('region', { name: 'Değerlendirme metrikleri' });
     expect(within(metrics).getByText('TP (doğru pozitif)')).toBeInTheDocument();
     expect(within(metrics).getAllByText('0,75').length).toBe(3);
@@ -295,12 +327,12 @@ describe('raporlama ve metrikler', () => {
   });
 
   test('yürütme sürerken rapor hazırlanamaz', async () => {
-    renderAt('/analyses/2/report');
+    renderAt('/demo/analyses/2/report');
     expect(await screen.findByText('Rapor henüz hazırlanamaz')).toBeInTheDocument();
   });
 
   test('veri yoksa "veri bulunmuyor" durumu', async () => {
-    renderAt('/analyses/1/report');
+    renderAt('/demo/analyses/1/report');
     expect(await screen.findByText('Rapora konacak veri bulunmuyor')).toBeInTheDocument();
   });
 });

@@ -43,7 +43,7 @@ export function ProjectList() {
   const [page, setPage] = useState(1);
   const { data, isLoading, isError } = useQuery({
     queryKey: queryKeys.projects.list({ page, page_size: PAGE_SIZE }),
-    queryFn: () => listProjects({ page, page_size: PAGE_SIZE }),
+    queryFn: ({ signal }) => listProjects({ page, page_size: PAGE_SIZE }, signal),
   });
 
   return (

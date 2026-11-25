@@ -13,6 +13,7 @@ import { Spinner } from '../../components/ui/Spinner';
 import { UNSUPPORTED_REASON_LABEL } from '../../lib/analysis-labels';
 import type { AnalysisRunStatus, EndpointAnalysis, HttpMethod } from '../../types';
 import { useAnalysisContext, useEndpoints } from './useAnalysisData';
+import { demoOnly } from './demoOnly';
 
 export const HTTP_METHODS: readonly HttpMethod[] = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
@@ -90,7 +91,7 @@ const COLUMNS: readonly DataTableColumn<EndpointAnalysis>[] = [
 
 const BEFORE_ANALYSIS: readonly AnalysisRunStatus[] = ['QUEUED', 'ANALYZING'];
 
-export function EndpointsPage() {
+function EndpointsPageDemo() {
   const { run } = useAnalysisContext();
   const endpoints = useEndpoints(run.id);
   const [filters, setFilters] = useState<EndpointFilters>(EMPTY_FILTERS);
@@ -214,3 +215,6 @@ export function EndpointsPage() {
     </section>
   );
 }
+
+/** DEMO kaynağında H5-02 ekranı; gerçek analizde "servis bağlı değil" durumu (H5-03 / #41). */
+export const EndpointsPage = demoOnly(EndpointsPageDemo, 'Kaynak kod analizi sonuçları');

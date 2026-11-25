@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { z } from 'zod';
@@ -34,8 +34,14 @@ export function ResetPassword() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const toast = useToast();
-  const uid = params.get('uid');
-  const token = params.get('token');
+  // Bağlantıdaki uid/token bir kez okunur ve adres çubuğundan/geçmişten silinir (H5-03 / #41):
+  // token tarayıcı geçmişinde, ekran görüntülerinde veya Referer başlığında kalmaz.
+  const [link] = useState(() => ({ uid: params.get('uid'), token: params.get('token') }));
+  const { uid, token } = link;
+  const hasQuery = params.has('uid') || params.has('token');
+  useEffect(() => {
+    if (hasQuery) navigate('/reset-password', { replace: true });
+  }, [hasQuery, navigate]);
   const [formError, setFormError] = useState<string | null>(null);
   const {
     register,

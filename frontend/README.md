@@ -1,4 +1,4 @@
-# Frontend (Hafta 5 — #39 frontend temeli, #40 analiz ve sonuç ekranları)
+# Frontend (Hafta 5 — #39 frontend temeli, #40 analiz ve sonuç ekranları, #41 gerçek API entegrasyonu)
 
 React 18 + TypeScript + Vite + Tailwind CSS tabanlı arayüz temeli. Bu pakette giriş / şifre
 sıfırlama / oturum sonu, genel bakış (dashboard), proje yönetimi (liste, detay, yükleme,
@@ -6,10 +6,13 @@ düzenleme, silme), profil ve durum ekranları (yetkisiz, bulunamadı) bulunur. 
 listesi ve analiz detayı (kaynak kod analizi, üretilen testler, test sonuçları, güvenlik
 bulguları, rapor) eklenmiştir.
 
-> **Mock veri uyarısı:** Bu arayüz henüz gerçek API'ye bağlı değildir. Ekranlarda görünen
-> **tüm değerler (kullanıcı, projeler, analiz çalıştırmaları, sayılar, tarihler) örnektir**;
-> gerçek bir analiz sonucunu veya metriği temsil etmez. Mock katmanı `src/lib/api/` altındadır
-> (`auth.ts`, `projects.ts`, `analysis-runs.ts`, `mock/`). Gerçek HTTP/JWT entegrasyonu **#41**'dedir.
+> **Gerçek API (H5-03 / #41):** Giriş, token yenileme, çıkış, hesap kilidi, şifre sıfırlama, proje
+> CRUD (multipart yükleme dahil), analiz kaydı (oluşturma/listeleme/detay) ve referans gereksinim
+> JSON işlemleri gerçek Django/DRF API'sine bağlıdır; veriler PostgreSQL'de saklanır. Ortak istemci
+> `src/lib/api/client.ts`, oturum `src/lib/auth-context.tsx` ve `src/lib/api/token-store.ts`.
+> Analiz **sonuç** ekranları (endpoint, Pytest, test yürütme, bulgu, rapor) için backend servisi henüz
+> yoktur; bunlar yalnızca `/demo/analyses` altında açıkça **DEMO** etiketli prototip olarak durur ve
+> gerçek kayıtlarla karıştırılmaz. Kurulum ve ayrıntı: [`docs/integration/h5-03/README.md`](../docs/integration/h5-03/README.md).
 
 ## Gereksinimler
 
@@ -20,6 +23,7 @@ bulguları, rapor) eklenmiştir.
 ```bash
 cd frontend
 npm install
+cp .env.example .env   # VITE_API_BASE_URL: Django API adresi (gizli değer içermez)
 ```
 
 ## Çalıştırma (geliştirme)
@@ -28,14 +32,14 @@ npm install
 npm run dev
 ```
 
-Vite geliştirme sunucusu başlar (varsayılan: <http://localhost:5173>). Mock girişte herhangi bir
-kullanıcı adı/parola kabul edilir; yalnızca `yanlis-parola` parolası hatalı kimlik ve (3. denemede)
-hesap kilidi senaryosunu tetikler. Şifre sıfırlama onayında `gecersiz-token` değeri geçersiz token
-senaryosudur.
+Vite geliştirme sunucusu başlar (varsayılan: <http://localhost:5173>). Arayüz çalışan bir Django
+backend'i (`VITE_API_BASE_URL`, varsayılan `http://localhost:8000`) ve gerçek kullanıcı hesabı
+gerektirir; backend'e ulaşılamazsa kullanıcıya bağlantı hatası gösterilir (örnek veriye geçilmez).
 
 Başlıca rotalar: `/login`, `/forgot-password`, `/reset-password`, `/session-expired`,
 `/dashboard`, `/projects`, `/projects/new`, `/projects/:id`, `/projects/:id/edit`, `/profile`,
-`/forbidden`, `/analyses`, `/analyses/:id/{endpoints,tests,results,findings,report}`.
+`/forbidden`, `/analyses`, `/analyses/:id/summary` (gerçek kayıt), `/demo/analyses`,
+`/demo/analyses/:id/{endpoints,tests,results,findings,report}` (DEMO prototip).
 
 ## Test
 
@@ -43,6 +47,10 @@ Başlıca rotalar: `/login`, `/forgot-password`, `/reset-password`, `/session-ex
 npm run test        # vitest run (jsdom + Testing Library)
 npm run typecheck   # tsc --noEmit
 ```
+
+Birim/bileşen testleri gerçek istemci ve servis kodunu çalıştırır; yalnızca `fetch`, Django/DRF
+sözleşmesini taklit eden bellek içi sahte backend'e (`src/test/fake-api.ts`) yönlendirilir. Bu testler
+gerçek backend/PostgreSQL kanıtı değildir; gerçek uçtan uca testler `e2e/h5-03/` altındadır.
 
 ## Üretim derlemesi
 
@@ -97,13 +105,14 @@ bunlardan ayrı tutulur.
 
 ## Analiz ve sonuç ekranları (#40)
 
-> **DEMO veri:** Analiz ekranlarındaki endpoint, test, sonuç, bulgu ve metrik değerlerinin tamamı
-> `src/lib/api/mock/analysis-results.ts` içindeki **örnek** verilerdir; her ekranda "DEMO"
-> etiketiyle belirtilir. Gerçek analiz, sandbox yürütmesi veya tarama sonucu değildir.
+> **DEMO veri:** Aşağıdaki sonuç ekranlarının endpoint, test, sonuç, bulgu ve metrik değerlerinin
+> tamamı `src/lib/api/mock/analysis-results.ts` içindeki **örnek** verilerdir ve yalnızca
+> `/demo/analyses` altında, "DEMO" etiketiyle gösterilir (#41 ile gerçek kayıtlardan ayrıldı).
+> Gerçek bir analiz kaydı (`/analyses/:id`) bu sekmelerde "henüz bağlı değil" durumunu gösterir.
 
 | Rota | Ekran | İçerik |
 | --- | --- | --- |
-| `/analyses` | Analiz listesi | Tüm analizler; `?project=<id>` ile projeye göre süzülür |
+| `/demo/analyses` | DEMO analiz listesi | Örnek analizler; `?project=<id>` ile süzülür |
 | `/analyses/:id/endpoints` | Kaynak kod analizi | GET/POST/PUT/PATCH/DELETE filtresi, arama, kimlik doğrulama / izin / kapsam filtreleri, filtre temizleme, boş sonuç durumu |
 | `/analyses/:id/tests` | Pytest üretimi | Kural tabanlı / LLM ayrımı (analiz yöntemi: kural, LLM, hibrit), kod önizleme + kopyalama, doğrulama durumu, sağlayıcı / model / fallback bilgisi |
 | `/analyses/:id/results` | Test sonuçları | PENDING, RUNNING, PASS, FAIL, ERROR, TIMEOUT (+ NOT_RUN/STOPPED) ayrı; canlı ilerleme (tamamlanan/toplam, yüzde, **tahmini** kalan süre), canlı çıktı, durum dağılımı grafiği |
@@ -123,10 +132,12 @@ bunlardan ayrı tutulur.
 - JSON indirme DEMO içeriktir; blob URL'si hemen serbest bırakılır. PDF dosyası frontend'de
   üretilmez, backend rapor servisine (#41 sonrası) bırakılmıştır.
 
-**API hazırlığı:** Ekranlar yalnızca `src/lib/api/analysis-results.ts` fonksiyonlarını çağırır
+(Tablodaki `/analyses/:id/...` sekmeleri DEMO kaynağında `/demo/analyses/:id/...` adresindedir.)
+
+**API hazırlığı:** Sonuç ekranları yalnızca `src/lib/api/analysis-results.ts` fonksiyonlarını çağırır
 (`listEndpoints`, `listGeneratedTests`, `listTestResults`, `listSecurityFindings`,
-`getEvaluation`, `subscribeExecution`, `prepareReport`). Gerçek entegrasyonda (#41) yalnızca bu
-fonksiyonların gövdeleri değişir; mock veri `mock/` klasöründe ayrı tutulur.
+`getEvaluation`, `subscribeExecution`, `prepareReport`). İlgili backend uç noktaları eklendiğinde
+yalnızca bu fonksiyonların gövdeleri değişir.
 
 **Ekran görüntüleri:** Playwright ile 1440 px (mobil: 390 px) genişlikte alınmıştır;
 `docs/mockup/h5-02/` altındadır. Tarayıcı kontrolü 1440 / 1280 / 1024 / 768 / 390 px'de yatay
@@ -134,11 +145,10 @@ taşma ve konsol hatası olmadan geçmiştir.
 
 ## Kapsam sınırları
 
-Bu paket **#39 (frontend temeli)** ve **#40 (analiz, test üretimi ve sonuç ekranları)**
-kapsamındadır. Kapsam dışı:
+Bu paket **#39**, **#40** ve **#41 (gerçek API entegrasyonu)** kapsamındadır. Kapsam dışı:
 
-- **#41** — Gerçek HTTP/JWT ve analiz API entegrasyonu, token saklama, 401/refresh akışı,
-  gerçek PDF indirme. Şu an tüm veri mock/DEMO.
-- "Yeni analiz" sihirbazı, analiz ayarları ve referans gereksinim ekranları.
+- Analiz sonuçları (endpoint, Pytest, yürütme, bulgu, metrik) ve gerçek PDF/JSON rapor uç noktaları:
+  backend'de henüz yok; ekranlar DEMO prototip olarak kalır.
+- Oturum içi parola değiştirme: backend uç noktası yok; profil ekranı e-posta ile sıfırlamaya yönlendirir.
 - Kenar menüsündeki "Raporlar" sayfası (rapor işlemleri analiz detayındaki "Rapor" sekmesindedir).
 - Figma dosyasının J kimliğine güncellenmesi (hoca onayına bağlı, ayrı iş).
