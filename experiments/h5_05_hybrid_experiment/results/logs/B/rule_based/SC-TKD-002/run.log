@@ -5,4 +5,4 @@ _______________________ test_sc_tkd_002_delete_user_403 ________________________
 WARNING  django.request:log.py:293 Forbidden: /api/tasks/1/
 =========================== short test summary info ============================
 PASSED test_sc_tkd_002.py::test_sc_tkd_002_delete_user_403
-1 passed in 0.11s
+1 passed in 0.15s

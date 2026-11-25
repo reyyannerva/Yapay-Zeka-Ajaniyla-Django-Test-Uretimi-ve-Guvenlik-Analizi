@@ -18,7 +18,7 @@
     "pytest": "9.2.0",
     "platform": "Linux",
     "executable_isolation": "senaryo başına geçici dizin + ayrı pytest süreci",
-    "timestamp_utc": "2026-11-25T22:11:31+00:00"
+    "timestamp_utc": "2026-11-25T22:29:30+00:00"
   },
   "layers": {
     "A": {
@@ -43,18 +43,23 @@
         "scenarios": 20,
         "rule_based_candidates": 20,
         "llm_candidates": 20,
-        "duplicates": 20,
+        "duplicates": 19,
         "conflicts_resolved": 0,
         "conflicts_unresolved": 0,
         "final_tests": 20,
-        "final_from_rule_based": 20,
+        "final_from_rule_based": 19,
         "final_from_llm": 0,
+        "final_merged_rule_and_llm": 1,
+        "code_identical_pairs": 0,
+        "semantic_key_equal_pairs": 20,
         "provenance": {
-          "common": 20
+          "common": 19,
+          "merged": 1
         },
-        "common": 20,
+        "common": 19,
         "rule_only": 0,
-        "llm_only": 0
+        "llm_only": 0,
+        "merged": 1
       },
       "methods": {
         "rule_based": {
@@ -358,8 +363,8 @@
             }
           },
           "test_level": {
-            "tests": 20,
-            "executable": 20,
+            "tests": 21,
+            "executable": 21,
             "value": 1.0,
             "exact": "1/1",
             "display": "1.0000"
@@ -403,28 +408,32 @@
         "PATCH": 6,
         "DELETE": 3
       },
-      "llm_status": "BLOCKED",
-      "llm_note": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz.",
+      "llm_status": "GENERATED",
+      "llm_note": "H5-05 Katman B için yeni (arşiv olmayan) Groq koşusu; destek conftest fixture listesi Katman B hedefine uyarlandı (layer_b_inputs.write_llm_harness), LLM kodu değiştirilmedi.",
       "comparability": {
-        "comparable": false,
-        "reason": "yöntem sonucu eksik: ['llm']"
+        "comparable": true,
+        "reason": "aynı senaryolar ve aynı girdi özetleri"
       },
       "hybrid": {
         "scenarios": 17,
         "rule_based_candidates": 17,
-        "llm_candidates": 0,
-        "duplicates": 0,
+        "llm_candidates": 17,
+        "duplicates": 17,
         "conflicts_resolved": 0,
         "conflicts_unresolved": 0,
         "final_tests": 17,
         "final_from_rule_based": 17,
         "final_from_llm": 0,
+        "final_merged_rule_and_llm": 0,
+        "code_identical_pairs": 0,
+        "semantic_key_equal_pairs": 17,
         "provenance": {
-          "rule_only": 17
+          "common": 17
         },
-        "common": 0,
-        "rule_only": 17,
-        "llm_only": 0
+        "common": 17,
+        "rule_only": 0,
+        "llm_only": 0,
+        "merged": 0
       },
       "methods": {
         "rule_based": {
@@ -547,19 +556,19 @@
           }
         },
         "llm": {
-          "scenarios": 0,
-          "positives": 0,
-          "negatives": 0,
+          "scenarios": 17,
+          "positives": 3,
+          "negatives": 14,
           "confusion": {
-            "TP": 0,
+            "TP": 3,
             "FP": 0,
-            "TN": 0,
+            "TN": 14,
             "FN": 0,
             "EXCLUDED": 0
           },
           "outcomes": {
-            "PASS": 0,
-            "FAIL": 0,
+            "PASS": 14,
+            "FAIL": 3,
             "NO_ARTIFACT": 0,
             "DUPLICATE_ARTIFACT": 0,
             "SYNTAX_INVALID": 0,
@@ -569,131 +578,100 @@
             "ERROR": 0,
             "ENVIRONMENT_ERROR": 0
           },
-          "pytest_summary": {},
+          "pytest_summary": {
+            "PASS": 14,
+            "FAIL": 3
+          },
           "syntax_valid": {
-            "count": 0,
-            "of": 0,
-            "value": null,
-            "exact": null,
-            "display": "Ölçülemedi"
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
           },
           "collected": {
-            "count": 0,
-            "of": 0,
-            "value": null,
-            "exact": null,
-            "display": "Ölçülemedi"
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
           },
           "first_pass_executable": {
-            "count": 0,
-            "of": 0,
-            "value": null,
-            "exact": null,
-            "display": "Ölçülemedi"
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
           },
           "precision": {
-            "value": null,
-            "exact": null,
-            "display": "Ölçülemedi"
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
           },
           "recall": {
-            "value": null,
-            "exact": null,
-            "display": "Ölçülemedi"
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
           },
           "f1": {
-            "value": null,
-            "exact": null,
-            "display": "Ölçülemedi"
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
           },
           "targets": {
-            "f1_gte_0_80": null,
-            "first_pass_executable_gte_0_70": null
+            "f1_gte_0_80": true,
+            "first_pass_executable_gte_0_70": true
           },
-          "by_method": {},
-          "test_level": {
-            "tests": 0,
-            "executable": 0,
-            "value": null,
-            "exact": null,
-            "display": "Ölçülemedi"
-          },
-          "attempted": false,
-          "excluded": [
-            {
-              "scenario_id": "SC-TKL-001",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+          "by_method": {
+            "DELETE": {
+              "FAIL": 1,
+              "PASS": 2,
+              "TN": 2,
+              "TP": 1,
+              "scenarios": 3
             },
-            {
-              "scenario_id": "SC-TKL-002",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+            "GET": {
+              "PASS": 3,
+              "TN": 3,
+              "scenarios": 3
             },
-            {
-              "scenario_id": "SC-TKC-001",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+            "PATCH": {
+              "FAIL": 1,
+              "PASS": 5,
+              "TN": 5,
+              "TP": 1,
+              "scenarios": 6
             },
-            {
-              "scenario_id": "SC-TKC-002",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+            "POST": {
+              "PASS": 2,
+              "TN": 2,
+              "scenarios": 2
             },
-            {
-              "scenario_id": "SC-TKU-001",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
-            },
-            {
-              "scenario_id": "SC-TKU-002",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
-            },
-            {
-              "scenario_id": "SC-TKP-001",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
-            },
-            {
-              "scenario_id": "SC-TKP-002",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
-            },
-            {
-              "scenario_id": "SC-TKP-003",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
-            },
-            {
-              "scenario_id": "SC-TKP-004",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
-            },
-            {
-              "scenario_id": "SC-TKD-001",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
-            },
-            {
-              "scenario_id": "SC-TKD-002",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
-            },
-            {
-              "scenario_id": "SC-TKX-001",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
-            },
-            {
-              "scenario_id": "SC-TKX-002",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
-            },
-            {
-              "scenario_id": "SC-TKX-003",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
-            },
-            {
-              "scenario_id": "SC-TKX-004",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
-            },
-            {
-              "scenario_id": "SC-TKX-005",
-              "reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+            "PUT": {
+              "FAIL": 1,
+              "PASS": 2,
+              "TN": 2,
+              "TP": 1,
+              "scenarios": 3
             }
-          ],
-          "status5": {},
+          },
+          "test_level": {
+            "tests": 17,
+            "executable": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "attempted": true,
+          "excluded": [],
+          "status5": {
+            "PASS": 14,
+            "FAIL": 3
+          },
           "not_run_reasons": {},
           "target_status": {
-            "f1_gte_0_80": "Karşılaştırılamadı",
-            "first_pass_executable_gte_0_70": "Karşılaştırılamadı"
+            "f1_gte_0_80": "Karşılandı",
+            "first_pass_executable_gte_0_70": "Karşılandı"
           }
         },
         "hybrid": {

@@ -24,6 +24,30 @@
    "xfail": false,
    "exc_type": null,
    "message": ""
+  },
+  {
+   "nodeid": "test_sc_lst_001.py::test_sc_lst_001__llm",
+   "when": "setup",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  },
+  {
+   "nodeid": "test_sc_lst_001.py::test_sc_lst_001__llm",
+   "when": "call",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  },
+  {
+   "nodeid": "test_sc_lst_001.py::test_sc_lst_001__llm",
+   "when": "teardown",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
   }
  ]
 }

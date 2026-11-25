@@ -3,7 +3,7 @@ F                                                                        [100%]
 _________________________ test_sc_tkx_001_put_user_403 _________________________
 
 seeded_db = None
-api_client = <rest_framework.test.APIClient object at 0x7f45f9f197f0>
+api_client = <rest_framework.test.APIClient object at 0x7fa094b197f0>
 
     def test_sc_tkx_001_put_user_403(seeded_db, api_client):
         """SC-TKX-001 · PUT /api/legacy/tasks/1/ · user (mehmet; fixture ilişkisi: sahip_olmayan) · beklenen 403
@@ -25,4 +25,4 @@ E        +  where 200 = <Response status_code=200, "application/json">.status_co
 test_sc_tkx_001.py:20: AssertionError
 =========================== short test summary info ============================
 FAILED test_sc_tkx_001.py::test_sc_tkx_001_put_user_403 - AssertionError: [H3...
-1 failed in 0.12s
+1 failed in 0.16s

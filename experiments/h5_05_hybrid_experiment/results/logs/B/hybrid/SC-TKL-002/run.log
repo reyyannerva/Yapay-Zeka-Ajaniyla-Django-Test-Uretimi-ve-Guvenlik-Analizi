@@ -5,4 +5,4 @@ ______________________ test_sc_tkl_002_get_anonymous_401 _______________________
 WARNING  django.request:log.py:293 Unauthorized: /api/tasks/
 =========================== short test summary info ============================
 PASSED test_sc_tkl_002.py::test_sc_tkl_002_get_anonymous_401
-1 passed in 0.13s
+1 passed in 0.11s

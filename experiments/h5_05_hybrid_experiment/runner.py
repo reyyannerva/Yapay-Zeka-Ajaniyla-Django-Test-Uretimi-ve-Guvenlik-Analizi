@@ -79,10 +79,11 @@ def _layer_b() -> dict:
     scen = {s["id"]: s for s in mf.load_json(C.LAYER_B_INPUTS / "scenarios.json")["scenarios"]}
     llm_report = C.LAYER_B_LLM / "reports" / "generation_report.json"
     if llm_report.exists():  # gerçek Groq üretimi yapıldıysa (bkz. rapor §15) — arşiv değil, bu katmanın yeni koşusu
+        layer_b_inputs.write_llm_harness()
         summ = mf.load_json(llm_report)["summary"]
         llm_cands = llm_artifacts(ids, base=C.LAYER_B_LLM)
         llm_info = {"status": "GENERATED", "model_id": summ["model"], "prompt_version": summ["prompt_version"],
-                    "source": mf.rel(C.LAYER_B_LLM / "raw_responses"), "note": "H5-05 Katman B için yeni Groq koşusu."}
+                    "source": mf.rel(C.LAYER_B_LLM / "raw_responses"), "note": ("H5-05 Katman B için yeni (arşiv olmayan) Groq koşusu; destek conftest fixture listesi Katman B hedefine uyarlandı (layer_b_inputs.write_llm_harness), LLM kodu değiştirilmedi.")}
     else:
         llm_cands = {i: [] for i in ids}
         llm_info = {"status": "BLOCKED", "model_id": None, "prompt_version": "pytest_v1",
@@ -199,7 +200,8 @@ def execute(layer: dict, method: str, artifacts: dict[str, list[Artifact]], mani
         with tempfile.TemporaryDirectory(prefix="h505_") as tmp:
             for sid in layer["ids"]:
                 arts = artifacts.get(sid, [])
-                art_hash = _h([a.source for a in arts])
+                art_hash = _h([[a.source, {k: Path(v).read_text(encoding="utf-8")
+                                            for k, v in sorted(a.support_files.items())}] for a in arts])
                 ck = ck_dir / f"{sid}.json"
                 if resume and ck.exists():
                     prev = json.loads(ck.read_text(encoding="utf-8"))

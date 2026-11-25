@@ -11,8 +11,11 @@ Politika (sıra önemlidir, rastgelelik yok):
    ve beklenen durum kodu referansla karşılaştırılır. Tutarsız aday ``REJECTED_REFERENCE_CONFLICT``.
    Sözdizimi geçersiz / imzası çıkarılamayan aday ``REJECTED_UNPARSABLE``.
 3. Tutarlı adaylar:
-   * ikisi de tutarlı ve anahtarları eşit → **yinelenen**; kural tabanlı tutulur (yan etki ve rota
-     doğrulamaları içerir), LLM ``DROPPED_DUPLICATE`` → kaynak ``common``.
+   * ikisi de tutarlı ve anahtarları eşit (anlamsal eşitlik; kod eşitliği ayrıca ``code_identical``):
+     - LLM'in doğrulama türleri kural tabanlınınkilerin alt kümesiyse → **yinelenen**; kural tabanlı tutulur,
+       LLM ``DROPPED_DUPLICATE`` → kaynak ``common``.
+     - LLM ek doğrulama türü içeriyorsa (ör. gövde kontrolü) → **birleştirilir**: kural tabanlı test + LLM
+       testi (``__llm`` son ekiyle) aynı modülde; hiçbir kontrol kaybolmaz → kaynak ``merged``.
    * ikisi de tutarlı ama anahtarları farklı (ör. referansta aktör yokken farklı kullanıcı) → **çözülmüş
      çelişki**; daha fazla doğrulama türü içeren seçilir, eşitlikte kural tabanlı.
    * yalnızca biri tutarlı → o seçilir (``rule_only`` / ``llm_only``).
@@ -22,6 +25,7 @@ Politika (sıra önemlidir, rastgelelik yok):
 """
 from __future__ import annotations
 
+import ast
 import hashlib
 from dataclasses import dataclass, field
 
@@ -45,12 +49,14 @@ class Reference:
 @dataclass
 class Decision:
     scenario_id: str
-    final_source: str | None            # rule_based | llm | None
-    provenance: str                     # common | rule_only | llm_only | resolved_conflict | unresolved | none
+    final_source: str | None            # rule_based | llm | rule_based+llm | None
+    provenance: str                     # common | merged | rule_only | llm_only | resolved_conflict | unresolved | none
     duplicates: int = 0
     conflicts_resolved: int = 0
     conflicts_unresolved: int = 0
     candidate_status: dict = field(default_factory=dict)
+    code_identical: bool | None = None       # kaynak kod SHA-256 eşitliği (anlamsal eşitlikten ayrı)
+    complement_kinds: list[str] = field(default_factory=list)
     reasons: list[str] = field(default_factory=list)
 
 
@@ -117,11 +123,29 @@ def merge(layer: str, ref: Reference, rb: list[Artifact], llm: list[Artifact],
     chosen: tuple[str, Artifact, Signature] | None = None
     if "rule_based" in consistent and "llm" in consistent:
         (ra, rs), (la, ls) = consistent["rule_based"], consistent["llm"]
+        dec.code_identical = _sha(ra.source) == _sha(la.source)
         if rs.key() == ls.key():
+            extra = sorted(set(ls.assertion_kinds) - set(rs.assertion_kinds))
+            dec.complement_kinds = extra
+            if extra:
+                # Aynı istek/beklenti ama LLM ek doğrulama türü içeriyor: kontrol kaybolmasın diye iki test
+                # aynı modülde birleştirilir (kural tabanlı + LLM'in tamamlayıcı testi).
+                dec.provenance = "merged"
+                dec.final_source = "rule_based+llm"
+                dec.reasons.append(f"anlamsal anahtar aynı, kod farklı; LLM ek doğrulama türü içeriyor {extra} → "
+                                   "kural tabanlı test + LLM tamamlayıcı testi birleştirildi")
+                _mark(cands, "rule_based", "SELECTED")
+                _mark(cands, "llm", "SELECTED_COMPLEMENT")
+                merged = merge_modules(ra.source, la.source)
+                return (Artifact(sid, "hybrid", f"hybrid<-rule_based:{ra.origin}+llm:{la.origin}", merged, ra.function,
+                                 dict(ra.support_files), generation_status="GENERATED",
+                                 notes=[f"{HYBRID_GENERATOR_ID} v{HYBRID_VERSION}", "merged"]), dec, cands)
             dec.duplicates += 1
             dec.provenance = "common"
             chosen = ("rule_based", ra, rs)
-            dec.reasons.append("yinelenen: aynı istek ve beklenti; kural tabanlı tutuldu (daha zengin doğrulama)")
+            dec.reasons.append("yinelenen (anlamsal): aynı istek ve beklenti, LLM'in doğrulama türleri kural tabanlının "
+                               "alt kümesi; kural tabanlı tutuldu. Kod birebir aynı DEĞİL"
+                               if not dec.code_identical else "yinelenen: kod birebir aynı")
             _mark(cands, "llm", "DROPPED_DUPLICATE")
         else:
             dec.conflicts_resolved += 1
@@ -158,6 +182,26 @@ def merge(layer: str, ref: Reference, rb: list[Artifact], llm: list[Artifact],
     return hybrid, dec, cands
 
 
+def merge_modules(base_src: str, extra_src: str) -> str:
+    """Kural tabanlı modüle LLM modülünün eksik importlarını ve test fonksiyon(lar)ını ``__llm`` son ekiyle ekler.
+    Hiçbir doğrulama değiştirilmez; yalnızca ad çakışması önlenir."""
+    base = ast.parse(base_src)
+    extra = ast.parse(extra_src)
+    have = {ast.unparse(n) for n in base.body if isinstance(n, (ast.Import, ast.ImportFrom))}
+    imports, funcs = [], []
+    for n in extra.body:
+        if isinstance(n, (ast.Import, ast.ImportFrom)) and ast.unparse(n) not in have:
+            imports.append(ast.unparse(n))
+        elif isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            seg = ast.get_source_segment(extra_src, n, padded=False)
+            if n.name.startswith("test_"):
+                seg = seg.replace(f"def {n.name}(", f"def {n.name}__llm(", 1)
+            funcs.append(seg)
+    head = ("\n".join(imports) + "\n") if imports else ""
+    return (head + base_src.rstrip("\n") + "\n\n\n# --- LLM (H3-05) tamamlayıcı testi: ek doğrulama türü ---\n"
+            + "\n\n\n".join(funcs) + "\n")
+
+
 def _mark(cands: list[dict], method: str, status: str) -> None:
     for c in cands:
         if c["generation_method"] == method and c["status"] == "CONSISTENT":
@@ -178,8 +222,12 @@ def summarize(decisions: list[Decision], cand_records: list[dict]) -> dict:
         "final_tests": sum(1 for d in decisions if d.final_source),
         "final_from_rule_based": sum(1 for d in decisions if d.final_source == "rule_based"),
         "final_from_llm": sum(1 for d in decisions if d.final_source == "llm"),
+        "final_merged_rule_and_llm": sum(1 for d in decisions if d.final_source == "rule_based+llm"),
+        "code_identical_pairs": sum(1 for d in decisions if d.code_identical),
+        "semantic_key_equal_pairs": prov.get("common", 0) + prov.get("merged", 0),
         "provenance": dict(sorted(prov.items())),
         "common": prov.get("common", 0),
         "rule_only": prov.get("rule_only", 0),
         "llm_only": prov.get("llm_only", 0),
+        "merged": prov.get("merged", 0),
     }

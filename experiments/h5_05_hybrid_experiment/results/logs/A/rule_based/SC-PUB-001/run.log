@@ -2,4 +2,4 @@
 ==================================== PASSES ====================================
 =========================== short test summary info ============================
 PASSED test_sc_pub_001.py::test_sc_pub_001_post_owner_200
-1 passed in 0.15s
+1 passed in 0.16s

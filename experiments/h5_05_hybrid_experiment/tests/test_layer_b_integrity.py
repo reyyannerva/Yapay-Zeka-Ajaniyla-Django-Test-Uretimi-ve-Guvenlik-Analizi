@@ -39,3 +39,23 @@ def test_generator_inputs_are_label_free():
 def test_endpoint_summary_hides_insecure_flag():
     ep = mf.load_json(C.LAYER_B_FILES["endpoints"])
     assert all(e["intentionally_insecure"] is False for e in ep["endpoints"])
+
+
+def test_llm_harness_only_changes_fixture_list():
+    from agent.test_generation.llm.runner import CONFTEST
+    text = layer_b_inputs.write_llm_harness()
+    assert '"users", "tasks"' in text and "articles" not in text
+    strip = lambda t: [ln for ln in t.splitlines() if "loaddata" not in ln and not ln.startswith('"""')]
+    assert strip(text) == strip(CONFTEST)
+
+
+def test_llm_raw_outputs_cover_all_scenarios_if_generated():
+    rep = C.LAYER_B_LLM / "reports" / "generation_report.json"
+    if not rep.exists():
+        return
+    doc = mf.load_json(rep)
+    gt = mf.load_json(C.LAYER_B_FILES["ground_truth"])
+    assert {r["scenario_id"] for r in doc["records"]} == {r["scenario_id"] for r in gt["records"]}
+    assert doc["summary"]["model"] == "groq/openai/gpt-oss-120b" and doc["summary"]["prompt_version"] == "pytest_v1"
+    for r in doc["records"]:
+        assert not r["raw_response_file"].startswith(("/", "C:"))

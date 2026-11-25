@@ -141,6 +141,7 @@ def signature(source: str, routes: dict[str, str]) -> Signature:
                         body = assigns[body.id]
                     sig.payload = _literal(body) if body is not None else None
         sig.auth = "authenticated" if auth_seen else "anonymous"
+        derived = _response_derived(fn)
         for node in ast.walk(fn):
             if not isinstance(node, ast.Assert):
                 continue
@@ -158,12 +159,35 @@ def signature(source: str, routes: dict[str, str]) -> Signature:
                 kinds.add("route")
             elif any(s in text for s in ("count", "before", "after", "snapshot", "exists")):
                 kinds.add("side_effect")
-            elif any(s in text for s in ("data", "json", "content")):
+            elif any(s in text for s in ("data", "json", "content")) or \
+                    any(isinstance(n, ast.Name) and n.id in derived for n in ast.walk(node.test)):
                 kinds.add("body")
             else:
                 kinds.add("other")
     sig.assertion_kinds = sorted(kinds)
     return sig
+
+
+def _response_derived(fn) -> set[str]:
+    """``response`` nesnesinden türeyen yerel adlar (atama ve for döngüsü hedefleri), sabit noktaya kadar."""
+    names = {"response"}
+    changed = True
+    while changed:
+        changed = False
+        for node in ast.walk(fn):
+            pairs = []
+            if isinstance(node, ast.Assign):
+                pairs = [(t, node.value) for t in node.targets]
+            elif isinstance(node, (ast.For, ast.comprehension)):
+                pairs = [(node.target, node.iter)]
+            for target, value in pairs:
+                if any(isinstance(n, ast.Name) and n.id in names for n in ast.walk(value)):
+                    for t in ast.walk(target):
+                        if isinstance(t, ast.Name) and t.id not in names:
+                            names.add(t.id)
+                            changed = True
+    names.discard("response")
+    return names
 
 
 def routes_from_endpoint_summary(summary: dict) -> dict[str, str]:

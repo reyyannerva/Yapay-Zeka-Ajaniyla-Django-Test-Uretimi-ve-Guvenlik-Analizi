@@ -17,11 +17,11 @@
   "hybrid_generator": "experiments.h5_05_hybrid_experiment.hybrid v1.0.0",
   "llm_status_by_layer": {
     "A": "ARCHIVED_FIRST_PASS",
-    "B": "BLOCKED"
+    "B": "GENERATED"
   },
   "actual_model_by_layer": {
     "A": "groq/openai/gpt-oss-120b",
-    "B": null
+    "B": "groq/openai/gpt-oss-120b"
   },
   "layer_b_generator_inputs_sha256": {
     "reference_requirements.json": "91ae9d50ca94bb21f9027c0a0fde8602864b4035ad190046472874c240f88ed8",

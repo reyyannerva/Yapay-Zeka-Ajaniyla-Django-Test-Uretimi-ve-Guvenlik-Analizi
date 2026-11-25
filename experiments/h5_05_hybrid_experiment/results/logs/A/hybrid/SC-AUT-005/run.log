@@ -5,4 +5,4 @@ ______________________ test_sc_aut_005_post_anonymous_401 ______________________
 WARNING  django.request:log.py:293 Unauthorized: /api/articles/2/publish/
 =========================== short test summary info ============================
 PASSED test_sc_aut_005.py::test_sc_aut_005_post_anonymous_401
-1 passed in 0.14s
+1 passed in 0.13s

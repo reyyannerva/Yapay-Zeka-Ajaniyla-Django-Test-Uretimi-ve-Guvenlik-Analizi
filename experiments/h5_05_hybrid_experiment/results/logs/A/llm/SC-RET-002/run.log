@@ -5,4 +5,4 @@ _______________________________ test_sc_ret_002 ________________________________
 WARNING  django.request:log.py:293 Not Found: /api/articles/2/
 =========================== short test summary info ============================
 PASSED test_sc_ret_002.py::test_sc_ret_002
-1 passed in 0.13s
+1 passed in 0.15s

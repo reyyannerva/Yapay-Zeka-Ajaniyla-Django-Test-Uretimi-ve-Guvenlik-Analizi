@@ -1,8 +1,9 @@
-# H5-05 — Test ve regresyon kanıtı (2026-11-25, Linux, Python 3.13.18)
+# H5-05 — Test ve regresyon kanıtı (koşu 2, 2026-11-25, Linux, Python 3.13.18)
 
 | Paket | Komut (depo kökünden) | Sonuç |
 |---|---|---|
-| H5-05 birim testleri | `python -m pytest -p no:cacheprovider experiments/h5_05_hybrid_experiment/tests` | 35 passed |
+| H5-05 birim testleri | `python -m pytest -p no:cacheprovider experiments/h5_05_hybrid_experiment/tests` | 44 passed |
+| Bağımsız metrik çapraz kontrolü | `python experiments/h5_05_hybrid_experiment/verify_metrics.py` | UYUŞUYOR |
 | Katman B fixture ↔ ground truth | `cd experiments/h5_05_hybrid_experiment/layer_b/target_app && python -m pytest -p no:cacheprovider` | 19 passed |
 | Katman B dondurma | `python -m experiments.h5_05_hybrid_experiment verify` | OK |
 | H3-04 kural tabanlı | `cd agent/test_generation/rule_based && python -m pytest -p no:cacheprovider` | 132 passed |

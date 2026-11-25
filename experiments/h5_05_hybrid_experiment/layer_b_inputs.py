@@ -45,3 +45,27 @@ def prepare() -> dict:
         (LAYER_B_INPUTS / name).write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n",
                                            encoding="utf-8", newline="\n")
     return {name: mf.sha256(LAYER_B_INPUTS / name) for name in out}
+
+
+def write_llm_harness() -> str:
+    """H3-05'in destek ``conftest.py``'sini Katman B hedefine uyarlar ve yolunu döndürür.
+
+    H3-05 ``runner.CONFTEST`` fixture adlarını ``"users", "articles"`` olarak sabit yazar (sample_app'e özgü).
+    Katman B hedefinde ``articles`` fixture'ı yoktur; değiştirilmezse her LLM testi model kodundan bağımsız
+    olarak kurulumda hata verir. Bu nedenle yalnızca fixture listesi endpoint özetindeki
+    ``target_app.fixtures`` ile değiştirilir (kural tabanlı üreticinin yaptığı gibi). LLM test kodu
+    DEĞİŞTİRİLMEZ; bu bir test-altyapısı uyarlamasıdır ve raporda belgelenmiştir.
+    """
+    from agent.test_generation.llm.runner import CONFTEST
+
+    fixtures = mf.load_json(LAYER_B_FILES["endpoints"])["target_app"]["fixtures"]
+    original = '"users", "articles"'
+    if original not in CONFTEST:
+        raise ValueError("H3-05 CONFTEST beklenen fixture satırını içermiyor; uyarlama güvenli değil")
+    text = CONFTEST.replace(original, ", ".join(f'"{f}"' for f in fixtures))
+    text = text.replace('"""Üretilen testlerin ortak fixture\'ları — H3-05 / Issue #31."""',
+                        '"""Üretilen testlerin ortak fixture\'ları — H3-05 / Issue #31 (H5-05 Katman B: fixture listesi '
+                        'endpoint özetinden uyarlandı)."""')
+    path = LAYER_B / "generated" / "llm" / "generated_tests" / "conftest.py"
+    path.write_text(text, encoding="utf-8", newline="\n")
+    return text

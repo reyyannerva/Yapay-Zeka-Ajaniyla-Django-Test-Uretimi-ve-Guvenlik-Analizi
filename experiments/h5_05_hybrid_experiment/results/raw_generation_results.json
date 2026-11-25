@@ -195,29 +195,63 @@
       }
     },
     "llm": {
-      "status": "BLOCKED",
-      "model_id": null,
+      "status": "GENERATED",
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
-      "source": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "note": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz.",
+      "source": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses",
+      "note": "H5-05 Katman B için yeni (arşiv olmayan) Groq koşusu; destek conftest fixture listesi Katman B hedefine uyarlandı (layer_b_inputs.write_llm_harness), LLM kodu değiştirilmedi.",
       "artifacts": {
-        "SC-TKL-001": [],
-        "SC-TKL-002": [],
-        "SC-TKC-001": [],
-        "SC-TKC-002": [],
-        "SC-TKU-001": [],
-        "SC-TKU-002": [],
-        "SC-TKP-001": [],
-        "SC-TKP-002": [],
-        "SC-TKP-003": [],
-        "SC-TKP-004": [],
-        "SC-TKD-001": [],
-        "SC-TKD-002": [],
-        "SC-TKX-001": [],
-        "SC-TKX-002": [],
-        "SC-TKX-003": [],
-        "SC-TKX-004": [],
-        "SC-TKX-005": []
+        "SC-TKL-001": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKL-001.txt"
+        ],
+        "SC-TKL-002": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKL-002.txt"
+        ],
+        "SC-TKC-001": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKC-001.txt"
+        ],
+        "SC-TKC-002": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKC-002.txt"
+        ],
+        "SC-TKU-001": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKU-001.txt"
+        ],
+        "SC-TKU-002": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKU-002.txt"
+        ],
+        "SC-TKP-001": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKP-001.txt"
+        ],
+        "SC-TKP-002": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKP-002.txt"
+        ],
+        "SC-TKP-003": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKP-003.txt"
+        ],
+        "SC-TKP-004": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKP-004.txt"
+        ],
+        "SC-TKD-001": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKD-001.txt"
+        ],
+        "SC-TKD-002": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKD-002.txt"
+        ],
+        "SC-TKX-001": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKX-001.txt"
+        ],
+        "SC-TKX-002": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKX-002.txt"
+        ],
+        "SC-TKX-003": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKX-003.txt"
+        ],
+        "SC-TKX-004": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKX-004.txt"
+        ],
+        "SC-TKX-005": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKX-005.txt"
+        ]
       }
     }
   }

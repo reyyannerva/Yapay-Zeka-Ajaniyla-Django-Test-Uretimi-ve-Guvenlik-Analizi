@@ -91,7 +91,7 @@
     },
     "methods_executed": {
       "rule_based": true,
-      "llm": false,
+      "llm": true,
       "hybrid": true
     },
     "by_http_method": {
@@ -128,7 +128,39 @@
           "scenarios": 3
         }
       },
-      "llm": {},
+      "llm": {
+        "DELETE": {
+          "FAIL": 1,
+          "PASS": 2,
+          "TN": 2,
+          "TP": 1,
+          "scenarios": 3
+        },
+        "GET": {
+          "PASS": 3,
+          "TN": 3,
+          "scenarios": 3
+        },
+        "PATCH": {
+          "FAIL": 1,
+          "PASS": 5,
+          "TN": 5,
+          "TP": 1,
+          "scenarios": 6
+        },
+        "POST": {
+          "PASS": 2,
+          "TN": 2,
+          "scenarios": 2
+        },
+        "PUT": {
+          "FAIL": 1,
+          "PASS": 2,
+          "TN": 2,
+          "TP": 1,
+          "scenarios": 3
+        }
+      },
       "hybrid": {
         "DELETE": {
           "FAIL": 1,
@@ -175,6 +207,7 @@
     "llm": [
       "DELETE",
       "GET",
+      "PATCH",
       "POST",
       "PUT"
     ],

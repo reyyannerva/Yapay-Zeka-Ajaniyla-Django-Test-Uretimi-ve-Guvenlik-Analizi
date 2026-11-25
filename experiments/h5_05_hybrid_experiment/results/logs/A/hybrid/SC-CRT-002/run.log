@@ -2,4 +2,4 @@
 ==================================== PASSES ====================================
 =========================== short test summary info ============================
 PASSED test_sc_crt_002.py::test_sc_crt_002_post_owner_201
-1 passed in 0.14s
+1 passed in 0.19s

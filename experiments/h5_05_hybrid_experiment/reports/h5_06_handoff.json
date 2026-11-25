@@ -1,25 +1,36 @@
 {
   "from": "H5-05 / #43",
   "to": "H5-06 / #44",
-  "status": "PARTIAL — H5-05 birleştirilmedi; H5-06 bu oturumda başlatılmadı",
+  "status": "H5-05 tamamlandı (9/9 AC); PR #97",
   "entrypoints": {
     "run": "python -m experiments.h5_05_hybrid_experiment run [--layer A|B] [--resume]",
     "verify": "python -m experiments.h5_05_hybrid_experiment verify",
+    "verify_metrics": "python experiments/h5_05_hybrid_experiment/verify_metrics.py",
     "tests": "python -m pytest -p no:cacheprovider experiments/h5_05_hybrid_experiment/tests"
   },
-  "demo_ready_artifacts": {
-    "comparison_table": "experiments/h5_05_hybrid_experiment/results/comparison_table.md",
+  "offline_experiment_results": {
+    "comparison_table": "experiments/h5_05_hybrid_experiment/results/comparison_table.csv",
     "metrics": "experiments/h5_05_hybrid_experiment/results/metrics_summary.json",
-    "layer_b_target_app": "experiments/h5_05_hybrid_experiment/layer_b/target_app",
-    "layer_b_flaw_examples": ["SC-TKX-001 (PUT 403→200)", "SC-TKX-002 (PATCH 403→200)", "SC-TKX-003 (DELETE 403→204)"]
+    "per_scenario": "experiments/h5_05_hybrid_experiment/results/execution_results.csv",
+    "hybrid_decisions": "experiments/h5_05_hybrid_experiment/results/hybrid_decisions.jsonl"
   },
-  "open_items": [
-    "Katman B Groq LLM üretimi (kimlik bilgisi + api.groq.com erişimi gerekli)",
-    "LLM için PATCH temsili ve F1 ölçümü",
-    "Bağımsız test kümesi değerlendirmesi H3-06 hattıyla ayrı yapılmalı; dev sonuçları nihai performans değildir"
+  "headline": {
+    "layer_A": "3 yöntem 20/20 ilk geçiş çalıştırılabilir; F1 Ölçülemedi (pozitif yok)",
+    "layer_B": "3 yöntem 17/17; TP=3 FP=0 FN=0, F1=1.00 (kontrollü küme, 3 pozitif)",
+    "model": "groq/openai/gpt-oss-120b, pytest_v1, T=0.0"
+  },
+  "presentation_rules": [
+    "Bu sonuçlar ÇEVRİMDIŞI geliştirme deneyidir; canlı analiz kaydı veya DEMO verisi gibi gösterilmemeli",
+    "F1 'Ölçülemedi' değerleri 0 olarak çizilmemeli",
+    "Katman B F1=1.00 genellenebilir performans olarak sunulmamalı"
+  ],
+  "layer_b_flaw_examples": [
+    "SC-TKX-001 PUT 403→200",
+    "SC-TKX-002 PATCH 403→200",
+    "SC-TKX-003 DELETE 403→204"
   ],
   "do_not": [
-    "Katman B ground truth'unu sonuçlar görüldükten sonra değiştirmeyin (FROZEN.json)",
-    "Mühürlü test_set.json'u hibrit geliştirmek için kullanmayın"
+    "Katman B ground truth'unu değiştirmeyin (FROZEN.json)",
+    "Mühürlü test_set.json'u kullanmayın"
   ]
 }

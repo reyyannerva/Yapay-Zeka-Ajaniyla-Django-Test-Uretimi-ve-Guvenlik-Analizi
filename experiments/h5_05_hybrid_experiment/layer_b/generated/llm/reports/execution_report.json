@@ -1,0 +1,117 @@
+{
+  "summary": {
+    "model": "groq/openai/gpt-oss-120b",
+    "execution": {
+      "PASSED": 0,
+      "KNOWN_FLAW_DETECTED": 0,
+      "KNOWN_FLAW_NOT_DETECTED": 0,
+      "APPLICATION_MISMATCH": 0,
+      "GENERATION_ERROR": 0,
+      "NOT_RUN": 17
+    }
+  },
+  "records": [
+    {
+      "scenario_id": "SC-TKL-001",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKL-002",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKC-001",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKC-002",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKU-001",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKU-002",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKP-001",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKP-002",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKP-003",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKP-004",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKD-001",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKD-002",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKX-001",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKX-002",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKX-003",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKX-004",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    },
+    {
+      "scenario_id": "SC-TKX-005",
+      "classification": "NOT_RUN",
+      "pytest_outcome": null,
+      "detail": "yalnızca üretim"
+    }
+  ]
+}

@@ -82,3 +82,26 @@ def test_reference_view_masks_labels():
     import pytest
     with pytest.raises(ValueError):
         reference.assert_no_label_leak(gt)
+
+
+def test_body_assertion_via_response_derived_name():
+    s = signature(src(extra="    for item in response.json():\n        assert item.get('x') is True\n"), ROUTES)
+    assert "body" in s.assertion_kinds
+
+
+def test_same_key_with_extra_llm_check_is_merged_not_dropped():
+    llm_src = src(extra="    for item in response.json():\n        assert item.get('x') is True\n")
+    a, d, c = hybrid.merge("T", REF, [art("rule_based", src())], [art("llm", llm_src)], ROUTES)
+    assert d.provenance == "merged" and d.final_source == "rule_based+llm" and d.complement_kinds == ["body"]
+    assert d.duplicates == 0 and d.code_identical is False
+    assert "def test_x(" in a.source and "def test_x__llm(" in a.source and "item.get('x')" in a.source
+    import ast
+    ast.parse(a.source)
+    assert {x["status"] for x in c} == {"SELECTED", "SELECTED_COMPLEMENT"}
+
+
+def test_semantic_duplicate_is_not_reported_as_code_identical():
+    a, d, _ = hybrid.merge("T", REF, [art("rule_based", src() + "# fark\n")], [art("llm", src())], ROUTES)
+    assert d.provenance == "common" and d.code_identical is False
+    a, d, _ = hybrid.merge("T", REF, [art("rule_based", src())], [art("llm", src())], ROUTES)
+    assert d.code_identical is True

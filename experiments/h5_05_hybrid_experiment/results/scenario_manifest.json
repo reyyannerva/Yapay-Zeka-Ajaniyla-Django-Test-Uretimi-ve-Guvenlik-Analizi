@@ -1348,7 +1348,7 @@
       "generation_parameters": {
         "policy": "reference-consistency → duplicate(rule) → richer-assertions → rule tie-break"
       },
-      "source_artifact": "hybrid<-rule_based:experiments/h3_04_rule_based_baseline/generated_tests/test_get_generated.py::test_sc_lst_001_get_anonymous_200",
+      "source_artifact": "hybrid<-rule_based:experiments/h3_04_rule_based_baseline/generated_tests/test_get_generated.py::test_sc_lst_001_get_anonymous_200+llm:experiments/h3_05_llm_baseline/raw_responses/SC-LST-001.txt",
       "artifact_count": 1,
       "evaluation_eligibility": "eligible",
       "ineligibility_reason": null
@@ -2121,16 +2121,16 @@
       "reference_json_hash": "5a048816d9758d051f990669ae950c4df94d0f77a663adf24634801f466c3c26",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKL-001.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2150,16 +2150,16 @@
       "reference_json_hash": "e4514315528da07e6d29decc4301d3b603b077fe690bf341006ac05a52ad1eb7",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKL-002.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2179,16 +2179,16 @@
       "reference_json_hash": "d687fd67c688facbea4e86cee87d21650cbdbcf90b99d2df6b214b4244a549b4",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKC-001.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2208,16 +2208,16 @@
       "reference_json_hash": "25ceac2b0422c6af4d3a3d2d7b6b3327e736367e71d5c37e527daa4f38792c89",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKC-002.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2237,16 +2237,16 @@
       "reference_json_hash": "6dad72b873c153c862d2da97bc4f242ad30ed07ebbfe9b714bad35dc1da9d25b",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKU-001.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2266,16 +2266,16 @@
       "reference_json_hash": "7d718b7c2b3b0c120c0d86571e92ff24ff83def7bf9cfaea85b7c5a4c1c071ea",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKU-002.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2295,16 +2295,16 @@
       "reference_json_hash": "a9b6992cf381c6c16acc442981edbbf0fd67fd3490f4b24ba56626a7fff40522",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKP-001.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2324,16 +2324,16 @@
       "reference_json_hash": "d753cbc9b98ce7fe184c3ac2f5c14a36fe585baa9a9c136cff505ee02ad818c0",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKP-002.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2353,16 +2353,16 @@
       "reference_json_hash": "b5d5c9ad2f8a56933db91709c58b567be19480d0bc2852f75d733ac40f76e49d",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKP-003.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2382,16 +2382,16 @@
       "reference_json_hash": "b09e97dc63ffa7ad25d31629246f6fd7fe708ddc164cb1d7261379c77e5cc58d",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKP-004.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2411,16 +2411,16 @@
       "reference_json_hash": "7c52421abc1c982627981d7a13c8f6a189642ae14345993bf2dcfa1655251e50",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKD-001.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2440,16 +2440,16 @@
       "reference_json_hash": "e067bc45a2196e56305c6153945b520fba375078fde8078af152a78a942eb378",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKD-002.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2469,16 +2469,16 @@
       "reference_json_hash": "14906384ca1c6279c5a3f38b8645cfa5f57fac99ca1f49fa0f9682482a97dde4",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKX-001.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2498,16 +2498,16 @@
       "reference_json_hash": "c001bcc5b9f0931ef838190a99a9217923bb33d0bf011cecc4d470048be05f39",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKX-002.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2527,16 +2527,16 @@
       "reference_json_hash": "d97179053fa289c15d794949bbeba4aa5677e4678f34b0a7a17bf056feabf43e",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKX-003.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2556,16 +2556,16 @@
       "reference_json_hash": "ec02c3db548ae3e9adcc1d20de91be57cba6f0497011a401a8587fd9177112d5",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKX-004.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",
@@ -2585,16 +2585,16 @@
       "reference_json_hash": "d9adf2b731c26acf390ea8e302fa1807c709c22bdf830fe42b7f2de152b3cb2f",
       "generation_method": "llm",
       "generator_version": "agent.test_generation.llm (H3-05)",
-      "model_id": null,
+      "model_id": "groq/openai/gpt-oss-120b",
       "prompt_version": "pytest_v1",
       "generation_parameters": {
         "temperature": 0.0,
         "provider": "groq"
       },
-      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
-      "artifact_count": 0,
-      "evaluation_eligibility": "ineligible",
-      "ineligibility_reason": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz."
+      "source_artifact": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/raw_responses/SC-TKX-005.txt",
+      "artifact_count": 1,
+      "evaluation_eligibility": "eligible",
+      "ineligibility_reason": null
     },
     {
       "experiment_id": "h5-05-hybrid-v1",

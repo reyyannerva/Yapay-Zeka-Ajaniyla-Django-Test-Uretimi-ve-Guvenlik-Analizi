@@ -5,4 +5,4 @@ ________________________ test_sc_inp_001_post_user_400 _________________________
 WARNING  django.request:log.py:293 Bad Request: /api/articles/
 =========================== short test summary info ============================
 PASSED test_sc_inp_001.py::test_sc_inp_001_post_user_400
-1 passed in 0.15s
+1 passed in 0.14s

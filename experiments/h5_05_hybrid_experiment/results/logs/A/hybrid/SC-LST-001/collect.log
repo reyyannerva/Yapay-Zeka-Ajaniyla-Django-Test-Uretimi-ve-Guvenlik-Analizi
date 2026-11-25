@@ -1,3 +1,4 @@
 test_sc_lst_001.py::test_sc_lst_001_get_anonymous_200
+test_sc_lst_001.py::test_sc_lst_001__llm
 
-1 test collected in 0.00s
+2 tests collected in 0.00s

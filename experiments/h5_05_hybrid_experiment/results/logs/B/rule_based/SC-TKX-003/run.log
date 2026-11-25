@@ -3,7 +3,7 @@ F                                                                        [100%]
 _______________________ test_sc_tkx_003_delete_user_403 ________________________
 
 seeded_db = None
-api_client = <rest_framework.test.APIClient object at 0x7fc5d3a297f0>
+api_client = <rest_framework.test.APIClient object at 0x7f5941c057f0>
 
     def test_sc_tkx_003_delete_user_403(seeded_db, api_client):
         """SC-TKX-003 · DELETE /api/legacy/tasks/1/ · user (mehmet; fixture ilişkisi: sahip_olmayan) · beklenen 403
@@ -25,4 +25,4 @@ E        +  where 204 = <Response status_code=204>.status_code
 test_sc_tkx_003.py:20: AssertionError
 =========================== short test summary info ============================
 FAILED test_sc_tkx_003.py::test_sc_tkx_003_delete_user_403 - AssertionError: ...
-1 failed in 0.15s
+1 failed in 0.21s
