@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { Card } from '../../components/ui/Card';
 import { DataTable } from '../../components/ui/DataTable';
 import type { DataTableColumn } from '../../components/ui/DataTable';
@@ -21,7 +23,12 @@ function formatDate(iso: string): string {
 }
 
 const COLUMNS: readonly DataTableColumn<AnalysisRun>[] = [
-  { key: 'id', header: 'Analiz', cell: (run) => `#${run.id}` },
+  { key: 'id', header: 'Analiz', cell: (run) => (
+      <Link to={`/analyses/${run.id}`} className="font-mono text-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent">
+        {`#${run.id}`}
+      </Link>
+    ),
+  },
   { key: 'project', header: 'Proje', cell: (run) => `Proje ${run.project}` },
   { key: 'status', header: 'Durum', cell: (run) => <StatusBadge status={run.status} /> },
   {
