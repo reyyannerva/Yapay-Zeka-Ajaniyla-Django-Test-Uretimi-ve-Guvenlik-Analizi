@@ -1,20 +1,41 @@
+import type { ReactNode } from 'react';
 import { NavLink } from 'react-router-dom';
 
 interface NavItem {
   label: string;
   to: string;
+  icon: ReactNode;
   /** Pasif öğeler henüz uygulanmamış sayfalardır (#40); link olarak çizilmez. */
   disabled?: boolean;
 }
 
+function Icon({ path }: { path: string }) {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <path d={path} />
+    </svg>
+  );
+}
+
 const NAV_ITEMS: NavItem[] = [
-  { label: 'Genel bakış', to: '/dashboard' },
-  { label: 'Projeler', to: '/projects' },
-  { label: 'Analizler', to: '/analysis', disabled: true },
-  { label: 'Raporlar', to: '/reports', disabled: true },
+  { label: 'Genel bakış', to: '/dashboard', icon: <Icon path="M3 11l9-8 9 8M5 10v10h14V10" /> },
+  { label: 'Projeler', to: '/projects', icon: <Icon path="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z" /> },
+  { label: 'Analizler', to: '/analysis', icon: <Icon path="M3 12h4l3 7 4-14 3 7h4" />, disabled: true },
+  { label: 'Raporlar', to: '/reports', icon: <Icon path="M7 3h7l5 5v13H7zM14 3v5h5" />, disabled: true },
 ];
 
-const ITEM_BASE = 'block border-l-2 px-4 py-2 text-sm';
+const ITEM_BASE = 'flex items-center gap-3 border-l-2 px-4 py-2 text-sm';
 
 export const SIDEBAR_ID = 'app-sidebar';
 
@@ -34,7 +55,13 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       className={`${visibility} w-56 shrink-0 flex-col bg-gradient-to-b from-panel to-panel-2 text-panel-fg`}
     >
       <div className="flex items-center justify-between px-4 py-5">
-        <span className="font-display text-lg font-semibold">Test ve Güvenlik</span>
+        <span className="inline-flex items-center gap-2.5 font-display text-lg font-bold text-white">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-accent">
+            <path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z" fill="currentColor" />
+            <path d="M8.5 12l2.4 2.4L15.7 9.6" style={{ stroke: 'var(--panel)' }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          TestKalkan
+        </span>
         <button
           type="button"
           onClick={onClose}
@@ -55,6 +82,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
               title="Yakında"
               className={`${ITEM_BASE} cursor-not-allowed border-transparent text-panel-muted opacity-60`}
             >
+              {item.icon}
               {item.label}
             </span>
           ) : (
@@ -70,6 +98,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 }`
               }
             >
+              {item.icon}
               {item.label}
             </NavLink>
           ),

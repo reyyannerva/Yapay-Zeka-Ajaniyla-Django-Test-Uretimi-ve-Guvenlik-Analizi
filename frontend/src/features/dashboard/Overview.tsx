@@ -50,6 +50,7 @@ export function Overview() {
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-1">
+        <p className="font-mono text-xs uppercase tracking-[0.12em] text-accent">Panel</p>
         <h1 className="font-display text-2xl font-semibold text-fg">Genel bakış</h1>
         <p className="text-sm text-muted">
           Örnek veri: değerler gerçek bir analiz sonucunu temsil etmez.
@@ -82,8 +83,15 @@ export function Overview() {
             <section aria-label="Devam eden analizler" className="flex flex-col gap-3">
               <h2 className="font-display text-lg font-semibold text-fg">Devam eden analizler</h2>
               {activeRuns.map((run) => (
-                <Card key={run.id} className="flex flex-col gap-3">
-                  <p className="text-sm font-medium">{`Analiz #${run.id}`}</p>
+                <Card key={run.id} className="flex flex-col gap-4">
+                  <div className="flex flex-wrap items-center gap-3 border-b border-border pb-3">
+                    <h3 className="font-mono text-base font-semibold text-fg">{`Proje ${run.project}`}</h3>
+                    <StatusBadge status={run.status} />
+                    <span className="ml-auto text-xs text-muted">
+                      {run.llm_provider ? PROVIDER_LABEL[run.llm_provider] : 'Kural tabanlı'} · analiz #
+                      {run.id}
+                    </span>
+                  </div>
                   <StageStrip status={run.status} progress={run.progress} />
                 </Card>
               ))}
