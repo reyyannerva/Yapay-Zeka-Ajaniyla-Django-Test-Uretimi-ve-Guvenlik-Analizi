@@ -1,0 +1,127 @@
+{
+  "note": "PASS dışı tüm satırlar. FAIL + bilinen kusur = beklenen tespit (TP); diğerleri hata analizi.",
+  "counts": {
+    "B/rule_based/FAIL": 3,
+    "B/llm/FAIL": 3,
+    "B/hybrid/FAIL": 3
+  },
+  "rows": [
+    {
+      "layer": "B",
+      "generation_method": "rule_based",
+      "scenario_id": "SC-TKX-001",
+      "http_method": "PUT",
+      "outcome": "FAIL",
+      "status": "FAIL",
+      "exc_type": "AssertionError",
+      "observed_status": 200,
+      "not_run_reason": null,
+      "evidence": "[H304] scenario=SC-TKX-001 check=status expected=403 observed=200 | Sahibi olmayan kullanıcı başkasının görevini PUT ile değiştiremez. | yanıt: {\"id\":1,\"owner\":\"ayse\",\"title\":\"Ele geçirme\",\"notes\":\"\",\"is_done\":true}",
+      "is_known_flaw": true
+    },
+    {
+      "layer": "B",
+      "generation_method": "rule_based",
+      "scenario_id": "SC-TKX-002",
+      "http_method": "PATCH",
+      "outcome": "FAIL",
+      "status": "FAIL",
+      "exc_type": "AssertionError",
+      "observed_status": 200,
+      "not_run_reason": null,
+      "evidence": "[H304] scenario=SC-TKX-002 check=status expected=403 observed=200 | Sahibi olmayan kullanıcı başkasının görevini PATCH ile değiştiremez. | yanıt: {\"id\":1,\"owner\":\"ayse\",\"title\":\"Rapor taslağı\",\"notes\":\"Ayşe'nin görevi\",\"is_done\":true}",
+      "is_known_flaw": true
+    },
+    {
+      "layer": "B",
+      "generation_method": "rule_based",
+      "scenario_id": "SC-TKX-003",
+      "http_method": "DELETE",
+      "outcome": "FAIL",
+      "status": "FAIL",
+      "exc_type": "AssertionError",
+      "observed_status": 204,
+      "not_run_reason": null,
+      "evidence": "[H304] scenario=SC-TKX-003 check=status expected=403 observed=204 | Sahibi olmayan kullanıcı başkasının görevini silemez. | yanıt: ",
+      "is_known_flaw": true
+    },
+    {
+      "layer": "B",
+      "generation_method": "llm",
+      "scenario_id": "SC-TKX-001",
+      "http_method": "PUT",
+      "outcome": "FAIL",
+      "status": "FAIL",
+      "exc_type": "AssertionError",
+      "observed_status": 200,
+      "not_run_reason": null,
+      "evidence": "assert 200 == 403",
+      "is_known_flaw": true
+    },
+    {
+      "layer": "B",
+      "generation_method": "llm",
+      "scenario_id": "SC-TKX-002",
+      "http_method": "PATCH",
+      "outcome": "FAIL",
+      "status": "FAIL",
+      "exc_type": "AssertionError",
+      "observed_status": 200,
+      "not_run_reason": null,
+      "evidence": "assert 200 == 403",
+      "is_known_flaw": true
+    },
+    {
+      "layer": "B",
+      "generation_method": "llm",
+      "scenario_id": "SC-TKX-003",
+      "http_method": "DELETE",
+      "outcome": "FAIL",
+      "status": "FAIL",
+      "exc_type": "AssertionError",
+      "observed_status": 204,
+      "not_run_reason": null,
+      "evidence": "assert 204 == 403",
+      "is_known_flaw": true
+    },
+    {
+      "layer": "B",
+      "generation_method": "hybrid",
+      "scenario_id": "SC-TKX-001",
+      "http_method": "PUT",
+      "outcome": "FAIL",
+      "status": "FAIL",
+      "exc_type": "AssertionError",
+      "observed_status": 200,
+      "not_run_reason": null,
+      "evidence": "[H304] scenario=SC-TKX-001 check=status expected=403 observed=200 | Sahibi olmayan kullanıcı başkasının görevini PUT ile değiştiremez. | yanıt: {\"id\":1,\"owner\":\"ayse\",\"title\":\"Ele geçirme\",\"notes\":\"\",\"is_done\":true}",
+      "is_known_flaw": true
+    },
+    {
+      "layer": "B",
+      "generation_method": "hybrid",
+      "scenario_id": "SC-TKX-002",
+      "http_method": "PATCH",
+      "outcome": "FAIL",
+      "status": "FAIL",
+      "exc_type": "AssertionError",
+      "observed_status": 200,
+      "not_run_reason": null,
+      "evidence": "[H304] scenario=SC-TKX-002 check=status expected=403 observed=200 | Sahibi olmayan kullanıcı başkasının görevini PATCH ile değiştiremez. | yanıt: {\"id\":1,\"owner\":\"ayse\",\"title\":\"Rapor taslağı\",\"notes\":\"Ayşe'nin görevi\",\"is_done\":true}",
+      "is_known_flaw": true
+    },
+    {
+      "layer": "B",
+      "generation_method": "hybrid",
+      "scenario_id": "SC-TKX-003",
+      "http_method": "DELETE",
+      "outcome": "FAIL",
+      "status": "FAIL",
+      "exc_type": "AssertionError",
+      "observed_status": 204,
+      "not_run_reason": null,
+      "evidence": "[H304] scenario=SC-TKX-003 check=status expected=403 observed=204 | Sahibi olmayan kullanıcı başkasının görevini silemez. | yanıt: ",
+      "is_known_flaw": true
+    }
+  ]
+}

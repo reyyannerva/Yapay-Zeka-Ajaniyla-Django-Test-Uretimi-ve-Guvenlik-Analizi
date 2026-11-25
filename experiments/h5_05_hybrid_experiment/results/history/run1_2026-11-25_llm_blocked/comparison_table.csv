@@ -1,0 +1,7 @@
+layer,method,attempted,scenarios,TP,FP,TN,FN,EXCLUDED,precision,recall,f1,first_pass_executable,first_pass_executable_exact,test_level_executable,f1_target,executability_target
+A,rule_based,True,20,0,0,20,0,0,Ölçülemedi,Ölçülemedi,Ölçülemedi,1.0000,20/20,20/20,Ölçülemedi,Karşılandı
+A,llm,True,20,0,0,20,0,0,Ölçülemedi,Ölçülemedi,Ölçülemedi,1.0000,20/20,20/20,Ölçülemedi,Karşılandı
+A,hybrid,True,20,0,0,20,0,0,Ölçülemedi,Ölçülemedi,Ölçülemedi,1.0000,20/20,20/20,Ölçülemedi,Karşılandı
+B,rule_based,True,17,3,0,14,0,0,1.0000,1.0000,1.0000,1.0000,17/17,17/17,Karşılandı,Karşılandı
+B,llm,False,0,0,0,0,0,0,Ölçülemedi,Ölçülemedi,Ölçülemedi,Ölçülemedi,0/0,0/0,Karşılaştırılamadı,Karşılaştırılamadı
+B,hybrid,True,17,3,0,14,0,0,1.0000,1.0000,1.0000,1.0000,17/17,17/17,Karşılandı,Karşılandı

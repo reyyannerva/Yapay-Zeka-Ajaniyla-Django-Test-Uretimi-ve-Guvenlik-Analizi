@@ -1,0 +1,189 @@
+{
+  "A": {
+    "http_methods": {
+      "GET": 9,
+      "POST": 9,
+      "PUT": 1,
+      "PATCH": 0,
+      "DELETE": 1
+    },
+    "methods_executed": {
+      "rule_based": true,
+      "llm": true,
+      "hybrid": true
+    },
+    "by_http_method": {
+      "rule_based": {
+        "DELETE": {
+          "PASS": 1,
+          "TN": 1,
+          "scenarios": 1
+        },
+        "GET": {
+          "PASS": 9,
+          "TN": 9,
+          "scenarios": 9
+        },
+        "POST": {
+          "PASS": 9,
+          "TN": 9,
+          "scenarios": 9
+        },
+        "PUT": {
+          "PASS": 1,
+          "TN": 1,
+          "scenarios": 1
+        }
+      },
+      "llm": {
+        "DELETE": {
+          "PASS": 1,
+          "TN": 1,
+          "scenarios": 1
+        },
+        "GET": {
+          "PASS": 9,
+          "TN": 9,
+          "scenarios": 9
+        },
+        "POST": {
+          "PASS": 9,
+          "TN": 9,
+          "scenarios": 9
+        },
+        "PUT": {
+          "PASS": 1,
+          "TN": 1,
+          "scenarios": 1
+        }
+      },
+      "hybrid": {
+        "DELETE": {
+          "PASS": 1,
+          "TN": 1,
+          "scenarios": 1
+        },
+        "GET": {
+          "PASS": 9,
+          "TN": 9,
+          "scenarios": 9
+        },
+        "POST": {
+          "PASS": 9,
+          "TN": 9,
+          "scenarios": 9
+        },
+        "PUT": {
+          "PASS": 1,
+          "TN": 1,
+          "scenarios": 1
+        }
+      }
+    }
+  },
+  "B": {
+    "http_methods": {
+      "GET": 3,
+      "POST": 2,
+      "PUT": 3,
+      "PATCH": 6,
+      "DELETE": 3
+    },
+    "methods_executed": {
+      "rule_based": true,
+      "llm": false,
+      "hybrid": true
+    },
+    "by_http_method": {
+      "rule_based": {
+        "DELETE": {
+          "FAIL": 1,
+          "PASS": 2,
+          "TN": 2,
+          "TP": 1,
+          "scenarios": 3
+        },
+        "GET": {
+          "PASS": 3,
+          "TN": 3,
+          "scenarios": 3
+        },
+        "PATCH": {
+          "FAIL": 1,
+          "PASS": 5,
+          "TN": 5,
+          "TP": 1,
+          "scenarios": 6
+        },
+        "POST": {
+          "PASS": 2,
+          "TN": 2,
+          "scenarios": 2
+        },
+        "PUT": {
+          "FAIL": 1,
+          "PASS": 2,
+          "TN": 2,
+          "TP": 1,
+          "scenarios": 3
+        }
+      },
+      "llm": {},
+      "hybrid": {
+        "DELETE": {
+          "FAIL": 1,
+          "PASS": 2,
+          "TN": 2,
+          "TP": 1,
+          "scenarios": 3
+        },
+        "GET": {
+          "PASS": 3,
+          "TN": 3,
+          "scenarios": 3
+        },
+        "PATCH": {
+          "FAIL": 1,
+          "PASS": 5,
+          "TN": 5,
+          "TP": 1,
+          "scenarios": 6
+        },
+        "POST": {
+          "PASS": 2,
+          "TN": 2,
+          "scenarios": 2
+        },
+        "PUT": {
+          "FAIL": 1,
+          "PASS": 2,
+          "TN": 2,
+          "TP": 1,
+          "scenarios": 3
+        }
+      }
+    }
+  },
+  "union_http_methods_per_generation_method": {
+    "rule_based": [
+      "DELETE",
+      "GET",
+      "PATCH",
+      "POST",
+      "PUT"
+    ],
+    "llm": [
+      "DELETE",
+      "GET",
+      "POST",
+      "PUT"
+    ],
+    "hybrid": [
+      "DELETE",
+      "GET",
+      "PATCH",
+      "POST",
+      "PUT"
+    ]
+  }
+}

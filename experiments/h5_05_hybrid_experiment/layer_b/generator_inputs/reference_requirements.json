@@ -1,0 +1,231 @@
+{
+  "dataset_ref": "h5-05-layer-b-controlled v1.0.0",
+  "version": "1.0.0",
+  "generated_for": "#43 / H5-05 Katman B",
+  "source_scenarios": "experiments/h5_05_hybrid_experiment/layer_b/scenarios.json",
+  "label_meaning": "positive = güvenli davranışta izin verilir (2xx); negative = engellenir (4xx).",
+  "records": [
+    {
+      "scenario_id": "SC-TKL-001",
+      "http_method": "GET",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Kimliği doğrulanmış kullanıcı görev listesini görür."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKL-002",
+      "http_method": "GET",
+      "user_role": "anonymous",
+      "expected_result": {
+        "secure_status": 401,
+        "behavior": "Anonim kullanıcı görev listesine erişemez (kimlik doğrulama gerekli)."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKC-001",
+      "http_method": "POST",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 201,
+        "behavior": "Kimliği doğrulanmış kullanıcı geçerli girdiyle görev oluşturur; sahip isteği yapan olur."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKC-002",
+      "http_method": "POST",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 400,
+        "behavior": "Zorunlu title alanı eksik görev oluşturulamaz."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKU-001",
+      "http_method": "PUT",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Sahip görevini PUT ile tamamen günceller."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKU-002",
+      "http_method": "PUT",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 403,
+        "behavior": "Sahibi olmayan kullanıcı başkasının görevini PUT ile değiştiremez."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKP-001",
+      "http_method": "PATCH",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Sahip görevini PATCH ile kısmen günceller; gövdede olmayan alanlar korunur."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKP-002",
+      "http_method": "PATCH",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 403,
+        "behavior": "Sahibi olmayan kullanıcı başkasının görevini PATCH ile değiştiremez."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKP-003",
+      "http_method": "PATCH",
+      "user_role": "anonymous",
+      "expected_result": {
+        "secure_status": 401,
+        "behavior": "Anonim kullanıcı görevi PATCH ile değiştiremez (kimlik doğrulama gerekli)."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKP-004",
+      "http_method": "PATCH",
+      "user_role": "admin",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Yönetici herhangi bir görevi PATCH ile güncelleyebilir."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKD-001",
+      "http_method": "DELETE",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 204,
+        "behavior": "Sahip kendi görevini siler."
+      },
+      "label": "positive",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKD-002",
+      "http_method": "DELETE",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 403,
+        "behavior": "Sahibi olmayan kullanıcı başkasının görevini silemez."
+      },
+      "label": "negative",
+      "reference_source": "DRF_SEMANTICS",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKX-001",
+      "http_method": "PUT",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 403,
+        "behavior": "Sahibi olmayan kullanıcı başkasının görevini PUT ile değiştiremez."
+      },
+      "label": "negative",
+      "reference_source": "PROJECT_REQUIREMENT",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKX-002",
+      "http_method": "PATCH",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 403,
+        "behavior": "Sahibi olmayan kullanıcı başkasının görevini PATCH ile değiştiremez."
+      },
+      "label": "negative",
+      "reference_source": "PROJECT_REQUIREMENT",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKX-003",
+      "http_method": "DELETE",
+      "user_role": "user",
+      "expected_result": {
+        "secure_status": 403,
+        "behavior": "Sahibi olmayan kullanıcı başkasının görevini silemez."
+      },
+      "label": "negative",
+      "reference_source": "PROJECT_REQUIREMENT",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKX-004",
+      "http_method": "PATCH",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Sahip kendi görevini PATCH ile günceller."
+      },
+      "label": "positive",
+      "reference_source": "PROJECT_REQUIREMENT",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    },
+    {
+      "scenario_id": "SC-TKX-005",
+      "http_method": "GET",
+      "user_role": "owner",
+      "expected_result": {
+        "secure_status": 200,
+        "behavior": "Sahip kendi görevini görüntüler."
+      },
+      "label": "positive",
+      "reference_source": "PROJECT_REQUIREMENT",
+      "validation_status": "verified",
+      "is_known_flaw": false
+    }
+  ],
+  "label_mask_note": "H5-05: değerlendirme etiketleri maskelenmiştir (is_known_flaw=False maskesi, security_finding yok); üretim yalnızca expected_result'u kullanır."
+}

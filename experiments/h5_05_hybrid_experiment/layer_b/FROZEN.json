@@ -1,0 +1,25 @@
+{
+  "frozen": "H5-05 Katman B girdileri ve ground truth — ÜRETİMDEN ÖNCE donduruldu",
+  "frozen_at_utc": "2026-11-25T21:51:54+00:00",
+  "hash_method": "SHA-256, CRLF→LF normalleştirilmiş içerik (agent.evaluation.manifest.sha256)",
+  "rules": [
+    "Ground truth üretim sonuçları görülmeden önce yazılmış ve bu dosyayla dondurulmuştur.",
+    "Sonuçlar görüldükten sonra ground truth veya senaryo kümesi değiştirilmez.",
+    "Mühürlü H3-03 test kümesi (test_set.json) bu kümenin tasarımında açılmamış/kullanılmamıştır."
+  ],
+  "sha256": {
+    "ground_truth.json": "9e5d08779da2268c4001d476b4410a8f36dd9b6ac08bf2a1ed1ad7f51bd76815",
+    "ground_truth.schema.json": "69ed5a1ce93f7ab8237149faf306b2d47f3e174e2fe0650bcf63c0c737527245",
+    "scenarios.json": "e7e05461cfa4994832925a968c3cf447bb310f97fdc6c5a4e0102a5dc80e64f3",
+    "scenarios.schema.json": "960827549a92e53ffc58ad360440a307de147860a95a19d87b1f2c1aa5d4ceb0",
+    "endpoint_summary.json": "9f4bd7729e95c0e17853a1b63800e307f4eca14418fac01412491600215b28ce",
+    "target_app/tasks/fixtures/users.json": "7ab33235b998d72b04d436e5b13886fb99a04853b20543dca0bb6e2da8c884e8",
+    "target_app/tasks/fixtures/tasks.json": "d0e1247af07bf2b61cfd157587e520aef44c9ad49fa526d97334ca2ed0df9369",
+    "target_app/tasks/views.py": "ca3990c391fedb0dc93527e3dad7b07b2eb3b3ff6038e8ca070d2e2067de8cf3",
+    "target_app/tasks/legacy.py": "f98a321d39baddf69ea96c1cc50e2c1cfa04326fb691f087cfe0da396fffd8e5",
+    "target_app/tasks/permissions.py": "27030dd48da2aabd499d507af012f51c3fffaca14e9de2b63d8a6cf69015ff4f",
+    "target_app/tasks/serializers.py": "84fc425cb4c1e384f50d68dc03c3199fd724c183f14fdc102c64f3554920a57c",
+    "target_app/tasks/models.py": "2f1dcff5b364a0c31e31938cd6364ed25df3e18ee44e01a673eeca5dfb01a5bd",
+    "target_app/tasks/urls.py": "c2de63dee04fc94cf24bc280bec32f4db140906d96e6afb5b5d298bef00ba2aa"
+  }
+}

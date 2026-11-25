@@ -1,0 +1,231 @@
+{
+  "schema_version": "1.0.0",
+  "source": {
+    "kind": "manual_fixture_metadata",
+    "ast_integration": false,
+    "derived_from": [
+      "experiments/h5_05_hybrid_experiment/layer_b/target_app/config/urls.py",
+      "experiments/h5_05_hybrid_experiment/layer_b/target_app/tasks/urls.py",
+      "experiments/h5_05_hybrid_experiment/layer_b/target_app/tasks/views.py",
+      "experiments/h5_05_hybrid_experiment/layer_b/target_app/tasks/legacy.py",
+      "experiments/h5_05_hybrid_experiment/layer_b/target_app/tasks/permissions.py",
+      "experiments/h5_05_hybrid_experiment/layer_b/target_app/tasks/serializers.py",
+      "experiments/h5_05_hybrid_experiment/layer_b/target_app/tasks/models.py"
+    ],
+    "note": "H5-05 Katman B: AST çıktısı sözleşmesine uygun biçimde kaynak koddan elle çıkarılmıştır. Uçların güvenli/güvensiz niyeti (intentionally_insecure) AST'den bilinemeyeceği için üretici girdisinde her uç için false'tur; gerçek kusur bilgisi yalnızca değerlendirme etiketlerindedir."
+  },
+  "target_app": {
+    "path": "experiments/h5_05_hybrid_experiment/layer_b/target_app",
+    "settings_module": "config.settings",
+    "fixtures": [
+      "users",
+      "tasks"
+    ],
+    "fixture_files": {
+      "users": "experiments/h5_05_hybrid_experiment/layer_b/target_app/tasks/fixtures/users.json",
+      "resources": "experiments/h5_05_hybrid_experiment/layer_b/target_app/tasks/fixtures/tasks.json"
+    }
+  },
+  "authentication": {
+    "mechanisms": [
+      "BasicAuthentication",
+      "SessionAuthentication"
+    ],
+    "test_strategy": "force_authenticate"
+  },
+  "endpoints": [
+    {
+      "endpoint_id": "EP-TASK-LIST",
+      "path": "/api/tasks/",
+      "url_name": "task-list",
+      "route_params": [],
+      "view": {
+        "name": "TaskViewSet",
+        "module": "tasks.views",
+        "type": "ViewSet"
+      },
+      "operations": {
+        "GET": {
+          "action": "list",
+          "authentication_required": true,
+          "object_permission": "none"
+        },
+        "POST": {
+          "action": "create",
+          "authentication_required": true,
+          "object_permission": "none"
+        }
+      },
+      "permissions": [
+        "IsAuthenticated",
+        "IsOwnerOrAdminForWrites"
+      ],
+      "resource": {
+        "model": "tasks.Task",
+        "lookup_field": "pk",
+        "owner_field": "owner"
+      },
+      "request": {
+        "content_type": "application/json",
+        "writable_fields": {
+          "title": {
+            "type": "string",
+            "required": true,
+            "max_length": 120,
+            "allow_blank": false
+          },
+          "notes": {
+            "type": "string",
+            "required": false,
+            "allow_blank": true
+          },
+          "is_done": {
+            "type": "boolean",
+            "required": false
+          }
+        }
+      },
+      "supported": true,
+      "intentionally_insecure": false
+    },
+    {
+      "endpoint_id": "EP-TASK-DETAIL",
+      "path": "/api/tasks/{pk}/",
+      "url_name": "task-detail",
+      "route_params": [
+        {
+          "name": "pk",
+          "type": "int",
+          "source": "fixture_ref.article"
+        }
+      ],
+      "view": {
+        "name": "TaskViewSet",
+        "module": "tasks.views",
+        "type": "ViewSet"
+      },
+      "operations": {
+        "GET": {
+          "action": "retrieve",
+          "authentication_required": true,
+          "object_permission": "none"
+        },
+        "PUT": {
+          "action": "update",
+          "authentication_required": true,
+          "object_permission": "owner_or_admin"
+        },
+        "PATCH": {
+          "action": "partial_update",
+          "authentication_required": true,
+          "object_permission": "owner_or_admin"
+        },
+        "DELETE": {
+          "action": "destroy",
+          "authentication_required": true,
+          "object_permission": "owner_or_admin"
+        }
+      },
+      "permissions": [
+        "IsAuthenticated",
+        "IsOwnerOrAdminForWrites"
+      ],
+      "resource": {
+        "model": "tasks.Task",
+        "lookup_field": "pk",
+        "owner_field": "owner"
+      },
+      "request": {
+        "content_type": "application/json",
+        "writable_fields": {
+          "title": {
+            "type": "string",
+            "required": true,
+            "max_length": 120,
+            "allow_blank": false
+          },
+          "notes": {
+            "type": "string",
+            "required": false,
+            "allow_blank": true
+          },
+          "is_done": {
+            "type": "boolean",
+            "required": false
+          }
+        }
+      },
+      "supported": true,
+      "intentionally_insecure": false
+    },
+    {
+      "endpoint_id": "EP-LEGACY-TASK-DETAIL",
+      "path": "/api/legacy/tasks/{pk}/",
+      "url_name": "legacy-task-detail",
+      "route_params": [
+        {
+          "name": "pk",
+          "type": "int",
+          "source": "fixture_ref.article"
+        }
+      ],
+      "view": {
+        "name": "LegacyTaskDetail",
+        "module": "tasks.legacy",
+        "type": "APIView"
+      },
+      "operations": {
+        "GET": {
+          "action": "retrieve",
+          "authentication_required": true,
+          "object_permission": "none"
+        },
+        "PUT": {
+          "action": "update",
+          "authentication_required": true,
+          "object_permission": "none"
+        },
+        "PATCH": {
+          "action": "partial_update",
+          "authentication_required": true,
+          "object_permission": "none"
+        },
+        "DELETE": {
+          "action": "destroy",
+          "authentication_required": true,
+          "object_permission": "none"
+        }
+      },
+      "permissions": [
+        "IsAuthenticated"
+      ],
+      "resource": {
+        "model": "tasks.Task",
+        "lookup_field": "pk",
+        "owner_field": "owner"
+      },
+      "request": {
+        "content_type": "application/json",
+        "writable_fields": {
+          "title": {
+            "type": "string",
+            "required": true,
+            "max_length": 120,
+            "allow_blank": false
+          },
+          "notes": {
+            "type": "string",
+            "required": false,
+            "allow_blank": true
+          },
+          "is_done": {
+            "type": "boolean",
+            "required": false
+          }
+        }
+      },
+      "supported": true,
+      "intentionally_insecure": false
+    }
+  ]
+}

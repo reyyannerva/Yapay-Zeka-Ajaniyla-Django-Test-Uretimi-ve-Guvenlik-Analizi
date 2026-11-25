@@ -1,0 +1,29 @@
+{
+ "exitstatus": 1,
+ "records": [
+  {
+   "nodeid": "test_sc_tkx_003.py::test_sc_tkx_003",
+   "when": "setup",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  },
+  {
+   "nodeid": "test_sc_tkx_003.py::test_sc_tkx_003",
+   "when": "call",
+   "outcome": "failed",
+   "xfail": false,
+   "exc_type": "AssertionError",
+   "message": "assert 204 == 403\n +  where 204 = <Response status_code=204>.status_code"
+  },
+  {
+   "nodeid": "test_sc_tkx_003.py::test_sc_tkx_003",
+   "when": "teardown",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  }
+ ]
+}

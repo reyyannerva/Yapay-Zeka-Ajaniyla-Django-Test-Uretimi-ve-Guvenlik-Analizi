@@ -1,0 +1,813 @@
+{
+  "experiment_id": "h5-05-hybrid-v1",
+  "version": "1.0.0",
+  "issue": "#43",
+  "targets": {
+    "f1": ">= 0.80 (4/5)",
+    "first_pass_executable": ">= 0.70 (7/10)"
+  },
+  "definitions": {
+    "first_pass_executable": "pay = PASS+FAIL sonuçlanan senaryo sayısı (ilk üretim, otomatik düzeltme yok); payda = katmandaki tüm değerlendirilebilir senaryolar (test üretilmeyenler dahil)",
+    "test_level_executable": "pay = PASS/FAIL sonuçlanan test fonksiyonu; payda = toplanan test fonksiyonu",
+    "confusion": "senaryo düzeyi; FAIL+kusur=TP, FAIL+kusursuz=FP, PASS+kusur=FN, PASS+kusursuz=TN, teknik/çalışmayan+kusur=FN, teknik/çalışmayan+kusursuz=EXCLUDED",
+    "not_measurable": "payda sıfır → Ölçülemedi"
+  },
+  "environment": {
+    "python": "3.13.18",
+    "django": "5.2.19",
+    "pytest": "9.2.0",
+    "platform": "Linux",
+    "executable_isolation": "senaryo başına geçici dizin + ayrı pytest süreci",
+    "timestamp_utc": "2026-11-25T22:29:30+00:00"
+  },
+  "layers": {
+    "A": {
+      "scenarios": 20,
+      "split_name": "dev",
+      "dataset_version": "h3-03 ground_truth sha256:b5114e74c63d / split dev",
+      "positives": 0,
+      "http_methods": {
+        "GET": 9,
+        "POST": 9,
+        "PUT": 1,
+        "PATCH": 0,
+        "DELETE": 1
+      },
+      "llm_status": "ARCHIVED_FIRST_PASS",
+      "llm_note": "H3-05 (#31) ilk geçiş ham yanıtları; H5-05'te yeniden üretilmedi (arşiv).",
+      "comparability": {
+        "comparable": true,
+        "reason": "aynı senaryolar ve aynı girdi özetleri"
+      },
+      "hybrid": {
+        "scenarios": 20,
+        "rule_based_candidates": 20,
+        "llm_candidates": 20,
+        "duplicates": 19,
+        "conflicts_resolved": 0,
+        "conflicts_unresolved": 0,
+        "final_tests": 20,
+        "final_from_rule_based": 19,
+        "final_from_llm": 0,
+        "final_merged_rule_and_llm": 1,
+        "code_identical_pairs": 0,
+        "semantic_key_equal_pairs": 20,
+        "provenance": {
+          "common": 19,
+          "merged": 1
+        },
+        "common": 19,
+        "rule_only": 0,
+        "llm_only": 0,
+        "merged": 1
+      },
+      "methods": {
+        "rule_based": {
+          "scenarios": 20,
+          "positives": 0,
+          "negatives": 20,
+          "confusion": {
+            "TP": 0,
+            "FP": 0,
+            "TN": 20,
+            "FN": 0,
+            "EXCLUDED": 0
+          },
+          "outcomes": {
+            "PASS": 20,
+            "FAIL": 0,
+            "NO_ARTIFACT": 0,
+            "DUPLICATE_ARTIFACT": 0,
+            "SYNTAX_INVALID": 0,
+            "UNSAFE_BLOCKED": 0,
+            "COLLECTION_ERROR": 0,
+            "TIMEOUT": 0,
+            "ERROR": 0,
+            "ENVIRONMENT_ERROR": 0
+          },
+          "pytest_summary": {
+            "PASS": 20
+          },
+          "syntax_valid": {
+            "count": 20,
+            "of": 20,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "collected": {
+            "count": 20,
+            "of": 20,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "first_pass_executable": {
+            "count": 20,
+            "of": 20,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "precision": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "recall": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "f1": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "targets": {
+            "f1_gte_0_80": null,
+            "first_pass_executable_gte_0_70": true
+          },
+          "by_method": {
+            "DELETE": {
+              "PASS": 1,
+              "TN": 1,
+              "scenarios": 1
+            },
+            "GET": {
+              "PASS": 9,
+              "TN": 9,
+              "scenarios": 9
+            },
+            "POST": {
+              "PASS": 9,
+              "TN": 9,
+              "scenarios": 9
+            },
+            "PUT": {
+              "PASS": 1,
+              "TN": 1,
+              "scenarios": 1
+            }
+          },
+          "test_level": {
+            "tests": 20,
+            "executable": 20,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "attempted": true,
+          "excluded": [],
+          "status5": {
+            "PASS": 20
+          },
+          "not_run_reasons": {},
+          "target_status": {
+            "f1_gte_0_80": "Ölçülemedi",
+            "first_pass_executable_gte_0_70": "Karşılandı"
+          }
+        },
+        "llm": {
+          "scenarios": 20,
+          "positives": 0,
+          "negatives": 20,
+          "confusion": {
+            "TP": 0,
+            "FP": 0,
+            "TN": 20,
+            "FN": 0,
+            "EXCLUDED": 0
+          },
+          "outcomes": {
+            "PASS": 20,
+            "FAIL": 0,
+            "NO_ARTIFACT": 0,
+            "DUPLICATE_ARTIFACT": 0,
+            "SYNTAX_INVALID": 0,
+            "UNSAFE_BLOCKED": 0,
+            "COLLECTION_ERROR": 0,
+            "TIMEOUT": 0,
+            "ERROR": 0,
+            "ENVIRONMENT_ERROR": 0
+          },
+          "pytest_summary": {
+            "PASS": 20
+          },
+          "syntax_valid": {
+            "count": 20,
+            "of": 20,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "collected": {
+            "count": 20,
+            "of": 20,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "first_pass_executable": {
+            "count": 20,
+            "of": 20,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "precision": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "recall": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "f1": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "targets": {
+            "f1_gte_0_80": null,
+            "first_pass_executable_gte_0_70": true
+          },
+          "by_method": {
+            "DELETE": {
+              "PASS": 1,
+              "TN": 1,
+              "scenarios": 1
+            },
+            "GET": {
+              "PASS": 9,
+              "TN": 9,
+              "scenarios": 9
+            },
+            "POST": {
+              "PASS": 9,
+              "TN": 9,
+              "scenarios": 9
+            },
+            "PUT": {
+              "PASS": 1,
+              "TN": 1,
+              "scenarios": 1
+            }
+          },
+          "test_level": {
+            "tests": 20,
+            "executable": 20,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "attempted": true,
+          "excluded": [],
+          "status5": {
+            "PASS": 20
+          },
+          "not_run_reasons": {},
+          "target_status": {
+            "f1_gte_0_80": "Ölçülemedi",
+            "first_pass_executable_gte_0_70": "Karşılandı"
+          }
+        },
+        "hybrid": {
+          "scenarios": 20,
+          "positives": 0,
+          "negatives": 20,
+          "confusion": {
+            "TP": 0,
+            "FP": 0,
+            "TN": 20,
+            "FN": 0,
+            "EXCLUDED": 0
+          },
+          "outcomes": {
+            "PASS": 20,
+            "FAIL": 0,
+            "NO_ARTIFACT": 0,
+            "DUPLICATE_ARTIFACT": 0,
+            "SYNTAX_INVALID": 0,
+            "UNSAFE_BLOCKED": 0,
+            "COLLECTION_ERROR": 0,
+            "TIMEOUT": 0,
+            "ERROR": 0,
+            "ENVIRONMENT_ERROR": 0
+          },
+          "pytest_summary": {
+            "PASS": 20
+          },
+          "syntax_valid": {
+            "count": 20,
+            "of": 20,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "collected": {
+            "count": 20,
+            "of": 20,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "first_pass_executable": {
+            "count": 20,
+            "of": 20,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "precision": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "recall": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "f1": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "targets": {
+            "f1_gte_0_80": null,
+            "first_pass_executable_gte_0_70": true
+          },
+          "by_method": {
+            "DELETE": {
+              "PASS": 1,
+              "TN": 1,
+              "scenarios": 1
+            },
+            "GET": {
+              "PASS": 9,
+              "TN": 9,
+              "scenarios": 9
+            },
+            "POST": {
+              "PASS": 9,
+              "TN": 9,
+              "scenarios": 9
+            },
+            "PUT": {
+              "PASS": 1,
+              "TN": 1,
+              "scenarios": 1
+            }
+          },
+          "test_level": {
+            "tests": 21,
+            "executable": 21,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "attempted": true,
+          "excluded": [],
+          "status5": {
+            "PASS": 20
+          },
+          "not_run_reasons": {},
+          "target_status": {
+            "f1_gte_0_80": "Ölçülemedi",
+            "first_pass_executable_gte_0_70": "Karşılandı"
+          }
+        }
+      },
+      "environment_check": {
+        "rule_based": {
+          "ok": true,
+          "message": "ok"
+        },
+        "llm": {
+          "ok": true,
+          "message": "ok"
+        },
+        "hybrid": {
+          "ok": true,
+          "message": "ok"
+        }
+      }
+    },
+    "B": {
+      "scenarios": 17,
+      "split_name": "dev-controlled-extension",
+      "dataset_version": "h5-05-layer-b-controlled sha256:9e5d08779da2",
+      "positives": 3,
+      "http_methods": {
+        "GET": 3,
+        "POST": 2,
+        "PUT": 3,
+        "PATCH": 6,
+        "DELETE": 3
+      },
+      "llm_status": "GENERATED",
+      "llm_note": "H5-05 Katman B için yeni (arşiv olmayan) Groq koşusu; destek conftest fixture listesi Katman B hedefine uyarlandı (layer_b_inputs.write_llm_harness), LLM kodu değiştirilmedi.",
+      "comparability": {
+        "comparable": true,
+        "reason": "aynı senaryolar ve aynı girdi özetleri"
+      },
+      "hybrid": {
+        "scenarios": 17,
+        "rule_based_candidates": 17,
+        "llm_candidates": 17,
+        "duplicates": 17,
+        "conflicts_resolved": 0,
+        "conflicts_unresolved": 0,
+        "final_tests": 17,
+        "final_from_rule_based": 17,
+        "final_from_llm": 0,
+        "final_merged_rule_and_llm": 0,
+        "code_identical_pairs": 0,
+        "semantic_key_equal_pairs": 17,
+        "provenance": {
+          "common": 17
+        },
+        "common": 17,
+        "rule_only": 0,
+        "llm_only": 0,
+        "merged": 0
+      },
+      "methods": {
+        "rule_based": {
+          "scenarios": 17,
+          "positives": 3,
+          "negatives": 14,
+          "confusion": {
+            "TP": 3,
+            "FP": 0,
+            "TN": 14,
+            "FN": 0,
+            "EXCLUDED": 0
+          },
+          "outcomes": {
+            "PASS": 14,
+            "FAIL": 3,
+            "NO_ARTIFACT": 0,
+            "DUPLICATE_ARTIFACT": 0,
+            "SYNTAX_INVALID": 0,
+            "UNSAFE_BLOCKED": 0,
+            "COLLECTION_ERROR": 0,
+            "TIMEOUT": 0,
+            "ERROR": 0,
+            "ENVIRONMENT_ERROR": 0
+          },
+          "pytest_summary": {
+            "PASS": 14,
+            "FAIL": 3
+          },
+          "syntax_valid": {
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "collected": {
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "first_pass_executable": {
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "precision": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "recall": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "f1": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "targets": {
+            "f1_gte_0_80": true,
+            "first_pass_executable_gte_0_70": true
+          },
+          "by_method": {
+            "DELETE": {
+              "FAIL": 1,
+              "PASS": 2,
+              "TN": 2,
+              "TP": 1,
+              "scenarios": 3
+            },
+            "GET": {
+              "PASS": 3,
+              "TN": 3,
+              "scenarios": 3
+            },
+            "PATCH": {
+              "FAIL": 1,
+              "PASS": 5,
+              "TN": 5,
+              "TP": 1,
+              "scenarios": 6
+            },
+            "POST": {
+              "PASS": 2,
+              "TN": 2,
+              "scenarios": 2
+            },
+            "PUT": {
+              "FAIL": 1,
+              "PASS": 2,
+              "TN": 2,
+              "TP": 1,
+              "scenarios": 3
+            }
+          },
+          "test_level": {
+            "tests": 17,
+            "executable": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "attempted": true,
+          "excluded": [],
+          "status5": {
+            "PASS": 14,
+            "FAIL": 3
+          },
+          "not_run_reasons": {},
+          "target_status": {
+            "f1_gte_0_80": "Karşılandı",
+            "first_pass_executable_gte_0_70": "Karşılandı"
+          }
+        },
+        "llm": {
+          "scenarios": 17,
+          "positives": 3,
+          "negatives": 14,
+          "confusion": {
+            "TP": 3,
+            "FP": 0,
+            "TN": 14,
+            "FN": 0,
+            "EXCLUDED": 0
+          },
+          "outcomes": {
+            "PASS": 14,
+            "FAIL": 3,
+            "NO_ARTIFACT": 0,
+            "DUPLICATE_ARTIFACT": 0,
+            "SYNTAX_INVALID": 0,
+            "UNSAFE_BLOCKED": 0,
+            "COLLECTION_ERROR": 0,
+            "TIMEOUT": 0,
+            "ERROR": 0,
+            "ENVIRONMENT_ERROR": 0
+          },
+          "pytest_summary": {
+            "PASS": 14,
+            "FAIL": 3
+          },
+          "syntax_valid": {
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "collected": {
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "first_pass_executable": {
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "precision": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "recall": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "f1": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "targets": {
+            "f1_gte_0_80": true,
+            "first_pass_executable_gte_0_70": true
+          },
+          "by_method": {
+            "DELETE": {
+              "FAIL": 1,
+              "PASS": 2,
+              "TN": 2,
+              "TP": 1,
+              "scenarios": 3
+            },
+            "GET": {
+              "PASS": 3,
+              "TN": 3,
+              "scenarios": 3
+            },
+            "PATCH": {
+              "FAIL": 1,
+              "PASS": 5,
+              "TN": 5,
+              "TP": 1,
+              "scenarios": 6
+            },
+            "POST": {
+              "PASS": 2,
+              "TN": 2,
+              "scenarios": 2
+            },
+            "PUT": {
+              "FAIL": 1,
+              "PASS": 2,
+              "TN": 2,
+              "TP": 1,
+              "scenarios": 3
+            }
+          },
+          "test_level": {
+            "tests": 17,
+            "executable": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "attempted": true,
+          "excluded": [],
+          "status5": {
+            "PASS": 14,
+            "FAIL": 3
+          },
+          "not_run_reasons": {},
+          "target_status": {
+            "f1_gte_0_80": "Karşılandı",
+            "first_pass_executable_gte_0_70": "Karşılandı"
+          }
+        },
+        "hybrid": {
+          "scenarios": 17,
+          "positives": 3,
+          "negatives": 14,
+          "confusion": {
+            "TP": 3,
+            "FP": 0,
+            "TN": 14,
+            "FN": 0,
+            "EXCLUDED": 0
+          },
+          "outcomes": {
+            "PASS": 14,
+            "FAIL": 3,
+            "NO_ARTIFACT": 0,
+            "DUPLICATE_ARTIFACT": 0,
+            "SYNTAX_INVALID": 0,
+            "UNSAFE_BLOCKED": 0,
+            "COLLECTION_ERROR": 0,
+            "TIMEOUT": 0,
+            "ERROR": 0,
+            "ENVIRONMENT_ERROR": 0
+          },
+          "pytest_summary": {
+            "PASS": 14,
+            "FAIL": 3
+          },
+          "syntax_valid": {
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "collected": {
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "first_pass_executable": {
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "precision": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "recall": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "f1": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "targets": {
+            "f1_gte_0_80": true,
+            "first_pass_executable_gte_0_70": true
+          },
+          "by_method": {
+            "DELETE": {
+              "FAIL": 1,
+              "PASS": 2,
+              "TN": 2,
+              "TP": 1,
+              "scenarios": 3
+            },
+            "GET": {
+              "PASS": 3,
+              "TN": 3,
+              "scenarios": 3
+            },
+            "PATCH": {
+              "FAIL": 1,
+              "PASS": 5,
+              "TN": 5,
+              "TP": 1,
+              "scenarios": 6
+            },
+            "POST": {
+              "PASS": 2,
+              "TN": 2,
+              "scenarios": 2
+            },
+            "PUT": {
+              "FAIL": 1,
+              "PASS": 2,
+              "TN": 2,
+              "TP": 1,
+              "scenarios": 3
+            }
+          },
+          "test_level": {
+            "tests": 17,
+            "executable": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "attempted": true,
+          "excluded": [],
+          "status5": {
+            "PASS": 14,
+            "FAIL": 3
+          },
+          "not_run_reasons": {},
+          "target_status": {
+            "f1_gte_0_80": "Karşılandı",
+            "first_pass_executable_gte_0_70": "Karşılandı"
+          }
+        }
+      },
+      "environment_check": {
+        "rule_based": {
+          "ok": true,
+          "message": "ok"
+        },
+        "llm": {
+          "ok": true,
+          "message": "ok"
+        },
+        "hybrid": {
+          "ok": true,
+          "message": "ok"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "experiment_id": "h5-05-hybrid-v1",
+  "version": "1.0.0",
+  "layers": [
+    "A",
+    "B"
+  ],
+  "methods": [
+    "rule_based",
+    "llm",
+    "hybrid"
+  ],
+  "timeout_s": 120,
+  "planned_model": "Llama 3.3 70B (Issue #31 planı)",
+  "llm_provider": "groq",
+  "llm_temperature": 0.0,
+  "hybrid_generator": "experiments.h5_05_hybrid_experiment.hybrid v1.0.0",
+  "llm_status_by_layer": {
+    "A": "ARCHIVED_FIRST_PASS",
+    "B": "GENERATED"
+  },
+  "actual_model_by_layer": {
+    "A": "groq/openai/gpt-oss-120b",
+    "B": "groq/openai/gpt-oss-120b"
+  },
+  "layer_b_generator_inputs_sha256": {
+    "reference_requirements.json": "91ae9d50ca94bb21f9027c0a0fde8602864b4035ad190046472874c240f88ed8",
+    "scenarios.json": "de38304803c39cb73a0e3d4a5bac10d8174b362851f0b90a3c8317655a3205ba"
+  }
+}
