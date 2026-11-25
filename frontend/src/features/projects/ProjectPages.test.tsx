@@ -6,12 +6,21 @@ import { afterEach, expect, test, vi } from 'vitest';
 
 import { ToastProvider } from '../../components/ui/Toast';
 import { mockProjectStore, resetMockProjects } from '../../lib/api/mock';
+import { getProject } from '../../lib/api/projects';
 import { ROUTER_FUTURE } from '../../test/router-future';
 import { ProjectDetail } from './ProjectDetail';
 import { ProjectEdit } from './ProjectEdit';
 import { ProjectNew } from './ProjectNew';
 
-afterEach(resetMockProjects);
+vi.mock('../../lib/api/projects', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../../lib/api/projects')>();
+  return { ...actual, getProject: vi.fn(actual.getProject) };
+});
+
+afterEach(() => {
+  resetMockProjects();
+  vi.mocked(getProject).mockReset();
+});
 
 function renderAt(path: string) {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
@@ -59,6 +68,32 @@ test('detay: analizi olmayan proje silinince listeye yönlenir', async () => {
   await userEvent.click(screen.getByRole('button', { name: 'Sil' }));
   expect(await screen.findByText('Liste sayfası')).toBeInTheDocument();
   expect(mockProjectStore.projects.some((p) => p.id === 3)).toBe(false);
+});
+
+test('detay: silme sonrası silinen projenin detayı yeniden çekilmez, "Proje bulunamadı" görünmez', async () => {
+  const actual = await vi.importActual<typeof import('../../lib/api/projects')>('../../lib/api/projects');
+  vi.mocked(getProject).mockImplementation(actual.getProject);
+  renderAt('/projects/3');
+  await userEvent.click(await screen.findByRole('button', { name: 'Projeyi sil' }));
+  // Gerçek ağ gecikmesini taklit et: silme sonrası yapılacak herhangi bir yeniden çekim geç ve 404 döner.
+  vi.mocked(getProject).mockClear();
+  vi.mocked(getProject).mockImplementation(async (id) => {
+    await new Promise((resolve) => setTimeout(resolve, 30));
+    return actual.getProject(id);
+  });
+  let flashed = false;
+  const observer = new MutationObserver(() => {
+    const text = document.body.textContent ?? '';
+    if (text.includes('Proje bulunamadı') || text.includes('Yükleniyor')) flashed = true;
+  });
+  observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+  await userEvent.click(screen.getByRole('button', { name: 'Sil' }));
+  expect(await screen.findByText('Liste sayfası')).toBeInTheDocument();
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  observer.disconnect();
+  expect(flashed).toBe(false);
+  expect(getProject).not.toHaveBeenCalled();
+  expect(screen.queryByText('Proje bulunamadı')).not.toBeInTheDocument();
 });
 
 test('düzenleme: ad güncellenir ve detaya dönülür; boş ad reddedilir', async () => {

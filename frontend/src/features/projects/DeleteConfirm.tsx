@@ -1,4 +1,4 @@
-import { useQueryClient } from '@tanstack/react-query';
+import { hashKey, useQueryClient, type QueryClient, type QueryKey } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
@@ -15,6 +15,23 @@ export interface DeleteConfirmProps {
   onDeleted: () => void;
 }
 
+/** Sorguyu, ekrandaki gözlemcisi (mount'lu bileşen) kalkar kalkmaz önbellekten siler. */
+function removeWhenUnobserved(queryClient: QueryClient, queryKey: QueryKey) {
+  const cache = queryClient.getQueryCache();
+  const query = cache.find({ queryKey, exact: true });
+  if (!query) return;
+  if (query.getObserversCount() === 0) {
+    cache.remove(query);
+    return;
+  }
+  const unsubscribe = cache.subscribe((event) => {
+    if (event.type === 'observerRemoved' && event.query === query && query.getObserversCount() === 0) {
+      unsubscribe();
+      cache.remove(query);
+    }
+  });
+}
+
 /** Proje silme onayı (ekran 30). Aktif analizli proje için sunucu 409'u diyalog içinde gösterilir. */
 export function DeleteConfirm({ open, project, onClose, onDeleted }: DeleteConfirmProps) {
   const queryClient = useQueryClient();
@@ -27,13 +44,20 @@ export function DeleteConfirm({ open, project, onClose, onDeleted }: DeleteConfi
   }
 
   async function handleConfirm() {
+    const detailKey = queryKeys.projects.detail(project.id);
     setBusy(true);
     setError(undefined);
     try {
       await deleteProject(project.id);
-      await queryClient.invalidateQueries({ queryKey: queryKeys.projects.all() });
-      queryClient.removeQueries({ queryKey: queryKeys.projects.detail(project.id) });
+      // Silinen projenin detayı ekrandayken yeniden çekilmemeli ve önbellekten de ekran bırakılmadan
+      // atılmamalı (ikisi de "Yükleniyor"/"Proje bulunamadı" flaşına yol açar). Sıra: önce
+      // yönlendir, detayı yeniden çekmeden listeyi geçersiz kıl, detayı gözlemcisi kalkınca sil.
       onDeleted();
+      removeWhenUnobserved(queryClient, detailKey);
+      await queryClient.invalidateQueries({
+        queryKey: queryKeys.projects.all(),
+        predicate: (query) => query.queryHash !== hashKey(detailKey),
+      });
     } catch (failure) {
       setError(translateProjectError(failure).message);
     } finally {

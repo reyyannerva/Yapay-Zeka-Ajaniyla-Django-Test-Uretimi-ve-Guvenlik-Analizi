@@ -11,7 +11,7 @@ düzenleme, silme), profil ve durum ekranları (yetkisiz, bulunamadı) bulunur.
 
 ## Gereksinimler
 
-- Node.js 18+ ve npm
+- Node.js v24.13.0 (ekip sürümü) ve npm
 
 ## Kurulum
 
