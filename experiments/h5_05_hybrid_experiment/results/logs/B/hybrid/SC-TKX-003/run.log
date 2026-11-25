@@ -1,0 +1,28 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________________ test_sc_tkx_003_delete_user_403 ________________________
+
+seeded_db = None
+api_client = <rest_framework.test.APIClient object at 0x7f33868057f0>
+
+    def test_sc_tkx_003_delete_user_403(seeded_db, api_client):
+        """SC-TKX-003 · DELETE /api/legacy/tasks/1/ · user (mehmet; fixture ilişkisi: sahip_olmayan) · beklenen 403
+    
+        Beklenen davranış: Sahibi olmayan kullanıcı başkasının görevini silemez.
+        Referans: ground_truth.json (PROJECT_REQUIREMENT, verified); kategori: AUTHORIZATION
+        Endpoint: EP-LEGACY-TASK-DETAIL (legacy-task-detail), işlem: destroy; yan etki kuralı: resource_unchanged
+        """
+        api_client.force_authenticate(user=User.objects.get(username='mehmet'))
+        url = reverse('legacy-task-detail', kwargs={'pk': 1})
+        assert url == '/api/legacy/tasks/1/', route_message('SC-TKX-003', '/api/legacy/tasks/1/', url)
+        before = snapshot('tasks.Task', 1, ['title', 'notes', 'is_done'])
+        response = api_client.delete(url)
+>       assert response.status_code == 403, status_message('SC-TKX-003', 403, response, 'Sahibi olmayan kullanıcı başkasının görevini silemez.')
+E       AssertionError: [H304] scenario=SC-TKX-003 check=status expected=403 observed=204 | Sahibi olmayan kullanıcı başkasının görevini silemez. | yanıt: 
+E       assert 204 == 403
+E        +  where 204 = <Response status_code=204>.status_code
+
+test_sc_tkx_003.py:20: AssertionError
+=========================== short test summary info ============================
+FAILED test_sc_tkx_003.py::test_sc_tkx_003_delete_user_403 - AssertionError: ...
+1 failed in 0.15s

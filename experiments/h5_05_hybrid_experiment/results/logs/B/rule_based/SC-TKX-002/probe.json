@@ -1,0 +1,29 @@
+{
+ "exitstatus": 1,
+ "records": [
+  {
+   "nodeid": "test_sc_tkx_002.py::test_sc_tkx_002_patch_user_403",
+   "when": "setup",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  },
+  {
+   "nodeid": "test_sc_tkx_002.py::test_sc_tkx_002_patch_user_403",
+   "when": "call",
+   "outcome": "failed",
+   "xfail": false,
+   "exc_type": "AssertionError",
+   "message": "[H304] scenario=SC-TKX-002 check=status expected=403 observed=200 | Sahibi olmayan kullanıcı başkasının görevini PATCH ile değiştiremez. | yanıt: {\"id\":1,\"owner\":\"ayse\",\"title\":\"Rapor taslağı\",\"notes\":\"Ayşe'nin görevi\",\"is_done\":true}\nassert 200 == 403\n +  where 200 = <Response status_code=200, \"application/json\">.status_code"
+  },
+  {
+   "nodeid": "test_sc_tkx_002.py::test_sc_tkx_002_patch_user_403",
+   "when": "teardown",
+   "outcome": "passed",
+   "xfail": false,
+   "exc_type": null,
+   "message": ""
+  }
+ ]
+}

@@ -1,0 +1,25 @@
+{
+  "from": "H5-05 / #43",
+  "to": "H5-06 / #44",
+  "status": "PARTIAL — H5-05 birleştirilmedi; H5-06 bu oturumda başlatılmadı",
+  "entrypoints": {
+    "run": "python -m experiments.h5_05_hybrid_experiment run [--layer A|B] [--resume]",
+    "verify": "python -m experiments.h5_05_hybrid_experiment verify",
+    "tests": "python -m pytest -p no:cacheprovider experiments/h5_05_hybrid_experiment/tests"
+  },
+  "demo_ready_artifacts": {
+    "comparison_table": "experiments/h5_05_hybrid_experiment/results/comparison_table.md",
+    "metrics": "experiments/h5_05_hybrid_experiment/results/metrics_summary.json",
+    "layer_b_target_app": "experiments/h5_05_hybrid_experiment/layer_b/target_app",
+    "layer_b_flaw_examples": ["SC-TKX-001 (PUT 403→200)", "SC-TKX-002 (PATCH 403→200)", "SC-TKX-003 (DELETE 403→204)"]
+  },
+  "open_items": [
+    "Katman B Groq LLM üretimi (kimlik bilgisi + api.groq.com erişimi gerekli)",
+    "LLM için PATCH temsili ve F1 ölçümü",
+    "Bağımsız test kümesi değerlendirmesi H3-06 hattıyla ayrı yapılmalı; dev sonuçları nihai performans değildir"
+  ],
+  "do_not": [
+    "Katman B ground truth'unu sonuçlar görüldükten sonra değiştirmeyin (FROZEN.json)",
+    "Mühürlü test_set.json'u hibrit geliştirmek için kullanmayın"
+  ]
+}

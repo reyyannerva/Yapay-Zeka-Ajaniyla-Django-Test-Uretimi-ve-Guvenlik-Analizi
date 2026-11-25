@@ -1,0 +1,224 @@
+{
+  "A": {
+    "rule_based": {
+      "source": "experiments/h3_04_rule_based_baseline/generated_tests",
+      "status": "ARCHIVED_FIRST_PASS",
+      "artifacts": {
+        "SC-AUT-001": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_post_generated.py::test_sc_aut_001_post_anonymous_401"
+        ],
+        "SC-AUT-005": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_post_generated.py::test_sc_aut_005_post_anonymous_401"
+        ],
+        "SC-AUZ-004": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_post_generated.py::test_sc_auz_004_post_user_403"
+        ],
+        "SC-CRT-001": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_post_generated.py::test_sc_crt_001_post_user_201"
+        ],
+        "SC-CRT-002": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_post_generated.py::test_sc_crt_002_post_owner_201"
+        ],
+        "SC-INP-001": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_post_generated.py::test_sc_inp_001_post_user_400"
+        ],
+        "SC-INP-002": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_post_generated.py::test_sc_inp_002_post_user_400"
+        ],
+        "SC-INP-004": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_post_generated.py::test_sc_inp_004_post_user_400"
+        ],
+        "SC-LST-001": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_get_generated.py::test_sc_lst_001_get_anonymous_200"
+        ],
+        "SC-LST-002": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_get_generated.py::test_sc_lst_002_get_user_200"
+        ],
+        "SC-LST-003": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_get_generated.py::test_sc_lst_003_get_admin_200"
+        ],
+        "SC-MNA-001": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_delete_generated.py::test_sc_mna_001_delete_owner_405"
+        ],
+        "SC-MNA-002": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_put_generated.py::test_sc_mna_002_put_owner_405"
+        ],
+        "SC-PUB-001": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_post_generated.py::test_sc_pub_001_post_owner_200"
+        ],
+        "SC-RET-001": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_get_generated.py::test_sc_ret_001_get_anonymous_200"
+        ],
+        "SC-RET-002": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_get_generated.py::test_sc_ret_002_get_anonymous_404"
+        ],
+        "SC-RET-003": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_get_generated.py::test_sc_ret_003_get_owner_200"
+        ],
+        "SC-RET-004": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_get_generated.py::test_sc_ret_004_get_admin_200"
+        ],
+        "SC-RET-005": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_get_generated.py::test_sc_ret_005_get_user_404"
+        ],
+        "SC-RET-006": [
+          "experiments/h3_04_rule_based_baseline/generated_tests/test_get_generated.py::test_sc_ret_006_get_anonymous_404"
+        ]
+      }
+    },
+    "llm": {
+      "status": "ARCHIVED_FIRST_PASS",
+      "model_id": "groq/openai/gpt-oss-120b",
+      "prompt_version": "pytest_v1",
+      "source": "experiments/h3_05_llm_baseline/raw_responses",
+      "note": "H3-05 (#31) ilk geçiş ham yanıtları; H5-05'te yeniden üretilmedi (arşiv).",
+      "artifacts": {
+        "SC-AUT-001": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-AUT-001.txt"
+        ],
+        "SC-AUT-005": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-AUT-005.txt"
+        ],
+        "SC-AUZ-004": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-AUZ-004.txt"
+        ],
+        "SC-CRT-001": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-CRT-001.txt"
+        ],
+        "SC-CRT-002": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-CRT-002.txt"
+        ],
+        "SC-INP-001": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-INP-001.txt"
+        ],
+        "SC-INP-002": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-INP-002.txt"
+        ],
+        "SC-INP-004": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-INP-004.txt"
+        ],
+        "SC-LST-001": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-LST-001.txt"
+        ],
+        "SC-LST-002": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-LST-002.txt"
+        ],
+        "SC-LST-003": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-LST-003.txt"
+        ],
+        "SC-MNA-001": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-MNA-001.txt"
+        ],
+        "SC-MNA-002": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-MNA-002.txt"
+        ],
+        "SC-PUB-001": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-PUB-001.txt"
+        ],
+        "SC-RET-001": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-RET-001.txt"
+        ],
+        "SC-RET-002": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-RET-002.txt"
+        ],
+        "SC-RET-003": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-RET-003.txt"
+        ],
+        "SC-RET-004": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-RET-004.txt"
+        ],
+        "SC-RET-005": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-RET-005.txt"
+        ],
+        "SC-RET-006": [
+          "experiments/h3_05_llm_baseline/raw_responses/SC-RET-006.txt"
+        ]
+      }
+    }
+  },
+  "B": {
+    "rule_based": {
+      "source": "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests",
+      "status": "GENERATED_IN_H5_05 (etiket maskeli girdi)",
+      "artifacts": {
+        "SC-TKL-001": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_get_generated.py::test_sc_tkl_001_get_user_200"
+        ],
+        "SC-TKL-002": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_get_generated.py::test_sc_tkl_002_get_anonymous_401"
+        ],
+        "SC-TKC-001": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_post_generated.py::test_sc_tkc_001_post_user_201"
+        ],
+        "SC-TKC-002": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_post_generated.py::test_sc_tkc_002_post_user_400"
+        ],
+        "SC-TKU-001": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_put_generated.py::test_sc_tku_001_put_owner_200"
+        ],
+        "SC-TKU-002": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_put_generated.py::test_sc_tku_002_put_user_403"
+        ],
+        "SC-TKP-001": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_patch_generated.py::test_sc_tkp_001_patch_owner_200"
+        ],
+        "SC-TKP-002": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_patch_generated.py::test_sc_tkp_002_patch_user_403"
+        ],
+        "SC-TKP-003": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_patch_generated.py::test_sc_tkp_003_patch_anonymous_401"
+        ],
+        "SC-TKP-004": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_patch_generated.py::test_sc_tkp_004_patch_admin_200"
+        ],
+        "SC-TKD-001": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_delete_generated.py::test_sc_tkd_001_delete_owner_204"
+        ],
+        "SC-TKD-002": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_delete_generated.py::test_sc_tkd_002_delete_user_403"
+        ],
+        "SC-TKX-001": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_put_generated.py::test_sc_tkx_001_put_user_403"
+        ],
+        "SC-TKX-002": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_patch_generated.py::test_sc_tkx_002_patch_user_403"
+        ],
+        "SC-TKX-003": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_delete_generated.py::test_sc_tkx_003_delete_user_403"
+        ],
+        "SC-TKX-004": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_patch_generated.py::test_sc_tkx_004_patch_owner_200"
+        ],
+        "SC-TKX-005": [
+          "experiments/h5_05_hybrid_experiment/layer_b/generated/rule_based/generated_tests/test_get_generated.py::test_sc_tkx_005_get_owner_200"
+        ]
+      }
+    },
+    "llm": {
+      "status": "BLOCKED",
+      "model_id": null,
+      "prompt_version": "pytest_v1",
+      "source": "experiments/h5_05_hybrid_experiment/layer_b/generated/llm/prompts_sent",
+      "note": "LLM_GENERATION_BLOCKED: Katman B için LLM üretimi yapılamadı — oturumda Groq API kimlik bilgisi yok ve api.groq.com ağ politikasınca erişilemez. İstemler etiketsiz olarak kaydedildi (layer_b/generated/llm/prompts_sent); arşiv çıktısı yeni koşu gibi sunulmaz ve sessiz model değişimi yapılmaz.",
+      "artifacts": {
+        "SC-TKL-001": [],
+        "SC-TKL-002": [],
+        "SC-TKC-001": [],
+        "SC-TKC-002": [],
+        "SC-TKU-001": [],
+        "SC-TKU-002": [],
+        "SC-TKP-001": [],
+        "SC-TKP-002": [],
+        "SC-TKP-003": [],
+        "SC-TKP-004": [],
+        "SC-TKD-001": [],
+        "SC-TKD-002": [],
+        "SC-TKX-001": [],
+        "SC-TKX-002": [],
+        "SC-TKX-003": [],
+        "SC-TKX-004": [],
+        "SC-TKX-005": []
+      }
+    }
+  }
+}

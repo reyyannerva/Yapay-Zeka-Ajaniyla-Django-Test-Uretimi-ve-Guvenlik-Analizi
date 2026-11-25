@@ -1,0 +1,1882 @@
+[
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-AUT-001",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 401,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-AUT-005",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 401,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-AUZ-004",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-CRT-001",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 201,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-CRT-002",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 201,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-INP-001",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 400,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-INP-002",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 400,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-INP-004",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 400,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-LST-001",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-LST-002",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-LST-003",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-MNA-001",
+    "http_method": "DELETE",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 405,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-MNA-002",
+    "http_method": "PUT",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 405,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-PUB-001",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-RET-001",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-RET-002",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 404,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-RET-003",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-RET-004",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-RET-005",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 404,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-RET-006",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 404,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-AUT-001",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 401,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-AUT-005",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 401,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-AUZ-004",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-CRT-001",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 201,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-CRT-002",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 201,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-INP-001",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 400,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-INP-002",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 400,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-INP-004",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 400,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-LST-001",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-LST-002",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-LST-003",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-MNA-001",
+    "http_method": "DELETE",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 405,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-MNA-002",
+    "http_method": "PUT",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 405,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-PUB-001",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-RET-001",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-RET-002",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 404,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-RET-003",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-RET-004",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-RET-005",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 404,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "llm",
+    "scenario_id": "SC-RET-006",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 404,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-AUT-001",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 401,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-AUT-005",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 401,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-AUZ-004",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-CRT-001",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 201,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-CRT-002",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 201,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-INP-001",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 400,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-INP-002",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 400,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-INP-004",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 400,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-LST-001",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-LST-002",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-LST-003",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-MNA-001",
+    "http_method": "DELETE",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 405,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-MNA-002",
+    "http_method": "PUT",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 405,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-PUB-001",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-RET-001",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-RET-002",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 404,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-RET-003",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-RET-004",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-RET-005",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 404,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "A",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-RET-006",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 404,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKL-001",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKL-002",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 401,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKC-001",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 201,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKC-002",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 400,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKU-001",
+    "http_method": "PUT",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKU-002",
+    "http_method": "PUT",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKP-001",
+    "http_method": "PATCH",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKP-002",
+    "http_method": "PATCH",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKP-003",
+    "http_method": "PATCH",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 401,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKP-004",
+    "http_method": "PATCH",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKD-001",
+    "http_method": "DELETE",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 204,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKD-002",
+    "http_method": "DELETE",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKX-001",
+    "http_method": "PUT",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": true,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": 200,
+    "outcome": "FAIL",
+    "status": "FAIL",
+    "predicted_finding": true,
+    "observed_status": 200,
+    "failing_tests_in_scenario": 1,
+    "confusion_cell": "TP"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKX-002",
+    "http_method": "PATCH",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": true,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": 200,
+    "outcome": "FAIL",
+    "status": "FAIL",
+    "predicted_finding": true,
+    "observed_status": 200,
+    "failing_tests_in_scenario": 1,
+    "confusion_cell": "TP"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKX-003",
+    "http_method": "DELETE",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": true,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": 204,
+    "outcome": "FAIL",
+    "status": "FAIL",
+    "predicted_finding": true,
+    "observed_status": 204,
+    "failing_tests_in_scenario": 1,
+    "confusion_cell": "TP"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKX-004",
+    "http_method": "PATCH",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "rule_based",
+    "scenario_id": "SC-TKX-005",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKL-001",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKL-002",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 401,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKC-001",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 201,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKC-002",
+    "http_method": "POST",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 400,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKU-001",
+    "http_method": "PUT",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKU-002",
+    "http_method": "PUT",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKP-001",
+    "http_method": "PATCH",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKP-002",
+    "http_method": "PATCH",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKP-003",
+    "http_method": "PATCH",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 401,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKP-004",
+    "http_method": "PATCH",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKD-001",
+    "http_method": "DELETE",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 204,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKD-002",
+    "http_method": "DELETE",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKX-001",
+    "http_method": "PUT",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": true,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": 200,
+    "outcome": "FAIL",
+    "status": "FAIL",
+    "predicted_finding": true,
+    "observed_status": 200,
+    "failing_tests_in_scenario": 1,
+    "confusion_cell": "TP"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKX-002",
+    "http_method": "PATCH",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": true,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": 200,
+    "outcome": "FAIL",
+    "status": "FAIL",
+    "predicted_finding": true,
+    "observed_status": 200,
+    "failing_tests_in_scenario": 1,
+    "confusion_cell": "TP"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKX-003",
+    "http_method": "DELETE",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": true,
+    "gt_finding_type": null,
+    "gt_secure_status": 403,
+    "gt_observed_flawed_status": 204,
+    "outcome": "FAIL",
+    "status": "FAIL",
+    "predicted_finding": true,
+    "observed_status": 204,
+    "failing_tests_in_scenario": 1,
+    "confusion_cell": "TP"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKX-004",
+    "http_method": "PATCH",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  },
+  {
+    "layer": "B",
+    "generation_method": "hybrid",
+    "scenario_id": "SC-TKX-005",
+    "http_method": "GET",
+    "matched_on": [
+      "scenario_id",
+      "http_method"
+    ],
+    "gt_is_known_flaw": false,
+    "gt_finding_type": null,
+    "gt_secure_status": 200,
+    "gt_observed_flawed_status": null,
+    "outcome": "PASS",
+    "status": "PASS",
+    "predicted_finding": false,
+    "observed_status": null,
+    "failing_tests_in_scenario": 0,
+    "confusion_cell": "TN"
+  }
+]

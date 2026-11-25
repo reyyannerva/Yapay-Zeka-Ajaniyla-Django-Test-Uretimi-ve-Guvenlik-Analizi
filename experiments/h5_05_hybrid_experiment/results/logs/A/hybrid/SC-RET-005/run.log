@@ -1,0 +1,8 @@
+.                                                                        [100%]
+==================================== PASSES ====================================
+_________________________ test_sc_ret_005_get_user_404 _________________________
+------------------------------ Captured log call -------------------------------
+WARNING  django.request:log.py:293 Not Found: /api/articles/2/
+=========================== short test summary info ============================
+PASSED test_sc_ret_005.py::test_sc_ret_005_get_user_404
+1 passed in 0.14s

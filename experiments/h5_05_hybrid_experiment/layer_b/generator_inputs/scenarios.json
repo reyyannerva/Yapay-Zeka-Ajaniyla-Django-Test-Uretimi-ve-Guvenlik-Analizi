@@ -1,0 +1,396 @@
+{
+  "dataset": "h5-05-layer-b-controlled",
+  "version": "1.0.0",
+  "generated_for": "#43 / H5-05 Katman B",
+  "target_app": "experiments/h5_05_hybrid_experiment/layer_b/target_app",
+  "description": "H5-05 kontrollü ek geliştirme senaryoları (Task kaynağı). Mühürlü H3-03 test kümesinden türetilmemiştir.",
+  "scenarios": [
+    {
+      "id": "SC-TKL-001",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "GET",
+      "endpoint": "/api/tasks/",
+      "user_role": "user",
+      "request_input": null,
+      "expected_http_status": 200,
+      "expected_behavior": "Kimliği doğrulanmış kullanıcı görev listesini görür.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "mehmet",
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKL-002",
+      "category": "AUTHENTICATION",
+      "http_method": "GET",
+      "endpoint": "/api/tasks/",
+      "user_role": "anonymous",
+      "request_input": null,
+      "expected_http_status": 401,
+      "expected_behavior": "Anonim kullanıcı görev listesine erişemez (kimlik doğrulama gerekli).",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": null,
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKC-001",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "POST",
+      "endpoint": "/api/tasks/",
+      "user_role": "user",
+      "request_input": {
+        "title": "Yeni görev",
+        "notes": "örnek"
+      },
+      "expected_http_status": 201,
+      "expected_behavior": "Kimliği doğrulanmış kullanıcı geçerli girdiyle görev oluşturur; sahip isteği yapan olur.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "mehmet",
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKC-002",
+      "category": "INPUT_VALIDATION",
+      "http_method": "POST",
+      "endpoint": "/api/tasks/",
+      "user_role": "user",
+      "request_input": {
+        "notes": "başlık yok"
+      },
+      "expected_http_status": 400,
+      "expected_behavior": "Zorunlu title alanı eksik görev oluşturulamaz.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "mehmet",
+        "article": null
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKU-001",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "PUT",
+      "endpoint": "/api/tasks/1/",
+      "user_role": "owner",
+      "request_input": {
+        "title": "Rapor (güncel)",
+        "notes": "tam güncelleme",
+        "is_done": true
+      },
+      "expected_http_status": 200,
+      "expected_behavior": "Sahip görevini PUT ile tamamen günceller.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "ayse",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKU-002",
+      "category": "AUTHORIZATION",
+      "http_method": "PUT",
+      "endpoint": "/api/tasks/1/",
+      "user_role": "user",
+      "request_input": {
+        "title": "Ele geçirme",
+        "notes": "",
+        "is_done": true
+      },
+      "expected_http_status": 403,
+      "expected_behavior": "Sahibi olmayan kullanıcı başkasının görevini PUT ile değiştiremez.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "mehmet",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKP-001",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "PATCH",
+      "endpoint": "/api/tasks/1/",
+      "user_role": "owner",
+      "request_input": {
+        "is_done": true
+      },
+      "expected_http_status": 200,
+      "expected_behavior": "Sahip görevini PATCH ile kısmen günceller; gövdede olmayan alanlar korunur.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "ayse",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKP-002",
+      "category": "AUTHORIZATION",
+      "http_method": "PATCH",
+      "endpoint": "/api/tasks/1/",
+      "user_role": "user",
+      "request_input": {
+        "is_done": true
+      },
+      "expected_http_status": 403,
+      "expected_behavior": "Sahibi olmayan kullanıcı başkasının görevini PATCH ile değiştiremez.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "mehmet",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKP-003",
+      "category": "AUTHENTICATION",
+      "http_method": "PATCH",
+      "endpoint": "/api/tasks/1/",
+      "user_role": "anonymous",
+      "request_input": {
+        "is_done": true
+      },
+      "expected_http_status": 401,
+      "expected_behavior": "Anonim kullanıcı görevi PATCH ile değiştiremez (kimlik doğrulama gerekli).",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": null,
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKP-004",
+      "category": "AUTHORIZATION",
+      "http_method": "PATCH",
+      "endpoint": "/api/tasks/2/",
+      "user_role": "admin",
+      "request_input": {
+        "notes": "yönetici notu"
+      },
+      "expected_http_status": 200,
+      "expected_behavior": "Yönetici herhangi bir görevi PATCH ile güncelleyebilir.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "yonetici",
+        "article": 2
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKD-001",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "DELETE",
+      "endpoint": "/api/tasks/1/",
+      "user_role": "owner",
+      "request_input": null,
+      "expected_http_status": 204,
+      "expected_behavior": "Sahip kendi görevini siler.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "ayse",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKD-002",
+      "category": "AUTHORIZATION",
+      "http_method": "DELETE",
+      "endpoint": "/api/tasks/1/",
+      "user_role": "user",
+      "request_input": null,
+      "expected_http_status": 403,
+      "expected_behavior": "Sahibi olmayan kullanıcı başkasının görevini silemez.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "mehmet",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKX-001",
+      "category": "AUTHORIZATION",
+      "http_method": "PUT",
+      "endpoint": "/api/legacy/tasks/1/",
+      "user_role": "user",
+      "request_input": {
+        "title": "Ele geçirme",
+        "notes": "",
+        "is_done": true
+      },
+      "expected_http_status": 403,
+      "expected_behavior": "Sahibi olmayan kullanıcı başkasının görevini PUT ile değiştiremez.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "mehmet",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKX-002",
+      "category": "AUTHORIZATION",
+      "http_method": "PATCH",
+      "endpoint": "/api/legacy/tasks/1/",
+      "user_role": "user",
+      "request_input": {
+        "is_done": true
+      },
+      "expected_http_status": 403,
+      "expected_behavior": "Sahibi olmayan kullanıcı başkasının görevini PATCH ile değiştiremez.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "mehmet",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKX-003",
+      "category": "AUTHORIZATION",
+      "http_method": "DELETE",
+      "endpoint": "/api/legacy/tasks/1/",
+      "user_role": "user",
+      "request_input": null,
+      "expected_http_status": 403,
+      "expected_behavior": "Sahibi olmayan kullanıcı başkasının görevini silemez.",
+      "label": "negative",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "mehmet",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKX-004",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "PATCH",
+      "endpoint": "/api/legacy/tasks/1/",
+      "user_role": "owner",
+      "request_input": {
+        "notes": "sahip notu"
+      },
+      "expected_http_status": 200,
+      "expected_behavior": "Sahip kendi görevini PATCH ile günceller.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "ayse",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    },
+    {
+      "id": "SC-TKX-005",
+      "category": "HTTP_BEHAVIOR",
+      "http_method": "GET",
+      "endpoint": "/api/legacy/tasks/1/",
+      "user_role": "owner",
+      "request_input": null,
+      "expected_http_status": 200,
+      "expected_behavior": "Sahip kendi görevini görüntüler.",
+      "label": "positive",
+      "is_intentional_flaw": false,
+      "fixture_ref": {
+        "user": "ayse",
+        "article": 1
+      },
+      "requirement_refs": [
+        "İST-03",
+        "İST-04",
+        "İST-16"
+      ]
+    }
+  ],
+  "label_mask_note": "H5-05: değerlendirme etiketleri maskelenmiştir (is_known_flaw=False maskesi, security_finding yok); üretim yalnızca expected_result'u kullanır."
+}
