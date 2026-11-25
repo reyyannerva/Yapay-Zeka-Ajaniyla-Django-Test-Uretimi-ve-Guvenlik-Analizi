@@ -24,6 +24,8 @@ const config: Config = {
         'fail-bg': 'var(--fail-bg)',
         error: 'var(--error)',
         'error-bg': 'var(--error-bg)',
+        timeout: 'var(--timeout)',
+        'timeout-bg': 'var(--timeout-bg)',
         process: 'var(--process)',
         'process-bg': 'var(--process-bg)',
         panel: 'var(--panel)',

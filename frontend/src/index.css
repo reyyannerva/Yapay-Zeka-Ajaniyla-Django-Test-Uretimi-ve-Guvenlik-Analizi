@@ -22,6 +22,8 @@
   --fail-bg: #f8eecd;
   --error: #c0392b;
   --error-bg: #f8e4e0;
+  --timeout: #6b4fb8;
+  --timeout-bg: #ece7f8;
   --process: #0f6b7a;
   --process-bg: #dceff1;
   --panel: #0b2a31;
@@ -51,6 +53,8 @@
   --fail-bg: #2c2411;
   --error: #ff5d62;
   --error-bg: #2e1518;
+  --timeout: #b69cff;
+  --timeout-bg: #231b3a;
   --process: #3fd0d6;
   --process-bg: #102e30;
   --panel: #081013;
