@@ -82,6 +82,13 @@ export function resetMockProjects(): void {
   mockProjectStore.nextId = 4;
 }
 
+/** Başka kullanıcıya ait (erişilemeyen) projeyi simüle eden sabit kimlik; gerçek 403 yolu #41'de. */
+export const MOCK_FORBIDDEN_PROJECT_ID = 9403;
+
+export function mockForbidden(): ApiError {
+  return { status: 403, body: { detail: 'Bu işlem için yetkiniz yok.' } };
+}
+
 export function mockNotFound(): ApiError {
   return { status: 404, body: { detail: 'No Project matches the given query.' } };
 }

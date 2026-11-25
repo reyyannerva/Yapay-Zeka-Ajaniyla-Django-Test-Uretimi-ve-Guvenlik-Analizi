@@ -4,14 +4,14 @@ import { Button } from '../../components/ui/Button';
 import { useAuth } from '../../lib/auth-context';
 import { AuthShell } from './AuthShell';
 
-/** Ekran 12: oturum süresi doldu. Mock'ta `/session-expired` adresinden elle tetiklenir (gerçek tetikleme #41). */
+/** Ekran 12: oturum süresi doldu. `expireSession()` (ör. 401 yanıtı → SessionGuard) ProtectedRoute üzerinden buraya yönlendirir. */
 export function SessionExpired() {
-  const { expireSession } = useAuth();
+  const { dismissSessionExpired } = useAuth();
   const navigate = useNavigate();
 
   function goToLogin() {
     // Oturum hâlâ açık görünüyorsa temizle; aksi hâlde /login kimlikli kullanıcıyı geri yönlendirirdi.
-    expireSession();
+    dismissSessionExpired();
     navigate('/login', { replace: true });
   }
 

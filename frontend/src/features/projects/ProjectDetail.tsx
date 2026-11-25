@@ -10,6 +10,8 @@ import type { Project } from '../../types';
 import { DeleteConfirm } from './DeleteConfirm';
 import { NEW_PROJECT_LINK_CLASSES } from './ProjectList';
 import { ProjectValidationBadge, formatDate } from './ProjectValidationBadge';
+import { isApiError } from '../../lib/api/client';
+import { Unauthorized } from '../status/Unauthorized';
 import { useRouteProject } from './useProject';
 
 function formatSize(bytes: number): string {
@@ -63,11 +65,13 @@ function ValidationReport({ project }: { project: Project }) {
 }
 
 export function ProjectDetail() {
-  const { id, isValidId, data: project, isLoading, isError } = useRouteProject();
+  const { id, isValidId, data: project, isLoading, isError, error } = useRouteProject();
   const [confirmOpen, setConfirmOpen] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
 
+  // Gerçek 403: başkasının kaynağı → ekran 13. 404 (silinmiş/olmayan) aşağıda "Proje bulunamadı" kalır.
+  if (isError && isApiError(error) && error.status === 403) return <Unauthorized />;
   if (!isValidId || isError) {
     return (
       <EmptyState

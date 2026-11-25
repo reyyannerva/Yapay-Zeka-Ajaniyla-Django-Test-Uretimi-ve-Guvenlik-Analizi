@@ -2,13 +2,13 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 import { useAuth } from '../../lib/auth-context';
 
-/** Kimliksiz kullanıcıyı /login'e yönlendirir; girişten sonra dönülecek konum `state.from`'da tutulur. */
+/** Kimliksiz kullanıcıyı /login'e (oturum süresi dolduysa /session-expired'a) yönlendirir; girişten sonra dönülecek konum `state.from`'da tutulur. */
 export function ProtectedRoute() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, sessionExpired } = useAuth();
   const location = useLocation();
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace state={{ from: location }} />;
+    return <Navigate to={sessionExpired ? '/session-expired' : '/login'} replace state={{ from: location }} />;
   }
   return <Outlet />;
 }

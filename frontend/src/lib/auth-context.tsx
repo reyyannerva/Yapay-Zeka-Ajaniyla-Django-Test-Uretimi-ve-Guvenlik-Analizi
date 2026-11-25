@@ -10,8 +10,11 @@ export interface AuthContextValue {
   /** Mock giriş: gerçek token akışı #41'de bağlanacak. */
   signInMock: (user: User) => void;
   signOut: () => void;
-  /** Süresi dolan oturum (ör. 401): kullanıcıyı temizler, ProtectedRoute /login'e yönlendirir. */
+  /** Oturum süresi doldu (ör. 401 yanıtı): kullanıcı temizlenir, ProtectedRoute /session-expired'a yönlendirir. */
+  sessionExpired: boolean;
   expireSession: () => void;
+  /** Oturum-sonu bildirimini kapatır (kullanıcı yeniden girişe yöneldi); sonraki yönlendirmeler /login'e gider. */
+  dismissSessionExpired: () => void;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -24,20 +27,41 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children, initialUser = null }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(initialUser);
+  const [sessionExpired, setSessionExpired] = useState(false);
 
-  const signInMock = useCallback((next: User) => setUser(next), []);
+  const signInMock = useCallback((next: User) => {
+    setUser(next);
+    setSessionExpired(false);
+  }, []);
 
   const signOut = useCallback(() => {
     setUser(null);
+    setSessionExpired(false);
     // Gerçek servis (#41) hatası oturumu kapatmayı engellemez.
     void logout().catch(() => undefined);
   }, []);
 
-  const expireSession = useCallback(() => setUser(null), []);
+  const expireSession = useCallback(() => {
+    setUser(null);
+    setSessionExpired(true);
+  }, []);
+
+  const dismissSessionExpired = useCallback(() => {
+    setUser(null);
+    setSessionExpired(false);
+  }, []);
 
   const value = useMemo<AuthContextValue>(
-    () => ({ user, isAuthenticated: user !== null, signInMock, signOut, expireSession }),
-    [user, signInMock, signOut, expireSession],
+    () => ({
+      user,
+      isAuthenticated: user !== null,
+      signInMock,
+      signOut,
+      sessionExpired,
+      expireSession,
+      dismissSessionExpired,
+    }),
+    [user, signInMock, signOut, sessionExpired, expireSession, dismissSessionExpired],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

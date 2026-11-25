@@ -11,6 +11,8 @@ import { ProjectDetail } from './features/projects/ProjectDetail';
 import { ProjectEdit } from './features/projects/ProjectEdit';
 import { ProjectList } from './features/projects/ProjectList';
 import { ProjectNew } from './features/projects/ProjectNew';
+import { NotFound } from './features/status/NotFound';
+import { Unauthorized } from './features/status/Unauthorized';
 
 export default function App() {
   return (
@@ -26,10 +28,11 @@ export default function App() {
           <Route path="/projects/new" element={<ProjectNew />} />
           <Route path="/projects/:id" element={<ProjectDetail />} />
           <Route path="/projects/:id/edit" element={<ProjectEdit />} />
+          <Route path="/forbidden" element={<Unauthorized />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Route>
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
   );
 }

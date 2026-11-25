@@ -5,7 +5,13 @@ import type {
   ProjectCreateInput,
   ProjectUpdateInput,
 } from '../../types';
-import { mockAnalysisRuns, mockNotFound, mockProjectStore } from './mock';
+import {
+  MOCK_FORBIDDEN_PROJECT_ID,
+  mockAnalysisRuns,
+  mockForbidden,
+  mockNotFound,
+  mockProjectStore,
+} from './mock';
 
 // Mock servis: bellek içi depo. Gerçek HTTP çağrısı #41'de.
 // Kimlikler Django pk'sı gibi `number`'dır (docs/api/openapi.yaml: integer).
@@ -52,6 +58,7 @@ export function listProjects(params?: {
 }
 
 export function getProject(id: number): Promise<Project> {
+  if (id === MOCK_FORBIDDEN_PROJECT_ID) return Promise.reject(mockForbidden());
   const found = mockProjectStore.projects.find((p) => p.id === id);
   return found ? Promise.resolve({ ...found }) : Promise.reject(mockNotFound());
 }

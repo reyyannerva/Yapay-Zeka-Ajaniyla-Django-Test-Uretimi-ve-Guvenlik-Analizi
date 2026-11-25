@@ -40,6 +40,7 @@ function renderWithRouter(entries: string[], { authenticated }: { authenticated:
       <MemoryRouter initialEntries={entries} future={ROUTER_FUTURE}>
         <Routes>
           <Route path="/login" element={<SignInControls />} />
+          <Route path="/session-expired" element={<div data-testid="expired-route" />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<SessionControls />} />
           </Route>
@@ -60,11 +61,11 @@ test('kimlikli kullanıcı korunan içeriği görür', () => {
   expect(screen.getByTestId('dashboard-route')).toBeInTheDocument();
 });
 
-test("expireSession oturumu düşürür ve /login'e yönlendirir", async () => {
+test("expireSession oturumu düşürür ve /session-expired'a yönlendirir", async () => {
   renderWithRouter(['/dashboard'], { authenticated: true });
   await userEvent.click(screen.getByRole('button', { name: 'Oturumu düşür' }));
-  expect(screen.getByTestId('login-route')).toBeInTheDocument();
-  expect(screen.getByText('oturum-kapali')).toBeInTheDocument();
+  expect(screen.getByTestId('expired-route')).toBeInTheDocument();
+  expect(screen.queryByTestId('login-route')).not.toBeInTheDocument();
 });
 
 test('signInMock kullanıcıyı atar ve isAuthenticated true olur', async () => {
