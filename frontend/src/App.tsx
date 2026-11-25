@@ -7,12 +7,10 @@ import { Login } from './features/auth/Login';
 import { ResetPassword } from './features/auth/ResetPassword';
 import { SessionExpired } from './features/auth/SessionExpired';
 import { Overview } from './features/dashboard/Overview';
-
-// Gerçek sayfalar sonraki görevlerde (T6/T7/T8) bu yer tutucuların yerini alır.
-// Not: `:id` rotalarında `useParams().id` string'tir; kullanılırken `Number()` ile çevrilmelidir (id'ler number).
-function Placeholder({ title }: { title: string }) {
-  return <h1 className="font-display text-2xl font-semibold">{title}</h1>;
-}
+import { ProjectDetail } from './features/projects/ProjectDetail';
+import { ProjectEdit } from './features/projects/ProjectEdit';
+import { ProjectList } from './features/projects/ProjectList';
+import { ProjectNew } from './features/projects/ProjectNew';
 
 export default function App() {
   return (
@@ -24,10 +22,10 @@ export default function App() {
       <Route element={<ProtectedRoute />}>
         <Route element={<AppLayout />}>
           <Route path="/dashboard" element={<Overview />} />
-          <Route path="/projects" element={<Placeholder title="Projeler" />} />
-          <Route path="/projects/new" element={<Placeholder title="Yeni proje" />} />
-          <Route path="/projects/:id" element={<Placeholder title="Proje detayı" />} />
-          <Route path="/projects/:id/edit" element={<Placeholder title="Projeyi düzenle" />} />
+          <Route path="/projects" element={<ProjectList />} />
+          <Route path="/projects/new" element={<ProjectNew />} />
+          <Route path="/projects/:id" element={<ProjectDetail />} />
+          <Route path="/projects/:id/edit" element={<ProjectEdit />} />
         </Route>
       </Route>
       <Route path="/" element={<Navigate to="/dashboard" replace />} />

@@ -11,6 +11,10 @@ export interface ConfirmDialogProps {
   onCancel: () => void;
   /** İşlem sürerken düğmeleri devre dışı bırakır. */
   busy?: boolean;
+  /** Geri alınamaz eylem: onay düğmesi kırmızı (danger) olur. */
+  destructive?: boolean;
+  /** Eylem başarısız olursa diyalog içinde gösterilen hata mesajı. */
+  error?: string;
 }
 
 export function ConfirmDialog({
@@ -22,6 +26,8 @@ export function ConfirmDialog({
   onConfirm,
   onCancel,
   busy = false,
+  destructive = false,
+  error,
 }: ConfirmDialogProps) {
   return (
     <Modal
@@ -33,13 +39,22 @@ export function ConfirmDialog({
           <Button variant="ghost" onClick={onCancel} disabled={busy}>
             {cancelLabel}
           </Button>
-          <Button onClick={onConfirm} disabled={busy}>
+          <Button
+            variant={destructive ? 'danger' : 'primary'}
+            onClick={onConfirm}
+            disabled={busy}
+          >
             {confirmLabel}
           </Button>
         </>
       }
     >
       {description ? <p className="text-muted">{description}</p> : null}
+      {error ? (
+        <p role="alert" className="mt-3 rounded-md border border-error bg-error-bg p-3 text-fg">
+          {error}
+        </p>
+      ) : null}
     </Modal>
   );
 }

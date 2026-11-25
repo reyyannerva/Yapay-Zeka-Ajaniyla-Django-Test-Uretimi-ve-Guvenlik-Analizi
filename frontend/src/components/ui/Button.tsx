@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes } from 'react';
 
-type ButtonVariant = 'primary' | 'ghost';
+type ButtonVariant = 'primary' | 'ghost' | 'danger';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -11,6 +11,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary: 'bg-accent text-accent-fg border border-transparent hover:opacity-90',
   ghost: 'bg-transparent text-fg border border-border-strong hover:bg-surface-2',
+  // Yıkıcı eylemler (ör. silme onayı): hata tokenlarıyla kırmızı.
+  danger: 'bg-error text-error-fg border border-transparent hover:opacity-90',
 };
 
 export function Button({

@@ -11,6 +11,11 @@ test('tıklanınca onClick çağrılır', async () => {
   expect(onClick).toHaveBeenCalledTimes(1);
 });
 
+test('danger varyantı hata token sınıflarını kullanır', () => {
+  render(<Button variant="danger">Sil</Button>);
+  expect(screen.getByRole('button', { name: 'Sil' })).toHaveClass('bg-error', 'text-error-fg');
+});
+
 test('disabled iken onClick çağrılmaz', async () => {
   const onClick = vi.fn();
   render(

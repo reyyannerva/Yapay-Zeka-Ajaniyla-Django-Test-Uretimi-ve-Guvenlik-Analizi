@@ -13,7 +13,7 @@ import type {
   TestExecutionStatus,
 } from '../../types';
 
-type Tone = RunTone | TestTone | FindingTone;
+export type Tone = RunTone | TestTone | FindingTone;
 
 // Yalnızca tema token sınıfları kullanılır; renk tek başına anlam taşımaz (etiket her zaman yazılır).
 const TONE_CLASSES: Record<Tone, string> = {
@@ -25,13 +25,13 @@ const TONE_CLASSES: Record<Tone, string> = {
   muted: 'bg-surface-2 text-muted border-border-strong',
 };
 
-interface BadgeProps {
+export interface BadgeProps {
   tone: Tone;
   children: string;
   className?: string;
 }
 
-function Badge({ tone, children, className = '' }: BadgeProps) {
+export function Badge({ tone, children, className = '' }: BadgeProps) {
   return (
     <span
       data-tone={tone}
