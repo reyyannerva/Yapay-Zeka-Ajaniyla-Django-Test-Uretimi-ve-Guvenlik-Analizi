@@ -30,9 +30,9 @@ test('yüklenince metrik kartları ve son analizler tablosu görünür', async (
   expect(await screen.findByText('Toplam proje')).toBeInTheDocument();
   expect(screen.getByText('Devam eden analiz')).toBeInTheDocument();
   const table = screen.getByRole('table');
-  // 3 örnek analiz + başlık satırı
-  expect(within(table).getAllByRole('row')).toHaveLength(4);
-  expect(within(table).getByText('#3')).toBeInTheDocument();
+  // 6 örnek analiz (#40 ile 3 DEMO analiz eklendi) + başlık satırı
+  expect(within(table).getAllByRole('row')).toHaveLength(7);
+  expect(within(table).getByRole('link', { name: '#3' })).toHaveAttribute('href', '/analyses/3');
 });
 
 test('metrikler açıkça örnek veri olarak etiketlenir', async () => {
@@ -52,7 +52,7 @@ test('devam eden analiz için aşama şeridi görünür ve son düğüm "Tamamla
 test('LLM yalnızca sağlayıcı olarak gösterilir, model kimliği yazılmaz', async () => {
   renderOverview();
   const table = await screen.findByRole('table');
-  expect(within(table).getByText('Groq')).toBeInTheDocument();
+  expect(within(table).getAllByText('Groq').length).toBeGreaterThan(0);
   expect(screen.queryByText(/ornek-model/)).not.toBeInTheDocument();
 });
 

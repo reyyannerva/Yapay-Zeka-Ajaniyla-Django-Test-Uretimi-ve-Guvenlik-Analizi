@@ -1,8 +1,10 @@
-# Frontend (Hafta 5, #39 — Frontend temeli)
+# Frontend (Hafta 5 — #39 frontend temeli, #40 analiz ve sonuç ekranları)
 
 React 18 + TypeScript + Vite + Tailwind CSS tabanlı arayüz temeli. Bu pakette giriş / şifre
 sıfırlama / oturum sonu, genel bakış (dashboard), proje yönetimi (liste, detay, yükleme,
-düzenleme, silme), profil ve durum ekranları (yetkisiz, bulunamadı) bulunur.
+düzenleme, silme), profil ve durum ekranları (yetkisiz, bulunamadı) bulunur. #40 ile analiz
+listesi ve analiz detayı (kaynak kod analizi, üretilen testler, test sonuçları, güvenlik
+bulguları, rapor) eklenmiştir.
 
 > **Mock veri uyarısı:** Bu arayüz henüz gerçek API'ye bağlı değildir. Ekranlarda görünen
 > **tüm değerler (kullanıcı, projeler, analiz çalıştırmaları, sayılar, tarihler) örnektir**;
@@ -33,7 +35,7 @@ senaryosudur.
 
 Başlıca rotalar: `/login`, `/forgot-password`, `/reset-password`, `/session-expired`,
 `/dashboard`, `/projects`, `/projects/new`, `/projects/:id`, `/projects/:id/edit`, `/profile`,
-`/forbidden`.
+`/forbidden`, `/analyses`, `/analyses/:id/{endpoints,tests,results,findings,report}`.
 
 ## Test
 
@@ -93,12 +95,50 @@ alınır ve `docs/mockup/j-kimligi/` altına konur:
 Mevcut Figma tabanlı mockup görüntüleri `docs/mockup/ekranlar/` altındadır; J kimliği görüntüleri
 bunlardan ayrı tutulur.
 
+## Analiz ve sonuç ekranları (#40)
+
+> **DEMO veri:** Analiz ekranlarındaki endpoint, test, sonuç, bulgu ve metrik değerlerinin tamamı
+> `src/lib/api/mock/analysis-results.ts` içindeki **örnek** verilerdir; her ekranda "DEMO"
+> etiketiyle belirtilir. Gerçek analiz, sandbox yürütmesi veya tarama sonucu değildir.
+
+| Rota | Ekran | İçerik |
+| --- | --- | --- |
+| `/analyses` | Analiz listesi | Tüm analizler; `?project=<id>` ile projeye göre süzülür |
+| `/analyses/:id/endpoints` | Kaynak kod analizi | GET/POST/PUT/PATCH/DELETE filtresi, arama, kimlik doğrulama / izin / kapsam filtreleri, filtre temizleme, boş sonuç durumu |
+| `/analyses/:id/tests` | Pytest üretimi | Kural tabanlı / LLM ayrımı (analiz yöntemi: kural, LLM, hibrit), kod önizleme + kopyalama, doğrulama durumu, sağlayıcı / model / fallback bilgisi |
+| `/analyses/:id/results` | Test sonuçları | PENDING, RUNNING, PASS, FAIL, ERROR, TIMEOUT (+ NOT_RUN/STOPPED) ayrı; canlı ilerleme (tamamlanan/toplam, yüzde, **tahmini** kalan süre), canlı çıktı, durum dağılımı grafiği |
+| `/analyses/:id/findings` | Güvenlik bulguları | Doğrulama sınıfı (VERIFIED/POSSIBLE/UNCERTAIN) ile önem derecesi ayrı; kanıt, düzeltme önerisi, referans; önem dağılımı grafiği |
+| `/analyses/:id/report` | Raporlama | Bölüm seçimi, PDF/JSON, hazırlanıyor / hazır / hata / veri yok durumları; değerlendirme metrikleri (Precision, Recall, F1) ve grafiği |
+
+Önemli kurallar:
+
+- **Analiz aşaması** (`AnalysisRun.status`: kuyruk → analiz → üretim → çalıştırma → tarama →
+  tamamlandı) test durumlarından ayrı gösterilir.
+- **Precision / Recall / F1** yalnızca altın etiketli referans (TP/FP/FN) varsa gösterilir;
+  PASS/FAIL sayılarından türetilmez. Payda sıfırsa değer **"Ölçülemedi"** yazılır
+  (`src/lib/evaluation-metrics.ts`, `agent/evaluation/metrics.py` ile aynı tanım).
+- Kalan süre her zaman "tahmin" olarak yazılır; 3'ten az tamamlanmış test varsa "Belirsiz" denir.
+- Canlı akış DEMO'dur (#2 numaralı analiz); zamanlayıcı sayfadan çıkınca temizlenir.
+- Kod ve test çıktıları güvenilmeyen düz metin olarak çizilir (HTML yorumlanmaz).
+- JSON indirme DEMO içeriktir; blob URL'si hemen serbest bırakılır. PDF dosyası frontend'de
+  üretilmez, backend rapor servisine (#41 sonrası) bırakılmıştır.
+
+**API hazırlığı:** Ekranlar yalnızca `src/lib/api/analysis-results.ts` fonksiyonlarını çağırır
+(`listEndpoints`, `listGeneratedTests`, `listTestResults`, `listSecurityFindings`,
+`getEvaluation`, `subscribeExecution`, `prepareReport`). Gerçek entegrasyonda (#41) yalnızca bu
+fonksiyonların gövdeleri değişir; mock veri `mock/` klasöründe ayrı tutulur.
+
+**Ekran görüntüleri:** Playwright ile 1440 px (mobil: 390 px) genişlikte alınmıştır;
+`docs/mockup/h5-02/` altındadır. Tarayıcı kontrolü 1440 / 1280 / 1024 / 768 / 390 px'de yatay
+taşma ve konsol hatası olmadan geçmiştir.
+
 ## Kapsam sınırları
 
-Bu paket yalnızca **#39 (frontend temeli)** kapsamındadır. Kapsam dışı:
+Bu paket **#39 (frontend temeli)** ve **#40 (analiz, test üretimi ve sonuç ekranları)**
+kapsamındadır. Kapsam dışı:
 
-- **#41** — Gerçek HTTP/JWT entegrasyonu, token saklama, 401/refresh akışı. Şu an tüm veri mock.
-- **#40** — Analiz ekranları: analiz ayarları, endpointler, üretilen testler, test sonuçları,
-  güvenlik bulguları, rapor, "Yeni analiz" sihirbazı, referans gereksinimler.
-- Recharts grafikleri (#40/#43).
+- **#41** — Gerçek HTTP/JWT ve analiz API entegrasyonu, token saklama, 401/refresh akışı,
+  gerçek PDF indirme. Şu an tüm veri mock/DEMO.
+- "Yeni analiz" sihirbazı, analiz ayarları ve referans gereksinim ekranları.
+- Kenar menüsündeki "Raporlar" sayfası (rapor işlemleri analiz detayındaki "Rapor" sekmesindedir).
 - Figma dosyasının J kimliğine güncellenmesi (hoca onayına bağlı, ayrı iş).

@@ -47,11 +47,10 @@ test('geçerli sayfanın linki aktif (aria-current) işaretlenir', () => {
   expect(screen.getByRole('link', { name: /Genel bakış/ })).not.toHaveAttribute('aria-current');
 });
 
-test('Analizler ve Raporlar pasif yer tutucudur (link değil)', () => {
+test('Analizler /analyses bağlantısıdır (#40); Raporlar pasif yer tutucudur (link değil)', () => {
   renderLayout();
-  expect(screen.queryByRole('link', { name: /Analizler/ })).not.toBeInTheDocument();
+  expect(screen.getByRole('link', { name: /Analizler/ })).toHaveAttribute('href', '/analyses');
   expect(screen.queryByRole('link', { name: /Raporlar/ })).not.toBeInTheDocument();
-  expect(screen.getByText('Analizler').closest('[aria-disabled="true"]')).not.toBeNull();
   expect(screen.getByText('Raporlar').closest('[aria-disabled="true"]')).not.toBeNull();
 });
 

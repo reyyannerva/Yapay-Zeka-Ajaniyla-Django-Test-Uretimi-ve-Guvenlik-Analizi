@@ -137,6 +137,9 @@ export function ProjectDetail() {
       <Card className="flex flex-col gap-1">
         <h2 className="font-display text-lg font-semibold">Analizler</h2>
         <p className="text-sm text-muted">{`Bu proje için ${project.analysis_run_count} analiz çalıştırıldı.`}</p>
+        <Link to={`/analyses?project=${project.id}`} className="self-start text-sm font-medium text-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent">
+          Analizleri görüntüle
+        </Link>
       </Card>
 
       <DeleteConfirm

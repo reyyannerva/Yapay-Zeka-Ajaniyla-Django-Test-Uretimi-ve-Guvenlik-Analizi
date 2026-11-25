@@ -12,5 +12,10 @@ export const queryKeys = {
     all: () => ['analysis-runs'] as const,
     list: () => ['analysis-runs', 'list'] as const,
     detail: (id: number) => ['analysis-runs', 'detail', id] as const,
+    endpoints: (id: number) => ['analysis-runs', 'detail', id, 'endpoints'] as const,
+    tests: (id: number) => ['analysis-runs', 'detail', id, 'tests'] as const,
+    results: (id: number) => ['analysis-runs', 'detail', id, 'results'] as const,
+    findings: (id: number) => ['analysis-runs', 'detail', id, 'findings'] as const,
+    evaluation: (id: number) => ['analysis-runs', 'detail', id, 'evaluation'] as const,
   },
 };
