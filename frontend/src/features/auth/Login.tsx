@@ -52,7 +52,11 @@ export function Login() {
   }
 
   return (
-    <AuthShell title="Giriş yap" subtitle="Hesabınızla oturum açın.">
+    <AuthShell
+      eyebrow="Oturum"
+      title="Giriş yapın"
+      subtitle="Analizlerinize devam etmek için hesabınızla giriş yapın."
+    >
       <form noValidate onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         {failure === 'locked' ? (
           <div role="alert" className={ALERT_CLASSES}>
@@ -86,12 +90,22 @@ export function Login() {
           error={errors.password?.message}
           {...register('password')}
         />
+        <div className="flex items-center justify-between gap-3 text-sm">
+          <label className="inline-flex items-center gap-2 text-muted">
+            <input type="checkbox" className="h-4 w-4 accent-[var(--accent)]" />
+            Beni hatırla
+          </label>
+          <Link to="/forgot-password" className="font-semibold text-accent hover:underline">
+            Şifremi unuttum
+          </Link>
+        </div>
         <Button type="submit" block disabled={isSubmitting}>
           Giriş yap
         </Button>
-        <Link to="/forgot-password" className="text-center text-sm text-accent hover:underline">
-          Şifremi unuttum
-        </Link>
+        <p className="border-t border-border pt-4 text-xs leading-relaxed text-muted">
+          Hesabınız yoksa ekip yöneticinizden davet isteyin. Oturumunuz 8 saat işlem yapılmadığında
+          güvenlik için kapatılır.
+        </p>
       </form>
     </AuthShell>
   );

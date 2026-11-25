@@ -5,6 +5,7 @@ import { expect, test } from 'vitest';
 
 import type { User } from '../../types';
 import { AuthProvider } from '../../lib/auth-context';
+import { ThemeProvider } from '../../lib/theme-context';
 import { ROUTER_FUTURE } from '../../test/router-future';
 import { ForgotPassword } from './ForgotPassword';
 import { SessionExpired } from './SessionExpired';
@@ -13,9 +14,11 @@ const USER: User = { id: 1, username: 'ornek-kullanici', email: 'ornek@example.t
 
 test('şifre sıfırlama talebi hesabın varlığını ifşa etmeyen genel onay gösterir', async () => {
   render(
+    <ThemeProvider>
     <MemoryRouter future={ROUTER_FUTURE}>
       <ForgotPassword />
-    </MemoryRouter>,
+    </MemoryRouter>
+    </ThemeProvider>,
   );
   await userEvent.type(screen.getByLabelText(/E-posta/), 'kayitsiz@example.test');
   await userEvent.click(screen.getByRole('button', { name: /Bağlantı gönder/ }));
@@ -24,9 +27,11 @@ test('şifre sıfırlama talebi hesabın varlığını ifşa etmeyen genel onay 
 
 test('geçersiz e-posta biçimi alan hatası gösterir', async () => {
   render(
+    <ThemeProvider>
     <MemoryRouter future={ROUTER_FUTURE}>
       <ForgotPassword />
-    </MemoryRouter>,
+    </MemoryRouter>
+    </ThemeProvider>,
   );
   await userEvent.type(screen.getByLabelText(/E-posta/), 'gecersiz');
   await userEvent.click(screen.getByRole('button', { name: /Bağlantı gönder/ }));
@@ -35,6 +40,7 @@ test('geçersiz e-posta biçimi alan hatası gösterir', async () => {
 
 test("SessionExpired oturumu temizler ve /login'e yönlendirir", async () => {
   render(
+    <ThemeProvider>
     <AuthProvider initialUser={USER}>
       <MemoryRouter initialEntries={['/session-expired']} future={ROUTER_FUTURE}>
         <Routes>
@@ -42,7 +48,8 @@ test("SessionExpired oturumu temizler ve /login'e yönlendirir", async () => {
           <Route path="/login" element={<div data-testid="login-route" />} />
         </Routes>
       </MemoryRouter>
-    </AuthProvider>,
+    </AuthProvider>
+    </ThemeProvider>,
   );
   await userEvent.click(screen.getByRole('button', { name: /Yeniden giriş yap/ }));
   expect(screen.getByTestId('login-route')).toBeInTheDocument();

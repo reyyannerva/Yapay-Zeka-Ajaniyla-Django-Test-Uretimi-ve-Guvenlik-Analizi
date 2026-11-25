@@ -4,11 +4,13 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { expect, test } from 'vitest';
 
 import { ToastProvider } from '../../components/ui/Toast';
+import { ThemeProvider } from '../../lib/theme-context';
 import { ROUTER_FUTURE } from '../../test/router-future';
 import { ResetPassword } from './ResetPassword';
 
 function renderReset(search: string) {
   return render(
+    <ThemeProvider>
     <ToastProvider>
       <MemoryRouter initialEntries={[`/reset-password${search}`]} future={ROUTER_FUTURE}>
         <Routes>
@@ -16,7 +18,8 @@ function renderReset(search: string) {
           <Route path="/login" element={<div data-testid="login-route" />} />
         </Routes>
       </MemoryRouter>
-    </ToastProvider>,
+    </ToastProvider>
+    </ThemeProvider>,
   );
 }
 

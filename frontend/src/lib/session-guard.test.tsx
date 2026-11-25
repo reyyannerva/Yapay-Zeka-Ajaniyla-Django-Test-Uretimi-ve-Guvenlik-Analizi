@@ -8,6 +8,7 @@ import { SessionExpired } from '../features/auth/SessionExpired';
 import type { ApiError, User } from '../types';
 import { ROUTER_FUTURE } from '../test/router-future';
 import { AuthProvider } from './auth-context';
+import { ThemeProvider } from './theme-context';
 import { SessionGuard } from './session-guard';
 
 const USER: User = { id: 1, username: 'ornek-kullanici', email: 'ornek@example.test' };
@@ -24,6 +25,7 @@ function Protected({ status }: { status: ApiError['status'] }) {
 function renderApp(status: ApiError['status']) {
   const client = new QueryClient();
   return render(
+    <ThemeProvider>
     <QueryClientProvider client={client}>
       <AuthProvider initialUser={USER}>
         <MemoryRouter initialEntries={['/dashboard']} future={ROUTER_FUTURE}>
@@ -37,7 +39,8 @@ function renderApp(status: ApiError['status']) {
           </Routes>
         </MemoryRouter>
       </AuthProvider>
-    </QueryClientProvider>,
+    </QueryClientProvider>
+    </ThemeProvider>,
   );
 }
 

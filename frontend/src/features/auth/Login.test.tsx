@@ -6,6 +6,7 @@ import { beforeEach, expect, test } from 'vitest';
 import { ToastProvider } from '../../components/ui/Toast';
 import { resetMockLoginAttempts } from '../../lib/api/auth';
 import { AuthProvider } from '../../lib/auth-context';
+import { ThemeProvider } from '../../lib/theme-context';
 import { ROUTER_FUTURE } from '../../test/router-future';
 import { Login } from './Login';
 
@@ -19,6 +20,7 @@ beforeEach(() => {
 
 function renderLogin() {
   return render(
+    <ThemeProvider>
     <ToastProvider>
       <AuthProvider>
         <MemoryRouter initialEntries={['/login']} future={ROUTER_FUTURE}>
@@ -28,7 +30,8 @@ function renderLogin() {
           </Routes>
         </MemoryRouter>
       </AuthProvider>
-    </ToastProvider>,
+    </ToastProvider>
+    </ThemeProvider>,
   );
 }
 
