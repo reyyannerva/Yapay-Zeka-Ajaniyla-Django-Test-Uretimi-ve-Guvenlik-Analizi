@@ -1,8 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
-import { expect, test } from 'vitest';
+import { expect, test, vi } from 'vitest';
 
 import { ToastProvider } from '../../components/ui/Toast';
 import { ROUTER_FUTURE } from '../../test/router-future';
@@ -21,14 +20,6 @@ function renderProfile() {
   );
 }
 
-async function fill(current: string, next: string, confirm: string) {
-  await screen.findByDisplayValue('ornek@example.test');
-  if (current) await userEvent.type(screen.getByLabelText(/Mevcut parola/), current);
-  if (next) await userEvent.type(screen.getByLabelText(/^Yeni parola$/), next);
-  if (confirm) await userEvent.type(screen.getByLabelText(/Yeni parola \(tekrar\)/), confirm);
-  await userEvent.click(screen.getByRole('button', { name: /Parolayı değiştir/ }));
-}
-
 test('yüklenirken Spinner gösterilir', () => {
   renderProfile();
   expect(screen.getByRole('status')).toBeInTheDocument();
@@ -45,43 +36,18 @@ test('kullanıcı adı ve e-posta salt-okunur gösterilir', async () => {
   expect(screen.getByText(/yönetici/i)).toBeInTheDocument();
 });
 
-test('boş yeni parola hata verir', async () => {
+// H5-03 / #41: backend'de oturum içi parola değiştirme uç noktası yoktur. Önceki örnek form sahte başarı
+// gösterdiği için kaldırıldı; kullanıcı gerçek e-posta ile sıfırlama akışına yönlendirilir.
+test('parola değişikliği için gerçek sıfırlama akışına yönlendirir; sahte başarı göstermez', async () => {
   renderProfile();
-  await fill('mevcut-parola', '', '');
-  expect(await screen.findByText(/Yeni parola zorunludur/)).toBeInTheDocument();
-  expect(screen.queryByText(/Parolanız güncellendi/)).not.toBeInTheDocument();
+  await screen.findByDisplayValue('ornek@example.test');
+  expect(screen.getByRole('link', { name: 'Sıfırlama bağlantısı iste' })).toHaveAttribute('href', '/forgot-password');
+  expect(screen.queryByLabelText(/Mevcut parola/)).not.toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: /Parolayı değiştir/ })).not.toBeInTheDocument();
 });
 
-test('zayıf (kısa) yeni parola hata verir', async () => {
+test('profil bilgisi gerçek /api/auth/me/ uç noktasından okunur', async () => {
   renderProfile();
-  await fill('mevcut-parola', 'kisa', 'kisa');
-  expect(await screen.findByText(/en az 8 karakter/i)).toBeInTheDocument();
-  expect(screen.queryByText(/Parolanız güncellendi/)).not.toBeInTheDocument();
-});
-
-test('yalnızca rakamlardan oluşan yeni parola hata verir', async () => {
-  renderProfile();
-  await fill('mevcut-parola', '123456789', '123456789');
-  expect(await screen.findByText(/yalnızca rakam/i)).toBeInTheDocument();
-});
-
-test('mevcut parola boşsa ve tekrar eşleşmiyorsa hata verir', async () => {
-  renderProfile();
-  await fill('', 'yeni-parola-ornek', 'baska-parola-ornek');
-  expect(await screen.findByText(/Mevcut parola zorunludur/)).toBeInTheDocument();
-  expect(screen.getByText(/eşleşmiyor/i)).toBeInTheDocument();
-});
-
-test('yeni parola mevcut parolayla aynı olamaz', async () => {
-  renderProfile();
-  await fill('ayni-parola-ornek', 'ayni-parola-ornek', 'ayni-parola-ornek');
-  expect(await screen.findByText(/farklı olmalı/i)).toBeInTheDocument();
-});
-
-test('geçerli giriş toast ile onaylanır ve form temizlenir', async () => {
-  renderProfile();
-  await fill('mevcut-parola', 'yeni-parola-ornek', 'yeni-parola-ornek');
-  expect(await screen.findByText(/Parolanız güncellendi/)).toBeInTheDocument();
-  expect(screen.getByLabelText(/Mevcut parola/)).toHaveValue('');
-  expect(screen.getByLabelText(/^Yeni parola$/)).toHaveValue('');
+  await screen.findByDisplayValue('ornek-kullanici');
+  expect(vi.mocked(fetch).mock.calls.some(([url]) => String(url).endsWith('/api/auth/me/'))).toBe(true);
 });

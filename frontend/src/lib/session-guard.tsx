@@ -10,11 +10,13 @@ import { isApiError } from './api/client';
  */
 export function SessionGuard() {
   const queryClient = useQueryClient();
-  const { expireSession } = useAuth();
+  const { expireSession, isAuthenticated } = useAuth();
 
   useEffect(() => {
+    // Yalnızca açık bir oturum varken 401 oturumu düşürür; bilinçli çıkıştan sonra gelen 401'ler
+    // kullanıcıyı "oturum süresi doldu" ekranına göndermez.
     const onEvent = (error: unknown) => {
-      if (isApiError(error) && error.status === 401) expireSession();
+      if (isAuthenticated && isApiError(error) && error.status === 401) expireSession();
     };
     const unsubscribeQueries = queryClient.getQueryCache().subscribe((event) => {
       if (event.type === 'updated' && event.action.type === 'error') onEvent(event.action.error);
@@ -26,7 +28,7 @@ export function SessionGuard() {
       unsubscribeQueries();
       unsubscribeMutations();
     };
-  }, [queryClient, expireSession]);
+  }, [queryClient, expireSession, isAuthenticated]);
 
   return null;
 }

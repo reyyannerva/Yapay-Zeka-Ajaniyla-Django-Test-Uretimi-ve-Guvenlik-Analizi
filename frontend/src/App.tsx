@@ -27,10 +27,24 @@ const GeneratedTestsPage = lazy(() =>
 const ResultsPage = lazy(() => import('./features/analysis/ResultsPage').then((m) => ({ default: m.ResultsPage })));
 const FindingsPage = lazy(() => import('./features/analysis/FindingsPage').then((m) => ({ default: m.FindingsPage })));
 const ReportPage = lazy(() => import('./features/analysis/ReportPage').then((m) => ({ default: m.ReportPage })));
+const RunSummaryPage = lazy(() =>
+  import('./features/analysis/RunSummaryPage').then((m) => ({ default: m.RunSummaryPage })),
+);
 
 function Lazy({ children }: { children: React.ReactNode }) {
   return <Suspense fallback={<Spinner label="Sayfa yükleniyor" />}>{children}</Suspense>;
 }
+
+// Sonuç sekmeleri: DEMO kaynağında H5-02 ekranları; gerçek analizde servis bağlı değil durumu (demoOnly).
+const analysisResultRoutes = (
+  <>
+    <Route path="endpoints" element={<Lazy><EndpointsPage /></Lazy>} />
+    <Route path="tests" element={<Lazy><GeneratedTestsPage /></Lazy>} />
+    <Route path="results" element={<Lazy><ResultsPage /></Lazy>} />
+    <Route path="findings" element={<Lazy><FindingsPage /></Lazy>} />
+    <Route path="report" element={<Lazy><ReportPage /></Lazy>} />
+  </>
+);
 
 export default function App() {
   return (
@@ -46,14 +60,18 @@ export default function App() {
           <Route path="/projects/new" element={<ProjectNew />} />
           <Route path="/projects/:id" element={<ProjectDetail />} />
           <Route path="/projects/:id/edit" element={<ProjectEdit />} />
-          <Route path="/analyses" element={<Lazy><AnalysisList /></Lazy>} />
-          <Route path="/analyses/:id" element={<Lazy><AnalysisLayout /></Lazy>}>
+          {/* Gerçek backend analiz kayıtları (H5-03 / #41) */}
+          <Route path="/analyses" element={<Lazy><AnalysisList source="api" /></Lazy>} />
+          <Route path="/analyses/:id" element={<Lazy><AnalysisLayout source="api" /></Lazy>}>
+            <Route index element={<Navigate to="summary" replace />} />
+            <Route path="summary" element={<Lazy><RunSummaryPage /></Lazy>} />
+            {analysisResultRoutes}
+          </Route>
+          {/* H5-02 prototip ekranları: açıkça DEMO verisi, gerçek kayıtlardan ayrı rota ve önbellek */}
+          <Route path="/demo/analyses" element={<Lazy><AnalysisList source="demo" /></Lazy>} />
+          <Route path="/demo/analyses/:id" element={<Lazy><AnalysisLayout source="demo" /></Lazy>}>
             <Route index element={<Navigate to="endpoints" replace />} />
-            <Route path="endpoints" element={<Lazy><EndpointsPage /></Lazy>} />
-            <Route path="tests" element={<Lazy><GeneratedTestsPage /></Lazy>} />
-            <Route path="results" element={<Lazy><ResultsPage /></Lazy>} />
-            <Route path="findings" element={<Lazy><FindingsPage /></Lazy>} />
-            <Route path="report" element={<Lazy><ReportPage /></Lazy>} />
+            {analysisResultRoutes}
           </Route>
           <Route path="/profile" element={<Profile />} />
           <Route path="/forbidden" element={<Unauthorized />} />

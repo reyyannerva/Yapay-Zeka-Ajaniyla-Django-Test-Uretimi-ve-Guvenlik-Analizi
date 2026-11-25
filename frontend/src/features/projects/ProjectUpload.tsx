@@ -92,14 +92,19 @@ export function ProjectUpload({
           Tek bir ZIP arşivi seçin (üst sınır 50 MiB).
         </p>
       </div>
+      {isSubmitting ? (
+        <p role="status" className="text-sm text-muted">
+          Arşiv sunucuya gönderiliyor ve güvenlik denetiminden geçiriliyor; büyük arşivlerde bu biraz sürebilir.
+        </p>
+      ) : null}
       <div className="flex justify-end gap-2">
         {onCancel ? (
           <Button variant="ghost" onClick={onCancel} disabled={isSubmitting}>
             Vazgeç
           </Button>
         ) : null}
-        <Button type="submit" disabled={isSubmitting}>
-          {submitLabel}
+        <Button type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>
+          {isSubmitting ? 'Yükleniyor…' : submitLabel}
         </Button>
       </div>
     </form>

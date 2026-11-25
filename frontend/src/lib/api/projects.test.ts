@@ -1,9 +1,9 @@
+import { vi } from 'vitest';
+
 import { resetMockProjects } from './mock';
 import { createProject, deleteProject, listProjects, updateProject } from './projects';
 
 afterEach(resetMockProjects);
-
-const MIB = 1024 * 1024;
 
 test('listProjects sayfalı tip döndürür ve en yeni önce gelir', async () => {
   const page = await listProjects();
@@ -31,10 +31,15 @@ test('createProject aynı adı 400 ile reddeder', async () => {
   });
 });
 
-test('createProject 50 MiB üstü arşivi 413 ile reddeder', async () => {
-  const big = new File(['x'], 'b.zip');
-  Object.defineProperty(big, 'size', { value: 50 * MIB + 1 });
-  await expect(createProject({ name: 'Büyük', archive: big })).rejects.toMatchObject({
+test('createProject sunucunun 413 (boyut sınırı) yanıtını olduğu gibi iletir', async () => {
+  // Boyut sınırı sunucudadır; jsdom FormData'sı sahte `size` özelliğini kopyalamadığından yanıt taklit edilir.
+  vi.mocked(fetch).mockResolvedValueOnce(
+    new Response(JSON.stringify({ detail: 'Yüklenen dosya en fazla 52428800 bayt olabilir.' }), {
+      status: 413,
+      headers: { 'content-type': 'application/json' },
+    }),
+  );
+  await expect(createProject({ name: 'Büyük', archive: new File(['x'], 'b.zip') })).rejects.toMatchObject({
     status: 413,
     body: { detail: 'Yüklenen dosya en fazla 52428800 bayt olabilir.' },
   });

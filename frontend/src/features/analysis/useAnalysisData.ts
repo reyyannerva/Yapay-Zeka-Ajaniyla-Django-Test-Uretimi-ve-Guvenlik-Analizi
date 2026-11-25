@@ -11,6 +11,7 @@ import {
   subscribeExecution,
 } from '../../lib/api/analysis-results';
 import { getAnalysisRun } from '../../lib/api/analysis-runs';
+import { getDemoAnalysisRun } from '../../lib/api/demo-analysis';
 import { queryKeys } from '../../lib/queryKeys';
 import type { AnalysisRunDetail, ApiError, ExecutionSnapshot } from '../../types';
 
@@ -21,17 +22,33 @@ export function useRunId(): number | null {
   return Number.isInteger(parsed) && parsed > 0 ? parsed : null;
 }
 
-export function useAnalysisRun(runId: number | null) {
+/**
+ * Veri kaynağı: `api` gerçek Django/DRF kaydı (H5-03 / #41), `demo` H5-02 prototip verisi.
+ * İkisi ayrı rotalarda (/analyses, /demo/analyses) ve ayrı önbellek anahtarlarında tutulur.
+ */
+export type AnalysisSource = 'api' | 'demo';
+
+/** Gerçek analiz bitmemişse durumu bu aralıkla yeniden sorgulanır; uç durumda yoklama durur. */
+export const RUN_POLL_INTERVAL_MS = 15_000;
+const TERMINAL_RUN_STATUSES = ['COMPLETED', 'FAILED', 'CANCELLED'];
+
+export function useAnalysisRun(runId: number | null, source: AnalysisSource = 'api') {
   return useQuery({
-    queryKey: queryKeys.analysisRuns.detail(runId ?? 0),
-    queryFn: () => getAnalysisRun(runId as number),
+    queryKey: source === 'api' ? queryKeys.analysisRuns.detail(runId ?? 0) : queryKeys.demo.analysisRuns.detail(runId ?? 0),
+    queryFn: ({ signal }) => (source === 'api' ? getAnalysisRun(runId as number, signal) : getDemoAnalysisRun(runId as number)),
     enabled: runId !== null,
+    refetchInterval: (query) => {
+      if (source !== 'api') return false;
+      const status = query.state.data?.status;
+      return status && !TERMINAL_RUN_STATUSES.includes(status) ? RUN_POLL_INTERVAL_MS : false;
+    },
   });
 }
 
 /** Analiz detay düzeninin alt sekmelere verdiği bağlam. */
 export interface AnalysisOutletContext {
   run: AnalysisRunDetail;
+  source: AnalysisSource;
 }
 
 export function useAnalysisContext(): AnalysisOutletContext {
@@ -39,27 +56,27 @@ export function useAnalysisContext(): AnalysisOutletContext {
 }
 
 export function useEndpoints(runId: number) {
-  return useQuery({ queryKey: queryKeys.analysisRuns.endpoints(runId), queryFn: () => listEndpoints(runId) });
+  return useQuery({ queryKey: queryKeys.demo.analysisRuns.endpoints(runId), queryFn: () => listEndpoints(runId) });
 }
 
 export function useGeneratedTests(runId: number) {
-  return useQuery({ queryKey: queryKeys.analysisRuns.tests(runId), queryFn: () => listGeneratedTests(runId) });
+  return useQuery({ queryKey: queryKeys.demo.analysisRuns.tests(runId), queryFn: () => listGeneratedTests(runId) });
 }
 
 export function useSecurityFindings(runId: number) {
   return useQuery({
-    queryKey: queryKeys.analysisRuns.findings(runId),
+    queryKey: queryKeys.demo.analysisRuns.findings(runId),
     queryFn: () => listSecurityFindings(runId),
   });
 }
 
 /** Tek seferlik sonuç listesi (bulgu → test eşlemesi gibi canlı olmayan kullanımlar için). */
 export function useTestResults(runId: number) {
-  return useQuery({ queryKey: queryKeys.analysisRuns.results(runId), queryFn: () => listTestResults(runId) });
+  return useQuery({ queryKey: queryKeys.demo.analysisRuns.results(runId), queryFn: () => listTestResults(runId) });
 }
 
 export function useEvaluation(runId: number) {
-  return useQuery({ queryKey: queryKeys.analysisRuns.evaluation(runId), queryFn: () => getEvaluation(runId) });
+  return useQuery({ queryKey: queryKeys.demo.analysisRuns.evaluation(runId), queryFn: () => getEvaluation(runId) });
 }
 
 export type StreamState =

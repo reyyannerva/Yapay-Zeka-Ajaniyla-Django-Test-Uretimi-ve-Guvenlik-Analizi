@@ -233,7 +233,7 @@ paths:
       description: |-
         Kullanıcı adı ve parolayla SimpleJWT access/refresh token çifti döndürür.
 
-        Hesap kilidi (django-axes, kullanıcı adı bazında): **3 başarısız denemeden sonra hesap 15 dakika kilitlenir**. Kilidi tetikleyen üçüncü başarısız deneme ve kilit süresince yapılan tüm denemeler (doğru parolayla bile) **429** döner; yanıtta `Retry-After` başlığı **yoktur**. Kilit süresi dolunca giriş yeniden yapılabilir; başarılı giriş sayacı sıfırlar. Hatalı kullanıcı adı ile hatalı parola aynı 401 yanıtını üretir (hesap varlığı ifşa edilmez). Ayrıca anonim giriş isteklerine istek sınırı uygulanır (`LOGIN_THROTTLE_RATE`, varsayılan 10/dk); bu sınır aşıldığında da 429 döner ve bu durumda `Retry-After` başlığı bulunur.
+        Hesap kilidi (django-axes, kullanıcı adı bazında): **3 başarısız denemeden sonra hesap 15 dakika kilitlenir**. Kilidi tetikleyen üçüncü başarısız deneme ve kilit süresince yapılan tüm denemeler (doğru parolayla bile) **429** döner. Kilit yanıtı (H5-03 / #41) `code: account_locked`, kilit bitiş zamanı `locked_until` (ISO 8601) ve kalan süre `retry_after_seconds` alanlarını ve aynı değerde `Retry-After` başlığını içerir; kilit kararı sunucudadır. Kilit süresi dolunca giriş yeniden yapılabilir; başarılı giriş sayacı sıfırlar. Hatalı kullanıcı adı ile hatalı parola aynı 401 yanıtını üretir (hesap varlığı ifşa edilmez). Ayrıca anonim giriş isteklerine istek sınırı uygulanır (`LOGIN_THROTTLE_RATE`, varsayılan 10/dk); bu sınır aşıldığında da 429 döner, ancak gövdede `code: account_locked` bulunmaz (yalnızca `detail`) ve `Retry-After` başlığı eklenir.
       summary: Giriş yap (access/refresh token al)
       tags:
       - Kimlik Doğrulama
@@ -299,12 +299,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DetailError'
+                $ref: '#/components/schemas/AccountLocked'
               examples:
                 HesapKilitli:
                   value:
                     detail: Çok fazla başarısız giriş denemesi. Hesap geçici olarak
                       kilitlendi; lütfen bir süre sonra tekrar deneyin.
+                    code: account_locked
+                    locked_until: '2026-01-01T12:15:00+03:00'
+                    retry_after_seconds: 900
                   summary: Hesap kilitli
           description: Hesap kilitli veya giriş istek sınırı aşıldı.
   /api/auth/logout/:
@@ -1670,6 +1673,27 @@ components:
       - expected_status_by_role
       - method
       - schema_version
+    AccountLocked:
+      type: object
+      description: 'Hesap kilidi yanıtı (H5-03 / #41). İstek sınırı (throttle) 429''unda
+        yalnızca ``detail`` döner.'
+      properties:
+        detail:
+          type: string
+        code:
+          type: string
+          description: Kilitte `account_locked`; istek sınırında yok.
+        locked_until:
+          type: string
+          format: date-time
+          nullable: true
+          description: Kilidin kalkacağı zaman (bilgi amaçlı).
+        retry_after_seconds:
+          type: integer
+          nullable: true
+          description: Kilidin kalkmasına kalan saniye (Retry-After ile aynı).
+      required:
+      - detail
     AnalysisMethodEnum:
       enum:
       - RULE_BASED

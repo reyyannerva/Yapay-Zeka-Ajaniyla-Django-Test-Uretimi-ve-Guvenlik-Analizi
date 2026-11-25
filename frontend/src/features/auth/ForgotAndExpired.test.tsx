@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { expect, test } from 'vitest';
+import { beforeEach, expect, test } from 'vitest';
 
 import type { User } from '../../types';
 import { AuthProvider } from '../../lib/auth-context';
@@ -9,6 +9,10 @@ import { ThemeProvider } from '../../lib/theme-context';
 import { ROUTER_FUTURE } from '../../test/router-future';
 import { ForgotPassword } from './ForgotPassword';
 import { SessionExpired } from './SessionExpired';
+import { tokenStore } from '../../lib/api/token-store';
+
+// Anonim başlangıç: varsayılan test oturumu temizlenir.
+beforeEach(() => tokenStore.clear());
 
 const USER: User = { id: 1, username: 'ornek-kullanici', email: 'ornek@example.test' };
 

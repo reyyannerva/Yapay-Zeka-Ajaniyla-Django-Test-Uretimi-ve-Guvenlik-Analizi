@@ -3,16 +3,26 @@ import { Link, NavLink, Outlet } from 'react-router-dom';
 
 import { Card } from '../../components/ui/Card';
 import { EmptyState } from '../../components/ui/EmptyState';
+import { ErrorState } from '../../components/ui/ErrorState';
 import { Spinner } from '../../components/ui/Spinner';
+import { errorMessage } from '../../lib/api/errors';
 import { StageStrip } from '../../components/ui/StageStrip';
 import { StatusBadge } from '../../components/ui/StatusBadge';
+import { listDemoProjects } from '../../lib/api/demo-analysis';
 import { getProject } from '../../lib/api/projects';
 import { METHOD_LABEL, PROVIDER_LABEL } from '../../lib/analysis-labels';
 import { queryKeys } from '../../lib/queryKeys';
 import { formatDate } from '../projects/ProjectValidationBadge';
 import { DemoNotice } from './DemoNotice';
 import { useAnalysisRun, useRunId } from './useAnalysisData';
-import type { AnalysisOutletContext } from './useAnalysisData';
+import type { AnalysisOutletContext, AnalysisSource } from './useAnalysisData';
+
+/** Kaynağa göre liste adresi: gerçek kayıtlar /analyses, DEMO prototip /demo/analyses. */
+export function analysesBasePath(source: AnalysisSource): string {
+  return source === 'api' ? '/analyses' : '/demo/analyses';
+}
+
+const SUMMARY_TAB = { to: 'summary', label: 'Özet' } as const;
 
 export const ANALYSIS_TABS = [
   { to: 'endpoints', label: 'Kaynak kod analizi' },
@@ -31,13 +41,13 @@ function Meta({ label, children }: { label: string; children: React.ReactNode })
   );
 }
 
-function NotFoundRun() {
+function NotFoundRun({ source }: { source: AnalysisSource }) {
   return (
     <EmptyState
       title="Analiz bulunamadı"
       description="Analiz silinmiş olabilir, adres hatalı olabilir ya da size ait olmayabilir."
       action={
-        <Link to="/analyses" className="text-sm font-medium text-accent hover:underline">
+        <Link to={analysesBasePath(source)} className="text-sm font-medium text-accent hover:underline">
           Analizlere dön
         </Link>
       }
@@ -45,40 +55,58 @@ function NotFoundRun() {
   );
 }
 
-export function AnalysisLayout() {
+export function AnalysisLayout({ source = 'api' }: { source?: AnalysisSource }) {
   const runId = useRunId();
-  const run = useAnalysisRun(runId);
+  const run = useAnalysisRun(runId, source);
+  const projectId = run.data?.project ?? 0;
   const project = useQuery({
-    queryKey: queryKeys.projects.detail(run.data?.project ?? 0),
-    queryFn: () => getProject(run.data?.project ?? 0),
-    enabled: run.data !== undefined,
+    queryKey: queryKeys.projects.detail(projectId),
+    queryFn: ({ signal }) => getProject(projectId, signal),
+    enabled: source === 'api' && run.data !== undefined,
+  });
+  const demoProjects = useQuery({
+    queryKey: queryKeys.demo.projects(),
+    queryFn: listDemoProjects,
+    enabled: source === 'demo',
   });
 
-  if (runId === null || run.isError) return <NotFoundRun />;
+  const runError = run.error as { status?: number } | null;
+  if (run.isError && runError && (runError.status === 0 || (runError.status ?? 0) >= 500)) {
+    // Bağlantı/sunucu hatası "bulunamadı" ile karıştırılmaz.
+    return <ErrorState title="Analiz alınamadı" description={errorMessage(run.error)} />;
+  }
+  if (runId === null || run.isError) return <NotFoundRun source={source} />;
   if (run.isLoading || !run.data) return <Spinner label="Analiz yükleniyor" />;
 
   const data = run.data;
-  const projectLabel = project.data?.name ?? `Proje ${data.project}`;
-  const context: AnalysisOutletContext = { run: data };
+  const projectName =
+    source === 'api' ? project.data?.name : demoProjects.data?.find((p) => p.id === data.project)?.name;
+  const projectLabel = projectName ?? `Proje ${data.project}`;
+  const context: AnalysisOutletContext = { run: data, source };
+  const tabs = source === 'api' ? [SUMMARY_TAB, ...ANALYSIS_TABS] : ANALYSIS_TABS;
 
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-3">
         <nav aria-label="Konum" className="text-sm text-muted">
-          <Link to="/analyses" className="text-accent hover:underline">
-            Analizler
+          <Link to={analysesBasePath(source)} className="text-accent hover:underline">
+            {source === 'api' ? 'Analizler' : 'DEMO analizler'}
           </Link>
           {' / '}
-          <Link to={`/projects/${data.project}`} className="hover:underline">
-            {projectLabel}
-          </Link>
+          {source === 'api' ? (
+            <Link to={`/projects/${data.project}`} className="hover:underline">
+              {projectLabel}
+            </Link>
+          ) : (
+            projectLabel
+          )}
           {` / #${data.id}`}
         </nav>
         <div className="flex flex-wrap items-center gap-3">
           <h1 className="font-display text-2xl font-semibold text-fg">{`Analiz #${data.id}`}</h1>
           <StatusBadge status={data.status} />
         </div>
-        <DemoNotice />
+        {source === 'demo' ? <DemoNotice /> : null}
       </header>
 
       <Card className="flex flex-col gap-4">
@@ -102,7 +130,7 @@ export function AnalysisLayout() {
 
       <nav aria-label="Analiz bölümleri" className="-mb-2 overflow-x-auto border-b border-border">
         <ul className="flex min-w-max gap-1">
-          {ANALYSIS_TABS.map((tab) => (
+          {tabs.map((tab) => (
             <li key={tab.to}>
               <NavLink
                 to={tab.to}

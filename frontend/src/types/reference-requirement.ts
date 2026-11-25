@@ -1,4 +1,4 @@
-// docs/api/reference-requirements.md — iskelet; #40/#41 genişletir.
+// docs/api/reference-requirements.md — backend/core/serializers.py ReferenceRequirementSerializer (H5-03 / #41).
 export type RequirementCategory = 'ROLE' | 'ACCESS_RULE' | 'DEPLOY_EXPECTATION';
 export type RequirementSource = 'FORM' | 'JSON_UPLOAD';
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
@@ -43,4 +43,17 @@ export interface ReferenceRequirement {
   http_method: HttpMethod | null;
   created_at: string;
   updated_at: string;
+}
+
+/** POST/PUT gövdesi; okunur alanlar (id, revision, http_method, tarih) gönderilmez. */
+export interface ReferenceRequirementInput {
+  project: number;
+  requirement_code: string;
+  category: RequirementCategory;
+  source?: RequirementSource;
+  title: string;
+  description?: string;
+  expected_result?: string;
+  specification: ReferenceSpecification | Record<string, unknown>;
+  is_active?: boolean;
 }

@@ -6,11 +6,13 @@ Django'nun süreli token mekanizmasını kullanır ve hesap varlığını ifşa 
 """
 from axes.handlers.proxy import AxesProxyHandler
 from axes.helpers import get_credentials
+from axes.models import AccessAttemptExpiration
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.signals import user_logged_in
 from django.contrib.auth.tokens import default_token_generator
 from django.core.exceptions import ValidationError as DjangoValidationError
+from django.utils import timezone
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from rest_framework import serializers
@@ -20,6 +22,18 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .exceptions import AccountLocked
 
 User = get_user_model()
+
+
+def lock_expires_at(username):
+    """Kullanıcı adının axes kilit bitiş zamanı (yoksa None). Yalnızca bilgi amaçlıdır; kilit kararı axes'tedir."""
+    if not username:
+        return None
+    expiration = (
+        AccessAttemptExpiration.objects.filter(access_attempt__username=username, expires_at__gt=timezone.now())
+        .order_by("-expires_at")
+        .first()
+    )
+    return expiration.expires_at if expiration else None
 
 
 class LockoutTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -32,14 +46,14 @@ class LockoutTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Kilitliyse hiç denemeden 429 döndür (sayaç şişirmemek için).
         if AxesProxyHandler.is_locked(request, credentials):
-            raise AccountLocked()
+            raise AccountLocked(lock_expires_at(username))
 
         try:
             data = super().validate(attrs)  # authenticate(request=...) → axes başarısızlığı sayar
         except AuthenticationFailed:
             # Bu başarısız deneme kilidi tetiklemiş olabilir (ör. üçüncü deneme).
             if AxesProxyHandler.is_locked(request, credentials):
-                raise AccountLocked()
+                raise AccountLocked(lock_expires_at(username))
             raise  # tutarlı, hesap varlığını ifşa etmeyen 401
 
         # Başarılı giriş: axes sayacını user_logged_in sinyaliyle sıfırla (AXES_RESET_ON_SUCCESS).

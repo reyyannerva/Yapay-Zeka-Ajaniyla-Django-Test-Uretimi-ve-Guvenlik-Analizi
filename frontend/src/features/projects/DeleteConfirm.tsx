@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
 import { deleteProject } from '../../lib/api/projects';
 import { queryKeys } from '../../lib/queryKeys';
-import type { Project } from '../../types';
+import type { PaginatedProjectList, Project } from '../../types';
 import { translateProjectError } from './useProjectForm';
 
 export interface DeleteConfirmProps {
@@ -49,15 +49,25 @@ export function DeleteConfirm({ open, project, onClose, onDeleted }: DeleteConfi
     setError(undefined);
     try {
       await deleteProject(project.id);
+      // Sunucu silmeyi onayladı (204): önbellekteki listelerden kayıt hemen çıkarılır; aksi hâlde liste
+      // yeniden çekilene kadar silinmiş proje bir an görünürdü. Hata durumunda hiçbir kayıt kaldırılmaz.
+      queryClient.setQueriesData<PaginatedProjectList>({ queryKey: ['projects', 'list'] }, (old) =>
+        old ? { ...old, count: Math.max(0, old.count - 1), results: old.results.filter((p) => p.id !== project.id) } : old,
+      );
       // Silinen projenin detayı ekrandayken yeniden çekilmemeli ve önbellekten de ekran bırakılmadan
       // atılmamalı (ikisi de "Yükleniyor"/"Proje bulunamadı" flaşına yol açar). Sıra: önce
       // yönlendir, detayı yeniden çekmeden listeyi geçersiz kıl, detayı gözlemcisi kalkınca sil.
       onDeleted();
       removeWhenUnobserved(queryClient, detailKey);
-      await queryClient.invalidateQueries({
-        queryKey: queryKeys.projects.all(),
-        predicate: (query) => query.queryHash !== hashKey(detailKey),
-      });
+      // CASCADE: projeye bağlı analiz ve referans kayıtları da sunucuda silindi (H5-03 / #41).
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: queryKeys.projects.all(),
+          predicate: (query) => query.queryHash !== hashKey(detailKey),
+        }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.analysisRuns.all() }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.referenceRequirements.all() }),
+      ]);
     } catch (failure) {
       setError(translateProjectError(failure).message);
     } finally {
@@ -71,7 +81,7 @@ export function DeleteConfirm({ open, project, onClose, onDeleted }: DeleteConfi
       destructive
       busy={busy}
       title="Projeyi sil"
-      description={`"${project.name}" projesi ve yüklenen arşivi kalıcı olarak silinecek. Bu işlem geri alınamaz.`}
+      description={`"${project.name}" projesi, yüklenen arşivi ve projeye bağlı analiz ile referans gereksinim kayıtları kalıcı olarak silinecek. Bu işlem geri alınamaz.`}
       confirmLabel="Sil"
       cancelLabel="Vazgeç"
       error={error}

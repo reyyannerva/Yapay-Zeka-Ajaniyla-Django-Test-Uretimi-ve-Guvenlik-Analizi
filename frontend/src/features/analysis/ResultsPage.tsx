@@ -14,12 +14,13 @@ import { TestStatusChart } from './charts';
 import { LiveOutput } from './LiveOutput';
 import { LiveProgressPanel } from './LiveProgressPanel';
 import { useAnalysisContext, useEndpoints, useExecutionStream, useGeneratedTests } from './useAnalysisData';
+import { demoOnly } from './demoOnly';
 
 type StatusFilter = 'ALL' | TestExecutionStatus;
 const FILTERS: readonly TestExecutionStatus[] = ['PASS', 'FAIL', 'ERROR', 'TIMEOUT', 'RUNNING', 'PENDING', 'NOT_RUN', 'STOPPED'];
 const NOT_EXECUTED_YET: readonly AnalysisRunStatus[] = ['QUEUED', 'ANALYZING', 'GENERATING', 'VALIDATING'];
 
-export function ResultsPage({ intervalMs }: { intervalMs?: number }) {
+function ResultsPageDemo({ intervalMs }: { intervalMs?: number }) {
   const { run } = useAnalysisContext();
   const stream = useExecutionStream(run.id, intervalMs);
   const tests = useGeneratedTests(run.id);
@@ -153,3 +154,6 @@ export function ResultsPage({ intervalMs }: { intervalMs?: number }) {
     </section>
   );
 }
+
+/** DEMO kaynağında H5-02 ekranı; gerçek analizde "servis bağlı değil" durumu (H5-03 / #41). */
+export const ResultsPage = demoOnly(ResultsPageDemo, 'Test yürütme sonuçları');

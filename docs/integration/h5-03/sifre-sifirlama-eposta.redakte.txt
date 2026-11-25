@@ -1,0 +1,10 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?b?xZ5pZnJlIHPEsWbEsXJsYW1h?=
+From: <redakte>
+To: <redakte>
+Message-ID: <redakte>
+
+Parolanızı sıfırlamak için: http://localhost:5173/reset-password?uid=<redakte>&token=<redakte>
+Bağlantı sınırlı süre geçerlidir.

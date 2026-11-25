@@ -493,8 +493,13 @@ def test_lockout_example_matches_real_behavior(schema, alice):
                 for _ in range(3)]
     assert statuses == [401, 401, 429]
     locked = anon.post("/api/auth/login/", {"username": "alice", "password": PASSWORD}, format="json")
-    assert locked.status_code == 429 and "Retry-After" not in locked
-    assert locked.json() == examples_of(schema, "/api/auth/login/", "post", 429)["Hesap kilitli"]
+    # H5-03 / #41: kilit yanıtı kalan süreyi ve Retry-After başlığını içerir; zaman değerleri dinamiktir.
+    example = examples_of(schema, "/api/auth/login/", "post", 429)["Hesap kilitli"]
+    body = locked.json()
+    assert locked.status_code == 429 and int(locked["Retry-After"]) == body["retry_after_seconds"]
+    assert set(body) == set(example)
+    assert body["detail"] == example["detail"] and body["code"] == example["code"] == "account_locked"
+    assert 0 < body["retry_after_seconds"] <= 15 * 60
 
 
 def test_successful_examples_have_real_shape(schema):

@@ -32,12 +32,20 @@ kilitlenir. Sıra şöyledir: 1. ve 2. hatalı deneme **401**, **3. hatalı dene
 yapılan tüm denemeler — **doğru parolayla bile** — 429 döner:
 
 ```json
-{"detail": "Çok fazla başarısız giriş denemesi. Hesap geçici olarak kilitlendi; lütfen bir süre sonra tekrar deneyin."}
+{
+  "detail": "Çok fazla başarısız giriş denemesi. Hesap geçici olarak kilitlendi; lütfen bir süre sonra tekrar deneyin.",
+  "code": "account_locked",
+  "locked_until": "2026-01-01T12:15:00+03:00",
+  "retry_after_seconds": 900
+}
 ```
 
-Kilit yanıtında `Retry-After` başlığı **yoktur** ve gövdede kalan süre alanı bulunmaz. Başarılı giriş sayacı
-sıfırlar. Bundan bağımsız olarak IP bazlı istek sınırı (`LOGIN_THROTTLE_RATE`) aşıldığında da 429 döner; bu
-durumda DRF `Retry-After` başlığı ekler.
+H5-03 / #41 ile kilit yanıtına `code`, `locked_until` (django-axes'in kalıcı kilit bitiş zamanı) ve
+`retry_after_seconds` alanları ile aynı değerde `Retry-After` başlığı eklendi (`detail` değişmedi; geriye
+uyumludur). Kilit kararı sunucudadır; bu alanlar yalnızca kullanıcıya kalan süreyi göstermek içindir.
+Başarılı giriş sayacı sıfırlar. Bundan bağımsız olarak IP bazlı istek sınırı (`LOGIN_THROTTLE_RATE`)
+aşıldığında da 429 döner; bu durumda gövdede yalnızca `detail` bulunur (`code: account_locked` yoktur) ve
+DRF `Retry-After` başlığı ekler.
 
 ## 2. Token yenileme — `POST /api/auth/refresh/`
 

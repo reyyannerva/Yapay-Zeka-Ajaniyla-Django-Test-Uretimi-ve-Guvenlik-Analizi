@@ -12,6 +12,7 @@ import { METHOD_LABEL, TEST_METHOD_LABEL, VALIDATION_META } from '../../lib/anal
 import type { EndpointAnalysis, GeneratedTest, TestGenerationMethod } from '../../types';
 import { ModelInfo } from './ModelInfo';
 import { useAnalysisContext, useEndpoints, useGeneratedTests } from './useAnalysisData';
+import { demoOnly } from './demoOnly';
 
 type MethodFilter = 'ALL' | TestGenerationMethod;
 
@@ -77,7 +78,7 @@ function TestDetail({ test, endpoint }: { test: GeneratedTest; endpoint: Endpoin
   );
 }
 
-export function GeneratedTestsPage() {
+function GeneratedTestsPageDemo() {
   const { run } = useAnalysisContext();
   const tests = useGeneratedTests(run.id);
   const endpoints = useEndpoints(run.id);
@@ -156,3 +157,6 @@ export function GeneratedTestsPage() {
     </section>
   );
 }
+
+/** DEMO kaynağında H5-02 ekranı; gerçek analizde "servis bağlı değil" durumu (H5-03 / #41). */
+export const GeneratedTestsPage = demoOnly(GeneratedTestsPageDemo, 'Pytest üretimi sonuçları');

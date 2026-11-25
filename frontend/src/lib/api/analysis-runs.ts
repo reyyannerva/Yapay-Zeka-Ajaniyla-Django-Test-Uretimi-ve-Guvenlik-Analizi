@@ -1,24 +1,37 @@
-import type { AnalysisRun, AnalysisRunDetail } from '../../types';
-import { mockAnalysisRuns } from './mock';
+// Analiz çalıştırması servisi (H5-03 / #41) — backend/core/api (AnalysisRunViewSet).
+// Oluşturma yalnızca QUEUED durumunda bir kayıt açar; analiz motoru bu sürümde tetiklenmez.
+import type { AnalysisMethod, AnalysisRun, AnalysisRunDetail, LlmProvider } from '../../types';
+import { apiFetch } from './client';
 
-// Mock servis. Analiz oluşturma (createAnalysisRun) #40/#41 kapsamıdır, burada yoktur.
-
-/** Liste yanıtı `progress` ve ayrıntı alanlarını içermez (AnalysisRunList). */
-function toListItem(detail: AnalysisRunDetail): AnalysisRun {
-  const { requirements_snapshot: _s, generated_test_count: _g, progress: _p, ...row } = detail;
-  return row;
+/** GET /api/analysis-runs/ — 200, kullanıcının tüm analizleri (sayfalama yok), en yeni önce. */
+export function listAnalysisRuns(signal?: AbortSignal): Promise<AnalysisRun[]> {
+  return apiFetch<AnalysisRun[]>('/api/analysis-runs/', { signal });
 }
 
-export function listAnalysisRuns(): Promise<AnalysisRun[]> {
-  return Promise.resolve(mockAnalysisRuns.map(toListItem));
+/** GET /api/analysis-runs/{id}/ — 200 (ilerleme dahil); yoksa veya başkasına aitse 404. */
+export function getAnalysisRun(id: number, signal?: AbortSignal): Promise<AnalysisRunDetail> {
+  return apiFetch<AnalysisRunDetail>(`/api/analysis-runs/${id}/`, { signal });
 }
 
-export function getAnalysisRun(id: number): Promise<AnalysisRunDetail> {
-  const found = mockAnalysisRuns.find((r) => r.id === id);
-  return found
-    ? Promise.resolve({ ...found })
-    : Promise.reject({
-        status: 404,
-        body: { detail: 'No AnalysisRun matches the given query.' },
-      });
+export interface AnalysisRunCreateInput {
+  project: number;
+  method: AnalysisMethod;
+  /** RULE_BASED'de gönderilmez; LLM yöntemlerinde zorunlu. */
+  llm_provider?: LlmProvider | null;
+  llm_model?: string | null;
+  fallback_enabled?: boolean;
+}
+
+/** POST /api/analysis-runs/ — 201 (detay); başkasının projesi 400 `project` (varlık ifşa edilmez). */
+export function createAnalysisRun(input: AnalysisRunCreateInput): Promise<AnalysisRunDetail> {
+  const body: Record<string, unknown> = {
+    project: input.project,
+    method: input.method,
+    fallback_enabled: input.fallback_enabled ?? true,
+  };
+  if (input.method !== 'RULE_BASED') {
+    body.llm_provider = input.llm_provider ?? null;
+    body.llm_model = input.llm_model ?? null;
+  }
+  return apiFetch<AnalysisRunDetail>('/api/analysis-runs/', { method: 'POST', body });
 }
