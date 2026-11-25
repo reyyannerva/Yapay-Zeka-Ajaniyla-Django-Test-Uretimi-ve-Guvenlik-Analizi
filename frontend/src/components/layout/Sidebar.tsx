@@ -16,10 +16,36 @@ const NAV_ITEMS: NavItem[] = [
 
 const ITEM_BASE = 'block border-l-2 px-4 py-2 text-sm';
 
-export function Sidebar() {
+export const SIDEBAR_ID = 'app-sidebar';
+
+interface SidebarProps {
+  /** md altında kenar menüsü çekmece (drawer) olarak açık mı. */
+  open: boolean;
+  onClose: () => void;
+}
+
+export function Sidebar({ open, onClose }: SidebarProps) {
+  // md ve üstünde her zaman kalıcı panel; altında yalnızca `open` iken sabit çekmece.
+  const visibility = open ? 'fixed inset-y-0 left-0 z-40 flex md:static md:z-auto' : 'hidden md:flex';
+
   return (
-    <aside className="flex w-56 shrink-0 flex-col bg-gradient-to-b from-panel to-panel-2 text-panel-fg">
-      <div className="px-4 py-5 font-display text-lg font-semibold">Test ve Güvenlik</div>
+    <aside
+      id={SIDEBAR_ID}
+      className={`${visibility} w-56 shrink-0 flex-col bg-gradient-to-b from-panel to-panel-2 text-panel-fg`}
+    >
+      <div className="flex items-center justify-between px-4 py-5">
+        <span className="font-display text-lg font-semibold">Test ve Güvenlik</span>
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Menüyü kapat"
+          className="rounded p-1 text-panel-muted hover:text-panel-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-panel-accent md:hidden"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
       <nav aria-label="Ana menü" className="flex flex-col gap-1">
         {NAV_ITEMS.map((item) =>
           item.disabled ? (
@@ -35,10 +61,11 @@ export function Sidebar() {
             <NavLink
               key={item.to}
               to={item.to}
+              onClick={onClose}
               className={({ isActive }) =>
-                `${ITEM_BASE} focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent ${
+                `${ITEM_BASE} focus-visible:outline focus-visible:outline-2 focus-visible:outline-panel-accent ${
                   isActive
-                    ? 'border-accent bg-white/10 font-medium text-panel-fg'
+                    ? 'border-panel-accent bg-panel-active font-medium text-panel-fg'
                     : 'border-transparent text-panel-muted hover:text-panel-fg'
                 }`
               }

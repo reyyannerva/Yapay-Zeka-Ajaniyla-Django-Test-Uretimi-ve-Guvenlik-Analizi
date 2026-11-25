@@ -28,6 +28,9 @@
   --panel-2: #113b45;
   --panel-fg: #d6e8ea;
   --panel-muted: #8aacb0;
+  --panel-accent: #3fd0d6;
+  --panel-active: rgba(63, 208, 214, 0.16);
+  --scrim: rgba(6, 22, 26, 0.55);
 }
 
 :root[data-theme='dark'] {
@@ -54,6 +57,9 @@
   --panel-2: #0f2329;
   --panel-fg: #cfe6e8;
   --panel-muted: #7fa0a4;
+  --panel-accent: #3fd0d6;
+  --panel-active: rgba(63, 208, 214, 0.14);
+  --scrim: rgba(0, 0, 0, 0.6);
 }
 
 @layer base {

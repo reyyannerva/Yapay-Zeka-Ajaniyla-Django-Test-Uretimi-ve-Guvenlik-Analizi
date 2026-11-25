@@ -30,6 +30,9 @@ const config: Config = {
         'panel-2': 'var(--panel-2)',
         'panel-fg': 'var(--panel-fg)',
         'panel-muted': 'var(--panel-muted)',
+        'panel-accent': 'var(--panel-accent)',
+        'panel-active': 'var(--panel-active)',
+        scrim: 'var(--scrim)',
       },
       fontFamily: {
         display: ['"Space Grotesk"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
