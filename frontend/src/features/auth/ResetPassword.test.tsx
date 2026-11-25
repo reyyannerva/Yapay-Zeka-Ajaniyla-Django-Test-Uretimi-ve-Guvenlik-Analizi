@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
-import { expect, test } from 'vitest';
+import { expect, test, vi } from 'vitest';
 
 import { ToastProvider } from '../../components/ui/Toast';
 import { ThemeProvider } from '../../lib/theme-context';
@@ -89,4 +89,20 @@ test('sunucunun parola politikası hatası ilgili alanda gösterilir', async () 
   renderReset('?uid=MQ&token=t');
   await fill('kisa', 'kisa');
   expect(await screen.findByText(/çok kısa/)).toBeInTheDocument();
+});
+
+test('süresi dolmuş bağlantı: backend 400 `token` yanıtı formda anlaşılır hata olarak gösterilir', async () => {
+  // Backend (core/auth/serializers.py) süresi dolmuş token için bu gövdeyi döndürür; backend testi:
+  // core/tests/test_auth_api.py::test_password_reset_confirm_expired_token_400.
+  vi.mocked(fetch).mockResolvedValueOnce(
+    new Response(JSON.stringify({ token: ['Bağlantı geçersiz veya süresi dolmuş.'] }), {
+      status: 400,
+      headers: { 'content-type': 'application/json' },
+    }),
+  );
+  renderReset('?uid=MQ&token=suresi-dolmus');
+  await fill('Yeni-Parola-123', 'Yeni-Parola-123');
+  expect(await screen.findByRole('alert')).toHaveTextContent('Bağlantı geçersiz veya süresi dolmuş.');
+  expect(screen.queryByTestId('login-route')).not.toBeInTheDocument();
+  expect(screen.getByRole('link', { name: /Girişe dön/ })).toBeInTheDocument();
 });

@@ -165,11 +165,13 @@ Tam şema: [`docs/api/openapi.yaml`](../../api/openapi.yaml).
 
 | Paket | Komut | Sonuç |
 | --- | --- | --- |
-| Frontend birim/bileşen (sahte HTTP backend'i, gerçek istemci kodu) | `cd frontend && npm test` | 37 dosya / 252 test (başlangıç 32 / 185) |
+| Frontend birim/bileşen (sahte HTTP backend'i, gerçek istemci kodu) | `cd frontend && npm test` | 37 dosya / 255 test (başlangıç 32 / 185) |
 | Frontend tip denetimi / derleme | `npm run typecheck`, `npm run build` | Başarılı |
 | Backend (PostgreSQL test veritabanı) | `cd backend && python -m pytest -q` | 471 test (başlangıç 439) |
 | H5-03 backend entegrasyonu | `python -m pytest -q core/tests/test_h5_03_integration.py core/tests/test_h5_03_lockout_info.py` | 32 test |
 | Gerçek uçtan uca (Chromium + Vite + DRF + PostgreSQL + SMTP) | `bash e2e/h5-03/run.sh` | 30 senaryo, [`e2e-sonuclari.json`](e2e-sonuclari.json) |
+
+Komut çıktılarının özeti: [`test-sonuclari.md`](test-sonuclari.md).
 
 - Lint betiği/ESLint ve frontend CI workflow'u depoda yoktur; bu yüzden çalıştırılmadı.
 - E2E ortam ayarları ve test kullanıcılarının güvenli oluşturulması: [`e2e/h5-03/README.md`](../../../e2e/h5-03/README.md).
@@ -203,6 +205,7 @@ Model, migration, izin ve sahiplik kodu değiştirilmedi.
 | --- | --- |
 | Ekran görüntüleri (gerçek uygulama) | [`docs/mockup/h5-03/`](../../mockup/h5-03/) — 01–17 |
 | E2E sonuçları | [`e2e-sonuclari.json`](e2e-sonuclari.json) |
+| Test komutu çıktıları (frontend, backend, E2E) | [`test-sonuclari.md`](test-sonuclari.md) |
 | Gerçek API istek/yanıt örnekleri | [`api-ornekleri.json`](api-ornekleri.json) |
 | SMTP ile gönderilen sıfırlama e-postası (redakte) | [`sifre-sifirlama-eposta.redakte.txt`](sifre-sifirlama-eposta.redakte.txt) |
 | PostgreSQL doğrulama yardımcısı | [`e2e/h5-03/db_probe.py`](../../../e2e/h5-03/db_probe.py) |
