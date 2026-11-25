@@ -6,6 +6,7 @@ import { ForgotPassword } from './features/auth/ForgotPassword';
 import { Login } from './features/auth/Login';
 import { ResetPassword } from './features/auth/ResetPassword';
 import { SessionExpired } from './features/auth/SessionExpired';
+import { Overview } from './features/dashboard/Overview';
 
 // Gerçek sayfalar sonraki görevlerde (T6/T7/T8) bu yer tutucuların yerini alır.
 // Not: `:id` rotalarında `useParams().id` string'tir; kullanılırken `Number()` ile çevrilmelidir (id'ler number).
@@ -22,7 +23,7 @@ export default function App() {
       <Route path="/session-expired" element={<SessionExpired />} />
       <Route element={<ProtectedRoute />}>
         <Route element={<AppLayout />}>
-          <Route path="/dashboard" element={<Placeholder title="Genel bakış" />} />
+          <Route path="/dashboard" element={<Overview />} />
           <Route path="/projects" element={<Placeholder title="Projeler" />} />
           <Route path="/projects/new" element={<Placeholder title="Yeni proje" />} />
           <Route path="/projects/:id" element={<Placeholder title="Proje detayı" />} />
