@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
+import { ToastProvider } from './components/ui/Toast';
 import { AuthProvider } from './lib/auth-context';
 import { queryClient } from './lib/queryClient';
 import { ThemeProvider } from './lib/theme-context';
@@ -14,9 +15,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-            <App />
-          </BrowserRouter>
+          <ToastProvider>
+            <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+              <App />
+            </BrowserRouter>
+          </ToastProvider>
         </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
