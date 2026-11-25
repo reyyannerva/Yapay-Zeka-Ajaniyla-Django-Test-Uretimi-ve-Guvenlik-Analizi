@@ -23,6 +23,7 @@ function renderLayout() {
               <Route element={<AppLayout />}>
                 <Route path="/projects" element={<div data-testid="projects-route" />} />
                 <Route path="/dashboard" element={<div data-testid="dashboard-route" />} />
+                <Route path="/profile" element={<div data-testid="profile-route" />} />
               </Route>
             </Route>
           </Routes>
@@ -59,6 +60,16 @@ test('kullanıcı menüsünden çıkış yapınca /login açılır', async () =>
   await userEvent.click(screen.getByRole('button', { name: /Kullanıcı menüsü/ }));
   await userEvent.click(screen.getByRole('menuitem', { name: /Çıkış yap/ }));
   expect(screen.getByTestId('login-route')).toBeInTheDocument();
+});
+
+test('kullanıcı menüsündeki Profil linki /profile açar', async () => {
+  renderLayout();
+  await userEvent.click(screen.getByRole('button', { name: /Kullanıcı menüsü/ }));
+  const link = screen.getByRole('menuitem', { name: 'Profil' });
+  expect(link).toHaveAttribute('href', '/profile');
+  await userEvent.click(link);
+  expect(screen.getByTestId('profile-route')).toBeInTheDocument();
+  expect(screen.queryByRole('menu')).not.toBeInTheDocument();
 });
 
 test('mobil: hamburger menüyü açar; Escape, örtü ve link seçimi kapatır', async () => {

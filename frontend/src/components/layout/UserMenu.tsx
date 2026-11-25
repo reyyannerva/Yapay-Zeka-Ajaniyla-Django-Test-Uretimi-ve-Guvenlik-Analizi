@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { useAuth } from '../../lib/auth-context';
 
@@ -50,6 +51,14 @@ export function UserMenu() {
           className="absolute right-0 z-10 mt-1 min-w-44 rounded-md border border-border bg-surface p-1 shadow-lg"
         >
           <div className="px-3 py-2 text-xs text-muted">{user.email}</div>
+          <Link
+            to="/profile"
+            role="menuitem"
+            onClick={() => setOpen(false)}
+            className="block w-full rounded px-3 py-2 text-left text-sm text-fg hover:bg-surface-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+          >
+            Profil
+          </Link>
           <button
             type="button"
             role="menuitem"

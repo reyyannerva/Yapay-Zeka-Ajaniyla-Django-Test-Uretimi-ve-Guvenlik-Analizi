@@ -11,6 +11,7 @@ import { ProjectDetail } from './features/projects/ProjectDetail';
 import { ProjectEdit } from './features/projects/ProjectEdit';
 import { ProjectList } from './features/projects/ProjectList';
 import { ProjectNew } from './features/projects/ProjectNew';
+import { Profile } from './features/profile/Profile';
 import { NotFound } from './features/status/NotFound';
 import { Unauthorized } from './features/status/Unauthorized';
 
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/projects/new" element={<ProjectNew />} />
           <Route path="/projects/:id" element={<ProjectDetail />} />
           <Route path="/projects/:id/edit" element={<ProjectEdit />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/forbidden" element={<Unauthorized />} />
           <Route path="*" element={<NotFound />} />
         </Route>
