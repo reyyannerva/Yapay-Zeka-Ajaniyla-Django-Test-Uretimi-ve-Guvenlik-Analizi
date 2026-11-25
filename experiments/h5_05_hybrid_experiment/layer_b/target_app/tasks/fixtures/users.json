@@ -1,0 +1,5 @@
+[
+  {"model": "auth.user", "pk": 1, "fields": {"username": "ayse", "is_staff": false, "is_superuser": false, "password": "!", "email": "ayse@example.test"}},
+  {"model": "auth.user", "pk": 2, "fields": {"username": "mehmet", "is_staff": false, "is_superuser": false, "password": "!", "email": "mehmet@example.test"}},
+  {"model": "auth.user", "pk": 3, "fields": {"username": "yonetici", "is_staff": true, "is_superuser": false, "password": "!", "email": "yonetici@example.test"}}
+]

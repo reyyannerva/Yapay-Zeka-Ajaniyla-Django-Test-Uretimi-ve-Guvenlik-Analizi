@@ -1,0 +1,4 @@
+[
+  {"model": "tasks.task", "pk": 1, "fields": {"owner": 1, "title": "Rapor taslağı", "notes": "Ayşe'nin görevi", "is_done": false}},
+  {"model": "tasks.task", "pk": 2, "fields": {"owner": 2, "title": "Toplantı notu", "notes": "Mehmet'in görevi", "is_done": false}}
+]
