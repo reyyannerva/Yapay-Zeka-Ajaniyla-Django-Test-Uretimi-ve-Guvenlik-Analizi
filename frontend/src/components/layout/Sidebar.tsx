@@ -32,6 +32,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Genel bakış', to: '/dashboard', icon: <Icon path="M3 11l9-8 9 8M5 10v10h14V10" /> },
   { label: 'Projeler', to: '/projects', icon: <Icon path="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z" /> },
   { label: 'Analizler', to: '/analyses', icon: <Icon path="M3 12h4l3 7 4-14 3 7h4" /> },
+  { label: 'Deney sonuçları', to: '/experiments', icon: <Icon path="M4 20V10M10 20V4M16 20v-7M22 20H2" /> },
   { label: 'Raporlar', to: '/reports', icon: <Icon path="M7 3h7l5 5v13H7zM14 3v5h5" />, disabled: true },
 ];
 

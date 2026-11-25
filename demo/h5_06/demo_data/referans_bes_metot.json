@@ -1,0 +1,22 @@
+[
+  {"requirement_code": "DEMO-SIP-GET", "category": "ACCESS_RULE", "title": "Anonim kullanıcı sipariş listesini göremez",
+   "expected_result": "Kimliksiz GET isteği 401 döner.",
+   "specification": {"schema_version": 1, "endpoint": "/api/siparisler/", "method": "GET",
+                     "expected_status_by_role": {"anonim": 401, "kullanici": 200}}},
+  {"requirement_code": "DEMO-SIP-POST", "category": "ACCESS_RULE", "title": "Kimlikli kullanıcı sipariş oluşturabilir",
+   "expected_result": "Kimlikli POST isteği 201, kimliksiz 401 döner.",
+   "specification": {"schema_version": 1, "endpoint": "/api/siparisler/", "method": "POST",
+                     "expected_status_by_role": {"anonim": 401, "kullanici": 201}}},
+  {"requirement_code": "DEMO-SIP-PUT", "category": "ACCESS_RULE", "title": "Sahip olmayan kullanıcı siparişi PUT ile değiştiremez",
+   "expected_result": "Sahip olmayan kullanıcının PUT isteği 403 döner.",
+   "specification": {"schema_version": 1, "endpoint": "/api/siparisler/1/", "method": "PUT",
+                     "expected_status_by_role": {"sahip": 200, "kullanici": 403}}},
+  {"requirement_code": "DEMO-SIP-PATCH", "category": "ACCESS_RULE", "title": "Sahip olmayan kullanıcı siparişi PATCH ile değiştiremez",
+   "expected_result": "Sahip olmayan kullanıcının PATCH isteği 403 döner.",
+   "specification": {"schema_version": 1, "endpoint": "/api/siparisler/1/", "method": "PATCH",
+                     "expected_status_by_role": {"sahip": 200, "kullanici": 403}}},
+  {"requirement_code": "DEMO-SIP-DELETE", "category": "ACCESS_RULE", "title": "Sahip olmayan kullanıcı siparişi silemez",
+   "expected_result": "Sahip olmayan kullanıcının DELETE isteği 403 döner.",
+   "specification": {"schema_version": 1, "endpoint": "/api/siparisler/1/", "method": "DELETE",
+                     "expected_status_by_role": {"sahip": 204, "kullanici": 403}}}
+]

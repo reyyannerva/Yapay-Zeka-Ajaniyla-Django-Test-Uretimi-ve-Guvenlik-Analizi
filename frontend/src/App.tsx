@@ -26,6 +26,9 @@ const GeneratedTestsPage = lazy(() =>
 );
 const ResultsPage = lazy(() => import('./features/analysis/ResultsPage').then((m) => ({ default: m.ResultsPage })));
 const FindingsPage = lazy(() => import('./features/analysis/FindingsPage').then((m) => ({ default: m.FindingsPage })));
+const ExperimentResults = lazy(() =>
+  import('./features/experiments/ExperimentResults').then((m) => ({ default: m.ExperimentResults })),
+);
 const ReportPage = lazy(() => import('./features/analysis/ReportPage').then((m) => ({ default: m.ReportPage })));
 const RunSummaryPage = lazy(() =>
   import('./features/analysis/RunSummaryPage').then((m) => ({ default: m.RunSummaryPage })),
@@ -73,6 +76,7 @@ export default function App() {
             <Route index element={<Navigate to="endpoints" replace />} />
             {analysisResultRoutes}
           </Route>
+          <Route path="/experiments" element={<Lazy><ExperimentResults /></Lazy>} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/forbidden" element={<Unauthorized />} />
           <Route path="*" element={<NotFound />} />
