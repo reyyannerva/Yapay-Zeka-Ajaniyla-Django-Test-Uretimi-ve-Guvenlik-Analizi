@@ -1,0 +1,307 @@
+{
+  "generated_at": "2026-11-25T22:43:15.702Z",
+  "environment": {
+    "frontend": "http://localhost:5173",
+    "api": "http://127.0.0.1:8000",
+    "database": "PostgreSQL (gerçek)",
+    "smtp": "yerel aiosmtpd yakalayıcı",
+    "browser": "Chromium (Playwright)"
+  },
+  "passed": 30,
+  "failed": 0,
+  "results": [
+    {
+      "id": "ENV-1",
+      "title": "Backend veritabanı gerçekten PostgreSQL",
+      "status": "PASS",
+      "detail": {
+        "vendor": "postgresql",
+        "engine": "django.db.backends.postgresql",
+        "server_version": 160015
+      },
+      "ms": 551
+    },
+    {
+      "id": "E2E-01-02",
+      "title": "Login ekranı açılır, gerçek kullanıcı A ile giriş yapılır",
+      "status": "PASS",
+      "detail": null,
+      "ms": 1101
+    },
+    {
+      "id": "E2E-03",
+      "title": "Dashboard gerçek API verisiyle görüntülenir",
+      "status": "PASS",
+      "detail": null,
+      "ms": 613
+    },
+    {
+      "id": "E2E-04",
+      "title": "Gerçek ZIP arşivi multipart ile yüklenir; PostgreSQL kaydı A kullanıcısına aittir",
+      "status": "PASS",
+      "detail": {
+        "exists": true,
+        "id": 20,
+        "name": "E2E Sipariş API mwwpjnyw",
+        "description": "Uçtan uca test projesi",
+        "owner": "e2e_kullanici_a",
+        "validation_status": "VALID",
+        "analysis_runs": 0,
+        "reference_requirements": 0
+      },
+      "ms": 1564
+    },
+    {
+      "id": "E2E-04b",
+      "title": "Geçersiz arşiv (bozuk ZIP) sunucu tarafından reddedilir ve kaydedilmez",
+      "status": "PASS",
+      "detail": null,
+      "ms": 299
+    },
+    {
+      "id": "E2E-05-06",
+      "title": "Proje listesinde gerçek proje görünür",
+      "status": "PASS",
+      "detail": null,
+      "ms": 673
+    },
+    {
+      "id": "E2E-07",
+      "title": "Proje detayı açılır",
+      "status": "PASS",
+      "detail": null,
+      "ms": 559
+    },
+    {
+      "id": "E2E-08-10",
+      "title": "Proje güncellenir; sayfa yenilemede ve PostgreSQL'de korunur",
+      "status": "PASS",
+      "detail": {
+        "exists": true,
+        "id": 20,
+        "name": "E2E Sipariş API mwwpjnyw",
+        "description": "Açıklama güncellendi (E2E)",
+        "owner": "e2e_kullanici_a",
+        "validation_status": "VALID",
+        "analysis_runs": 0,
+        "reference_requirements": 0
+      },
+      "ms": 1496
+    },
+    {
+      "id": "E2E-14-15",
+      "title": "Geçerli referans JSON kaydedilir; yenilemeden sonra backend'den okunur",
+      "status": "PASS",
+      "detail": [
+        {
+          "code": "ACC-SIPARIS-1",
+          "method": "GET",
+          "revision": 1
+        },
+        {
+          "code": "ROL-KULLANICI",
+          "method": null,
+          "revision": 1
+        }
+      ],
+      "ms": 1403
+    },
+    {
+      "id": "E2E-16",
+      "title": "Geçersiz referans JSON (TRACE metodu) reddedilir; PostgreSQL'e yazılmaz",
+      "status": "PASS",
+      "detail": null,
+      "ms": 1539
+    },
+    {
+      "id": "E2E-11-13",
+      "title": "Gerçek AnalysisRun oluşturulur; liste/detay gerçek durumu (QUEUED) gösterir",
+      "status": "PASS",
+      "detail": {
+        "exists": true,
+        "id": 7,
+        "status": "QUEUED",
+        "method": "HYBRID",
+        "project": 20,
+        "owner": "e2e_kullanici_a",
+        "snapshot_codes": [
+          "ACC-SIPARIS-1",
+          "ROL-KULLANICI"
+        ]
+      },
+      "ms": 1848
+    },
+    {
+      "id": "E2E-17-18",
+      "title": "Çıkış yapılır; refresh kara listeye alınır; korumalı sayfa ve geri tuşu önceki veriyi göstermez",
+      "status": "PASS",
+      "detail": {
+        "logout_status": 205,
+        "blacklisted_refresh_reuse_status": 401
+      },
+      "ms": 916
+    },
+    {
+      "id": "E2E-19-22",
+      "title": "Kullanıcı B, A'nın kayıtlarını göremez; doğrudan URL backend tarafından reddedilir",
+      "status": "PASS",
+      "detail": {
+        "backend_statuses": [
+          404,
+          404,
+          200,
+          409,
+          204
+        ]
+      },
+      "ms": 2183
+    },
+    {
+      "id": "E2E-23-25",
+      "title": "A tekrar girer; aktif analizli silme 409; analiz sonlanınca silinir (CASCADE)",
+      "status": "PASS",
+      "detail": {
+        "project_exists": false,
+        "run_exists": false
+      },
+      "ms": 3541
+    },
+    {
+      "id": "AUTH-1",
+      "title": "Access token süresi dolunca refresh ile yenilenir ve istek tamamlanır",
+      "status": "PASS",
+      "detail": {
+        "sequence": [
+          "GET /api/projects/ 401",
+          "GET /api/analysis-runs/ 401",
+          "POST /api/auth/refresh/ 200",
+          "GET /api/analysis-runs/ 200",
+          "GET /api/projects/ 200"
+        ]
+      },
+      "ms": 63507
+    },
+    {
+      "id": "AUTH-2",
+      "title": "Sayfa yenilemede oturum korunur (refresh token ile)",
+      "status": "PASS",
+      "detail": null,
+      "ms": 295
+    },
+    {
+      "id": "AUTH-3",
+      "title": "Refresh token sunucuda iptal edilirse oturum güvenli biçimde sonlanır",
+      "status": "PASS",
+      "detail": null,
+      "ms": 706
+    },
+    {
+      "id": "LOCK-1",
+      "title": "1. ve 2. hatalı giriş 401 (kilit yok)",
+      "status": "PASS",
+      "detail": null,
+      "ms": 2472
+    },
+    {
+      "id": "LOCK-2",
+      "title": "3. hatalı giriş 15 dakikalık kilidi başlatır; kalan süre sunucudan gösterilir",
+      "status": "PASS",
+      "detail": {
+        "remaining": "Kalan süre: 15 dk 00 sn (sunucunun bildirdiği süreye göre)",
+        "locked_until": "2026-11-25T22:57:37.219121+00:00"
+      },
+      "ms": 1296
+    },
+    {
+      "id": "LOCK-3",
+      "title": "Kilit süresinde doğru parola reddedilir; sayfa yenilemede ve istemci saati ileri alınsa da kilit sürer",
+      "status": "PASS",
+      "detail": null,
+      "ms": 383
+    },
+    {
+      "id": "LOCK-4",
+      "title": "Kilit süresi dolunca (sunucu zamanı) doğru parolayla giriş yapılır ve sayaç sıfırlanır",
+      "status": "PASS",
+      "detail": null,
+      "ms": 1847
+    },
+    {
+      "id": "RESET-1",
+      "title": "Şifremi unuttum talebi gönderilir; genel yanıt gösterilir",
+      "status": "PASS",
+      "detail": null,
+      "ms": 959
+    },
+    {
+      "id": "RESET-2",
+      "title": "Backend e-postayı SMTP ile gönderir; bağlantı frontend /reset-password rotasını gösterir",
+      "status": "PASS",
+      "detail": {
+        "smtp": "aiosmtpd 127.0.0.1:1025",
+        "route": "/reset-password"
+      },
+      "ms": 1
+    },
+    {
+      "id": "RESET-3",
+      "title": "Bağlantı açılır, token adres çubuğundan silinir; yeni parola belirlenir",
+      "status": "PASS",
+      "detail": null,
+      "ms": 1340
+    },
+    {
+      "id": "RESET-4",
+      "title": "Eski parola reddedilir (401), yeni parola ile giriş yapılır",
+      "status": "PASS",
+      "detail": null,
+      "ms": 807
+    },
+    {
+      "id": "RESET-5",
+      "title": "Kullanılmış ve geçersiz bağlantılar reddedilir",
+      "status": "PASS",
+      "detail": null,
+      "ms": 788
+    },
+    {
+      "id": "NET-1",
+      "title": "Backend durunca kullanıcıya bağlantı hatası gösterilir (sahte başarı yok)",
+      "status": "PASS",
+      "detail": null,
+      "ms": 611
+    },
+    {
+      "id": "NET-2",
+      "title": "Backend yeniden başlatılınca oturum ve PostgreSQL kayıtları korunur",
+      "status": "PASS",
+      "detail": {
+        "exists": true,
+        "id": 21,
+        "name": "B Projesi mwwpjnyw",
+        "description": "",
+        "owner": "e2e_kullanici_b",
+        "validation_status": "VALID",
+        "analysis_runs": 0,
+        "reference_requirements": 0
+      },
+      "ms": 1309
+    },
+    {
+      "id": "RESP-1",
+      "title": "1440/1280/1024/768/390 px: yatay taşma yok",
+      "status": "PASS",
+      "detail": null,
+      "ms": 26523
+    },
+    {
+      "id": "CLEAN",
+      "title": "E2E test projeleri API ile silinir",
+      "status": "PASS",
+      "detail": null,
+      "ms": 2561
+    }
+  ],
+  "console_issues": [],
+  "expected_http_error_console_lines": 21
+}

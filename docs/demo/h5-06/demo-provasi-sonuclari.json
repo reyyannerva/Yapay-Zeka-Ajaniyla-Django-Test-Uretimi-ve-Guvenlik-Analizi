@@ -1,0 +1,129 @@
+{
+  "generated_at": "2026-11-25T22:47:19.415Z",
+  "environment": {
+    "frontend": "http://localhost:5173",
+    "api": "http://127.0.0.1:8000",
+    "database": "PostgreSQL (gerçek)",
+    "browser": "Chromium (Playwright)"
+  },
+  "experiment_snapshot_sha256": "97fbcf072e1823ed790e7869fe035bf9a092ad4051ac15e57388b0c0238debd6",
+  "passed": 11,
+  "failed": 0,
+  "results": [
+    {
+      "id": "D-00",
+      "title": "Ön kontrol: backend PostgreSQL ile çalışıyor; frontend erişilebilir",
+      "status": "PASS",
+      "detail": {
+        "vendor": "postgresql",
+        "engine": "django.db.backends.postgresql",
+        "server_version": 160015
+      },
+      "ms": 578
+    },
+    {
+      "id": "D-01",
+      "title": "Giriş ekranı → gerçek JWT girişi → dashboard",
+      "status": "PASS",
+      "detail": null,
+      "ms": 1976
+    },
+    {
+      "id": "D-02",
+      "title": "Proje yükleme (güvenli örnek ZIP, multipart) → PostgreSQL kaydı",
+      "status": "PASS",
+      "detail": {
+        "exists": true,
+        "id": 26,
+        "name": "Demo Sipariş API mwwpqzf5",
+        "description": "Canlı demo örnek projesi (H5-06)",
+        "owner": "e2e_kullanici_a",
+        "validation_status": "VALID",
+        "analysis_runs": 0,
+        "reference_requirements": 0
+      },
+      "ms": 1359
+    },
+    {
+      "id": "D-03",
+      "title": "Proje listesi ve detay",
+      "status": "PASS",
+      "detail": null,
+      "ms": 1104
+    },
+    {
+      "id": "D-04",
+      "title": "Referans JSON: GET, POST, PUT, PATCH, DELETE gereksinimleri doğrulanıp kaydedilir",
+      "status": "PASS",
+      "detail": {
+        "methods": [
+          "DELETE",
+          "GET",
+          "PATCH",
+          "POST",
+          "PUT"
+        ]
+      },
+      "ms": 1864
+    },
+    {
+      "id": "D-05",
+      "title": "Gerçek AnalysisRun kaydı oluşturulur (QUEUED); sonuç servisleri \"bağlı değil\" olarak gösterilir",
+      "status": "PASS",
+      "detail": {
+        "exists": true,
+        "id": 11,
+        "status": "QUEUED",
+        "method": "HYBRID",
+        "project": 26,
+        "owner": "e2e_kullanici_a",
+        "snapshot_codes": [
+          "DEMO-SIP-DELETE",
+          "DEMO-SIP-GET",
+          "DEMO-SIP-PATCH",
+          "DEMO-SIP-POST",
+          "DEMO-SIP-PUT"
+        ]
+      },
+      "ms": 1870
+    },
+    {
+      "id": "D-06",
+      "title": "Deney sonuçları: H5-05 çevrimdışı karşılaştırma tablosu (gerçek ölçümler, Ölçülemedi korunur)",
+      "status": "PASS",
+      "detail": {
+        "sha": "97fbcf072e18"
+      },
+      "ms": 756
+    },
+    {
+      "id": "D-07",
+      "title": "DEMO/prototip ekranları açıkça etiketli (örnek analiz, canlı ilerleme, rapor)",
+      "status": "PASS",
+      "detail": null,
+      "ms": 1738
+    },
+    {
+      "id": "D-08",
+      "title": "Mobil ve tablet görünümleri: deney sonuçları ve proje ekranlarında yatay taşma yok",
+      "status": "PASS",
+      "detail": null,
+      "ms": 13102
+    },
+    {
+      "id": "D-09",
+      "title": "Çıkış: oturum kapanır, korumalı sayfa girişe yönlendirir",
+      "status": "PASS",
+      "detail": null,
+      "ms": 380
+    },
+    {
+      "id": "D-CLEAN",
+      "title": "Demo verisi temizlenir (analiz kaydı sonlandırılır, proje API ile silinir)",
+      "status": "PASS",
+      "detail": null,
+      "ms": 2134
+    }
+  ],
+  "console_issues": []
+}

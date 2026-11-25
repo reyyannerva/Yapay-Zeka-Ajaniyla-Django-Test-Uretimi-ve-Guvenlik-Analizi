@@ -1,0 +1,433 @@
+{
+  "kind": "OFFLINE_EXPERIMENT",
+  "issue": "#43",
+  "experimentId": "h5-05-hybrid-v1",
+  "source": "experiments/h5_05_hybrid_experiment/results/metrics_summary.json",
+  "sourceSha256": "97fbcf072e1823ed790e7869fe035bf9a092ad4051ac15e57388b0c0238debd6",
+  "runTimestampUtc": "2026-11-25T22:29:30+00:00",
+  "model": "groq/openai/gpt-oss-120b",
+  "plannedModel": "Llama 3.3 70B (Issue #31 planı)",
+  "promptVersion": "pytest_v1",
+  "targets": {
+    "f1": 0.8,
+    "executability": 0.7
+  },
+  "definitions": {
+    "first_pass_executable": "pay = PASS+FAIL sonuçlanan senaryo sayısı (ilk üretim, otomatik düzeltme yok); payda = katmandaki tüm değerlendirilebilir senaryolar (test üretilmeyenler dahil)",
+    "test_level_executable": "pay = PASS/FAIL sonuçlanan test fonksiyonu; payda = toplanan test fonksiyonu",
+    "confusion": "senaryo düzeyi; FAIL+kusur=TP, FAIL+kusursuz=FP, PASS+kusur=FN, PASS+kusursuz=TN, teknik/çalışmayan+kusur=FN, teknik/çalışmayan+kusursuz=EXCLUDED",
+    "not_measurable": "payda sıfır → Ölçülemedi"
+  },
+  "layers": [
+    {
+      "key": "A",
+      "scenarios": 20,
+      "splitName": "dev",
+      "positives": 0,
+      "httpMethods": {
+        "GET": 9,
+        "POST": 9,
+        "PUT": 1,
+        "PATCH": 0,
+        "DELETE": 1
+      },
+      "llmStatus": "ARCHIVED_FIRST_PASS",
+      "llmNote": "H3-05 (#31) ilk geçiş ham yanıtları; H5-05'te yeniden üretilmedi (arşiv).",
+      "llmModel": "groq/openai/gpt-oss-120b",
+      "comparable": true,
+      "comparabilityReason": "aynı senaryolar ve aynı girdi özetleri",
+      "hybrid": {
+        "rule_based_candidates": 20,
+        "llm_candidates": 20,
+        "duplicates": 19,
+        "merged": 1,
+        "conflicts_resolved": 0,
+        "conflicts_unresolved": 0,
+        "final_tests": 20,
+        "code_identical_pairs": 0,
+        "semantic_key_equal_pairs": 20
+      },
+      "methods": [
+        {
+          "key": "rule_based",
+          "label": "Kural tabanlı (H3-04)",
+          "attempted": true,
+          "scenarios": 20,
+          "confusion": {
+            "TP": 0,
+            "FP": 0,
+            "TN": 20,
+            "FN": 0,
+            "EXCLUDED": 0
+          },
+          "precision": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "recall": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "f1": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "syntaxValid": {
+            "count": 20,
+            "of": 20
+          },
+          "collected": {
+            "count": 20,
+            "of": 20
+          },
+          "firstPassExecutable": {
+            "count": 20,
+            "of": 20,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "testLevel": {
+            "executable": 20,
+            "tests": 20
+          },
+          "status5": {
+            "PASS": 20,
+            "FAIL": 0,
+            "ERROR": 0,
+            "TIMEOUT": 0,
+            "NOT_RUN": 0
+          },
+          "targets": {
+            "f1": "Ölçülemedi",
+            "executability": "Karşılandı"
+          }
+        },
+        {
+          "key": "llm",
+          "label": "Groq LLM (H3-05)",
+          "attempted": true,
+          "scenarios": 20,
+          "confusion": {
+            "TP": 0,
+            "FP": 0,
+            "TN": 20,
+            "FN": 0,
+            "EXCLUDED": 0
+          },
+          "precision": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "recall": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "f1": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "syntaxValid": {
+            "count": 20,
+            "of": 20
+          },
+          "collected": {
+            "count": 20,
+            "of": 20
+          },
+          "firstPassExecutable": {
+            "count": 20,
+            "of": 20,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "testLevel": {
+            "executable": 20,
+            "tests": 20
+          },
+          "status5": {
+            "PASS": 20,
+            "FAIL": 0,
+            "ERROR": 0,
+            "TIMEOUT": 0,
+            "NOT_RUN": 0
+          },
+          "targets": {
+            "f1": "Ölçülemedi",
+            "executability": "Karşılandı"
+          }
+        },
+        {
+          "key": "hybrid",
+          "label": "Hibrit (H5-05)",
+          "attempted": true,
+          "scenarios": 20,
+          "confusion": {
+            "TP": 0,
+            "FP": 0,
+            "TN": 20,
+            "FN": 0,
+            "EXCLUDED": 0
+          },
+          "precision": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "recall": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "f1": {
+            "value": null,
+            "exact": null,
+            "display": "Ölçülemedi"
+          },
+          "syntaxValid": {
+            "count": 20,
+            "of": 20
+          },
+          "collected": {
+            "count": 20,
+            "of": 20
+          },
+          "firstPassExecutable": {
+            "count": 20,
+            "of": 20,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "testLevel": {
+            "executable": 21,
+            "tests": 21
+          },
+          "status5": {
+            "PASS": 20,
+            "FAIL": 0,
+            "ERROR": 0,
+            "TIMEOUT": 0,
+            "NOT_RUN": 0
+          },
+          "targets": {
+            "f1": "Ölçülemedi",
+            "executability": "Karşılandı"
+          }
+        }
+      ]
+    },
+    {
+      "key": "B",
+      "scenarios": 17,
+      "splitName": "dev-controlled-extension",
+      "positives": 3,
+      "httpMethods": {
+        "GET": 3,
+        "POST": 2,
+        "PUT": 3,
+        "PATCH": 6,
+        "DELETE": 3
+      },
+      "llmStatus": "GENERATED",
+      "llmNote": "H5-05 Katman B için yeni (arşiv olmayan) Groq koşusu; destek conftest fixture listesi Katman B hedefine uyarlandı (layer_b_inputs.write_llm_harness), LLM kodu değiştirilmedi.",
+      "llmModel": "groq/openai/gpt-oss-120b",
+      "comparable": true,
+      "comparabilityReason": "aynı senaryolar ve aynı girdi özetleri",
+      "hybrid": {
+        "rule_based_candidates": 17,
+        "llm_candidates": 17,
+        "duplicates": 17,
+        "merged": 0,
+        "conflicts_resolved": 0,
+        "conflicts_unresolved": 0,
+        "final_tests": 17,
+        "code_identical_pairs": 0,
+        "semantic_key_equal_pairs": 17
+      },
+      "methods": [
+        {
+          "key": "rule_based",
+          "label": "Kural tabanlı (H3-04)",
+          "attempted": true,
+          "scenarios": 17,
+          "confusion": {
+            "TP": 3,
+            "FP": 0,
+            "TN": 14,
+            "FN": 0,
+            "EXCLUDED": 0
+          },
+          "precision": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "recall": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "f1": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "syntaxValid": {
+            "count": 17,
+            "of": 17
+          },
+          "collected": {
+            "count": 17,
+            "of": 17
+          },
+          "firstPassExecutable": {
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "testLevel": {
+            "executable": 17,
+            "tests": 17
+          },
+          "status5": {
+            "PASS": 14,
+            "FAIL": 3,
+            "ERROR": 0,
+            "TIMEOUT": 0,
+            "NOT_RUN": 0
+          },
+          "targets": {
+            "f1": "Karşılandı",
+            "executability": "Karşılandı"
+          }
+        },
+        {
+          "key": "llm",
+          "label": "Groq LLM (H3-05)",
+          "attempted": true,
+          "scenarios": 17,
+          "confusion": {
+            "TP": 3,
+            "FP": 0,
+            "TN": 14,
+            "FN": 0,
+            "EXCLUDED": 0
+          },
+          "precision": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "recall": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "f1": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "syntaxValid": {
+            "count": 17,
+            "of": 17
+          },
+          "collected": {
+            "count": 17,
+            "of": 17
+          },
+          "firstPassExecutable": {
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "testLevel": {
+            "executable": 17,
+            "tests": 17
+          },
+          "status5": {
+            "PASS": 14,
+            "FAIL": 3,
+            "ERROR": 0,
+            "TIMEOUT": 0,
+            "NOT_RUN": 0
+          },
+          "targets": {
+            "f1": "Karşılandı",
+            "executability": "Karşılandı"
+          }
+        },
+        {
+          "key": "hybrid",
+          "label": "Hibrit (H5-05)",
+          "attempted": true,
+          "scenarios": 17,
+          "confusion": {
+            "TP": 3,
+            "FP": 0,
+            "TN": 14,
+            "FN": 0,
+            "EXCLUDED": 0
+          },
+          "precision": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "recall": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "f1": {
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "syntaxValid": {
+            "count": 17,
+            "of": 17
+          },
+          "collected": {
+            "count": 17,
+            "of": 17
+          },
+          "firstPassExecutable": {
+            "count": 17,
+            "of": 17,
+            "value": 1.0,
+            "exact": "1/1",
+            "display": "1.0000"
+          },
+          "testLevel": {
+            "executable": 17,
+            "tests": 17
+          },
+          "status5": {
+            "PASS": 14,
+            "FAIL": 3,
+            "ERROR": 0,
+            "TIMEOUT": 0,
+            "NOT_RUN": 0
+          },
+          "targets": {
+            "f1": "Karşılandı",
+            "executability": "Karşılandı"
+          }
+        }
+      ]
+    }
+  ]
+}

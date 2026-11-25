@@ -94,3 +94,8 @@ test('mobil: hamburger menüyü açar; Escape, örtü ve link seçimi kapatır',
   expect(screen.getByTestId('dashboard-route')).toBeInTheDocument();
   expect(toggle).toHaveAttribute('aria-expanded', 'false');
 });
+
+test('Deney sonuçları /experiments bağlantısıdır (H5-06)', () => {
+  renderLayout();
+  expect(screen.getByRole('link', { name: /Deney sonuçları/ })).toHaveAttribute('href', '/experiments');
+});
