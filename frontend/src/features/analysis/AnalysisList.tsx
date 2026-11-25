@@ -55,7 +55,6 @@ export function AnalysisList() {
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-2">
-        <p className="font-mono text-xs uppercase tracking-[0.12em] text-accent">Analizler</p>
         <h1 className="font-display text-2xl font-semibold text-fg">Analizler</h1>
         <DemoNotice />
         {projectFilter > 0 ? (

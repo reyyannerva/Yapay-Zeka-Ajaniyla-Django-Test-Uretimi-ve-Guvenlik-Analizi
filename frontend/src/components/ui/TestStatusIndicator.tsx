@@ -53,7 +53,7 @@ export function TestStatusIndicator({ status }: TestStatusIndicatorProps) {
       data-status={status}
       data-tone={meta.tone}
       title={meta.label}
-      className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-md border px-2 py-0.5 font-mono text-[11px] font-semibold ${TONE_CLASSES[meta.tone]}`}
+      className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-0.5 text-xs font-medium ${TONE_CLASSES[meta.tone]}`}
     >
       <Glyph status={status} />
       {status}

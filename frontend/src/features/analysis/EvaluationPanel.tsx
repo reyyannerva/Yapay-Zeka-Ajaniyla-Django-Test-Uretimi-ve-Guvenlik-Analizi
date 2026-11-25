@@ -1,4 +1,6 @@
 import { Card } from '../../components/ui/Card';
+import { MetricCard } from '../../components/ui/MetricCard';
+import { Badge } from '../../components/ui/StatusBadge';
 import { formatMetric, summarize } from '../../lib/evaluation-metrics';
 import type { EvaluationCounts } from '../../types';
 import { MetricsChart } from './charts';
@@ -25,30 +27,20 @@ export function EvaluationPanel({ evaluation }: { evaluation: EvaluationCounts |
       <Card className="flex flex-col gap-4" role="region" aria-label="Değerlendirme metrikleri">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-display text-lg font-semibold text-fg">Değerlendirme metrikleri</h2>
-          <span className="rounded border border-fail bg-fail-bg px-1.5 py-0.5 font-mono text-[11px] font-semibold text-fail">DEMO</span>
+          <Badge tone="muted">DEMO</Badge>
         </div>
         <p className="text-xs text-muted">{`Kaynak: ${evaluation.ground_truth}. Test PASS/FAIL sayılarından türetilmez.`}</p>
-        <dl className="grid grid-cols-4 gap-2 text-center">
-          {(['tp', 'fp', 'fn', 'tn'] as const).map((k) => (
-            <div key={k} className="rounded-md border border-border px-2 py-2">
-              <dt className="font-mono text-xs text-muted">{k.toUpperCase()}</dt>
-              <dd className="font-display text-xl font-semibold text-fg">{evaluation[k]}</dd>
-            </div>
-          ))}
-        </dl>
-        <dl className="grid grid-cols-3 gap-2 text-center">
-          {[
-            ['Precision', s.precision, 'TP / (TP + FP)'],
-            ['Recall', s.recall, 'TP / (TP + FN)'],
-            ['F1', s.f1, '2PR / (P + R)'],
-          ].map(([label, value, formula]) => (
-            <div key={label as string} className="rounded-md border border-border px-2 py-2">
-              <dt className="text-xs text-muted">{label as string}</dt>
-              <dd className="font-mono text-lg font-semibold text-fg">{formatMetric(value as number | null)}</dd>
-              <dd className="font-mono text-[10px] text-muted">{formula as string}</dd>
-            </div>
-          ))}
-        </dl>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4" aria-label="Karşılaştırma sayımları">
+          <MetricCard label="TP (doğru pozitif)" value={evaluation.tp} />
+          <MetricCard label="FP (yanlış pozitif)" value={evaluation.fp} />
+          <MetricCard label="FN (yanlış negatif)" value={evaluation.fn} />
+          <MetricCard label="TN (doğru negatif)" value={evaluation.tn} />
+        </div>
+        <div className="grid gap-3 sm:grid-cols-3" aria-label="Metrikler">
+          <MetricCard label="Precision" value={formatMetric(s.precision)} hint="TP / (TP + FP)" />
+          <MetricCard label="Recall" value={formatMetric(s.recall)} hint="TP / (TP + FN)" />
+          <MetricCard label="F1" value={formatMetric(s.f1)} hint="2PR / (P + R)" />
+        </div>
       </Card>
       <MetricsChart summary={s} />
     </div>

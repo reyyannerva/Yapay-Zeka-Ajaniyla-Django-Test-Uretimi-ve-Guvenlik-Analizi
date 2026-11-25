@@ -5,6 +5,9 @@ import { DataTable } from '../../components/ui/DataTable';
 import type { DataTableColumn } from '../../components/ui/DataTable';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { ErrorState } from '../../components/ui/ErrorState';
+import { Input } from '../../components/ui/Input';
+import { Select } from '../../components/ui/Select';
+import { ToggleButton } from '../../components/ui/ToggleButton';
 import { HttpMethodBadge } from '../../components/ui/HttpMethodBadge';
 import { Spinner } from '../../components/ui/Spinner';
 import { UNSUPPORTED_REASON_LABEL } from '../../lib/analysis-labels';
@@ -131,78 +134,55 @@ export function EndpointsPage() {
         {`${rows.length} endpoint tespit edildi; ${unsupported} tanesi analiz kapsamı dışında. Kaynak kod AST ile okunur, hedef uygulama çalıştırılmaz.`}
       </p>
 
-      <fieldset className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4">
-        <legend className="px-1 text-sm font-medium text-fg">Filtreler</legend>
+      <fieldset className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-5">
+        <legend className="float-left w-full font-display text-lg font-semibold text-fg">Filtreler</legend>
         <div className="flex flex-wrap items-center gap-2" role="group" aria-label="HTTP metodu">
-          {methodCounts.map(([m, count]) => {
-            const active = filters.methods.includes(m);
-            return (
-              <button
-                key={m}
-                type="button"
-                aria-pressed={active}
-                onClick={() => toggleMethod(m)}
-                className={`inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 font-mono text-xs font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent ${
-                  active ? 'border-accent bg-accent-soft text-accent' : 'border-border-strong text-fg hover:bg-surface-2'
-                }`}
-              >
-                {m}
-                <span className="font-normal text-muted">{count}</span>
-              </button>
-            );
-          })}
+          {methodCounts.map(([m, count]) => (
+            <ToggleButton key={m} pressed={filters.methods.includes(m)} onClick={() => toggleMethod(m)} className="font-mono">
+              {m}
+              <span className="font-sans font-normal text-muted">{count}</span>
+            </ToggleButton>
+          ))}
         </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <label className="flex flex-col gap-1 text-xs font-medium text-muted">
-            Endpoint veya view ara
-            <input
-              type="search"
-              value={filters.query}
-              onChange={(e) => setFilters((f) => ({ ...f, query: e.target.value }))}
-              placeholder="/api/orders/"
-              className="rounded-md border border-border-strong bg-surface px-3 py-2 text-sm text-fg placeholder:text-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
-            />
-          </label>
-          <label className="flex flex-col gap-1 text-xs font-medium text-muted">
-            Kimlik doğrulama
-            <select
-              value={filters.auth}
-              onChange={(e) => setFilters((f) => ({ ...f, auth: e.target.value as AuthFilter }))}
-              className="rounded-md border border-border-strong bg-surface px-3 py-2 text-sm text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
-            >
-              <option value="all">Tümü</option>
-              <option value="declared">Kimlik doğrulama türü belirli</option>
-              <option value="unknown">Belirlenemedi</option>
-            </select>
-          </label>
-          <label className="flex flex-col gap-1 text-xs font-medium text-muted">
-            Yetkilendirme (izin sınıfı)
-            <select
-              value={filters.permission}
-              onChange={(e) => setFilters((f) => ({ ...f, permission: e.target.value }))}
-              className="rounded-md border border-border-strong bg-surface px-3 py-2 text-sm text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
-            >
-              <option value="">Tümü</option>
-              {permissionOptions.map((p) => (
-                <option key={p} value={p}>
-                  {p}
-                </option>
-              ))}
-              <option value={NO_PERMISSION}>Belirlenemedi</option>
-            </select>
-          </label>
-          <label className="flex flex-col gap-1 text-xs font-medium text-muted">
-            Kapsam
-            <select
-              value={filters.support}
-              onChange={(e) => setFilters((f) => ({ ...f, support: e.target.value as SupportFilter }))}
-              className="rounded-md border border-border-strong bg-surface px-3 py-2 text-sm text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
-            >
-              <option value="all">Tümü</option>
-              <option value="supported">Destekleniyor</option>
-              <option value="unsupported">Kapsam dışı</option>
-            </select>
-          </label>
+          <Input
+            label="Endpoint veya view ara"
+            type="search"
+            value={filters.query}
+            onChange={(e) => setFilters((f) => ({ ...f, query: e.target.value }))}
+            placeholder="/api/orders/"
+          />
+          <Select
+            label="Kimlik doğrulama"
+            value={filters.auth}
+            onChange={(e) => setFilters((f) => ({ ...f, auth: e.target.value as AuthFilter }))}
+          >
+            <option value="all">Tümü</option>
+            <option value="declared">Kimlik doğrulama türü belirli</option>
+            <option value="unknown">Belirlenemedi</option>
+          </Select>
+          <Select
+            label="Yetkilendirme (izin sınıfı)"
+            value={filters.permission}
+            onChange={(e) => setFilters((f) => ({ ...f, permission: e.target.value }))}
+          >
+            <option value="">Tümü</option>
+            {permissionOptions.map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
+            ))}
+            <option value={NO_PERMISSION}>Belirlenemedi</option>
+          </Select>
+          <Select
+            label="Kapsam"
+            value={filters.support}
+            onChange={(e) => setFilters((f) => ({ ...f, support: e.target.value as SupportFilter }))}
+          >
+            <option value="all">Tümü</option>
+            <option value="supported">Destekleniyor</option>
+            <option value="unsupported">Kapsam dışı</option>
+          </Select>
         </div>
         <div className="flex items-center justify-between gap-3">
           <p className="text-xs text-muted" aria-live="polite">{`${visible.length} / ${rows.length} endpoint gösteriliyor`}</p>

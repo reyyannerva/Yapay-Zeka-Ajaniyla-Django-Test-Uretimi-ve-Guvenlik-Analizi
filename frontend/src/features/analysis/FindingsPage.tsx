@@ -5,6 +5,7 @@ import { CodeBlock } from '../../components/ui/CodeBlock';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { ErrorState } from '../../components/ui/ErrorState';
 import { HttpMethodBadge } from '../../components/ui/HttpMethodBadge';
+import { Select } from '../../components/ui/Select';
 import { Spinner } from '../../components/ui/Spinner';
 import { Badge } from '../../components/ui/StatusBadge';
 import { FINDING_SOURCE_LABEL } from '../../lib/analysis-labels';
@@ -101,7 +102,7 @@ export function FindingsPage() {
   return (
     <section aria-label="Güvenlik bulguları" className="flex flex-col gap-4">
       {SCAN_PENDING.includes(run.status) || run.status === 'FAILED' ? (
-        <p role="note" className="rounded-md border border-fail bg-fail-bg px-3 py-2 text-sm text-fg">
+        <p role="note" className="rounded-md border border-fail bg-fail-bg p-3 text-sm text-fg">
           Kısmi sonuç: analiz tamamlanmadığı için bulgu listesi eksik olabilir.
         </p>
       ) : null}
@@ -124,32 +125,22 @@ export function FindingsPage() {
       </div>
 
       <div className="flex flex-wrap gap-3">
-        <label className="flex flex-col gap-1 text-xs font-medium text-muted">
-          Doğrulama sınıfı
-          <select
-            value={cls}
-            onChange={(e) => setCls(e.target.value as typeof cls)}
-            className="rounded-md border border-border-strong bg-surface px-3 py-2 text-sm text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
-          >
+        <div className="w-full sm:w-56">
+          <Select label="Doğrulama sınıfı" value={cls} onChange={(e) => setCls(e.target.value as typeof cls)}>
             <option value="ALL">Tümü</option>
             {CLASS_ORDER.map((c) => (
               <option key={c} value={c}>{FINDING_META[c].label}</option>
             ))}
-          </select>
-        </label>
-        <label className="flex flex-col gap-1 text-xs font-medium text-muted">
-          Önem derecesi
-          <select
-            value={sev}
-            onChange={(e) => setSev(e.target.value as typeof sev)}
-            className="rounded-md border border-border-strong bg-surface px-3 py-2 text-sm text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
-          >
+          </Select>
+        </div>
+        <div className="w-full sm:w-56">
+          <Select label="Önem derecesi" value={sev} onChange={(e) => setSev(e.target.value as typeof sev)}>
             <option value="ALL">Tümü</option>
-            {SEVERITY_ORDER.map((s) => (
-              <option key={s} value={s}>{SEVERITY_LABEL[s]}</option>
+            {SEVERITY_ORDER.map((sv) => (
+              <option key={sv} value={sv}>{SEVERITY_LABEL[sv]}</option>
             ))}
-          </select>
-        </label>
+          </Select>
+        </div>
       </div>
 
       {visible.length === 0 ? (

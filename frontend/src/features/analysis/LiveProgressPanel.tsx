@@ -1,4 +1,5 @@
 import { Card } from '../../components/ui/Card';
+import { MetricCard } from '../../components/ui/MetricCard';
 import {
   computeProgress,
   estimateRemaining,
@@ -12,15 +13,6 @@ export interface LiveProgressPanelProps {
   results: readonly TestExecutionResult[];
   tests: readonly GeneratedTest[];
   live: boolean;
-}
-
-function Count({ label, value, tone }: { label: string; value: number; tone: string }) {
-  return (
-    <div className="flex flex-col gap-0.5 rounded-md border border-border px-3 py-2">
-      <span className={`font-mono text-xs font-semibold ${tone}`}>{label}</span>
-      <span className="font-display text-xl font-semibold text-fg">{value}</span>
-    </div>
-  );
 }
 
 /** Test bazında yürütme ilerlemesi (analiz aşamasından ayrı). */
@@ -68,13 +60,13 @@ export function LiveProgressPanel({ results, tests, live }: LiveProgressPanelPro
       <p className="text-sm text-fg" data-testid="progress-summary">
         {`${progress.completed} / ${progress.total} test tamamlandı · ${progress.running} çalışıyor · ${progress.pending} bekliyor`}
       </p>
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-        <Count label="PASS" value={progress.byStatus.PASS} tone="text-pass" />
-        <Count label="FAIL" value={progress.byStatus.FAIL} tone="text-fail" />
-        <Count label="ERROR" value={progress.byStatus.ERROR} tone="text-error" />
-        <Count label="TIMEOUT" value={progress.byStatus.TIMEOUT} tone="text-timeout" />
-        <Count label="RUNNING" value={progress.byStatus.RUNNING} tone="text-process" />
-        <Count label="PENDING" value={progress.byStatus.PENDING} tone="text-muted" />
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <MetricCard label="PASS" value={progress.byStatus.PASS} />
+        <MetricCard label="FAIL" value={progress.byStatus.FAIL} />
+        <MetricCard label="ERROR" value={progress.byStatus.ERROR} />
+        <MetricCard label="TIMEOUT" value={progress.byStatus.TIMEOUT} />
+        <MetricCard label="RUNNING" value={progress.byStatus.RUNNING} />
+        <MetricCard label="PENDING" value={progress.byStatus.PENDING} />
       </div>
       <dl className="grid gap-3 text-sm sm:grid-cols-2">
         <div>

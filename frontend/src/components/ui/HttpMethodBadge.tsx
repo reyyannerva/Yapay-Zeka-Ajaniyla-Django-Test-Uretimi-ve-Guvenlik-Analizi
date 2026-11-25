@@ -14,7 +14,7 @@ export function HttpMethodBadge({ method }: { method: HttpMethod }) {
   return (
     <span
       data-method={method}
-      className={`inline-flex min-w-[3.75rem] justify-center rounded border bg-surface px-1.5 py-0.5 font-mono text-[11px] font-semibold tracking-wide ${METHOD_CLASSES[method]}`}
+      className={`inline-flex min-w-[3.75rem] justify-center rounded-md border bg-surface px-2 py-0.5 font-mono text-xs font-semibold ${METHOD_CLASSES[method]}`}
     >
       {method}
     </span>

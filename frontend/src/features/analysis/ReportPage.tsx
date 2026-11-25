@@ -48,6 +48,7 @@ export function ReportPage({ delayMs }: { delayMs?: number }) {
   const [status, setStatus] = useState<ReportStatus>('idle');
   const [record, setRecord] = useState<ReportRecord | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [downloaded, setDownloaded] = useState(false);
   const mounted = useRef(true);
 
   useEffect(() => {
@@ -88,6 +89,7 @@ export function ReportPage({ delayMs }: { delayMs?: number }) {
     }
     setStatus('preparing');
     setRecord(null);
+    setDownloaded(false);
     try {
       const rec = await prepareReport(run.id, { format, sections }, delayMs);
       if (!mounted.current) return;
@@ -104,7 +106,7 @@ export function ReportPage({ delayMs }: { delayMs?: number }) {
   return (
     <section aria-label="Raporlama" className="flex flex-col gap-4">
       {partial ? (
-        <p role="note" className="rounded-md border border-fail bg-fail-bg px-3 py-2 text-sm text-fg">
+        <p role="note" className="rounded-md border border-fail bg-fail-bg p-3 text-sm text-fg">
           Analiz tamamlanmadığı için rapor kısmi (PARTIAL) olarak hazırlanır.
         </p>
       ) : null}
@@ -195,7 +197,7 @@ export function ReportPage({ delayMs }: { delayMs?: number }) {
             </ol>
           )}
           {message ? (
-            <p role="alert" className="rounded-md border border-error bg-error-bg px-3 py-2 text-sm text-fg">
+            <p role="alert" className="rounded-md border border-error bg-error-bg p-3 text-sm">
               {message}
             </p>
           ) : null}
@@ -214,15 +216,28 @@ export function ReportPage({ delayMs }: { delayMs?: number }) {
               {record.format === 'JSON' ? (
                 <Button
                   variant="ghost"
-                  onClick={() => downloadJson(buildDemoJsonReport(run.id, record.sections), reportFileName(run.id, 'JSON'))}
+                  onClick={() => {
+                    downloadJson(buildDemoJsonReport(run.id, record.sections), reportFileName(run.id, 'JSON'));
+                    setDownloaded(true);
+                  }}
                 >
                   JSON indir (DEMO)
                 </Button>
               ) : (
-                <p className="text-xs text-muted">
-                  PDF dosyası backend rapor servisiyle üretilecektir (#41 sonrası). Bu DEMO'da PDF dosyası oluşturulmaz; JSON biçimiyle örnek içerik indirilebilir.
-                </p>
+                <>
+                  <Button variant="ghost" disabled aria-describedby="pdf-download-note">
+                    PDF indir
+                  </Button>
+                  <p id="pdf-download-note" className="text-xs text-muted">
+                    PDF dosyası backend rapor servisiyle üretilecektir (#41 sonrası). Bu DEMO'da PDF dosyası oluşturulmaz; JSON biçimiyle örnek içerik indirilebilir.
+                  </p>
+                </>
               )}
+              {downloaded ? (
+                <p role="status" className="text-sm font-medium text-pass">
+                  {`İndirme başarılı: ${reportFileName(run.id, 'JSON')}`}
+                </p>
+              ) : null}
             </div>
           ) : null}
         </Card>

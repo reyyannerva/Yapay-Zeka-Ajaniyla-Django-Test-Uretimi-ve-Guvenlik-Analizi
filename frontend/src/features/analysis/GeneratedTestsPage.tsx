@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { Card } from '../../components/ui/Card';
 import { CodeBlock } from '../../components/ui/CodeBlock';
+import { ToggleButton } from '../../components/ui/ToggleButton';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { ErrorState } from '../../components/ui/ErrorState';
 import { HttpMethodBadge } from '../../components/ui/HttpMethodBadge';
@@ -118,17 +119,9 @@ export function GeneratedTestsPage() {
       </div>
       <div className="flex flex-wrap gap-2" role="group" aria-label="Üretim yöntemi">
         {(['ALL', 'RULE_BASED', 'LLM'] as const).map((m) => (
-          <button
-            key={m}
-            type="button"
-            aria-pressed={method === m}
-            onClick={() => setMethod(m)}
-            className={`rounded-md border px-3 py-1 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent ${
-              method === m ? 'border-accent bg-accent-soft font-medium text-accent' : 'border-border-strong text-fg hover:bg-surface-2'
-            }`}
-          >
+          <ToggleButton key={m} pressed={method === m} onClick={() => setMethod(m)}>
             {m === 'ALL' ? 'Tümü' : TEST_METHOD_LABEL[m]}
-          </button>
+          </ToggleButton>
         ))}
       </div>
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">

@@ -1,3 +1,4 @@
+import { Badge } from '../../components/ui/StatusBadge';
 import { PROVIDER_LABEL } from '../../lib/analysis-labels';
 import type { GeneratedTest } from '../../types';
 
@@ -42,7 +43,7 @@ export function ModelInfo({ test }: { test: GeneratedTest }) {
       <Row label="Fallback">
         {m.fallback_used === true ? (
           <span className="inline-flex flex-wrap items-center gap-2">
-            <span className="rounded border border-fail bg-fail-bg px-1.5 py-0.5 text-xs font-semibold text-fail">Fallback kullanıldı</span>
+            <Badge tone="fail">Fallback kullanıldı</Badge>
             {m.fallback_reason ? <span className="text-xs text-muted">{m.fallback_reason}</span> : null}
           </span>
         ) : m.fallback_used === false ? (

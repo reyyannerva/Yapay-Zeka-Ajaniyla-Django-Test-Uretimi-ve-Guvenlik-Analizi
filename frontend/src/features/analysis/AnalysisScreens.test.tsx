@@ -256,6 +256,7 @@ describe('raporlama ve metrikler', () => {
     expect(createUrl).toHaveBeenCalledTimes(1);
     expect(click).toHaveBeenCalledTimes(1);
     expect(revokeUrl).toHaveBeenCalledWith('blob:demo');
+    expect(within(ready).getByRole('status')).toHaveTextContent('İndirme başarılı: testkalkan-analiz-4-rapor-demo.json');
   });
 
   test('PDF hazır olduğunda sahte PDF üretilmez', async () => {
@@ -263,7 +264,8 @@ describe('raporlama ve metrikler', () => {
     const region = await screen.findByRole('region', { name: 'Raporlama' });
     fireEvent.click(within(region).getByRole('button', { name: 'PDF raporu hazırla' }));
     const ready = await within(region).findByTestId('report-ready');
-    expect(within(ready).queryByRole('button', { name: /indir/ })).not.toBeInTheDocument();
+    // İndirme arayüzü vardır ancak sahte PDF üretmemek için düğme pasiftir.
+    expect(within(ready).getByRole('button', { name: 'PDF indir' })).toBeDisabled();
     expect(ready).toHaveTextContent(/backend rapor servisiyle/);
   });
 
@@ -286,7 +288,7 @@ describe('raporlama ve metrikler', () => {
   test('metrikler TP/FP/FN ile hesaplanır ve PASS/FAIL ile karışmaz', async () => {
     renderAt('/analyses/4/report');
     const metrics = await screen.findByRole('region', { name: 'Değerlendirme metrikleri' });
-    expect(within(metrics).getByText('TP')).toBeInTheDocument();
+    expect(within(metrics).getByText('TP (doğru pozitif)')).toBeInTheDocument();
     expect(within(metrics).getAllByText('0,75').length).toBe(3);
     expect(within(metrics).queryByText('PASS')).not.toBeInTheDocument();
     expect(screen.getByText('Güvenlik tespit metrikleri')).toBeInTheDocument();

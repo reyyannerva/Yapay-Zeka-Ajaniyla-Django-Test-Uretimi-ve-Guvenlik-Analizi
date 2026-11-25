@@ -1,5 +1,6 @@
 import { Fragment, useMemo, useState } from 'react';
 
+import { ToggleButton } from '../../components/ui/ToggleButton';
 import { CodeBlock } from '../../components/ui/CodeBlock';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { ErrorState } from '../../components/ui/ErrorState';
@@ -51,7 +52,7 @@ export function ResultsPage({ intervalMs }: { intervalMs?: number }) {
   return (
     <section aria-label="Test sonuçları" className="flex flex-col gap-4">
       {partial ? (
-        <p role="note" className="rounded-md border border-fail bg-fail-bg px-3 py-2 text-sm text-fg">
+        <p role="note" className="rounded-md border border-fail bg-fail-bg p-3 text-sm text-fg">
           Kısmi sonuç: analiz tamamlanmadan durdu. Çalıştırılmayan testler NOT_RUN/STOPPED olarak gösterilir; sonuçlar tam analiz sonucu değildir.
         </p>
       ) : null}
@@ -63,17 +64,10 @@ export function ResultsPage({ intervalMs }: { intervalMs?: number }) {
 
       <div className="flex flex-wrap gap-2" role="group" aria-label="Duruma göre filtre">
         {(['ALL', ...FILTERS.filter((s) => progress.byStatus[s] > 0 || ['PASS', 'FAIL', 'ERROR', 'TIMEOUT'].includes(s))] as StatusFilter[]).map((s) => (
-          <button
-            key={s}
-            type="button"
-            aria-pressed={filter === s}
-            onClick={() => setFilter(s)}
-            className={`rounded-md border px-2.5 py-1 font-mono text-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent ${
-              filter === s ? 'border-accent bg-accent-soft font-semibold text-accent' : 'border-border-strong text-fg hover:bg-surface-2'
-            }`}
-          >
-            {s === 'ALL' ? `Tümü ${results.length}` : `${s} ${progress.byStatus[s]}`}
-          </button>
+          <ToggleButton key={s} pressed={filter === s} onClick={() => setFilter(s)}>
+            {s === 'ALL' ? 'Tümü' : s}
+            <span className="font-normal text-muted">{s === 'ALL' ? results.length : progress.byStatus[s]}</span>
+          </ToggleButton>
         ))}
       </div>
 
@@ -101,7 +95,7 @@ export function ResultsPage({ intervalMs }: { intervalMs?: number }) {
                 const open = openId === r.id;
                 return (
                   <Fragment key={r.id}>
-                    <tr className="border-b border-border align-top">
+                    <tr className="border-b border-border align-top last:border-b-0">
                       <td className="max-w-[20rem] px-4 py-2">
                         <button
                           type="button"
