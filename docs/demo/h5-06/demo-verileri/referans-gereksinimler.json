@@ -1,0 +1,81 @@
+{
+  "aciklama": "H5-06 demo referans gereksinimleri — örnek mağaza (Article) API'si için güvenlik/erişim beklentileri. GET/POST/PUT/PATCH/DELETE metotlarının tamamını temsil eder. ACCESS_RULE kategorisi; specification.expected_status_by_role rollerin beklenen güvenli durum kodlarını verir. Gerçek parola/anahtar içermez.",
+  "schema_version": 1,
+  "requirements": [
+    {
+      "requirement_code": "REQ-ART-LIST",
+      "category": "ACCESS_RULE",
+      "source": "PROJECT_REQUIREMENT",
+      "title": "Makale listeleme yetkilendirmesi",
+      "description": "Yalnızca kimliği doğrulanmış kullanıcı kendi makalelerini listeleyebilir.",
+      "expected_result": "Anonim istek 401; kullanıcı 200 (yalnızca kendi kayıtları).",
+      "specification": {
+        "schema_version": 1,
+        "endpoint": "/api/articles/",
+        "method": "GET",
+        "expected_status_by_role": {"anonymous": 401, "user": 200, "owner": 200, "admin": 200}
+      },
+      "is_active": true
+    },
+    {
+      "requirement_code": "REQ-ART-CREATE",
+      "category": "ACCESS_RULE",
+      "source": "PROJECT_REQUIREMENT",
+      "title": "Makale oluşturma yetkilendirmesi",
+      "description": "Kimliği doğrulanmış kullanıcı makale oluşturabilir; anonim oluşturamaz.",
+      "expected_result": "Anonim 401; kullanıcı 201.",
+      "specification": {
+        "schema_version": 1,
+        "endpoint": "/api/articles/",
+        "method": "POST",
+        "expected_status_by_role": {"anonymous": 401, "user": 201, "owner": 201, "admin": 201}
+      },
+      "is_active": true
+    },
+    {
+      "requirement_code": "REQ-ART-REPLACE",
+      "category": "ACCESS_RULE",
+      "source": "PROJECT_REQUIREMENT",
+      "title": "Makale tam güncelleme (PUT) sahiplik kuralı",
+      "description": "Yalnızca kaynağın sahibi veya yönetici tam güncelleme yapabilir.",
+      "expected_result": "Sahip/yönetici 200; başka kullanıcı 403; anonim 401.",
+      "specification": {
+        "schema_version": 1,
+        "endpoint": "/api/articles/{id}/",
+        "method": "PUT",
+        "expected_status_by_role": {"anonymous": 401, "user": 403, "owner": 200, "admin": 200}
+      },
+      "is_active": true
+    },
+    {
+      "requirement_code": "REQ-ART-PATCH",
+      "category": "ACCESS_RULE",
+      "source": "PROJECT_REQUIREMENT",
+      "title": "Makale kısmi güncelleme (PATCH) sahiplik kuralı",
+      "description": "Yalnızca kaynağın sahibi veya yönetici kısmi güncelleme yapabilir.",
+      "expected_result": "Sahip/yönetici 200; başka kullanıcı 403; anonim 401.",
+      "specification": {
+        "schema_version": 1,
+        "endpoint": "/api/articles/{id}/",
+        "method": "PATCH",
+        "expected_status_by_role": {"anonymous": 401, "user": 403, "owner": 200, "admin": 200}
+      },
+      "is_active": true
+    },
+    {
+      "requirement_code": "REQ-ART-DELETE",
+      "category": "ACCESS_RULE",
+      "source": "PROJECT_REQUIREMENT",
+      "title": "Makale silme (DELETE) sahiplik kuralı",
+      "description": "Yalnızca kaynağın sahibi veya yönetici silebilir.",
+      "expected_result": "Sahip/yönetici 204; başka kullanıcı 403; anonim 401.",
+      "specification": {
+        "schema_version": 1,
+        "endpoint": "/api/articles/{id}/",
+        "method": "DELETE",
+        "expected_status_by_role": {"anonymous": 401, "user": 403, "owner": 204, "admin": 204}
+      },
+      "is_active": true
+    }
+  ]
+}
