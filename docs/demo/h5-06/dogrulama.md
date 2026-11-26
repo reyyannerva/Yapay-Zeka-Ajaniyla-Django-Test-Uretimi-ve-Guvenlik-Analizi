@@ -35,7 +35,7 @@ uydurulmamıştır; çalıştırılmamış hiçbir test "başarılı" raporlanma
 
 | # | Kabul kriteri | Durum | Kanıt |
 |---|---|---|---|
-| 1 | Ekranlar arası navigasyon + temel tasarım tutarlılığı | ✅ | 14 ekran görüntüsü (tek tasarım sistemi, koyu tema); frontend 255 test + build |
+| 1 | Ekranlar arası navigasyon + temel tasarım tutarlılığı | ✅ | 14 masaüstü + 4 mobil ekran görüntüsü (tek tasarım sistemi, koyu tema; mobil drawer doğrulandı); frontend 255 test + build |
 | 2 | JWT giriş, hesap kilidi, şifre sıfırlama, korumalı sayfa | ✅ | Smoke adım 1,2,9,10; backend test suite (axes 3-hata→15dk kilit testleri dahil); `ProtectedRoute` testleri |
 | 3 | Proje yükleme + CRUD gerçek API ile canlı gösterime hazır | ✅ | Smoke adım 3–8 (POST/GET/PATCH/DELETE, 404 sahiplik); detay ekranı arşiv SHA-256 + doğrulama raporu |
 | 4 | AnalysisRun + referans gereksinim API temel işlemleri | ✅ (kısmi: kayıt) | Proje detayında AnalysisRun QUEUED oluşturma + referans JSON yükleme; `referans-gereksinimler.json` 5 metot; backend API testleri. **Analiz yürütme motoru prototiptir** (bkz. gercek-vs-prototip) |

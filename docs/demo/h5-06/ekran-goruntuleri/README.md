@@ -22,3 +22,15 @@ otomatik yakalanmıştır (2026-11-26). Yakalama betiği: [`../scripts/screensho
 
 > 09–14 ekranları **DEMO veriyle** çalışır ve arayüzde "DEMO / Örnek veri: gerçek bir analiz değildir"
 > rozetiyle işaretlidir (bkz. [`../gercek-vs-prototip.md`](../gercek-vs-prototip.md)).
+
+## Mobil görünüm (`mobil/`)
+
+Responsive düzen doğrulaması (iPhone 13 görünümü, koyu tema, canlı backend): kenar menüsü hamburger
+drawer'a dönüşür, kartlar dikey dizilir.
+
+| Dosya | Ekran |
+|---|---|
+| `mobil/m01-giris.png` | Giriş (mobil) |
+| `mobil/m02-dashboard.png` | Dashboard (mobil, hamburger menü) |
+| `mobil/m03-projeler.png` | Projeler (mobil) |
+| `mobil/m04-analizler-demo.png` | DEMO analiz listesi (mobil) |
