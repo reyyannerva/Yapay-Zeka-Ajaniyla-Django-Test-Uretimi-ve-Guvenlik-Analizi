@@ -1,0 +1,78 @@
+{
+  "report": "H5-06 canlı API smoke testi",
+  "issue": "#44",
+  "base": "http://127.0.0.1:8000",
+  "utc": "2026-11-26T03:39:05+00:00",
+  "steps": [
+    {
+      "step": "Giriş (demo_merve) JWT",
+      "http": 200,
+      "ok": true,
+      "detail": "access+refresh alındı"
+    },
+    {
+      "step": "Korumalı /auth/me",
+      "http": 200,
+      "ok": true,
+      "detail": "username=demo_merve"
+    },
+    {
+      "step": "Proje listele (GET)",
+      "http": 200,
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "step": "Proje oluştur (POST multipart)",
+      "http": 201,
+      "ok": true,
+      "detail": "id=2"
+    },
+    {
+      "step": "Proje detay (GET)",
+      "http": 200,
+      "ok": true,
+      "detail": "name=Demo Mağaza API 063906"
+    },
+    {
+      "step": "Proje güncelle (PATCH)",
+      "http": 200,
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "step": "Sahiplik kontrolü (başkasının projesi → 404)",
+      "http": 404,
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "step": "Proje sil (DELETE)",
+      "http": 204,
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "step": "Şifre sıfırlama talebi (POST)",
+      "http": 200,
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "step": "Hesap kilidi (3 hatalı giriş)",
+      "http": [
+        401,
+        401,
+        429,
+        429
+      ],
+      "ok": true,
+      "detail": "statuses=[401, 401, 429, 429]"
+    }
+  ],
+  "ozet": {
+    "toplam": 10,
+    "gecen": 10,
+    "kalan": 0
+  }
+}
